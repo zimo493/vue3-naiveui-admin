@@ -1,0 +1,171 @@
+import { colord } from "colord";
+import { set } from "radash";
+import theme, { primaryColor, infoColor, successColor, warningColor, errorColor } from "./theme";
+
+const docEle = ref(document.documentElement);
+
+const { isFullscreen, toggle } = useFullscreen(docEle);
+
+const { system, store } = useColorMode();
+
+const { VITE_DEFAULT_LANG } = import.meta.env;
+
+const storeId = import.meta.env.VITE_STORAGE_PREFIX + "app";
+
+export const useAppStore = defineStore(storeId, {
+  state: (): Status.App => {
+    return {
+      footerText: "Copyright © 2024 All Rights Reserved huzimo.",
+      theme,
+      lang: VITE_DEFAULT_LANG,
+      primaryColor,
+      infoColor,
+      successColor,
+      warningColor,
+      errorColor,
+      followPrimary: false,
+      collapsed: false,
+      grayMode: false,
+      colorWeak: false,
+      fixed: true, // 是否固定头部和底部
+      loadFlag: true,
+      showLogo: true,
+      showTabs: true,
+      showFooter: true,
+      showProgress: true,
+      showBreadcrumb: true,
+      showBreadcrumbIcon: true,
+      showWatermark: false,
+      transitionAnimation: "fade-slide",
+      layoutMode: "leftMenu",
+      contentFullScreen: false,
+      sideWidth: 200,
+      sideCollapsedWidth: 50,
+      siderTrigger: "bar",
+    };
+  },
+  getters: {
+    storeColorMode: () => store.value,
+    colorMode: () => (store.value === "auto" ? system.value : store.value),
+    fullScreen: () => isFullscreen.value,
+  },
+  actions: {
+    // 重置所有设置
+    resetAllTheme() {
+      this.theme = theme;
+      this.primaryColor = primaryColor;
+      this.infoColor = infoColor;
+      this.successColor = successColor;
+      this.warningColor = warningColor;
+      this.errorColor = errorColor;
+      this.followPrimary = false;
+      this.collapsed = false;
+      this.grayMode = false;
+      this.colorWeak = false;
+      this.fixed = true;
+      this.loadFlag = true;
+      this.showLogo = true;
+      this.showTabs = true;
+      this.showLogo = true;
+      this.showFooter = true;
+      this.showBreadcrumb = true;
+      this.showBreadcrumbIcon = true;
+      this.showWatermark = false;
+      this.transitionAnimation = "fade-slide";
+      this.layoutMode = "leftMenu";
+      this.contentFullScreen = false;
+      this.sideWidth = 200;
+      this.sideCollapsedWidth = 50;
+      this.siderTrigger = "bar";
+
+      // 重置所有配色
+      this.setPrimaryColor();
+      this.setInfoColor();
+      this.setSuccessColor();
+      this.setWarningColor();
+      this.setErrorColor();
+    },
+    /* 设置题色 */
+    setColor(type: Status.ThemeColorType, color: string) {
+      const hoverColor = colord(color).lighten(0.06).toHex();
+      const pressedColor = colord(color).darken(0.06).toHex();
+      const supplColor = colord(color).darken(0.1).toHex();
+
+      set(this.theme, `common.${type}Color`, color);
+      set(this.theme, `common.${type}ColorHover`, hoverColor);
+      set(this.theme, `common.${type}ColorPressed`, pressedColor);
+      set(this.theme, `common.${type}ColorSuppl`, supplColor);
+    },
+    /* 设置主色 */
+    setPrimaryColor() {
+      if (this.followPrimary) this.handleFollowPrimary(true);
+      this.setColor("primary", this.primaryColor);
+    },
+    /* 设置信息色 */
+    setInfoColor() {
+      this.setColor("info", this.infoColor);
+    },
+    /* 设置成功色 */
+    setSuccessColor() {
+      this.setColor("success", this.successColor);
+    },
+    /* 设置警告色 */
+    setWarningColor() {
+      this.setColor("warning", this.warningColor);
+    },
+    /* 设置错误色 */
+    setErrorColor() {
+      this.setColor("error", this.errorColor);
+    },
+    /** 信息色跟随主色 */
+    handleFollowPrimary(checked: boolean) {
+      this.followPrimary = checked;
+      this.infoColor = checked ? this.primaryColor : infoColor;
+      this.setInfoColor();
+    },
+    setColorMode(mode: "light" | "dark" | "auto") {
+      store.value = mode;
+    },
+    /* 切换侧边栏收缩 */
+    toggleCollapse() {
+      this.collapsed = !this.collapsed;
+    },
+    /* 切换全屏 */
+    async toggleFullScreen() {
+      await toggle();
+    },
+    /**
+     * @description: 页面内容重载
+     * @param {number} delay - 延迟毫秒数
+     */
+    async reloadPage(delay: number = 800) {
+      this.loadFlag = false;
+      await nextTick();
+
+      return new Promise<void>((resolve) => {
+        setTimeout(() => {
+          this.loadFlag = true;
+          resolve();
+        }, delay);
+      });
+    },
+    /* 切换色弱模式 */
+    toggleColorWeak() {
+      docEle.value.classList.toggle("color-weak");
+      this.colorWeak = docEle.value.classList.contains("color-weak");
+    },
+    /* 切换灰色模式 */
+    toggleGrayMode() {
+      docEle.value.classList.toggle("gray-mode");
+      this.grayMode = docEle.value.classList.contains("gray-mode");
+    },
+  },
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        storage: localStorage,
+      },
+    ],
+  },
+});

@@ -10,6 +10,11 @@ body,
   height: 100%;
 }
 
+.login {
+  background-image: url("@/assets/images/login-bg.svg");
+  background-size: cover;
+}
+
 .color-weak {
   filter: invert(80%);
 }

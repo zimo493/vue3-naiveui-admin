@@ -1,9 +1,10 @@
 import type { App } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
+import { constantRoutes } from "./modules/ruotes";
 
 export const router = createRouter({
   history: createWebHistory(),
-  routes: [],
+  routes: constantRoutes,
 });
 
 // 安装vue路由
