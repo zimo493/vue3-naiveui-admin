@@ -27,3 +27,27 @@ export function tansParams(params: { [key: string]: any }) {
 
   return result;
 }
+
+/**
+ * 询问框
+ * @param content 提示文字
+ * @param type 提示类型 success | warning | error
+ * @param title 标题
+ * @returns
+ */
+export const InquiryBox = (
+  content: string,
+  type: "success" | "warning" | "error" = "warning",
+  title: string = "系统提示"
+) => {
+  return new Promise<void>((resolve, reject) => {
+    window.$dialog[type]({
+      title,
+      content,
+      positiveText: "确定",
+      negativeText: "取消",
+      onPositiveClick: () => resolve(),
+      onAfterLeave: () => reject(),
+    });
+  });
+};
