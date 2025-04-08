@@ -54,4 +54,9 @@ declare namespace Status {
   type ThemeColorType = "primary" | "info" | "success" | "warning" | "error";
 
   type LayoutMode = "leftMenu" | "topMenu" | "mixLeftMenu" | "rightMenu" | "mixRightMenu";
+
+  /** auth-store */
+  interface Auth {
+    userInfo: User.Info;
+  }
 }

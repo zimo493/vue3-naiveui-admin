@@ -46,9 +46,17 @@ interface PageResult<T> {
 interface Local {
   /* 存储访问token */
   accessToken: string;
+  /* 刷新token */
+  refreshToken: string;
   /* 语言 */
   lang: App.lang;
 }
 
 // SessionStorage
-interface Session {}
+interface Session {
+  sessionObj: {
+    url?: string;
+    data: any;
+    time: number;
+  };
+}

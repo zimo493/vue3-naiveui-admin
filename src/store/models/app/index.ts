@@ -10,9 +10,7 @@ const { system, store } = useColorMode();
 
 const { VITE_DEFAULT_LANG } = import.meta.env;
 
-const storeId = import.meta.env.VITE_STORAGE_PREFIX + "app";
-
-export const useAppStore = defineStore(storeId, {
+export const useAppStore = defineStore("app", {
   state: (): Status.App => {
     return {
       footerText: "Copyright © 2024 All Rights Reserved huzimo.",
@@ -162,10 +160,6 @@ export const useAppStore = defineStore(storeId, {
   },
   persist: {
     enabled: true,
-    strategies: [
-      {
-        storage: localStorage,
-      },
-    ],
+    strategies: [{ storage: localStorage }],
   },
 });

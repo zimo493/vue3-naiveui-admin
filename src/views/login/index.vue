@@ -23,8 +23,8 @@ const { pkg } = __APP_INFO__;
         <div w-full flex flex-col items-center>
           <SvgIconsLogo class="text-5em" />
 
-          <n-badge :value="`v${pkg.version}`" type="success" :offset="[15, -5]">
-            <n-h2>{{ pkg.name }}</n-h2>
+          <n-badge :value="`v${pkg.version}`" type="success" :offset="[0, 15]">
+            <h2 text-24px m-xl>{{ pkg.name }}</h2>
           </n-badge>
 
           <transition name="fade-slide" mode="out-in">
