@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-h3 mt-0 depth="3" text-center>登录</n-h3>
+    <n-h3 mt-0 depth="3" text-center>登 录</n-h3>
     <n-form ref="formRef" :rules="rules" :model="model" :show-label="false" size="large">
       <n-form-item path="username">
         <n-input
@@ -54,7 +54,7 @@
               object-cover
               border-rd-3px
               :src="captchaBase64"
-              alt="code"
+              alt="captchaCode"
             />
           </n-el>
         </n-spin>
