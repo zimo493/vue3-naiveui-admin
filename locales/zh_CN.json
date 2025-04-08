@@ -1,0 +1,72 @@
+{
+  "common": {
+    "confirm": "确认",
+    "cancel": "取消",
+    "reload": "刷新",
+    "close": "关闭",
+    "choose": "选择",
+    "navigate": "切换",
+    "enable": "启用",
+    "disable": "禁用",
+    "abnormal": "异常",
+    "sure": "确定要",
+    "restore": "恢复",
+    "more": "更多 ...",
+    "inputPlaceholder": "请输入",
+    "selectPlaceholder": "请选择"
+  },
+  "components": {
+    "backHome": "返回首页",
+    "copy": "复制",
+    "submit": "提交",
+    "dataExport": "数据导出",
+    "small": "小型",
+    "medium": "默认",
+    "large": "大型",
+    "copySuccess": "复制成功",
+    "inAll": "共",
+    "item": "项",
+    "go": "前往",
+    "userDesc": "毫无疑问，你是办公室里最亮的星"
+  },
+  "login": {
+    "title": "登录",
+    "codeRuleTip": "请输入验证码",
+    "signIn": "登录",
+    "signUp": "去注册",
+    "rememberMe": "记住我",
+    "forgotPassword": "忘记密码？",
+    "noAccountText": "您没有账户？",
+    "quickFill": "快速填写",
+    "generalUser": "普通用户",
+    "administrator": "管理员",
+    "loginSucceed": "登录成功"
+  },
+  "search": {
+    "field": {
+      "status": "状态",
+      "createTiem": "创建时间"
+    },
+    "controls": {
+      "search": "搜索",
+      "reset": "重置",
+      "unfold": "展开",
+      "fold": "收起"
+    }
+  },
+  "errorMsg": {
+    "file": {
+      "size": "上传文件大小不能超过",
+      "type": "文件格式不正确, 请上传",
+      "formatFile": "格式文件!"
+    },
+    "copy": {
+      "nonsupport": "您的浏览器不支持剪贴板API",
+      "notAllow": "目前不允许使用剪贴板API"
+    },
+    "perm": {
+      "setControls": "请设置操作权限标签值",
+      "setRole": "请设置角色权限标签值"
+    }
+  }
+}

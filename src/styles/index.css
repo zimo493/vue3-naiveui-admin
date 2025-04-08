@@ -1,0 +1,40 @@
+@import "./reset.css";
+@import "./transition.css";
+@import "./navie.css";
+@import "./wangEditor.css";
+
+html,
+body,
+#app {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.color-weak {
+  filter: invert(80%);
+}
+
+.gray-mode {
+  filter: grayscale(100%);
+}
+
+.header {
+  box-sizing: border-box;
+  border-bottom: solid 1px rgb(255 255 255 / 9%);
+}
+
+.copyright {
+  font-size: 12px;
+}
+
+.link-type,
+.link-type:focus {
+  padding: 4px 0;
+  color: #409eff;
+  cursor: pointer;
+}
+
+.link-type:hover {
+  color: #79bbff;
+  border-bottom: 1px solid #79bbff;
+}

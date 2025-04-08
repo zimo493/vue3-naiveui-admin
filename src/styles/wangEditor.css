@@ -1,0 +1,73 @@
+.w-e-text-container,
+.w-e-scroll {
+  min-height: 301px;
+}
+
+/* 富文本组件样式 */
+.editor-wrapper {
+  /* 防止富文本编辑器全屏时 tabs组件 在其层级之上 */
+  z-index: 2;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--w-e-textarea-border-color);
+  border-radius: 4px;
+}
+
+#toolbar-container {
+  border-bottom: 1px solid var(--w-e-textarea-border-color);
+}
+
+.w-e-text-container p {
+  margin: 10px 0 !important;
+}
+
+.w-e-text-placeholder {
+  top: 10px !important;
+}
+
+.editor-wrapper .editor-toolbar {
+  overflow-y: hidden;
+  border-bottom: 1px solid var(--w-e-textarea-border-color);
+}
+
+.editor-wrapper #toolbar-container .w-e-toolbar .w-e-bar-divider {
+  display: none;
+}
+
+.editor-wrapper #toolbar-container .w-e-toolbar {
+  padding: 0;
+}
+
+/* 富文本组件校验失败样式 */
+.is-error .editor-wrapper {
+  border-color: red;
+}
+
+.is-error .editor-wrapper .editor-toolbar {
+  border-bottom-color: red;
+}
+
+/* 富文本组件禁用样式 */
+.editor-disabled {
+  cursor: not-allowed !important;
+}
+
+html.dark {
+  --w-e-textarea-bg-color: #38383e;
+  --w-e-textarea-color: #d6d6d6;
+  --w-e-textarea-border-color: #656566;
+  --w-e-textarea-slight-border-color: #656566;
+  --w-e-textarea-slight-color: #d6d6d6;
+  --w-e-textarea-slight-bg-color: #656566;
+  --w-e-textarea-selected-border-color: #b4d5ff; /* 选中的元素，如选中了分割线 */
+  --w-e-textarea-handler-bg-color: #4290f7; /* 工具，如图片拖拽按钮 */
+  --w-e-toolbar-color: #dadada;
+  --w-e-toolbar-bg-color: #262629;
+  --w-e-toolbar-active-color: #d6d6d6;
+  --w-e-toolbar-active-bg-color: #18181c;
+  --w-e-toolbar-disabled-color: #848487;
+  --w-e-toolbar-border-color: #656566;
+  --w-e-modal-button-bg-color: #666;
+  --w-e-modal-button-border-color: #656566;
+}

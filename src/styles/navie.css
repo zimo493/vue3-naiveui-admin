@@ -1,0 +1,53 @@
+.n-modal-mask,
+.n-drawer-mask {
+  background-color: rgb(0 0 0 / 40%);
+  backdrop-filter: blur(1px);
+}
+
+.n-icon {
+  vertical-align: -0.3em;
+}
+
+.n-card > .n-card__content,         /* 低特异性选择器 */
+.n-card > .n-card__footer,
+.n-card > .n-card__content:first-child,  /* 高特异性选择器（带伪类） */
+.n-card > .n-card__footer:first-child {
+  /* 高特异性选择器（带伪类） */
+  padding: 12px;
+}
+
+.n-card > .n-card__action,
+.n-card > .n-card-header {
+  padding: 16px;
+}
+
+.n-card.n-card--content-segmented > .n-card__content {
+  padding-top: 12px;
+}
+
+.tabs {
+  .n-tabs {
+    .n-tabs-tab-pad {
+      width: 30px;
+    }
+  }
+}
+
+.n-drawer .n-drawer-content {
+  .n-drawer-header {
+    padding: 16px;
+  }
+
+  .n-drawer-body-content-wrapper {
+    padding: 16px;
+  }
+}
+
+.n-data-table .n-data-table-th {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.n-image-preview-toolbar .n-base-icon {
+  width: auto;
+}

@@ -106,7 +106,11 @@
     "unplugin-icons": "^22.1.0",
     "unplugin-vue-components": "^28.4.1",
     "vite": "^6.2.5",
-    "vue-eslint-parser": "^10.1.3",
+    "vite-plugin-svg-icons": "^2.0.1",
+    "vue-eslint-parser": "^9.4.3",
     "vue-tsc": "^2.2.8"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
