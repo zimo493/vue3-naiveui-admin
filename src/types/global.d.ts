@@ -14,15 +14,6 @@ declare namespace App {
 }
 
 /**
- * 响应数据
- */
-interface Result<T> {
-  code: number;
-  msg: string;
-  data: T;
-}
-
-/**
  * 分页查询参数
  */
 interface PageQuery {
@@ -34,10 +25,8 @@ interface PageQuery {
  * 分页响应对象
  */
 interface PageResult<T> {
-  code: number;
-  msg: string;
   /** 数据列表 */
-  rows: T;
+  list: T;
   /** 总数 */
   total: number;
 }

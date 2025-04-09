@@ -59,4 +59,16 @@ declare namespace Status {
   interface Auth {
     userInfo: User.Info;
   }
+
+  /** route-store */
+  interface Routes {
+    /** 是否初始化过路由 */
+    isInitAuthRoute: boolean;
+    /** 菜单列表 */
+    menus: import("naive-ui").MenuOption[];
+    /** 激活的菜单 */
+    activeMenu: string;
+    /** 缓存的路由 */
+    cacheRoutes: string[];
+  }
 }
