@@ -21,6 +21,8 @@ interface ImportMetaEnv {
   VITE_MOCK_DEV_SERVER: boolean;
   /** 默认语言 */
   VITE_DEFAULT_LANG: App.lang;
+  /** 本地存储前缀 */
+  VITE_STORAGE_PREFIX: string;
 }
 
 interface ImportMeta {
