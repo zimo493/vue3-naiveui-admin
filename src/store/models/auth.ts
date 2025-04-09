@@ -4,7 +4,7 @@ import { local } from "@/utils";
 import AuthAPI from "@/api/auth";
 import UserAPI from "@/api/system/user";
 
-export const useAuthStore = defineStore("auth", {
+export const useAuthStore = defineStore("auth-store", {
   state: (): Status.Auth => {
     return {
       userInfo: {

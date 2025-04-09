@@ -10,10 +10,10 @@ const { system, store } = useColorMode();
 
 const { VITE_DEFAULT_LANG } = import.meta.env;
 
-export const useAppStore = defineStore("app", {
+export const useAppStore = defineStore("app-store", {
   state: (): Status.App => {
     return {
-      footerText: "Copyright © 2024 All Rights Reserved huzimo.",
+      footerText: "Copyright © 2021 - 2025 youlai.tech All Rights Reserved.",
       theme,
       lang: VITE_DEFAULT_LANG,
       primaryColor,

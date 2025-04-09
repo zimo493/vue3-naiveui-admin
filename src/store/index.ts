@@ -3,6 +3,7 @@ import piniaPluginPersist from "pinia-plugin-persist";
 
 export * from "./models/app";
 export * from "./models/auth";
+export * from "./models/route";
 
 const store = createPinia();
 
