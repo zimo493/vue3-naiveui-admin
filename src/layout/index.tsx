@@ -1,4 +1,5 @@
 import { defineComponent, h } from "vue";
+import LeftMenu from "./mian/Left.vue";
 
 /**
  * 渲染函数
@@ -7,6 +8,6 @@ import { defineComponent, h } from "vue";
 export default defineComponent({
   name: "Layout",
   render: () => {
-    return h("div", null, "layout");
+    return h(LeftMenu);
   },
 });
