@@ -102,17 +102,15 @@
 </template>
 <script setup lang="tsx">
 import type { FormInst, FormRules, InputInst } from "naive-ui";
-import { useAuthStore } from "@/store";
+import { useAuthStoreHook } from "@/store";
 import AuthAPI from "@/api/auth";
 import { router } from "@/router";
 import { LocationQuery, RouteLocationRaw } from "vue-router";
 import Cookies from "js-cookie";
 import { decrypt, encrypt } from "@/utils";
-// import { useRouteStore } from "@/store/models/route";
 
 const route = useRoute();
-const authStore = useAuthStore();
-// const routeState = useRouteStore();
+const authStore = useAuthStoreHook();
 
 const emit = defineEmits(["update:modelValue"]);
 const toOtherForm = (type: "register" | "resetPwd") => emit("update:modelValue", type);
@@ -179,11 +177,7 @@ const handleLoginSubmit = async () => {
     // 2. 执行登录
     await authStore.login(model.value);
 
-    // 3. 获取用户信息
-    // await authStore.getUserInfo();
-    // routeState.initAuthRoute();
-
-    // 4. 勾选了需要记住密码设置在 cookie 中设置记住用户名和密码
+    // 3. 勾选了需要记住密码设置在 cookie 中设置记住用户名和密码
     if (model.value.rememberMe) {
       Cookies.set("rememberMe", model.value.rememberMe.toString(), {
         expires: 10,
@@ -199,7 +193,7 @@ const handleLoginSubmit = async () => {
       Cookies.remove("rememberMe");
     }
 
-    // 5. 解析并跳转目标地址
+    // 4. 解析并跳转目标地址
     const redirect = resolveRedirectTarget(route.query);
 
     console.log(redirect, "redirect");

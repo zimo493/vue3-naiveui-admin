@@ -29,20 +29,20 @@
         <div v-if="!appStore.contentFullScreen" class="h-50px flex-y-center justify-between">
           <div class="flex-y-center h-full p-x-10px">
             <!-- <CollapseButton /> -->
-            <!-- <Breadcrumb /> -->
+            <Breadcrumb />
           </div>
           <div class="flex-y-center gap-1 h-full p-x-10px">
-            <!-- <LastLoginTime />
-            <Search />
-            <Notices />
+            <!-- <LastLoginTime /> -->
+            <!-- <Search /> -->
+            <!-- <Notices /> -->
             <FullScreen />
             <DarkModeSwitch />
-            <LangsSwitch />
+            <!-- <LangsSwitch /> -->
             <Setting />
-            <UserCenter /> -->
+            <!-- <UserCenter /> -->
           </div>
         </div>
-        <!-- <TabBar v-if="appStore.showTabs" class="h-40px" /> -->
+        <TabBar v-if="appStore.showTabs" class="h-40px" />
       </n-layout-header>
       <div v-if="appStore.fixed">
         <div class="h-50px" />
@@ -65,20 +65,20 @@
       />
 
       <BackTop />
+      <n-layout-footer
+        v-if="appStore.showFooter && !appStore.contentFullScreen"
+        :position="appStore.fixed ? 'absolute' : 'static'"
+        class="h-30px flex-center"
+      >
+        <span class="copyright">{{ appStore.footerText }}</span>
+      </n-layout-footer>
     </n-layout-content>
-    <n-layout-footer
-      v-if="appStore.showFooter && !appStore.contentFullScreen"
-      :position="appStore.fixed ? 'absolute' : 'static'"
-      class="h-30px flex-center"
-    >
-      <span class="copyright">{{ appStore.footerText }}</span>
-    </n-layout-footer>
   </n-layout>
 </template>
 
 <script lang="ts" setup>
-import { useAppStore, useRouteStore } from "@/store";
+import { useAppStoreHook, useRouteStoreHook } from "@/store";
 
-const routeStore = useRouteStore();
-const appStore = useAppStore();
+const routeStore = useRouteStoreHook();
+const appStore = useAppStoreHook();
 </script>
