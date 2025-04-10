@@ -52,5 +52,7 @@ declare namespace AppRoute {
 
     /** 路由参数 */
     params?: Recordable;
+    /** 是否固定在tab */
+    affix?: boolean;
   }
 }

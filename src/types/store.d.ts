@@ -71,4 +71,11 @@ declare namespace Status {
     /** 缓存的路由 */
     cacheRoutes: string[];
   }
+
+  /** tab-store */
+  interface Tab {
+    pinTabs: RouteLocationNormalized[];
+    tabs: RouteLocationNormalized[];
+    currentTabPath: string;
+  }
 }
