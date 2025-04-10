@@ -1,10 +1,13 @@
-import { useAppStore, useRouteStore } from "@/store";
+import { useAppStoreHook, useRouteStoreHook, useTabStoreHook } from "@/store";
 import { local } from "@/utils";
 import type { Router } from "vue-router";
 
+const { pkg } = __APP_INFO__;
+
 export const setupRouterGuard = (router: Router) => {
-  const appStore = useAppStore();
-  const routeStore = useRouteStore();
+  const appStore = useAppStoreHook();
+  const routeStore = useRouteStoreHook();
+  const tabStore = useTabStoreHook();
 
   router.beforeEach(async (to, from, next) => {
     // 开始 loadingBar
@@ -53,20 +56,18 @@ export const setupRouterGuard = (router: Router) => {
   });
   router.beforeResolve(async (to) => {
     // // 添加tabs
-    // tabStore.addTab(to);
+    tabStore.addTab(to);
     // // 设置菜单高亮
     routeStore.setActiveMenu(
       typeof to.meta.activeMenu === "string" ? to.meta.activeMenu : to.fullPath
     );
     // // 设置高亮标签;
-    // await tabStore.setCurrentTab(to.path as string);
+    await tabStore.setCurrentTab(to.path as string);
   });
 
   router.afterEach((to) => {
-    console.log(to);
-
     // 修改网页标题
-    document.title = to.meta.title ?? "管理系统";
+    document.title = to.meta?.title ? to.meta?.title : pkg.name;
     // 结束 loadingBar
     if (appStore.showProgress) {
       window.$loadingBar?.finish();

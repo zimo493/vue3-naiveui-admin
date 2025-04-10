@@ -1,5 +1,5 @@
-// import type { MenuOption } from "naive-ui";
-import { useAuthStore } from "..";
+import { store } from "@/store";
+import { useAuthStoreHook } from "..";
 
 import MenuAPI from "@/api/system/menu";
 import { RouterLink, type RouteRecordRaw } from "vue-router";
@@ -8,6 +8,7 @@ import appRootRoutes from "@/router/modules/ruotes";
 import { router } from "@/router";
 import { isHttpUrl, renderIcon } from "@/utils";
 import { NEllipsis, type MenuOption } from "naive-ui";
+import { defaultIcon } from "@/modules/assets";
 
 export const useRouteStore = defineStore("route-store", {
   state: (): Status.Routes => {
@@ -26,7 +27,7 @@ export const useRouteStore = defineStore("route-store", {
     async initAuthRoute() {
       this.isInitAuthRoute = false;
 
-      const authStore = useAuthStore();
+      const authStore = useAuthStoreHook();
 
       /** 先获取用户信息 */
       await authStore.getUserInfo();
@@ -60,12 +61,12 @@ export const useRouteStore = defineStore("route-store", {
 
     /**
      * 创建路由
-     * @param routes 路由
+     * @param userRoutes
      * @returns void
      */
-    createRoutes(rawRoutes: AppRoute.RouteVO[]) {
-      this.setRedirect(rawRoutes);
-      const routes = parseDynamicRoutes(rawRoutes);
+    createRoutes(userRoutes: AppRoute.RouteVO[]) {
+      this.setRedirect(userRoutes);
+      const routes = parseDynamicRoutes(userRoutes);
       const rootRoutes = appRootRoutes;
 
       rootRoutes.children?.push(...routes);
@@ -78,12 +79,12 @@ export const useRouteStore = defineStore("route-store", {
         if (route.children) {
           if (!route.redirect) {
             // Filter out a collection of child elements that are not hidden
-            const visibleChilds = route.children.filter((child) => child.meta?.hidden);
+            const visibleChildren = route.children.filter((child) => !child.meta?.hidden);
 
             // Redirect page to the path of the first child element by default
-            let target = visibleChilds[0];
+            let target = visibleChildren[0];
 
-            route.redirect = target?.path;
+            route.redirect = route.path + "/" + target?.path;
           }
 
           this.setRedirect(route.children);
@@ -107,7 +108,7 @@ export const useRouteStore = defineStore("route-store", {
       };
 
       // 图标处理函数 没有图标时使用本地默认图标
-      const getMenuIcon = (icon?: string) => (icon ? renderIcon(icon) : renderIcon("local:cool"));
+      const getMenuIcon = (icon?: string) => (icon ? renderIcon(icon) : renderIcon(defaultIcon));
 
       // 标签生成函数
       const generateLabel = (
@@ -222,6 +223,8 @@ export const useRouteStore = defineStore("route-store", {
     },
   },
 });
+
+export const useRouteStoreHook = () => useRouteStore(store);
 
 /**
  * 解析后端返回的路由数据并转换为 Vue Router 兼容的路由配置

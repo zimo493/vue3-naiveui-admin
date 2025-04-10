@@ -1,11 +1,11 @@
 import type { InternalAxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 import axios from "axios";
 import qs from "qs";
-// import { useUserStoreHook } from "@/store";
+import { useAuthStoreHook } from "@/store";
 import { ResultEnum } from "@/enums";
 import { local, session } from "./storage";
-import { tansParams } from "./comm";
-// import router from "@/router";
+import { InquiryBox, tansParams } from "./comm";
+import { router } from "@/router";
 
 // 创建 axios 实例
 const service = axios.create({
@@ -181,32 +181,29 @@ async function handleTokenRefresh(config: InternalAxiosRequestConfig) {
 
     waitingQueue.push(retryRequest);
     if (!isRefreshing) {
-      // isRefreshing = true;
-      // useUserStoreHook()
-      //   .refreshToken()
-      //   .then(() => {
-      //     // 依次重试队列中所有请求, 重试后清空队列
-      //     waitingQueue.forEach((callback) => callback());
-      //     waitingQueue.length = 0;
-      //   })
-      //   .catch(async (error) => {
-      //     console.error("handleTokenRefresh error", error);
-      //     // 刷新 Token 失败，跳转登录页
-      //     await handleSessionExpired();
-      //   })
-      //   .finally(() => {
-      //     isRefreshing = false;
-      //   });
+      isRefreshing = true;
+      useAuthStoreHook()
+        .refreshToken()
+        .then(() => {
+          // 依次重试队列中所有请求, 重试后清空队列
+          waitingQueue.forEach((callback) => callback());
+          waitingQueue.length = 0;
+        })
+        .catch(async (error) => {
+          console.error("handleTokenRefresh error", error);
+          // 刷新 Token 失败，跳转登录页
+          await handleSessionExpired();
+        })
+        .finally(() => {
+          isRefreshing = false;
+        });
     }
   });
 }
 // 处理会话过期
 async function handleSessionExpired() {
-  // ElNotification({
-  //   title: "提示",
-  //   message: "您的会话已过期，请重新登录",
-  //   type: "info",
-  // });
-  // await useUserStoreHook().clearSessionAndCache();
-  // router.push("/login");
+  InquiryBox("您的会话已过期，请重新登录", "warning").then(async () => {
+    await useAuthStoreHook().clearSessionAndCache();
+    router.push("/login");
+  });
 }

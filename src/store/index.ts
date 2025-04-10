@@ -4,6 +4,7 @@ import piniaPluginPersist from "pinia-plugin-persist";
 export * from "./models/app";
 export * from "./models/auth";
 export * from "./models/route";
+export * from "./models/tab";
 
 const store = createPinia();
 

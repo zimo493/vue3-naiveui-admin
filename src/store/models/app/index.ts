@@ -1,5 +1,6 @@
 import { colord } from "colord";
 import { set } from "radash";
+import { store as pinia } from "@/store";
 import theme, { primaryColor, infoColor, successColor, warningColor, errorColor } from "./theme";
 
 const docEle = ref(document.documentElement);
@@ -163,3 +164,5 @@ export const useAppStore = defineStore("app-store", {
     strategies: [{ storage: localStorage }],
   },
 });
+
+export const useAppStoreHook = () => useAppStore(pinia);

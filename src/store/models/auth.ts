@@ -89,6 +89,24 @@ export const useAuthStore = defineStore("auth-store", {
           });
       });
     },
+
+    /**
+     * 清除用户会话和缓存
+     */
+    clearSessionAndCache() {
+      return new Promise<void>((resolve) => {
+        // clearToken();
+        // usePermissionStoreHook().resetRouter();
+        // useDictStoreHook().clearDictCache();
+        // this.userInfo = {
+        //   roles: [],
+        //   perms: [],
+        // };
+        this.$reset();
+        local.clear();
+        resolve();
+      });
+    },
   },
 });
 
