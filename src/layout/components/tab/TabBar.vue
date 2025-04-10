@@ -10,6 +10,7 @@ import IconDelete from "~icons/icon-park-outline/delete-four";
 import IconLeft from "~icons/icon-park-outline/to-left";
 import IconRight from "~icons/icon-park-outline/to-right";
 import IconFullwith from "~icons/icon-park-outline/close-one";
+import { defaultIcon } from "@/modules/assets";
 
 const tabStore = useTabStoreHook();
 const appStore = useAppStoreHook();
@@ -111,7 +112,7 @@ const onClickoutside = () => (showDropdown.value = false);
         @contextmenu="handleContextMenu($event, item)"
       >
         <div class="flex-x-center gap-1 items-center">
-          <nova-icon :icon="item.meta.icon" />
+          <nova-icon :icon="item.meta?.icon ? item.meta.icon : defaultIcon" />
           {{ item.meta.title }}
           <nova-icon
             class="close"

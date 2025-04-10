@@ -17,18 +17,16 @@ const options = (item: RouteRecordRaw[]): DropdownMixedOption[] => transformTree
 function transformTree(node: RouteRecordRaw[]): DropdownMixedOption[] {
   if (!node) return [];
 
-  return node.map((item: RouteRecordRaw) => {
-    return {
-      key: item.path,
-      label: item.meta?.title || "",
-      icon: appStore.showBreadcrumbIcon
-        ? item.meta?.icon
-          ? renderIcon(item.meta.icon)
-          : renderIcon(defaultIcon)
-        : undefined,
-      children: item.children && transformTree(item.children),
-    };
-  });
+  return node.map((item: RouteRecordRaw) => ({
+    key: item.path,
+    icon: appStore.showBreadcrumbIcon
+      ? item.meta?.icon
+        ? renderIcon(item.meta.icon)
+        : renderIcon(defaultIcon)
+      : undefined,
+    label: item.meta?.title || "",
+    children: item.children && transformTree(item.children),
+  }));
 }
 
 const handleSelect = (path: string) => {
@@ -51,7 +49,10 @@ const handleSelect = (path: string) => {
         <n-dropdown :options="options(item.children)" :show-arrow="true" @select="handleSelect">
           <n-el tag="li" class="flex-center gap-2 cursor-pointer split">
             <nova-icon v-show="idx !== 0" icon="line-md:chevron-small-right" />
-            <nova-icon v-if="appStore.showBreadcrumbIcon" :icon="item.meta.icon" />
+            <nova-icon
+              v-if="appStore.showBreadcrumbIcon"
+              :icon="item.meta?.icon ? item.meta.icon : defaultIcon"
+            />
             <span class="whitespace-nowrap">
               {{ item.meta.title }}
             </span>
