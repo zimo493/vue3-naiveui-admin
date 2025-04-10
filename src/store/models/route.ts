@@ -74,24 +74,37 @@ export const useRouteStore = defineStore("route-store", {
       router.addRoute(rootRoutes);
     },
 
-    setRedirect(routes: AppRoute.RouteVO[]) {
+    /**
+     * 设置重定向
+     * @param routes 路由
+     * @param parentPath 父级路由路径
+     */
+    setRedirect(routes: AppRoute.RouteVO[], parentPath: string = "") {
       routes.forEach((route) => {
+        const currentPath = joinPaths(parentPath, route.path);
+
         if (route.children) {
           if (!route.redirect) {
-            // Filter out a collection of child elements that are not hidden
             const visibleChildren = route.children.filter((child) => !child.meta?.hidden);
 
-            // Redirect page to the path of the first child element by default
-            let target = visibleChildren[0];
+            if (visibleChildren.length > 0) {
+              const target = visibleChildren[0];
 
-            route.redirect = route.path + "/" + target?.path;
+              let redirectPath = joinPaths(currentPath, target.path);
+
+              // 如果子级路由有参数，则拼接参数到重定向路径中
+              if (target.meta?.params) {
+                redirectPath += "?" + new URLSearchParams(target.meta?.params).toString();
+              }
+
+              route.redirect = redirectPath;
+            }
           }
 
-          this.setRedirect(route.children);
+          this.setRedirect(route.children, currentPath);
         }
       });
     },
-
     /**
      * 生成侧边菜单
      * @param userRoutes 路由
@@ -221,6 +234,11 @@ export const useRouteStore = defineStore("route-store", {
     setActiveMenu(key: string) {
       this.activeMenu = key;
     },
+    resetRouteStore() {
+      // location.reload();
+      router.removeRoute("Root");
+      this.$reset();
+    },
   },
 });
 
@@ -272,3 +290,16 @@ const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRaw[] => 
  * @returns VNode
  */
 const renderEllipsis = (VNode: VNode): VNode => h(NEllipsis, null, { default: () => VNode });
+
+/**
+ * 拼接路径，处理开头和结尾的斜杠
+ */
+function joinPaths(...paths: string[]): string {
+  return (
+    "/" +
+    paths
+      .map((path) => path.replace(/^\/+|\/+$/g, "")) // 去除开头和结尾的斜杠
+      .filter(Boolean) // 过滤空路径
+      .join("/")
+  );
+}

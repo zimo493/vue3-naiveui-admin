@@ -16,9 +16,9 @@ export const useTabStore = defineStore("tab-store", {
   actions: {
     addTab(route: RouteLocationNormalized) {
       // 创建一个新的路由对象，只包含需要的属性，避免枚举整个组件实例
-      const { path, name, fullPath, query, params } = route;
+      const { path, name, fullPath, query } = route;
       const meta = route.meta || {};
-      const { hidden, affix, title, icon } = meta;
+      const { hidden, affix, title, icon, params } = meta;
 
       // 根据meta确定是否不添加，可用于错误页,登录页等
       if (hidden) return;
@@ -32,8 +32,7 @@ export const useTabStore = defineStore("tab-store", {
         name,
         fullPath,
         query,
-        params,
-        meta: { hidden, affix, title, icon },
+        meta: { hidden, affix, title, icon, params },
       } as RouteLocationNormalized;
 
       // 根据meta.affix传递到不同的分组中

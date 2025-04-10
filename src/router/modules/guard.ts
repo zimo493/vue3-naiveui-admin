@@ -59,10 +59,10 @@ export const setupRouterGuard = (router: Router) => {
     tabStore.addTab(to);
     // // 设置菜单高亮
     routeStore.setActiveMenu(
-      typeof to.meta.activeMenu === "string" ? to.meta.activeMenu : to.fullPath
+      typeof to.meta.activeMenu === "string" ? to.meta.activeMenu : to.fullPath.split("?")[0]
     );
     // // 设置高亮标签;
-    await tabStore.setCurrentTab(to.path as string);
+    await tabStore.setCurrentTab(to.path);
   });
 
   router.afterEach((to) => {

@@ -1,8 +1,9 @@
-import { store } from "@/store";
+import { store, useRouteStoreHook, useTabStoreHook } from "@/store";
 import { local } from "@/utils";
 
 import AuthAPI from "@/api/auth";
 import UserAPI from "@/api/system/user";
+import { router } from "@/router";
 
 export const useAuthStore = defineStore("auth-store", {
   state: (): Status.Auth => {
@@ -59,8 +60,11 @@ export const useAuthStore = defineStore("auth-store", {
       return new Promise<void>((resolve, reject) => {
         AuthAPI.logout()
           .then(() => {
-            // clearSessionAndCache();
-            window.$message.success("退出成功");
+            this.resetAuthStore()
+              .then(() => window.$message.success("退出成功"))
+              .then(() => {
+                router.replace("/login");
+              });
             resolve();
           })
           .catch((error) => reject(error));
@@ -93,18 +97,28 @@ export const useAuthStore = defineStore("auth-store", {
     /**
      * 清除用户会话和缓存
      */
-    clearSessionAndCache() {
-      return new Promise<void>((resolve) => {
-        // clearToken();
-        // usePermissionStoreHook().resetRouter();
-        // useDictStoreHook().clearDictCache();
-        // this.userInfo = {
-        //   roles: [],
-        //   perms: [],
-        // };
-        this.$reset();
-        local.clear();
-        resolve();
+    async resetAuthStore() {
+      const route = unref(router.currentRoute);
+
+      // 清除本地缓存
+      local.clear();
+      // 清空路由、菜单等数据
+      const routeStore = useRouteStoreHook();
+
+      routeStore.resetRouteStore();
+      // 清空标签栏数据
+      const tabStore = useTabStoreHook();
+
+      tabStore.clearAllTabs();
+      // 重制当前存储库
+      this.$reset();
+
+      // 重定向到登录页
+      await router.replace({
+        name: "login",
+        query: {
+          redirect: route.fullPath,
+        },
       });
     },
   },
