@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { NFlex } from "naive-ui";
-import { useAppStore } from "@/store";
+import { useAppStoreHook } from "@/store";
 import IconSun from "~icons/icon-park-outline/sun-one";
 import IconMoon from "~icons/icon-park-outline/moon";
 import IconAuto from "~icons/icon-park-outline/laptop-computer";
 
 type Option = { label: string; value: string; icon: Component };
 
-const appStore = useAppStore();
+const appStore = useAppStoreHook();
 
 const options = ref<Option[]>([
   { label: "跟随系统", value: "auto", icon: IconAuto },

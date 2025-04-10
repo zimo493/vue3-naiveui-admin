@@ -18,7 +18,7 @@ const setupApp = () => {
   installPinia(app);
 
   // 注册模块 VueRouter
-  installRouter(app);
+  installRouter(app).then(() => console.info("路由初始化完成"));
 
   // 挂载
   app.mount("#app");

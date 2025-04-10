@@ -8,8 +8,9 @@ import xml from "highlight.js/lib/languages/xml";
 import sql from "highlight.js/lib/languages/sql";
 
 import { RouterView } from "vue-router";
+import { useAppStoreHook } from "@/store";
 import NaiveProvider from "@/components/common/NaiveProvider.vue";
-import { useAppStore } from "@/store";
+import Watermark from "@/components/common/Watermark.vue";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("java", java);
@@ -24,7 +25,7 @@ hljs.registerLanguage("sql", sql);
 export default defineComponent({
   name: "App",
   render: () => {
-    const appStore = useAppStore();
+    const appStore = useAppStoreHook();
 
     return (
       <NConfigProvider
@@ -38,6 +39,7 @@ export default defineComponent({
       >
         <NaiveProvider>
           <RouterView />
+          <Watermark showWatermark={appStore.showWatermark} />
         </NaiveProvider>
       </NConfigProvider>
     );
