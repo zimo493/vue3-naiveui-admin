@@ -10,7 +10,7 @@ declare namespace AppRoute {
     /** 路由名称 */
     name?: string;
     /** 路由路径 */
-    path?: string;
+    path: string;
     /** 跳转链接 */
     redirect?: string;
   }

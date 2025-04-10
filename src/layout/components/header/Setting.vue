@@ -67,7 +67,7 @@ const setSiderWidth = computed(() => ["leftMenu", "mixMenu"].includes(appStore.l
             <n-drawer-content title="系统设置" closable>
               <n-space vertical>
                 <n-divider>布局设置</n-divider>
-                <!-- <LayoutSelector v-model:value="appStore.layoutMode" /> -->
+                <LayoutSelector v-model:value="appStore.layoutMode" />
 
                 <n-divider>主题模式</n-divider>
                 <n-flex vertical :size="16">

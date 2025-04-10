@@ -1,5 +1,7 @@
-import { defineComponent, h } from "vue";
-import LeftMenu from "./mian/Left.vue";
+import leftMenu from "./main/Left.vue";
+import topMenu from "./main/Top.vue";
+import mixMenu from "./main/Mix.vue";
+import { useAppStoreHook } from "@/store";
 
 /**
  * 渲染函数
@@ -8,6 +10,13 @@ import LeftMenu from "./mian/Left.vue";
 export default defineComponent({
   name: "Layout",
   render: () => {
-    return h(LeftMenu);
+    const appStore = useAppStoreHook();
+    const layoutMap = {
+      leftMenu,
+      topMenu,
+      mixMenu,
+    };
+
+    return h(layoutMap[appStore.layoutMode]);
   },
 });

@@ -17,7 +17,12 @@ const appStore = useAppStoreHook();
 
 const router = useRouter();
 
-const handleTab = (route: RouteLocationNormalized) => router.push(route.path);
+const handleTab = (route: RouteLocationNormalized) => {
+  router.push({
+    path: route.path,
+    query: route.query,
+  });
+};
 
 const tabsInstRef = ref<TabsInst | null>(null);
 const handleClose = (path: string) => tabStore.closeTab(path).then(() => updateBar());

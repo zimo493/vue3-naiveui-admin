@@ -53,7 +53,7 @@ declare namespace Status {
   // 主题颜色类型
   type ThemeColorType = "primary" | "info" | "success" | "warning" | "error";
 
-  type LayoutMode = "leftMenu" | "topMenu" | "mixLeftMenu" | "rightMenu" | "mixRightMenu";
+  type LayoutMode = "leftMenu" | "topMenu" | "mixMenu";
 
   /** auth-store */
   interface Auth {
