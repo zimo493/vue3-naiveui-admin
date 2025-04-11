@@ -1,0 +1,36 @@
+declare namespace DictData {
+  interface Query extends PageQuery {
+    /** 关键字(字典数据值/标签) */
+    keywords?: string;
+
+    /** 字典编码 */
+    dictCode?: string;
+  }
+
+  interface VO {
+    /**
+     * 字典ID
+     */
+    id: string;
+    /**
+     * 字典编码
+     */
+    dictCode: string;
+    /**
+     * 字典数据值
+     */
+    value: string;
+    /**
+     * 字典数据标签
+     */
+    label: string;
+    /**
+     * 状态（1:启用，0:禁用)
+     */
+    status: number;
+    /**
+     * 字典排序
+     */
+    sort?: number;
+  }
+}
