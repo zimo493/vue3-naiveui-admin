@@ -235,7 +235,6 @@ export const useRouteStore = defineStore("route-store", {
       this.activeMenu = key;
     },
     resetRouteStore() {
-      // location.reload();
       router.removeRoute("Root");
       this.$reset();
     },

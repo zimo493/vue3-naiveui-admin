@@ -1,5 +1,5 @@
 import { store, useRouteStoreHook, useTabStoreHook } from "@/store";
-import { local } from "@/utils";
+import { local, session } from "@/utils";
 
 import AuthAPI from "@/api/auth";
 import UserAPI from "@/api/system/user";
@@ -102,11 +102,12 @@ export const useAuthStore = defineStore("auth-store", {
 
       // 清除本地缓存
       local.clear();
-      // 清空路由、菜单等数据
+      session.clear();
+
       const routeStore = useRouteStoreHook();
 
       routeStore.resetRouteStore();
-      // 清空标签栏数据
+
       const tabStore = useTabStoreHook();
 
       tabStore.clearAllTabs();

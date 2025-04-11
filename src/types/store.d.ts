@@ -23,7 +23,7 @@ declare namespace Status {
     showBreadcrumbIcon: boolean;
     showWatermark: boolean;
     transitionAnimation: TransitionAnimation;
-    layoutMode: LayoutMode;
+    layoutMode: import("@/enums").LayoutMode;
     contentFullScreen: boolean;
     sideWidth: number;
     sideCollapsedWidth: number;
@@ -52,8 +52,6 @@ declare namespace Status {
 
   // 主题颜色类型
   type ThemeColorType = "primary" | "info" | "success" | "warning" | "error";
-
-  type LayoutMode = "leftMenu" | "topMenu" | "mixMenu";
 
   /** auth-store */
   interface Auth {

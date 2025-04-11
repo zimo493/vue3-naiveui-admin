@@ -84,6 +84,7 @@ export const useTabStore = defineStore("tab-store", {
     clearAllTabs() {
       this.tabs.length = 0;
       this.pinTabs.length = 0;
+      this.$reset();
     },
     async closeAllTabs() {
       this.tabs.length = 0;

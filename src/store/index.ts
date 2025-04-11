@@ -5,6 +5,7 @@ export * from "./models/app";
 export * from "./models/auth";
 export * from "./models/route";
 export * from "./models/tab";
+export * from "./models/dict";
 
 const store = createPinia();
 

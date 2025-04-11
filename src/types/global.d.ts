@@ -49,3 +49,9 @@ interface Session {
     time: number;
   };
 }
+
+// 抽屉表单
+interface DrawerModal {
+  title: string; // 标题
+  visible: boolean; // 是否显示
+}
