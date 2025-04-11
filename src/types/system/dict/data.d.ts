@@ -33,4 +33,16 @@ declare namespace DictData {
      */
     sort?: number;
   }
+
+  /** 字典项列表 */
+  interface Option {
+    /** 字典数据值 */
+    value: string;
+
+    /** 字典数据标签 */
+    label: string;
+
+    /** 标签类型 */
+    tagType?: "" | "success" | "info" | "warning" | "danger" | "primary";
+  }
 }

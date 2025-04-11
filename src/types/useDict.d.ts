@@ -1,9 +1,9 @@
 declare namespace Dict {
   interface StoreType {
     key: string;
-    value: DictData.VO[];
+    value: DictData.Option[];
   }
   interface DictItem {
-    [key: string]: DictData.VO[];
+    [key: string]: DictData.Option[];
   }
 }

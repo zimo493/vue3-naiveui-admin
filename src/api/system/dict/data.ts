@@ -11,4 +11,9 @@ export default {
    */
   getDictItemPage: (dictCode: string, params: DictData.Query) =>
     get<PageResult<DictData.VO[]>>(`${DICT_BASE_URL}/${dictCode}/items/page`, params),
+
+  /**
+   * 获取字典项列表
+   */
+  getDictItems: (dictCode: string) => get<DictData.Option[]>(`${DICT_BASE_URL}/${dictCode}/items`),
 };

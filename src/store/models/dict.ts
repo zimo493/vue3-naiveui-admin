@@ -26,7 +26,7 @@ export const useDictStore = defineStore("dict-store", {
       }
     },
     // 设置字典
-    setDict(_key: string | null, value: DictData.VO[]) {
+    setDict(_key: string | null, value: DictData.Option[]) {
       if (_key !== null && _key !== "") {
         for (let i = 0; i < this.dict.length; i++) {
           if (this.dict[i].key === _key) {

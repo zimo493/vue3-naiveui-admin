@@ -11,11 +11,8 @@ export function useDict<T extends string>(...args: T[]): ToRefs<Dict.DictItem> {
 
     if (dict) res.value[dictType] = dict;
     else {
-      DictDataAPI.getDictItemPage(dictType, {
-        pageNum: 1,
-        pageSize: 999,
-      }).then(({ list }): void => {
-        res.value[dictType] = list;
+      DictDataAPI.getDictItems(dictType).then((data): void => {
+        res.value[dictType] = data;
         useDictStoreHook().setDict(dictType, res.value[dictType]);
       });
     }
