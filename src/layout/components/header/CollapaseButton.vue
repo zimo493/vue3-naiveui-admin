@@ -12,7 +12,7 @@ const icon = computed(() =>
     <n-tooltip placement="top" trigger="hover">
       <template #trigger>
         <CommonWrapper @click="appStore.toggleCollapse()">
-          <nova-icon :icon="icon" :size="22" />
+          <Icones :icon="icon" :size="22" />
         </CommonWrapper>
       </template>
       <span>{{ appStore.collapsed ? "展开菜单" : "收起菜单" }}</span>

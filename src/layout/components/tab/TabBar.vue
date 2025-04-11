@@ -104,7 +104,7 @@ const onClickoutside = () => (showDropdown.value = false);
         @click="router.push(item.path)"
       >
         <div class="flex-x-center gap-2 items-center">
-          <nova-icon :icon="item.meta.icon" />
+          <Icones :icon="item.meta.icon" />
           {{ item.meta.title }}
         </div>
       </n-tab>
@@ -117,9 +117,9 @@ const onClickoutside = () => (showDropdown.value = false);
         @contextmenu="handleContextMenu($event, item)"
       >
         <div class="flex-x-center gap-1 items-center">
-          <nova-icon :icon="item.meta?.icon ? item.meta.icon : defaultIcon" />
+          <Icones :icon="item.meta?.icon ? item.meta.icon : defaultIcon" />
           {{ item.meta.title }}
-          <nova-icon
+          <Icones
             class="close"
             :size="14"
             icon="material-symbols:close"

@@ -28,7 +28,7 @@ const handleRegister = async () => {
       <n-form-item path="account">
         <n-input v-model:value="model.account" clearable placeholder="请输入用户名">
           <template #prefix>
-            <nova-icon icon="ant-design:user-outlined" />
+            <Icones icon="ant-design:user-outlined" />
           </template>
         </n-input>
       </n-form-item>

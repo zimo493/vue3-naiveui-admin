@@ -48,8 +48,8 @@ const handleSelect = (path: string) => {
       <div v-for="(item, idx) in routes" :key="item.path">
         <n-dropdown :options="options(item.children)" :show-arrow="true" @select="handleSelect">
           <n-el tag="li" class="flex-center gap-2 cursor-pointer split">
-            <nova-icon v-show="idx !== 0" icon="line-md:chevron-small-right" />
-            <nova-icon
+            <Icones v-show="idx !== 0" icon="line-md:chevron-small-right" />
+            <Icones
               v-if="appStore.showBreadcrumbIcon"
               :icon="item.meta?.icon ? item.meta.icon : defaultIcon"
             />

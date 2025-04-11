@@ -5,7 +5,7 @@
       <n-form-item path="username">
         <n-input v-model:value="model.username" clearable placeholder="请输入用户名">
           <template #prefix>
-            <NovaIcon icon="ant-design:user-outlined" />
+            <Icones icon="ant-design:user-outlined" />
           </template>
         </n-input>
       </n-form-item>
@@ -24,7 +24,7 @@
             <icon-park-outline-preview-open />
           </template>
           <template #prefix>
-            <NovaIcon icon="ant-design:lock-outlined" />
+            <Icones icon="ant-design:lock-outlined" />
           </template>
         </n-input>
       </n-form-item>
@@ -43,7 +43,7 @@
             <icon-park-outline-preview-open />
           </template>
           <template #prefix>
-            <NovaIcon icon="ant-design:lock-outlined" />
+            <Icones icon="ant-design:lock-outlined" />
           </template>
         </n-input>
       </n-form-item>
@@ -56,7 +56,7 @@
           @keyup.enter="handleRegister"
         >
           <template #prefix>
-            <NovaIcon icon="ant-design:verified-outlined" />
+            <Icones icon="ant-design:verified-outlined" />
           </template>
         </n-input>
         <n-spin size="small" :show="captchaLoading">

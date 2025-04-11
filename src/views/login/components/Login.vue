@@ -10,7 +10,7 @@
           @keyup.enter="handleLoginSubmit"
         >
           <template #prefix>
-            <NovaIcon :size="22" icon="ant-design:user-outlined" />
+            <Icones :size="22" icon="ant-design:user-outlined" />
           </template>
         </n-input>
       </n-form-item>
@@ -30,7 +30,7 @@
             <icon-park-outline-preview-open />
           </template>
           <template #prefix>
-            <NovaIcon :size="20" icon="ant-design:lock-outlined" />
+            <Icones :size="20" icon="ant-design:lock-outlined" />
           </template>
         </n-input>
       </n-form-item>
@@ -43,7 +43,7 @@
           @keyup.enter="handleLoginSubmit"
         >
           <template #prefix>
-            <NovaIcon :size="20" icon="ant-design:verified-outlined" />
+            <Icones :size="20" icon="ant-design:verified-outlined" />
           </template>
         </n-input>
         <n-spin size="small" :show="captchaLoading">
@@ -86,16 +86,16 @@
     </n-divider>
     <n-space justify="center">
       <CommonWrapper>
-        <NovaIcon :size="20" icon="icon-park-outline:phone-telephone" />
+        <Icones :size="20" icon="icon-park-outline:phone-telephone" />
       </CommonWrapper>
       <CommonWrapper>
-        <NovaIcon :size="20" icon="icon-park-outline:wechat" />
+        <Icones :size="20" icon="icon-park-outline:wechat" />
       </CommonWrapper>
       <CommonWrapper>
-        <NovaIcon :size="20" icon="icon-park-outline:tencent-qq" />
+        <Icones :size="20" icon="icon-park-outline:tencent-qq" />
       </CommonWrapper>
       <CommonWrapper>
-        <NovaIcon :size="20" icon="icon-park-outline:github-one" />
+        <Icones :size="20" icon="icon-park-outline:github-one" />
       </CommonWrapper>
     </n-space>
   </div>
