@@ -59,14 +59,14 @@
         <div v-if="appStore.showTabs && !appStore.contentFullScreen" class="h-40px" />
       </div>
       <div class="flex-1 p-10px flex flex-col" :class="{ 'p-t-0px': appStore.contentFullScreen }">
-        <router-view v-slot="{ Component, route }" class="flex-1">
+        <RouterView v-slot="{ Component, route }" class="flex-1">
           <transition :name="appStore.transitionAnimation" mode="out-in">
-            <keep-alive :include="routeStore.cacheRoutes">
+            <KeepAlive :include="routeStore.cacheRoutes">
               <component :is="Component" v-if="appStore.loadFlag" :key="route.fullPath" />
               <ContentLoading v-else />
-            </keep-alive>
+            </KeepAlive>
           </transition>
-        </router-view>
+        </RouterView>
       </div>
       <div
         v-if="appStore.showFooter && appStore.fixed && !appStore.contentFullScreen"

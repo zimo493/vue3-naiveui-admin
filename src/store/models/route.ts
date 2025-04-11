@@ -258,7 +258,7 @@ const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRaw[] => 
     const normalizedRoute = { ...route } as RouteRecordRaw;
 
     if (normalizedRoute.component?.toString() === "Layout") {
-      normalizedRoute.component = () => import("@/components/common/Views.vue");
+      normalizedRoute.component = undefined;
     }
 
     // 处理组件路径
