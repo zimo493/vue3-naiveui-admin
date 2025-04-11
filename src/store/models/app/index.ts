@@ -31,7 +31,7 @@ export const useAppStore = defineStore("app-store", {
       loadFlag: true,
       showLogo: true,
       showTabs: true,
-      showFooter: true,
+      showFooter: false,
       showProgress: true,
       showBreadcrumb: true,
       showBreadcrumbIcon: true,
@@ -67,7 +67,7 @@ export const useAppStore = defineStore("app-store", {
       this.showLogo = true;
       this.showTabs = true;
       this.showLogo = true;
-      this.showFooter = true;
+      this.showFooter = false;
       this.showBreadcrumb = true;
       this.showBreadcrumbIcon = true;
       this.showWatermark = false;
