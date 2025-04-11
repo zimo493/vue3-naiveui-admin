@@ -23,6 +23,7 @@ export const useAppStore = defineStore("app-store", {
       successColor,
       warningColor,
       errorColor,
+      borderRadius: "4px",
       followPrimary: false,
       collapsed: false,
       grayMode: false,
@@ -58,6 +59,7 @@ export const useAppStore = defineStore("app-store", {
       this.successColor = successColor;
       this.warningColor = warningColor;
       this.errorColor = errorColor;
+      this.borderRadius = "4px";
       this.followPrimary = false;
       this.collapsed = false;
       this.grayMode = false;
@@ -84,6 +86,7 @@ export const useAppStore = defineStore("app-store", {
       this.setSuccessColor();
       this.setWarningColor();
       this.setErrorColor();
+      this.setBorderRadius("4px");
     },
     /* 设置题色 */
     setColor(type: Status.ThemeColorType, color: string) {
@@ -158,6 +161,11 @@ export const useAppStore = defineStore("app-store", {
     toggleGrayMode() {
       docEle.value.classList.toggle("gray-mode");
       this.grayMode = docEle.value.classList.contains("gray-mode");
+    },
+    /* 设置边框圆角 */
+    setBorderRadius(radius: string) {
+      this.borderRadius = radius;
+      set(this.theme, "common.borderRadius", radius);
     },
   },
   persist: {

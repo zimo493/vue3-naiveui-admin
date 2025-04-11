@@ -29,6 +29,7 @@ declare namespace Status {
     sideCollapsedWidth: number;
     lang: App.lang;
     siderTrigger: "bar" | "arrow-circle";
+    borderRadius: string;
   }
   type TransitionAnimation =
     | ""

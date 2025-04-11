@@ -1,6 +1,8 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { LayoutMode, ThemeMode } from "@/enums";
 import { useAppStoreHook } from "@/store";
+import { NFlex, NText, SelectOption } from "naive-ui";
+import { VNodeChild } from "vue";
 
 const appStore = useAppStoreHook();
 
@@ -18,6 +20,14 @@ const transitionSelectorOptions = ref<Status.TransitionSelectorOptions[]>([
   { label: "收缩", value: "zoom-out" },
   { label: "柔和", value: "fade" },
   { label: "渐变", value: "fade-gradient" },
+]);
+
+const borderRadiusOptions = ref([
+  { label: "无圆角", value: "0px" },
+  { label: "较小", value: "2px" },
+  { label: "默认", value: "4px" },
+  { label: "较大", value: "6px" },
+  { label: "很大", value: "8px" },
 ]);
 
 const palette = [
@@ -56,6 +66,18 @@ const resetSetting = () => {
 
 const setSiderWidth = computed(() =>
   [LayoutMode.LEFT, LayoutMode.MIX].includes(appStore.layoutMode)
+);
+
+// 渲染圆角大小选项标签
+const renderLabel = ({ label, value }: SelectOption): VNodeChild => (
+  <NFlex>
+    <NText>{label}</NText>
+    <NText>{value}</NText>
+  </NFlex>
+);
+
+const renderTag = ({ option }: { option: SelectOption }): VNodeChild => (
+  <NText>{option.label}</NText>
 );
 </script>
 
@@ -164,6 +186,19 @@ const setSiderWidth = computed(() =>
                   />
                 </n-space>
                 <n-divider>界面功能</n-divider>
+
+                <n-space align="center" justify="space-between">
+                  边框圆角
+                  <n-select
+                    v-model:value="appStore.borderRadius"
+                    class="w-10em"
+                    :consistent-menu-width="false"
+                    :options="borderRadiusOptions"
+                    :render-label="renderLabel"
+                    :render-tag="renderTag"
+                    @update:value="appStore.setBorderRadius"
+                  />
+                </n-space>
                 <n-space align="center" justify="space-between">
                   页面过渡
                   <n-select
