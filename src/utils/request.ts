@@ -81,10 +81,6 @@ const reqOnFulfilled = (config: InternalAxiosRequestConfig) => {
 
   return config;
 };
-const reqOnRejected = (error: AxiosError) => {
-  console.log(error);
-  Promise.reject(error).then(() => {});
-};
 
 // 响应拦截器处理
 const resOnFulfilled = (response: AxiosResponse) => {
@@ -103,10 +99,11 @@ const resOnFulfilled = (response: AxiosResponse) => {
 };
 
 // 请求拦截器
-service.interceptors.request.use(reqOnFulfilled, reqOnRejected);
+service.interceptors.request.use(reqOnFulfilled, (error: AxiosError) => {
+  Promise.reject(error).then(() => {});
+});
 // 响应拦截器
 service.interceptors.response.use(resOnFulfilled, async (error) => {
-  console.error("request error", error);
   const { config, response } = error;
 
   if (response) {
@@ -194,16 +191,14 @@ async function handleTokenRefresh(config: InternalAxiosRequestConfig) {
           // 刷新 Token 失败，跳转登录页
           await handleSessionExpired();
         })
-        .finally(() => {
-          isRefreshing = false;
-        });
+        .finally(() => (isRefreshing = false));
     }
   });
 }
 // 处理会话过期
 async function handleSessionExpired() {
-  InquiryBox("您的会话已过期，请重新登录", "warning").then(async () => {
-    await useAuthStoreHook().clearSessionAndCache();
-    router.push("/login");
+  InquiryBox("您的会话已过期，请重新登录").then(async () => {
+    await useAuthStoreHook().resetAuthStore();
+    router.replace("/login");
   });
 }

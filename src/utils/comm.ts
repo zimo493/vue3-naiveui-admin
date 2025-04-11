@@ -51,3 +51,19 @@ export const InquiryBox = (
     });
   });
 };
+
+// 小于10前面补0
+export const zeroFill = (num: number): string => (num < 10 ? "0" + num : num.toString());
+
+export const checkNumber = (value: number, minLimit: number, maxLimit: number): number => {
+  // 添加参数有效性检查
+  if (minLimit > maxLimit) {
+    throw new Error("minLimit must be less than or equal to maxLimit");
+  }
+
+  // 使用条件运算符简化代码
+  value = Math.floor(value);
+  value = value < minLimit ? minLimit : value > maxLimit ? maxLimit : value;
+
+  return value;
+};
