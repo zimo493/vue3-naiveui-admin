@@ -20,7 +20,7 @@
             <DarkModeSwitch />
             <!-- <LangsSwitch /> -->
             <Setting />
-            <!-- <UserCenter /> -->
+            <UserCenter />
           </div>
         </div>
         <TabBar v-if="appStore.showTabs" class="h-40px" />
@@ -56,9 +56,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useAppStore, useRouteStore } from "@/store";
-// import UserCenter from "@/layout/components/header/UserCenter";
+import { useAppStoreHook, useRouteStoreHook } from "@/store";
+import UserCenter from "@/layout/components/header/UserCenter";
 
-const routeStore = useRouteStore();
-const appStore = useAppStore();
+const routeStore = useRouteStoreHook();
+const appStore = useAppStoreHook();
 </script>

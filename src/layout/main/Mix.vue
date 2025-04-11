@@ -49,7 +49,7 @@
             <DarkModeSwitch />
             <!-- <LangsSwitch /> -->
             <Setting />
-            <!-- <UserCenter /> -->
+            <UserCenter />
           </div>
         </div>
         <TabBar v-if="appStore.showTabs" class="h-40px" />
@@ -86,12 +86,13 @@
 </template>
 <script lang="ts" setup>
 import type { MenuInst, MenuOption } from "naive-ui";
-import { useAppStore, useRouteStore } from "@/store";
+import { useAppStoreHook, useRouteStoreHook } from "@/store";
 import { isHttpUrl, renderIcon } from "@/utils";
 import { RouterLink } from "vue-router";
+import UserCenter from "@/layout/components/header/UserCenter";
 
-const routeStore = useRouteStore();
-const appStore = useAppStore();
+const routeStore = useRouteStoreHook();
+const appStore = useAppStoreHook();
 const pageRoute = useRoute();
 const router = useRouter();
 

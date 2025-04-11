@@ -1,11 +1,11 @@
 import type { DropdownOption } from "naive-ui";
 import { NAvatar, NEllipsis, NText, NDropdown, NEl } from "naive-ui";
-import { renderIcon } from "@/utils/icon";
 import { useAppStoreHook, useAuthStoreHook } from "@/store";
+import { InquiryBox, renderIcon } from "@/utils";
+
 import IconGithub from "~icons/icon-park-outline/github";
 import IconUser from "~icons/icon-park-outline/user";
 import IconLogout from "~icons/icon-park-outline/logout";
-import { InquiryBox } from "@/utils";
 
 export default defineComponent({
   name: "UserDropdown",
@@ -38,7 +38,7 @@ export default defineComponent({
           <NText depth={2}>{userInfo.nickname}</NText>
           <NEllipsis style="max-width: 140px">
             <NText depth={3} class="text-12px">
-              毫无疑问，你是办公室最亮的星！
+              毫无疑问，你就是办公室最亮的星！
             </NText>
           </NEllipsis>
         </NEl>
