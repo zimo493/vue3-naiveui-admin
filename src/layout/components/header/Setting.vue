@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import LayoutSelector from '../common/LayoutSelector.vue'
+import { LayoutMode, ThemeMode } from "@/enums";
 import { useAppStoreHook } from "@/store";
 
 const appStore = useAppStoreHook();
@@ -54,7 +54,9 @@ const resetSetting = () => {
   });
 };
 
-const setSiderWidth = computed(() => ["leftMenu", "mixMenu"].includes(appStore.layoutMode));
+const setSiderWidth = computed(() =>
+  [LayoutMode.LEFT, LayoutMode.MIX].includes(appStore.layoutMode)
+);
 </script>
 
 <template>
@@ -78,13 +80,13 @@ const setSiderWidth = computed(() => ["leftMenu", "mixMenu"].includes(appStore.l
                       animated
                       @update:value="appStore.setColorMode"
                     >
-                      <n-tab name="light">
+                      <n-tab :name="ThemeMode.LIGHT">
                         <icon-park-outline-sun-one />
                       </n-tab>
-                      <n-tab name="dark">
+                      <n-tab :name="ThemeMode.DARK">
                         <icon-park-outline-moon />
                       </n-tab>
-                      <n-tab name="auto">
+                      <n-tab :name="ThemeMode.AUTO">
                         <icon-park-outline-laptop-computer />
                       </n-tab>
                     </n-tabs>

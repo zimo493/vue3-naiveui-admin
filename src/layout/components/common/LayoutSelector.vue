@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const value = defineModel<Status.LayoutMode>("value", { required: true });
+import { LayoutMode } from "@/enums";
+
+const value = defineModel<LayoutMode>("value", { required: true });
 </script>
 
 <template>
@@ -7,9 +9,9 @@ const value = defineModel<Status.LayoutMode>("value", { required: true });
     <n-tooltip trigger="hover">
       <template #trigger>
         <n-el
-          :class="{ 'outline outline-2': value === 'leftMenu' }"
+          :class="{ 'outline outline-2': value === LayoutMode.LEFT }"
           class="grid grid-cols-[20%_1fr] outline-[var(--primary-color)] hover:(outline outline-2)"
-          @click="value = 'leftMenu'"
+          @click="value = LayoutMode.LEFT"
         >
           <div class="bg-[var(--primary-color)]" />
           <div class="bg-[var(--divider-color)]" />
@@ -21,9 +23,9 @@ const value = defineModel<Status.LayoutMode>("value", { required: true });
     <n-tooltip trigger="hover">
       <template #trigger>
         <n-el
-          :class="{ 'outline outline-2': value === 'topMenu' }"
+          :class="{ 'outline outline-2': value === LayoutMode.TOP }"
           class="grid grid-rows-[25%_1fr] outline-[var(--primary-color)] hover:(outline outline-2)"
-          @click="value = 'topMenu'"
+          @click="value = LayoutMode.TOP"
         >
           <div class="bg-[var(--primary-color)]" />
           <div class="bg-[var(--divider-color)]" />
@@ -35,9 +37,9 @@ const value = defineModel<Status.LayoutMode>("value", { required: true });
     <n-tooltip trigger="hover">
       <template #trigger>
         <n-el
-          :class="{ 'outline outline-2': value === 'mixMenu' }"
+          :class="{ 'outline outline-2': value === LayoutMode.MIX }"
           class="grid grid-cols-[20%_1fr] grid-rows-[20%_1fr] outline-[var(--primary-color)] hover:(outline outline-2) cursor-pointer"
-          @click="value = 'mixMenu'"
+          @click="value = LayoutMode.MIX"
         >
           <div class="bg-[var(--primary-color)] row-span-2" />
           <div class="bg-[var(--primary-color)]" />

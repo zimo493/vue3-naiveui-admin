@@ -1,6 +1,7 @@
 import { colord } from "colord";
 import { set } from "radash";
 import { store as pinia } from "@/store";
+import { LayoutMode, ThemeMode } from "@/enums";
 import theme, { primaryColor, infoColor, successColor, warningColor, errorColor } from "./theme";
 
 const docEle = ref(document.documentElement);
@@ -36,7 +37,7 @@ export const useAppStore = defineStore("app-store", {
       showBreadcrumbIcon: true,
       showWatermark: false,
       transitionAnimation: "fade-slide",
-      layoutMode: "leftMenu",
+      layoutMode: LayoutMode.LEFT,
       contentFullScreen: false,
       sideWidth: 200,
       sideCollapsedWidth: 50,
@@ -45,7 +46,7 @@ export const useAppStore = defineStore("app-store", {
   },
   getters: {
     storeColorMode: () => store.value,
-    colorMode: () => (store.value === "auto" ? system.value : store.value),
+    colorMode: () => (store.value === ThemeMode.AUTO ? system.value : store.value),
     fullScreen: () => isFullscreen.value,
   },
   actions: {
@@ -71,7 +72,7 @@ export const useAppStore = defineStore("app-store", {
       this.showBreadcrumbIcon = true;
       this.showWatermark = false;
       this.transitionAnimation = "fade-slide";
-      this.layoutMode = "leftMenu";
+      this.layoutMode = LayoutMode.LEFT;
       this.contentFullScreen = false;
       this.sideWidth = 200;
       this.sideCollapsedWidth = 50;
@@ -122,7 +123,7 @@ export const useAppStore = defineStore("app-store", {
       this.infoColor = checked ? this.primaryColor : infoColor;
       this.setInfoColor();
     },
-    setColorMode(mode: "light" | "dark" | "auto") {
+    setColorMode(mode: ThemeMode) {
       store.value = mode;
     },
     /* 切换侧边栏收缩 */

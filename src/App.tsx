@@ -11,6 +11,7 @@ import { RouterView } from "vue-router";
 import { useAppStoreHook } from "@/store";
 import NaiveProvider from "@/components/common/NaiveProvider.vue";
 import Watermark from "@/components/common/Watermark.vue";
+import { ThemeMode } from "./enums";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("java", java);
@@ -31,7 +32,7 @@ export default defineComponent({
       <NConfigProvider
         class="wh-full"
         inlineThemeDisabled
-        theme={appStore.colorMode === "dark" ? darkTheme : null}
+        theme={appStore.colorMode === ThemeMode.DARK ? darkTheme : null}
         locale={zhCN}
         date-locale={dateZhCN}
         themeOverrides={appStore.theme}
