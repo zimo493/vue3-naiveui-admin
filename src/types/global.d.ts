@@ -55,3 +55,29 @@ interface DrawerModal {
   title: string; // 标题
   visible: boolean; // 是否显示
 }
+
+/**
+ * 下拉选项数据类型
+ */
+interface OptionType {
+  /** 值 */
+  value: string | number;
+  /** 文本 */
+  label: string;
+  /** 子列表  */
+  children?: OptionType[];
+}
+
+/**
+ * 导入结果
+ */
+interface ExcelResult {
+  /** 状态码 */
+  code: string;
+  /** 无效数据条数 */
+  invalidCount: number;
+  /** 有效数据条数 */
+  validCount: number;
+  /** 错误信息 */
+  messageList: Array<string>;
+}

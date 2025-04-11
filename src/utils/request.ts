@@ -117,6 +117,10 @@ service.interceptors.response.use(resOnFulfilled, async (error) => {
       await handleSessionExpired();
 
       return Promise.reject(new Error(msg || "Error"));
+    } else if (code === ResultEnum.ERROR) {
+      window.$message.error(msg);
+
+      return Promise.reject(new Error(msg || "Error"));
     } else {
       let { message } = error;
 
