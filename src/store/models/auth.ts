@@ -1,4 +1,4 @@
-import { store, useRouteStoreHook, useTabStoreHook } from "@/store";
+import { store, useDictStoreHook, useRouteStoreHook, useTabStoreHook } from "@/store";
 import { local, session } from "@/utils";
 
 import AuthAPI from "@/api/auth";
@@ -98,21 +98,24 @@ export const useAuthStore = defineStore("auth-store", {
      * 清除用户会话和缓存
      */
     async resetAuthStore() {
-      const route = unref(router.currentRoute);
+      const routeStore = useRouteStoreHook();
+      const tabStore = useTabStoreHook();
+      const dictStore = useDictStoreHook();
+
+      // 清空路由
+      routeStore.resetRouteStore();
+      // 清空标签
+      tabStore.clearAllTabs();
+      // 清空字典
+      dictStore.cleanDict();
 
       // 清除本地缓存
       local.clear();
       session.clear();
 
-      const routeStore = useRouteStoreHook();
-
-      routeStore.resetRouteStore();
-
-      const tabStore = useTabStoreHook();
-
-      tabStore.clearAllTabs();
       // 重制当前存储库
       this.$reset();
+      const route = unref(router.currentRoute);
 
       // 重定向到登录页
       await router.replace({

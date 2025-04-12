@@ -6,5 +6,6 @@ export * from "./storage";
 export * from "./request";
 export * from "./icon";
 export * from "./is";
+export * from "./router";
 
 export default request;

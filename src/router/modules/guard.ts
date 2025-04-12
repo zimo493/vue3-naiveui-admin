@@ -9,7 +9,7 @@ export const setupRouterGuard = (router: Router) => {
   const routeStore = useRouteStoreHook();
   const tabStore = useTabStoreHook();
 
-  router.beforeEach(async (to, from, next) => {
+  router.beforeEach(async (to, _, next) => {
     // 开始 loadingBar
     if (appStore.showProgress) {
       window.$loadingBar?.start();

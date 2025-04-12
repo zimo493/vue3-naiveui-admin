@@ -117,7 +117,9 @@ export function isNullOrUnDef(val: unknown): val is null | undefined {
   return isUnDef(val) || isNull(val);
 }
 
-export function isHttpUrl(url: string) {
+export function isHttpUrl(url?: string) {
+  if (!url) return false;
+
   // 检查字符串是否以'http://'或'https://'开头
   return url.startsWith("http://") || url.startsWith("https://");
 }

@@ -61,6 +61,7 @@ export const useDictStore = defineStore("dict-store", {
     // 清空字典
     cleanDict() {
       this.dict = [];
+      this.$reset();
     },
     // 初始字典
     initDict() {

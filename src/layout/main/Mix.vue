@@ -110,15 +110,12 @@ const topMenu = ref<MenuOption[]>([]);
 const activeTopMenu = ref<string>("");
 const handleTopMenu = (menu: MenuOption[]) => {
   topMenu.value = menu.map((item) => {
-    console.log(item.label);
-
     return {
       icon: item.icon,
       label: item.label,
       key: item.key,
     };
   });
-  // console.log(topMenu.value, "topMenu.value");
 };
 
 onMounted(() => {
