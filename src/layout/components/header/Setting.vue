@@ -24,10 +24,10 @@ const transitionSelectorOptions = ref<Status.TransitionSelectorOptions[]>([
 
 const borderRadiusOptions = ref([
   { label: "无圆角", value: "0px" },
-  { label: "较小", value: "2px" },
+  { label: "小型", value: "2px" },
   { label: "默认", value: "4px" },
-  { label: "较大", value: "6px" },
-  { label: "很大", value: "8px" },
+  { label: "大型", value: "6px" },
+  { label: "圆润", value: "8px" },
 ]);
 
 const palette = [
