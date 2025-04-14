@@ -1,0 +1,223 @@
+<template>
+  <div>
+    <SearchTable
+      :showTable="expandAll.show"
+      :formConfig="formConfig"
+      :modelValue="query"
+      :columns="columns"
+      :tableData="tableData"
+      :loading="loading"
+      :default-expand-all="expandAll.isExpandAll"
+      :rowKey="(row: Dept.VO) => row.id"
+      @update:checked-row-keys="handleCheck"
+      @search="handleQuery"
+      @reset="handleQuery"
+    >
+      <template #controls>
+        <n-button type="primary" @click="openDrawer()">
+          <template #icon>
+            <icon-park-outline-plus />
+          </template>
+          新增
+        </n-button>
+        <n-button type="error" :disabled="!selectedRowKeys.length" @click="handleDelete()">
+          <template #icon>
+            <icon-park-outline-delete-themes />
+          </template>
+          删除
+        </n-button>
+        <n-button type="info" @click="handleExpandAll()">
+          <template #icon>
+            <Icones :icon="expandAll.isExpandAll ? up : down" />
+          </template>
+          {{ expandAll.isExpandAll ? "收起" : "展开" }}
+        </n-button>
+      </template>
+    </SearchTable>
+    <!-- 新增、编辑 -->
+    <DrawerForm
+      ref="drawerFormRef"
+      :form-config="editConfig"
+      :model-value="modelValue"
+      :width="580"
+      @submit="submitForm"
+    >
+      <template #parentId>
+        <n-tree-select
+          v-model:value="modelValue.parentId"
+          :options="deptOptions"
+          key-field="value"
+          label-field="label"
+        />
+      </template>
+    </DrawerForm>
+  </div>
+</template>
+<script lang="tsx">
+export default { name: "Dept" };
+</script>
+<script setup lang="tsx">
+import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "naive-ui";
+import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
+import { type DrawerFormInst } from "@/types/inst";
+
+import DeptAPI from "@/api/system/dept";
+
+import { useLoading } from "@/hooks";
+import { InquiryBox } from "@/utils";
+
+import CommonStatus from "@/components/common/CommonStatus.vue";
+
+const up = "ant-design:caret-up-filled";
+const down = "ant-design:caret-down-filled";
+
+// 定义表单的初始值
+const query = ref<Dept.Query>({});
+
+const tableData = ref<Dept.VO[]>([]);
+const deptOptions = ref<OptionType[]>([]);
+
+const { loading, startLoading, endLoading } = useLoading();
+
+onMounted(async () => {
+  handleQuery();
+  // 加载部门下拉数据
+  const data = await DeptAPI.getOptions();
+
+  deptOptions.value = [{ value: "0", label: "顶级部门", children: data }];
+});
+/** 查询方法 */
+const handleQuery = () => {
+  startLoading();
+  DeptAPI.getList(query.value)
+    .then(async (data) => {
+      tableData.value = data;
+      await handleExpandAll(true); // 接口调用之后展开所有
+    })
+    .finally(() => endLoading());
+};
+// 展开\收起
+const expandAll = ref<TableExpand>({
+  isExpandAll: false,
+  show: true,
+});
+const handleExpandAll = async (bool?: boolean) => {
+  expandAll.value.isExpandAll = bool ?? !expandAll.value.isExpandAll;
+  expandAll.value.show = false;
+  await nextTick();
+  expandAll.value.show = true;
+};
+
+const formConfig = ref<FormOption<Dept.Query>>({
+  fields: [{ field: "keywords", label: "角色名称", type: FormItemType.Input }],
+});
+
+const columns = ref<DataTableColumns<Dept.VO>>([
+  { type: "selection", options: ["all", "none"] },
+  { title: "部门名称", key: "name" },
+  { title: "部门编号", key: "code", align: "center" },
+  {
+    title: "状态",
+    key: "status",
+    align: "center",
+    render: ({ status }) => <CommonStatus value={status} />,
+  },
+  { title: "排序", key: "sort", align: "center", sorter: "default" },
+  { title: "创建时间", key: "createTime", align: "center", width: 180 },
+  {
+    title: "操作",
+    key: "action",
+    align: "center",
+    width: 200,
+    render: (row) => {
+      return (
+        <NSpace justify="center">
+          <NButton text type="primary" onClick={() => openDrawer(row.id)}>
+            新增
+          </NButton>
+          <NButton text type="info" onClick={() => handleEdit(row)}>
+            编辑
+          </NButton>
+          <NButton text type="error" onClick={() => handleDelete(row.id)}>
+            删除
+          </NButton>
+        </NSpace>
+      );
+    },
+  },
+]);
+
+const editConfig = ref<FormOption<Dept.Form>>({
+  fields: [
+    { field: "parentId", label: "上级部门", slotName: "parentId" },
+    { field: "name", label: "部门名称", type: FormItemType.Input },
+    { field: "code", label: "部门编号", type: FormItemType.Input },
+
+    {
+      field: "status",
+      label: "状态",
+      type: FormItemType.Radio,
+      options: [
+        { label: "正常", value: 1 },
+        { label: "停用", value: 0 },
+      ],
+    },
+    { field: "sort", label: "排序", type: FormItemType.Number },
+  ],
+  labelWidth: 80,
+  rules: {
+    name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
+    code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
+    dataScope: [{ required: true, type: "number", message: "请选择数据权限", trigger: "change" }],
+    status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+  },
+});
+/** 初始化表单 */
+const modelValue = ref<Dept.Form>({
+  status: 1,
+  parentId: "0",
+  sort: 1,
+});
+/** 新增、编辑 */
+const drawerFormRef = ref<DrawerFormInst>();
+const openDrawer = (deptId?: string) => {
+  if (deptId) {
+    modelValue.value.parentId = deptId;
+  }
+  drawerFormRef.value?.open("新增部门", modelValue.value);
+};
+
+const handleEdit = ({ id }: Dept.VO) => {
+  drawerFormRef.value?.startLoading();
+  DeptAPI.getFormData(id).then((data) => {
+    Object.assign(modelValue.value, data);
+    drawerFormRef.value?.hideLoading();
+  });
+  drawerFormRef.value?.open("编辑部门", modelValue.value);
+};
+
+/** 表单提交 */
+const submitForm = async (val: Dept.Form) => {
+  console.log(val, "表单提交");
+  val.id ? await DeptAPI.update(val.id, val) : await DeptAPI.create(val);
+  window.$message.success("操作成功");
+  drawerFormRef.value?.close();
+  handleQuery();
+};
+
+/** 选中行 */
+const selectedRowKeys = ref<string[]>([]);
+const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys as string[]);
+
+// 删除部门
+const handleDelete = (deptId?: string) => {
+  const deptIds = [deptId || selectedRowKeys.value].join(",");
+
+  InquiryBox("确认删除已选中的数据项?").then(() => {
+    DeptAPI.deleteByIds(deptIds).then(() => {
+      window.$message.success("删除成功");
+      handleQuery();
+    });
+  });
+};
+</script>

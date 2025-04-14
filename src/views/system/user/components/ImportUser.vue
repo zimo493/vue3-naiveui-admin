@@ -37,7 +37,7 @@
         <div style="margin-bottom: 12px">
           <Icones icon="ep:upload-filled" :size="56" />
         </div>
-        <n-text style="font-size: 16px">点击或者拖动文件到该区域来上传</n-text>
+        <n-text style="font-size: 16px">点击此处或者拖动文件到该区域上传</n-text>
         <n-p depth="3" style="margin: 8px 0 0">请不要上传敏感数据，以免造成不必要的损失。</n-p>
       </n-upload-dragger>
     </n-upload>

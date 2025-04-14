@@ -358,7 +358,7 @@ const editConfig = ref<FormOption<User.Form>>({
     {
       field: "status",
       label: "状态",
-      type: FormItemType.Select,
+      type: FormItemType.Radio,
       options: [
         { label: "正常", value: 1 },
         { label: "禁用", value: 0 },
@@ -369,7 +369,7 @@ const editConfig = ref<FormOption<User.Form>>({
   rules: {
     username: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
     nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-    deptId: [{ required: true, message: "所属部门不能为空", trigger: "blur" }],
+    deptId: [{ required: true, type: "number", message: "所属部门不能为空", trigger: "blur" }],
     roleIds: [{ required: true, type: "array", message: "用户角色不能为空", trigger: "blur" }],
     email: [
       {
@@ -388,7 +388,9 @@ const editConfig = ref<FormOption<User.Form>>({
   },
 });
 /** 初始化表单 */
-const modelValue = ref<User.Form>({});
+const modelValue = ref<User.Form>({
+  status: 1,
+});
 /** 新增、编辑 */
 const drawerFormRef = ref<DrawerFormInst>();
 const openDrawer = (row?: User.VO) => {
@@ -398,9 +400,7 @@ const openDrawer = (row?: User.VO) => {
     drawerFormRef.value?.startLoading();
     UserAPI.getFormData(row.id)
       .then((data) => {
-        modelValue.value = {
-          ...data,
-        };
+        modelValue.value = { ...data };
       })
       .finally(() => drawerFormRef.value?.hideLoading());
   }
