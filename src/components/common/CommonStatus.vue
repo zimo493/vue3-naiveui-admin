@@ -8,10 +8,16 @@ export default defineComponent({
     round: { type: Boolean, default: false },
     bordered: { type: Boolean, default: false },
   },
-  setup({ value, round, bordered }) {
+  setup(props) {
+    const { value, round, bordered } = toRefs(props);
+
     return () => (
-      <NTag bordered={bordered} round={round} type={value === 1 ? "success" : "error"}>
-        {value === 1 ? "正常" : "禁用"}
+      <NTag
+        bordered={bordered.value}
+        round={round.value}
+        type={value.value === 1 ? "success" : "error"}
+      >
+        {value.value === 1 ? "正常" : "禁用"}
       </NTag>
     );
   },

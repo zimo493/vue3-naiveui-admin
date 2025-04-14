@@ -1,5 +1,6 @@
 <script lang="tsx">
 import { NSpace, NTag, type TagProps } from "naive-ui";
+import { toRefs } from "vue";
 
 export default defineComponent({
   name: "DictTag",
@@ -18,17 +19,20 @@ export default defineComponent({
     // 如果传递的不是数组类型，则使用分隔符进行分割，默认为 ,
     separator: { type: String, default: "," },
   },
-  setup({ options, value, round, bordered, separator }) {
+  setup(props) {
+    // 使用 toRefs 确保 props 的响应性
+    const { options, value, round, bordered, separator } = toRefs(props);
+
     // 将value转换为数组
     const valueArray = computed(() =>
-      Array.isArray(value) ? value : value.toString().split(separator)
+      Array.isArray(value.value) ? value.value : value.value.toString().split(separator.value)
     );
 
     // 获取有效的选项
     const displayedOptions = computed(() =>
       valueArray.value.map((item) => {
         const valueStr = item.toString();
-        const option = options.find((opt) => opt.value === valueStr);
+        const option = options.value.find((opt) => opt.value === valueStr);
 
         return option || { value: valueStr, label: valueStr, tagType: undefined };
       })
@@ -47,8 +51,8 @@ export default defineComponent({
           <NTag
             key={option.value}
             type={getTagType(option.tagType)}
-            round={round}
-            bordered={bordered}
+            round={round.value}
+            bordered={bordered.value}
           >
             {option.label}
           </NTag>
