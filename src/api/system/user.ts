@@ -31,7 +31,7 @@ export default {
    *
    * @param data 用户表单数据
    */
-  create: (data: User.Form) => post<string>(`${USER_BASE_URL}`, data),
+  create: (data: User.Form) => post(`${USER_BASE_URL}`, data),
 
   /**
    * 修改用户
@@ -39,7 +39,7 @@ export default {
    * @param id 用户ID
    * @param data 用户表单数据
    */
-  update: (id: string, data: User.Form) => put<string>(`${USER_BASE_URL}/${id}`, data),
+  update: (id: string, data: User.Form) => put(`${USER_BASE_URL}/${id}`, data),
 
   /**
    * 修改用户密码
@@ -48,14 +48,14 @@ export default {
    * @param password 新密码
    */
   resetPassword: (id: string, password: string) =>
-    put<string>(`${USER_BASE_URL}/${id}/password/reset`, null, { password }),
+    put(`${USER_BASE_URL}/${id}/password/reset`, null, { password }),
 
   /**
    * 批量删除用户，多个以英文逗号(,)分割
    *
    * @param ids 用户ID字符串，多个以英文逗号(,)分割
    */
-  deleteByIds: (ids: string) => del<string>(`${USER_BASE_URL}/${ids}`),
+  deleteByIds: (ids: string) => del(`${USER_BASE_URL}/${ids}`),
 
   /** 下载用户导入模板 */
   downloadTemplate: () =>
@@ -104,22 +104,22 @@ export default {
   getProfile: () => get<User.ProfileVO>(`${USER_BASE_URL}/profile`),
 
   /** 修改个人中心用户信息 */
-  updateProfile: (data: User.ProfileForm) => put<string>(`${USER_BASE_URL}/profile`, data),
+  updateProfile: (data: User.ProfileForm) => put(`${USER_BASE_URL}/profile`, data),
 
   /** 修改个人中心用户密码 */
-  changePassword: (data: User.PasswordChangeForm) => put<string>(`${USER_BASE_URL}/password`, data),
+  changePassword: (data: User.PasswordChangeForm) => put(`${USER_BASE_URL}/password`, data),
 
   /** 发送短信验证码（绑定或更换手机号）*/
   sendMobileCode: (mobile: string) => post(`${USER_BASE_URL}/mobile/code`, null, { mobile }),
 
   /** 绑定或更换手机号 */
-  bindOrChangeMobile: (data: User.MobileUpdateForm) => put<string>(`${USER_BASE_URL}/mobile`, data),
+  bindOrChangeMobile: (data: User.MobileUpdateForm) => put(`${USER_BASE_URL}/mobile`, data),
 
   /** 发送邮箱验证码（绑定或更换邮箱）*/
-  sendEmailCode: (email: string) => post<string>(`${USER_BASE_URL}/email/code`, null, { email }),
+  sendEmailCode: (email: string) => post(`${USER_BASE_URL}/email/code`, null, { email }),
 
   /** 绑定或更换邮箱 */
-  bindOrChangeEmail: (data: User.EmailUpdateForm) => put<string>(`${USER_BASE_URL}/email`, data),
+  bindOrChangeEmail: (data: User.EmailUpdateForm) => put(`${USER_BASE_URL}/email`, data),
 
   /**
    *  获取用户下拉列表

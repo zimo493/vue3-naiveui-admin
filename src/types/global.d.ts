@@ -50,6 +50,13 @@ interface Session {
   };
 }
 
+// 表格展开、收起
+interface TableExpand {
+  isExpandAll: boolean; // 全部展开
+  show: boolean; // 是否显示 用于切换展开\收起
+  expandedRowKeys?: Array<number | string>; // 默认展开的行
+}
+
 // 抽屉表单
 interface DrawerModal {
   title: string; // 标题

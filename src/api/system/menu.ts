@@ -11,4 +11,20 @@ export default {
    * @returns 路由列表
    */
   getRoutes: () => get<AppRoute.RouteVO[]>(`${MENU_BASE_URL}/routes`),
+
+  /**
+   * 获取菜单下拉数据源
+   *
+   * @returns 菜单下拉数据源
+   */
+  getOptions: (onlyParent?: boolean) =>
+    get<OptionType[]>(`${MENU_BASE_URL}/options`, { onlyParent }),
+
+  //   {
+  //   return request<any, OptionType[]>({
+  //     url: `${MENU_BASE_URL}/options`,
+  //     method: "get",
+  //     params: { onlyParent: onlyParent },
+  //   });
+  // },
 };

@@ -33,5 +33,5 @@ export default {
   getCaptcha: () => get<Auth.CaptchaInfo>(`${AUTH_BASE_URL}/captcha`),
 
   /** 注销登录接口 */
-  logout: () => del<string>(`${AUTH_BASE_URL}/logout`),
+  logout: () => del(`${AUTH_BASE_URL}/logout`),
 };
