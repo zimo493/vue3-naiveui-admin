@@ -254,7 +254,7 @@ const fields = computed(() =>
         item.options = dict[item.dict].value.map((i) => {
           return {
             label: i.label,
-            value: i.value,
+            value: +i.value,
           };
         });
 

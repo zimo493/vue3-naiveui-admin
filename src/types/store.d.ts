@@ -47,7 +47,7 @@ declare namespace Status {
     value: TransitionAnimation;
   }
 
-  interface SiderTriggerOptipns {
+  interface SideBarTriggerOptions {
     label: string;
     value: "bar" | "arrow-circle";
   }

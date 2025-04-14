@@ -42,6 +42,11 @@ const messagePositions = ref([
   { label: "右下", value: "bottom-right" },
 ]);
 
+const sideBarShowTrigger = ref<Status.SideBarTriggerOptions[]>([
+  { label: "条状", value: "bar" },
+  { label: "圆形箭头", value: "arrow-circle" },
+]);
+
 const palette = [
   "#ffb8b8",
   "#d03050",
@@ -61,7 +66,7 @@ const palette = [
   "#4b4b4b",
 ];
 
-// const { siderWidth,side } = storeToRefs(appStore);
+// const { sideBarWidth,side } = storeToRefs(appStore);
 
 const resetSetting = () => {
   window.$dialog.warning({
@@ -76,9 +81,7 @@ const resetSetting = () => {
   });
 };
 
-const setSiderWidth = computed(() =>
-  [LayoutMode.LEFT, LayoutMode.MIX].includes(appStore.layoutMode)
-);
+const setSideBar = computed(() => [LayoutMode.LEFT, LayoutMode.MIX].includes(appStore.layoutMode));
 
 // 渲染圆角大小选项标签
 const renderLabel = ({ label, value }: SelectOption): VNodeChild => (
@@ -230,7 +233,15 @@ const renderTag = ({ option }: { option: SelectOption }): VNodeChild => (
                   />
                 </n-space>
 
-                <template v-if="setSiderWidth">
+                <template v-if="setSideBar">
+                  <n-space align="center" justify="space-between">
+                    侧边栏触发样式
+                    <n-select
+                      v-model:value="appStore.siderTrigger"
+                      class="w-10em"
+                      :options="sideBarShowTrigger"
+                    />
+                  </n-space>
                   <n-space align="center" justify="space-between">
                     侧边栏宽度
                     <n-input-number v-model:value="appStore.sideWidth" class="w-10em" :min="180" />
