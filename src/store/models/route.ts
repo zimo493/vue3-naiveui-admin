@@ -28,7 +28,9 @@ export const useRouteStore = defineStore("route-store", {
       const authStore = useAuthStoreHook();
 
       /** 先获取用户信息 */
-      await authStore.getUserInfo();
+      authStore.getUserInfo().catch(async () => {
+        await authStore.resetAuthStore();
+      });
 
       /** 获取动态路由 */
       const data = await MenuAPI.getRoutes();

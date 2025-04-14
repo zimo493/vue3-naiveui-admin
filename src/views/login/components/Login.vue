@@ -199,6 +199,8 @@ const handleLoginSubmit = async () => {
     console.log(redirect, "redirect");
 
     await router.push(redirect);
+
+    window.$message.success("登录成功");
   } catch (e) {
     console.log(e);
     getCaptcha();
