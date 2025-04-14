@@ -30,6 +30,7 @@ declare namespace Status {
     lang: App.lang;
     siderTrigger: "bar" | "arrow-circle";
     borderRadius: string;
+    placement: import("naive-ui").MessageProviderProps["placement"];
   }
   type TransitionAnimation =
     | ""

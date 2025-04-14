@@ -2,7 +2,7 @@
   <n-loading-bar-provider>
     <n-dialog-provider>
       <n-notification-provider>
-        <n-message-provider>
+        <n-message-provider :placement="appStore.placement">
           <slot />
           <NaiveProviderContent />
         </n-message-provider>
@@ -11,6 +11,9 @@
   </n-loading-bar-provider>
 </template>
 <script setup lang="ts">
+import { useAppStoreHook } from "@/store";
+
+const appStore = useAppStoreHook();
 // 挂载naive组件的方法至window, 以便在路由钩子函数和请求函数里面调用
 const registerNaiveTools = () => {
   window.$loadingBar = useLoadingBar();

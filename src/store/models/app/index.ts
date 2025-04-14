@@ -1,3 +1,4 @@
+import type { MessageProviderProps } from "naive-ui";
 import { colord } from "colord";
 import { set } from "radash";
 import { store as pinia } from "@/store";
@@ -43,6 +44,7 @@ export const useAppStore = defineStore("app-store", {
       sideWidth: 200,
       sideCollapsedWidth: 50,
       siderTrigger: "bar",
+      placement: "top",
     };
   },
   getters: {
@@ -79,6 +81,7 @@ export const useAppStore = defineStore("app-store", {
       this.sideWidth = 200;
       this.sideCollapsedWidth = 50;
       this.siderTrigger = "bar";
+      this.placement = "top";
 
       // 重置所有配色
       this.setPrimaryColor();
@@ -166,6 +169,11 @@ export const useAppStore = defineStore("app-store", {
     setBorderRadius(radius: string) {
       this.borderRadius = radius;
       set(this.theme, "common.borderRadius", radius);
+    },
+    /* 修改消息提示位置 */
+    setPlacement(position: MessageProviderProps["placement"]) {
+      this.placement = position;
+      window.$message.info("我会显示在这里哦😊");
     },
   },
   persist: {

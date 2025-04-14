@@ -11,6 +11,7 @@ const colorMode = ref(appStore.storeColorMode);
 const drawerActive = ref(false);
 const openSetting = () => (drawerActive.value = !drawerActive.value);
 
+// 页面过度动画
 const transitionSelectorOptions = ref<Status.TransitionSelectorOptions[]>([
   { label: "无过渡", value: "" },
   { label: "侧边淡出", value: "fade-slide" },
@@ -22,12 +23,23 @@ const transitionSelectorOptions = ref<Status.TransitionSelectorOptions[]>([
   { label: "渐变", value: "fade-gradient" },
 ]);
 
+// 边框圆角大小
 const borderRadiusOptions = ref([
   { label: "无圆角", value: "0px" },
   { label: "小型", value: "2px" },
   { label: "默认", value: "4px" },
   { label: "大型", value: "6px" },
   { label: "圆润", value: "8px" },
+]);
+
+// 消息提示位置
+const messagePositions = ref([
+  { label: "顶部", value: "top" },
+  { label: "底部", value: "bottom" },
+  { label: "左上", value: "top-left" },
+  { label: "右上", value: "top-right" },
+  { label: "左下", value: "bottom-left" },
+  { label: "右下", value: "bottom-right" },
 ]);
 
 const palette = [
@@ -186,9 +198,18 @@ const renderTag = ({ option }: { option: SelectOption }): VNodeChild => (
                   />
                 </n-space>
                 <n-divider>界面功能</n-divider>
+                <n-space align="center" justify="space-between">
+                  Message提示位置
+                  <n-select
+                    v-model:value="appStore.placement"
+                    class="w-10em"
+                    :options="messagePositions"
+                    @update:value="appStore.setPlacement"
+                  />
+                </n-space>
 
                 <n-space align="center" justify="space-between">
-                  边框圆角
+                  圆角大小
                   <n-select
                     v-model:value="appStore.borderRadius"
                     class="w-10em"
