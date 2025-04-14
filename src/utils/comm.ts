@@ -1,3 +1,5 @@
+import type { MIMETYPE } from "@/enums";
+
 /**
  * 参数处理
  * @param {*} params  参数
@@ -66,4 +68,20 @@ export const checkNumber = (value: number, minLimit: number, maxLimit: number): 
   value = value < minLimit ? minLimit : value > maxLimit ? maxLimit : value;
 
   return value;
+};
+
+export const exportFile = (fileData: BlobPart, fileType: MIMETYPE, fileName: string) => {
+  const blob = new Blob([fileData], { type: fileType });
+  const downloadUrl = window.URL.createObjectURL(blob);
+
+  const downloadLink = document.createElement("a");
+
+  downloadLink.href = downloadUrl;
+  downloadLink.download = fileName;
+
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+
+  document.body.removeChild(downloadLink);
+  window.URL.revokeObjectURL(downloadUrl);
 };
