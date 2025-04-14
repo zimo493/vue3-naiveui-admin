@@ -110,7 +110,6 @@ export const useRouteStore = defineStore("route-store", {
         .filter(
           (menu) =>
             menu.key !== undefined && // 过滤无效项
-            !menu.hidden && // 过滤隐藏项
             (menu.children?.length || menu.key) // 有效菜单需有key或子项
         ) as any;
     },

@@ -59,7 +59,12 @@ export const processRoute = (
 
   const currentPath = resolvePath(parentPath, route.path || "");
   const { meta = {}, children = [] } = route;
-  const { alwaysShow, title, icon, params } = meta;
+  const { alwaysShow, title, icon, params, hidden } = meta;
+
+  // 如果菜单项被标记为隐藏，则不显示在菜单中
+  if (hidden) {
+    return [];
+  }
 
   // 处理单子节点情况
   if (children.length === 1 && !alwaysShow) {
@@ -106,7 +111,6 @@ export const processRoute = (
 
   return [menuItem];
 };
-
 // 图标处理函数 没有图标时使用本地默认图标
 const getMenuIcon = (icon?: string) => (icon ? renderIcon(icon) : renderIcon(defaultIcon));
 
