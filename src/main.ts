@@ -3,9 +3,16 @@ import AppVue from "./App";
 import { installPinia } from "@/store";
 import { installRouter } from "@/router";
 
+import AppLoading from "./components/common/AppLoading.vue";
+
+// 载入全局loading加载状态
+const appLoading: App<Element> = createApp(AppLoading);
+
 const setupApp = () => {
   // 创建vue实例
   const app: App<Element> = createApp(AppVue);
+
+  appLoading.mount("#appLoading");
 
   /* 注册模块 指令/静态资源 */
   Object.values(
@@ -18,7 +25,9 @@ const setupApp = () => {
   installPinia(app);
 
   // 注册模块 VueRouter
-  installRouter(app).then(() => console.info("路由初始化完成"));
+  installRouter(app)
+    .then(() => console.info("路由初始化完成"))
+    .finally(() => appLoading.unmount());
 
   // 挂载
   app.mount("#app");
