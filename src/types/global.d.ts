@@ -39,6 +39,8 @@ interface Local {
   refreshToken: string;
   /* 语言 */
   lang: App.lang;
+  /* 菜单列表是否默认展开第一项 */
+  isExpandFirstMenu: boolean;
 }
 
 // SessionStorage
