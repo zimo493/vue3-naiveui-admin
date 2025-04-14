@@ -1,4 +1,5 @@
 import request, { del, get, post, put } from "@/utils";
+import type { AxiosProgressEvent } from "axios";
 
 const USER_BASE_URL = "/api/v1/users";
 
@@ -82,8 +83,9 @@ export default {
    *
    * @param deptId 部门ID
    * @param file 导入文件
+   * @param onUploadProgress 进度回调
    */
-  import(deptId: string, file: File) {
+  import(deptId: string, file: File, onUploadProgress?: (e: AxiosProgressEvent) => void) {
     const formData = new FormData();
 
     formData.append("file", file);
@@ -94,6 +96,7 @@ export default {
       params: { deptId },
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
+      onUploadProgress,
     });
   },
 
