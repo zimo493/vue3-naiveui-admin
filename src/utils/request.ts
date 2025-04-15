@@ -99,9 +99,7 @@ const resOnFulfilled = (response: AxiosResponse) => {
 };
 
 // 请求拦截器
-service.interceptors.request.use(reqOnFulfilled, (error: AxiosError) => {
-  Promise.reject(error).then(() => {});
-});
+service.interceptors.request.use(reqOnFulfilled, (error: AxiosError) => Promise.reject(error));
 // 响应拦截器
 service.interceptors.response.use(resOnFulfilled, async (error) => {
   const { config, response } = error;
@@ -121,18 +119,20 @@ service.interceptors.response.use(resOnFulfilled, async (error) => {
       window.$message.error(msg);
 
       return Promise.reject(new Error(msg || "Error"));
-    } else {
-      let { message } = error;
-
-      if (message == "Network Error") {
-        message = "后端接口连接异常";
-      } else if (message.includes("timeout")) {
-        message = "系统接口请求超时";
-      } else if (message.includes("Request failed with status code")) {
-        message = "系统接口" + message.substring(message.length - 3) + "异常";
-      }
-      window.$message.error(message, { duration: 5 * 1000 });
     }
+  } else {
+    let { message } = error;
+
+    if (message == "Network Error") {
+      message = "后端接口连接异常";
+    } else if (message.includes("timeout")) {
+      message = "系统接口请求超时";
+    } else if (message.includes("Request failed with status code")) {
+      message = "系统接口" + message.substring(message.length - 3) + "异常";
+    }
+    window.$message.error(message, { duration: 5 * 1000 });
+
+    return Promise.reject(new Error(message));
   }
 
   return Promise.reject(error.message);
