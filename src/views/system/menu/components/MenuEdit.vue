@@ -114,42 +114,27 @@
                   msg="组件页面使用 `useRoute().query.参数名` 获取路由参数值。"
                 />
               </template>
-              <n-space vertical>
-                <n-button
-                  tertiary
-                  type="success"
-                  @click="modelValue.params?.push({ key: '', value: '' })"
-                >
-                  <template #icon>
-                    <icon-park-outline-plus />
-                  </template>
-                  添加路由参数
-                </n-button>
-                <n-input-group v-for="item in modelValue.params">
-                  <n-grid x-gap="10">
-                    <n-gi :span="10">
-                      <n-input v-model:value="item.key" placeholder="参数名" />
-                    </n-gi>
-                    <n-gi :span="2"><div h-full flex-center>=</div></n-gi>
-                    <n-gi :span="10">
-                      <n-input v-model:value="item.value" placeholder="参数值" />
-                    </n-gi>
-                    <n-gi :span="2">
-                      <div h-full flex-center>
-                        <n-button
-                          type="error"
-                          text
-                          @click="modelValue.params?.splice(modelValue.params?.indexOf(item), 1)"
-                        >
-                          <template #icon>
-                            <icon-park-outline-delete-themes />
-                          </template>
-                        </n-button>
-                      </div>
-                    </n-gi>
-                  </n-grid>
-                </n-input-group>
-              </n-space>
+              <n-dynamic-input
+                v-model:value="modelValue.params"
+                preset="pair"
+                key-placeholder="参数名"
+                value-placeholder="参数值"
+              >
+                <template #action="{ index, create, remove }">
+                  <n-flex style="margin-left: 20px">
+                    <n-button type="success" text @click="() => create(index)">
+                      <template #icon>
+                        <icon-park-outline-add-one />
+                      </template>
+                    </n-button>
+                    <n-button type="error" text @click="() => remove(index)">
+                      <template #icon>
+                        <icon-park-outline-delete-themes />
+                      </template>
+                    </n-button>
+                  </n-flex>
+                </template>
+              </n-dynamic-input>
             </n-form-item-grid-item>
             <n-form-item-grid-item
               v-if="modelValue.type !== MenuTypeEnum.BUTTON"
@@ -380,6 +365,8 @@ function handleMenuTypeChange() {
 
 // 提交
 const handleSubmit = async () => {
+  console.log(modelValue.value, "表单提交");
+
   await ruleFormRef.value?.validate();
   const menuId = modelValue.value.id;
 

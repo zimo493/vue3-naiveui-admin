@@ -51,9 +51,7 @@ const generateLocalIconList = () => {
     return path;
   };
 
-  return mapEntries(localSvgList, (key, value) => {
-    return [getSvgName(key), value];
-  });
+  return mapEntries(localSvgList, (key, value) => [getSvgName(key), value]);
 };
 
 // 获取所有图标库数据
@@ -83,7 +81,6 @@ const LocalIconList = shallowRef({});
 onMounted(async () => {
   iconLists.value = await fetchIconAllList(nameList);
   LocalIconList.value = generateLocalIconList();
-  console.log(LocalIconList.value);
 });
 
 // 当前tab
