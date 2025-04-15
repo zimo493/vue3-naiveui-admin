@@ -18,6 +18,7 @@
                 :options="options"
               />
             </n-form-item-grid-item>
+
             <n-form-item-grid-item :span="24" :label="`${type}名称`" path="name">
               <n-input
                 v-model:value="modelValue.name"
@@ -26,6 +27,7 @@
                 :placeholder="`请输入${type}名称`"
               />
             </n-form-item-grid-item>
+
             <n-form-item-grid-item :span="24" label="菜单类型" path="type">
               <n-radio-group v-model:value="modelValue.type" @change="handleMenuTypeChange">
                 <n-space>
@@ -36,6 +38,7 @@
                 </n-space>
               </n-radio-group>
             </n-form-item-grid-item>
+
             <n-form-item-grid-item
               v-if="modelValue.type == MenuTypeEnum.EXTLINK"
               :span="24"
@@ -49,6 +52,7 @@
                 placeholder="请输入外链完整路径"
               />
             </n-form-item-grid-item>
+
             <n-form-item-grid-item
               v-if="modelValue.type == MenuTypeEnum.MENU"
               :span="24"
@@ -67,6 +71,7 @@
                 placeholder="请输入路由名称"
               />
             </n-form-item-grid-item>
+
             <n-form-item-grid-item
               v-if="modelValue.type == MenuTypeEnum.CATALOG || modelValue.type == MenuTypeEnum.MENU"
               :span="24"
@@ -107,6 +112,7 @@
                 <template #suffix>.vue</template>
               </n-input>
             </n-form-item-grid-item>
+
             <n-form-item-grid-item v-if="modelValue.type == MenuTypeEnum.MENU" :span="24">
               <template #label>
                 <FormTipLabel
@@ -136,17 +142,49 @@
                 </template>
               </n-dynamic-input>
             </n-form-item-grid-item>
+
+            <n-form-item-grid-item
+              v-if="modelValue.type !== MenuTypeEnum.BUTTON"
+              label="图标"
+              prop="icon"
+              :span="24"
+            >
+              <IconSelect v-model="modelValue.icon" />
+            </n-form-item-grid-item>
+
+            <n-form-item-grid-item label="排序" prop="sort" :span="24">
+              <n-input-number v-model:value="modelValue.sort" w-full :min="0" />
+            </n-form-item-grid-item>
+
+            <n-form-item-grid-item
+              v-if="modelValue.type == MenuTypeEnum.BUTTON"
+              label="权限标识"
+              prop="perm"
+              :span="24"
+            >
+              <n-input v-model:value="modelValue.perm" placeholder="sys:user:add" />
+            </n-form-item-grid-item>
+
+            <n-form-item-grid-item
+              v-if="modelValue.type == MenuTypeEnum.CATALOG"
+              label="跳转路由"
+              :span="24"
+            >
+              <n-input v-model:value="modelValue.redirect" placeholder="跳转路由" />
+            </n-form-item-grid-item>
+
             <n-form-item-grid-item
               v-if="modelValue.type !== MenuTypeEnum.BUTTON"
               prop="visible"
-              label="显示状态"
+              label="禁用状态"
               :span="24"
             >
               <n-radio-group v-model:value="modelValue.visible">
-                <n-radio :value="1" label="显示" />
-                <n-radio :value="0" label="隐藏" />
+                <n-radio :value="1" label="正常" />
+                <n-radio :value="0" label="禁用" />
               </n-radio-group>
             </n-form-item-grid-item>
+
             <n-form-item-grid-item
               v-if="
                 modelValue.type === MenuTypeEnum.CATALOG || modelValue.type === MenuTypeEnum.MENU
@@ -165,6 +203,7 @@
                 <n-radio :value="0" label="否" />
               </n-radio-group>
             </n-form-item-grid-item>
+
             <n-form-item-grid-item
               v-if="modelValue.type === MenuTypeEnum.MENU"
               label="页面缓存"
@@ -174,34 +213,6 @@
                 <n-radio :value="1" label="开启" />
                 <n-radio :value="0" label="关闭" />
               </n-radio-group>
-            </n-form-item-grid-item>
-            <n-form-item-grid-item label="排序" prop="sort" :span="24">
-              <n-input-number v-model:value="modelValue.sort" :min="0" />
-            </n-form-item-grid-item>
-            <n-form-item-grid-item
-              v-if="modelValue.type == MenuTypeEnum.BUTTON"
-              label="权限标识"
-              prop="perm"
-              :span="24"
-            >
-              <n-input v-model:value="modelValue.perm" placeholder="sys:user:add" />
-            </n-form-item-grid-item>
-
-            <n-form-item-grid-item
-              v-if="modelValue.type !== MenuTypeEnum.BUTTON"
-              label="图标"
-              prop="icon"
-              :span="24"
-            >
-              <IconSelect v-model="modelValue.icon" />
-            </n-form-item-grid-item>
-
-            <n-form-item-grid-item
-              v-if="modelValue.type == MenuTypeEnum.CATALOG"
-              label="跳转路由"
-              :span="24"
-            >
-              <n-input v-model:value="modelValue.redirect" placeholder="跳转路由" />
             </n-form-item-grid-item>
           </n-grid>
         </n-form>
@@ -393,8 +404,7 @@ const handleSubmit = async () => {
 
 // 取消
 const cancel = () => {
-  ruleFormRef.value?.restoreValidation();
-  modelValue.value = {
+  initialMenuFormData.value = {
     id: undefined,
     parentId: "0",
     visible: 1,
@@ -404,6 +414,8 @@ const cancel = () => {
     keepAlive: 1,
     params: [],
   };
+  ruleFormRef.value?.restoreValidation();
+
   modal.value = { title: "", visible: false };
 };
 </script>
