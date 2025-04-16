@@ -311,7 +311,7 @@ const editConfig = computed<FormOption<Notice.Form>>(() => {
     gutter: 30,
     rules: {
       title: [{ required: true, message: "请输入通知标题", trigger: "blur" }],
-      type: [{ required: true, message: "请选择通知类型", trigger: "change" }],
+      type: [{ required: true, type: "number", message: "请选择通知类型", trigger: "change" }],
       targetUserIds: [
         { required: true, type: "array", message: "请选择指定用户", trigger: "change" },
       ],
@@ -389,6 +389,7 @@ const viewConfig = ref<FormOption<Notice.DetailVO>>({
 });
 
 const viewDetail = async (id: string) => {
+  dialogViewRef.value?.startLoading();
   dialogViewRef.value?.open(`通知公告详情`, viewValue.value);
   try {
     viewValue.value = await NoticeAPI.getDetail(id);

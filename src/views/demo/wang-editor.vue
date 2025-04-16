@@ -8,6 +8,8 @@ const value = ref("初始化内容");
 <template>
   <n-space vertical>
     <WangEditor v-model="value" />
-    <n-input v-model:value="value" :autosize="{ minRows: 10 }" readonly type="textarea" />
+    <n-card>
+      <n-code :code="value" language="xml" word-wrap />
+    </n-card>
   </n-space>
 </template>

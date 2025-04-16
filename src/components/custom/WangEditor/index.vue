@@ -61,7 +61,7 @@ const editorRef = shallowRef(); // 编辑器实例，必须用 shallowRef
 const mode = ref("default"); // 编辑器模式
 
 // 新增：存储当前所有资源URL
-const resourceUrls = ref<Set<string>>(new Set());
+// const resourceUrls = ref<Set<string>>(new Set());
 
 // 工具条配置
 const toolbarConfig = ref({
@@ -146,16 +146,16 @@ const handleCreated = (editor: IDomEditor) => {
   extractResources();
 
   // 监听内容变化
-  editor.on("change", () => {
-    const newUrls = extractResources();
+  // editor.on("change", () => {
+  //   const newUrls = extractResources();
 
-    // 对比删除的资源
-    const removedUrls = [...resourceUrls.value].filter((url) => !newUrls.has(url));
+  //   // 对比删除的资源
+  //   const removedUrls = [...resourceUrls.value].filter((url) => !newUrls.has(url));
 
-    removedUrls.forEach(deleteResource);
+  //   removedUrls.forEach(deleteResource);
 
-    resourceUrls.value = newUrls;
-  });
+  //   resourceUrls.value = newUrls;
+  // });
 };
 
 // 提取图片和视频资源
@@ -180,11 +180,11 @@ const extractResources = (): Set<string> => {
 };
 
 // 删除资源方法
-const deleteResource = (url: string) => {
-  FileAPI.delete(url)
-    .then(() => window.$message.success("资源删除成功"))
-    .catch((err) => console.error("资源删除失败:", err));
-};
+// const deleteResource = (url: string) => {
+//   FileAPI.delete(url)
+//     .then(() => window.$message.success("资源删除成功"))
+//     .catch((err) => console.error("资源删除失败:", err));
+// };
 
 const handleChange = (editor: IDomEditor) => {
   modelValue.value = editor.getHtml();
