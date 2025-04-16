@@ -14,6 +14,7 @@
             <n-form-item-grid-item :span="24" label="上级菜单" path="parentId">
               <n-tree-select
                 v-model:value="modelValue.parentId"
+                filterable
                 placeholder="选择上级菜单"
                 :options="options"
               />
@@ -301,7 +302,7 @@ const transformTree = (node: Menu.VO[]): TreeSelectOption[] => {
   return node.map((item: Menu.VO) => ({
     key: item.id,
     label: item.name ?? "",
-    children: item.children && transformTree(item.children),
+    children: item.children && item.children.length > 0 ? transformTree(item.children) : undefined,
   }));
 };
 
