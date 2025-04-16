@@ -14,7 +14,7 @@
     :show-label="showLabel"
   >
     <n-grid
-      :x-gap="isLook ? 12 : useType === 'submit' ? 0 : gutter"
+      :x-gap="isLook ? 12 : useType === 'submit' ? (gutter ? gutter : 0) : gutter"
       :y-gap="isLook ? 12 : useType === 'submit' ? 0 : gutter"
     >
       <template v-for="item in fields" :key="item.field">
@@ -254,7 +254,7 @@ const fields = computed(() =>
         item.options = dict[item.dict].value.map((i) => {
           return {
             label: i.label,
-            value: +i.value,
+            value: isNaN(+i.value) ? i.value : +i.value,
           };
         });
 
