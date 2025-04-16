@@ -365,7 +365,7 @@ const editConfig = ref<FormOption<User.Form>>({
       ],
     },
   ],
-  labelWidth: 100,
+  labelWidth: 80,
   rules: {
     username: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
     nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
