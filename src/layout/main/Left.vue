@@ -33,7 +33,7 @@
           </div>
           <div class="flex-y-center gap-1 h-full p-x-10px">
             <!-- <LastLoginTime /> -->
-            <!-- <Search /> -->
+            <Search />
             <!-- <Notices /> -->
             <FullScreen />
             <DarkModeSwitch />

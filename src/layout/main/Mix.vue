@@ -43,7 +43,7 @@
             @update:value="updateTopMenu"
           />
           <div class="flex-y-center gap-1 h-full p-x-xl">
-            <!-- <Search /> -->
+            <Search />
             <!-- <Notices /> -->
             <FullScreen />
             <DarkModeSwitch />

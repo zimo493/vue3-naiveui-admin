@@ -14,7 +14,7 @@
           <Logo v-if="appStore.showLogo" />
           <Menu mode="horizontal" responsive />
           <div class="flex-y-center gap-1 h-full p-x-xl">
-            <!-- <Search /> -->
+            <Search />
             <!-- <Notices /> -->
             <FullScreen />
             <DarkModeSwitch />
