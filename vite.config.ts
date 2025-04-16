@@ -118,8 +118,8 @@ export default defineConfig(({ mode }) => {
         "echarts",
         "@vueuse/core",
         "@iconify/vue",
-        "@wangeditor/editor",
-        "@wangeditor/editor-for-vue",
+        "@wangeditor-next/editor",
+        "@wangeditor-next/editor-for-vue",
       ],
     },
     // 构建
