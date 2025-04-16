@@ -53,6 +53,7 @@
   cursor: not-allowed !important;
 }
 
+/* 暗黑模式下样式 */
 html.dark {
   --w-e-textarea-bg-color: #38383e;
   --w-e-textarea-color: #d6d6d6;
