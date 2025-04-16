@@ -4,7 +4,7 @@ import { useAuthStoreHook } from "..";
 import { router } from "@/router";
 
 import MenuAPI from "@/api/system/menu";
-import appRootRoutes from "@/router/modules/ruotes";
+import appRootRoutes, { constantRoutes } from "@/router/modules/ruotes";
 
 import { isHttpUrl, joinPaths, parseDynamicRoutes, processRoute } from "@/utils";
 
@@ -13,6 +13,7 @@ export const useRouteStore = defineStore("route-store", {
     return {
       cacheRoutes: [],
       menus: [],
+      routes: [],
       activeMenu: "",
       isInitAuthRoute: false,
     };
@@ -59,6 +60,8 @@ export const useRouteStore = defineStore("route-store", {
       rootRoutes.children?.push(...routes);
 
       router.addRoute(rootRoutes);
+
+      this.routes = [...constantRoutes, ...routes];
     },
 
     /**

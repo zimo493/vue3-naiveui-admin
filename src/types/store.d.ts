@@ -70,6 +70,7 @@ declare namespace Status {
     activeMenu: string;
     /** 缓存的路由 */
     cacheRoutes: string[];
+    routes: import("vue-router").RouteRecordRaw[];
   }
 
   /** tab-store */
