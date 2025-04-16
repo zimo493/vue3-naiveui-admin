@@ -38,6 +38,11 @@ type ImageElement = SlateElement & {
   href: string;
 };
 
+type VideoElement = SlateElement & {
+  src: string;
+  poster?: string;
+};
+
 const props = defineProps({
   modelValue: {
     type: String,
@@ -54,6 +59,9 @@ const modelValue = useVModel(props, "modelValue", emit);
 
 const editorRef = shallowRef(); // 编辑器实例，必须用 shallowRef
 const mode = ref("default"); // 编辑器模式
+
+// 新增：存储当前所有资源URL
+const resourceUrls = ref<Set<string>>(new Set());
 
 // 工具条配置
 const toolbarConfig = ref({
@@ -124,7 +132,7 @@ const editorConfig = ref<Partial<IEditorConfig>>({
           alt,
           url,
           href,
-          editorRef.value.getElemsByType("image")
+          editorRef.value?.getElemsByType("image")
         );
       },
     },
@@ -133,10 +141,49 @@ const editorConfig = ref<Partial<IEditorConfig>>({
 
 const handleCreated = (editor: IDomEditor) => {
   editorRef.value = editor; // 记录 editor 实例，重要！
-  /* nextTick(() => {
-    const toolbar = DomEditor.getToolbar(editor);
-    console.log(toolbar?.getConfig().toolbarKeys); //获取工具栏的配置
-  }); */
+
+  // 初始化时提取所有资源
+  extractResources();
+
+  // 监听内容变化
+  editor.on("change", () => {
+    const newUrls = extractResources();
+
+    // 对比删除的资源
+    const removedUrls = [...resourceUrls.value].filter((url) => !newUrls.has(url));
+
+    removedUrls.forEach(deleteResource);
+
+    resourceUrls.value = newUrls;
+  });
+};
+
+// 提取图片和视频资源
+const extractResources = (): Set<string> => {
+  const urls = new Set<string>();
+
+  // 获取所有图片节点
+  const imageNodes = editorRef.value?.getElemsByType("image");
+
+  imageNodes.forEach((node: ImageElement) => {
+    if (node.src) urls.add(node.src);
+  });
+
+  // 获取所有视频节点（如果启用了视频）
+  const videoNodes = editorRef.value?.getElemsByType("video");
+
+  videoNodes.forEach((node: VideoElement) => {
+    if (node.src) urls.add(node.src);
+  });
+
+  return urls;
+};
+
+// 删除资源方法
+const deleteResource = (url: string) => {
+  FileAPI.delete(url)
+    .then(() => window.$message.success("资源删除成功"))
+    .catch((err) => console.error("资源删除失败:", err));
 };
 
 const handleChange = (editor: IDomEditor) => {
