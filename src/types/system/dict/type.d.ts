@@ -29,4 +29,27 @@ declare namespace DictType {
      */
     status: number;
   }
+
+  export interface Form {
+    /**
+     * 字典ID
+     */
+    id?: string;
+    /**
+     * 字典名称
+     */
+    name?: string;
+    /**
+     * 字典编码
+     */
+    dictCode?: string;
+    /**
+     * 字典状态（1-启用，0-禁用）
+     */
+    status?: number;
+    /**
+     * 备注
+     */
+    remark?: string;
+  }
 }
