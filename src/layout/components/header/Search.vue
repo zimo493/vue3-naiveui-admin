@@ -162,6 +162,12 @@ function handleMouseEnter(index: number) {
 
   selectedIndex.value = index;
 }
+
+// 搜索高亮样式
+const highlightStyle = {
+  padding: "0 2px",
+  borderRadius: "2px",
+};
 </script>
 
 <template>
@@ -228,9 +234,17 @@ function handleMouseEnter(index: number) {
               :icon="option.meta?.icon || defaultIcon"
               class="row-span-2 place-self-center"
             />
-            <span>{{ option.meta?.title }}</span>
+            <n-highlight
+              :text="option.meta?.title"
+              :patterns="[searchValue]"
+              :highlightStyle="highlightStyle"
+            />
             <icon-park-outline-right class="row-span-2 place-self-center" />
-            <span class="op-70">{{ option.path }}</span>
+            <n-highlight
+              :text="option.path"
+              :patterns="[searchValue]"
+              :highlightStyle="highlightStyle"
+            />
           </div>
         </n-el>
       </ul>
