@@ -85,3 +85,38 @@ export const exportFile = (fileData: BlobPart, fileType: MIMETYPE, fileName: str
   document.body.removeChild(downloadLink);
   window.URL.revokeObjectURL(downloadUrl);
 };
+
+/**
+ * @description 格式化时间工具函数
+ * @param {Date | string | number} time 时间，可以是 Date 对象、时间戳或时间字符串
+ * @param {string} pattern 时间格式，例如 'YYYY-MM-DD HH:mm:ss 周dd'
+ * @returns {string} 格式化后的时间字符串
+ */
+export const parseTime = (
+  time: Date | string | number,
+  pattern: string = "YYYY-MM-DD HH:mm:ss"
+): string => {
+  const date = time instanceof Date ? time : new Date(time);
+
+  // 如果 date 是无效的 Date 对象
+  if (isNaN(date.getTime())) {
+    throw new Error("parseTime: => 无效的日期");
+  }
+
+  // 定义星期几的映射
+  const weekdays: string[] = ["日", "一", "二", "三", "四", "五", "六"];
+
+  // 定义格式化规则
+  const formatMap: Record<string, string> = {
+    YYYY: String(date.getFullYear()),
+    MM: String(date.getMonth() + 1).padStart(2, "0"),
+    DD: String(date.getDate()).padStart(2, "0"),
+    HH: String(date.getHours()).padStart(2, "0"),
+    mm: String(date.getMinutes()).padStart(2, "0"),
+    ss: String(date.getSeconds()).padStart(2, "0"),
+    dd: weekdays[date.getDay()], // 周几
+  };
+
+  // 替换 pattern 中的占位符
+  return pattern.replace(/YYYY|MM|DD|HH|mm|ss|dd/g, (match) => formatMap[match]);
+};
