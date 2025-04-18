@@ -22,7 +22,6 @@ export default {
   /**
    * 获取访问统计
    *
-   * @param queryParams
    * @returns
    */
   getVisitStats: () => get<Log.VisitStatsVO>(`${LOG_BASE_URL}/visit-stats`),

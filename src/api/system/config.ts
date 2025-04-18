@@ -19,7 +19,7 @@ export default {
   /**
    * 删除系统配置
    *
-   * @param ids 系统配置ID
+   * @param id
    */
   deleteById: (id: string) => del(`${CONFIG_BASE_URL}/${id}`),
 
