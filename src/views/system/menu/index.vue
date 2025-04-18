@@ -35,7 +35,7 @@
     </SearchTable>
 
     <!-- 新增、编辑 -->
-    <MenuEdit ref="editRef" :menu-options="rowData" @success="handleQuery" />
+    <MenuEdit ref="editRef" @success="handleQuery" />
   </div>
 </template>
 <script lang="tsx">

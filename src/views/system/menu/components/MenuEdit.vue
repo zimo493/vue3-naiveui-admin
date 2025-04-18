@@ -16,7 +16,9 @@
                 v-model:value="modelValue.parentId"
                 filterable
                 placeholder="选择上级菜单"
-                :options="options"
+                :options="menuOptions"
+                key-field="value"
+                label-field="label"
               />
             </n-form-item-grid-item>
 
@@ -241,7 +243,7 @@
 export default { name: "MenuEdit" };
 </script>
 <script lang="tsx" setup>
-import type { FormInst, FormRules, TreeSelectOption } from "naive-ui";
+import type { FormInst, FormRules } from "naive-ui";
 import { MenuTypeEnum } from "@/enums";
 
 import MenuAPI from "@/api/system/menu";
@@ -251,12 +253,12 @@ import FormTipLabel from "@/components/custom/FormTipLabel";
 
 const { loading, startLoading, endLoading } = useLoading();
 
-const props = defineProps({
-  menuOptions: {
-    required: true,
-    type: Array as PropType<Menu.VO[]>,
-  },
-});
+// const props = defineProps({
+//   menuOptions: {
+//     required: true,
+//     type: Array as PropType<Menu.VO[]>,
+//   },
+// });
 
 const emit = defineEmits<{
   (e: "success"): void;
@@ -281,30 +283,31 @@ defineExpose({
       visible: true,
       title: value ? (typeof value === "string" ? "新增下级" : "编辑菜单") : "新增菜单",
     };
+    getMenuOptions();
   },
 });
 
 // 菜单下拉选项
-const options = computed(() => {
-  const menu: TreeSelectOption = {
-    key: "0",
-    label: "顶级菜单",
-    children: transformTree(props.menuOptions),
-  };
+// const options = computed(() => {
+//   const menu: TreeSelectOption = {
+//     key: "0",
+//     label: "顶级菜单",
+//     children: transformTree(props.menuOptions),
+//   };
 
-  return [menu];
-});
+//   return [menu];
+// });
 
 // 递归遍历菜单
-const transformTree = (node: Menu.VO[]): TreeSelectOption[] => {
-  if (!node) return [];
+// const transformTree = (node: Menu.VO[]): TreeSelectOption[] => {
+//   if (!node) return [];
 
-  return node.map((item: Menu.VO) => ({
-    key: item.id,
-    label: item.name ?? "",
-    children: item.children && item.children.length > 0 ? transformTree(item.children) : undefined,
-  }));
-};
+//   return node.map((item: Menu.VO) => ({
+//     key: item.id,
+//     label: item.name ?? "",
+//     children: item.children && item.children.length > 0 ? transformTree(item.children) : undefined,
+//   }));
+// };
 
 const ruleFormRef = ref<FormInst | null>(null);
 
@@ -337,14 +340,14 @@ const rules = ref<FormRules>({
   visible: [{ required: true, message: "请选择显示状态", trigger: "change" }],
 });
 
-// // 顶级菜单下拉选项
-// const menuOptions = ref<OptionType[]>([]);
+// 顶级菜单下拉选项
+const menuOptions = ref<OptionType[]>([]);
 
-// const getMenuOptions = () => {
-//   MenuAPI.getOptions(true).then((data) => {
-//     menuOptions.value = [{ value: "0", label: "顶级菜单", children: data }];
-//   });
-// };
+const getMenuOptions = () => {
+  MenuAPI.getOptions(true).then((data) => {
+    menuOptions.value = [{ value: "0", label: "顶级菜单", children: data }];
+  });
+};
 
 // 获取类型
 const type = computed(() => {
