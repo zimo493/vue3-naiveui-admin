@@ -11,8 +11,8 @@
       @search="handleQuery"
       @reset="handleQuery"
     />
-    <!-- 预览 -->
-    <CodePreview ref="codePreviewRef" />
+    <!-- 生成代码预览 -->
+    <GenerateCode ref="generateCodeRef" />
   </div>
 </template>
 <script setup lang="tsx">
@@ -25,7 +25,7 @@ import { useCompRef, useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
-import CodePreview from "./components/CodePreview.vue";
+import GenerateCode from "./components/GenerateCode.vue";
 
 defineOptions({
   name: "Codegen",
@@ -88,43 +88,27 @@ const columns = ref<DataTableColumns<CodeGen.VO>>([
         </NButton>
 
         {row.isConfigured === 1 && (
-          <>
-            <NButton
-              text
-              type="info"
-              onClick={() => handlePreview(row)}
-              v-slots={{
-                icon: () => <Icones icon="ant-design:eye-outlined" />,
-              }}
-            >
-              预览
-            </NButton>
-            <NButton
-              text
-              type="error"
-              onClick={() => handleResetConfig(row.tableName)}
-              v-slots={{
-                icon: () => <Icones icon="ant-design:reload-outlined" />,
-              }}
-            >
-              重置配置
-            </NButton>
-          </>
+          <NButton
+            text
+            type="error"
+            onClick={() => handleResetConfig(row.tableName)}
+            v-slots={{
+              icon: () => <Icones icon="ant-design:reload-outlined" />,
+            }}
+          >
+            重置配置
+          </NButton>
         )}
       </NSpace>
     ),
   },
 ]);
 
+// 生成代码
+const generateCodeRef = useCompRef(GenerateCode);
 const openDrawer = (row: CodeGen.VO) => {
+  generateCodeRef.value?.open(row.tableName);
   console.log(row);
-};
-
-// 预览代码
-const codePreviewRef = useCompRef(CodePreview);
-const handlePreview = (row: CodeGen.VO) => {
-  console.log(row);
-  codePreviewRef.value?.open(row.tableName);
 };
 
 const handleResetConfig = (tableName: string) => {
