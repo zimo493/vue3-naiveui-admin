@@ -100,21 +100,19 @@ const columns = ref<DataTableColumns<Role.VO>>([
     key: "action",
     align: "center",
     width: 200,
-    render: (row) => {
-      return (
-        <NSpace justify="center">
-          <NButton text type="warning" onClick={() => handleOpenAssignPermDialog(row)}>
-            数据权限
-          </NButton>
-          <NButton text type="info" onClick={() => openDrawer(row)}>
-            编辑
-          </NButton>
-          <NButton text type="error" onClick={() => handleDelete(row.id)}>
-            删除
-          </NButton>
-        </NSpace>
-      );
-    },
+    render: (row) => (
+      <NSpace justify="center">
+        <NButton text type="warning" onClick={() => handleOpenAssignPermDialog(row)}>
+          数据权限
+        </NButton>
+        <NButton text type="info" onClick={() => openDrawer(row)}>
+          编辑
+        </NButton>
+        <NButton text type="error" onClick={() => handleDelete(row.id)}>
+          删除
+        </NButton>
+      </NSpace>
+    ),
   },
 ]);
 

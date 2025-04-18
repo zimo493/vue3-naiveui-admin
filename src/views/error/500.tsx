@@ -1,9 +1,6 @@
-import type { DefineComponent } from "vue";
 import ErrorTip from "@/components/common/ErrorTip.vue";
 
-const Error500: DefineComponent = defineComponent({
+export default defineComponent({
   name: "Error500",
   render: () => <ErrorTip type="500" />,
 });
-
-export default Error500;

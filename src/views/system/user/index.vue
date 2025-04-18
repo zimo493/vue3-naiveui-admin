@@ -319,42 +319,13 @@ const columns = ref<DataTableColumns<User.VO>>([
 
 const editConfig = ref<FormOption<User.Form>>({
   fields: [
-    {
-      field: "username",
-      label: "用户名",
-      type: FormItemType.Input,
-    },
-    {
-      field: "nickname",
-      label: "用户昵称",
-      type: FormItemType.Input,
-    },
-    {
-      field: "deptId",
-      label: "所属部门",
-      slotName: "deptId",
-    },
-    {
-      field: "gender",
-      label: "性别",
-      type: FormItemType.Select,
-      dict: "gender",
-    },
-    {
-      field: "roleIds",
-      label: "角色",
-      slotName: "roleIds",
-    },
-    {
-      field: "mobile",
-      label: "手机号码",
-      type: FormItemType.Input,
-    },
-    {
-      field: "email",
-      label: "邮箱",
-      type: FormItemType.Input,
-    },
+    { field: "username", label: "用户名", type: FormItemType.Input },
+    { field: "nickname", label: "用户昵称", type: FormItemType.Input },
+    { field: "deptId", label: "所属部门", slotName: "deptId" },
+    { field: "gender", label: "性别", type: FormItemType.Select, dict: "gender" },
+    { field: "roleIds", label: "角色", slotName: "roleIds" },
+    { field: "mobile", label: "手机号码", type: FormItemType.Input },
+    { field: "email", label: "邮箱", type: FormItemType.Input },
     {
       field: "status",
       label: "状态",

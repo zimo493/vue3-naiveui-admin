@@ -146,23 +146,21 @@ const columns: DataTableColumns<Menu.VO> = [
     key: "action",
     width: 200,
     align: "center",
-    render: (row) => {
-      return (
-        <NSpace justify="center">
-          {(row.type == MenuTypeEnum.CATALOG || row.type == MenuTypeEnum.MENU) && (
-            <NButton size="small" quaternary type="primary" onClick={() => openDialog(row.id)}>
-              新增
-            </NButton>
-          )}
-          <NButton size="small" quaternary type="info" onClick={() => openDialog(row)}>
-            编辑
+    render: (row) => (
+      <NSpace justify="center">
+        {(row.type == MenuTypeEnum.CATALOG || row.type == MenuTypeEnum.MENU) && (
+          <NButton size="small" quaternary type="primary" onClick={() => openDialog(row.id)}>
+            新增
           </NButton>
-          <NButton size="small" type="error" quaternary onClick={() => handleDelete(row)}>
-            删除
-          </NButton>
-        </NSpace>
-      );
-    },
+        )}
+        <NButton size="small" quaternary type="info" onClick={() => openDialog(row)}>
+          编辑
+        </NButton>
+        <NButton size="small" type="error" quaternary onClick={() => handleDelete(row)}>
+          删除
+        </NButton>
+      </NSpace>
+    ),
   },
 ];
 

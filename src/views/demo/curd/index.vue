@@ -88,6 +88,7 @@ import { useLoading } from "@/hooks";
 import { DialogFormInst, DrawerFormInst } from "@/types/inst";
 
 import Icones from "@/components/common/Icones.vue";
+import { InquiryBox } from "@/utils";
 
 const { loading, startLoading, endLoading } = useLoading();
 
@@ -356,7 +357,9 @@ const handleView = (row: TableData) => {
 };
 
 const handleDelete = () => {
-  window.$message.warning("删除项：" + selectedRowKeys.value.toString());
+  InquiryBox("确定要删除选中项吗？")
+    .then(() => window.$message.warning("删除项：" + selectedRowKeys.value.toString()))
+    .catch(() => {});
 };
 
 const msg = (msg: string) => {

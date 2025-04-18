@@ -152,18 +152,16 @@ const columns = ref<DataTableColumns<DictData.VO>>([
     key: "action",
     align: "center",
     width: 150,
-    render: (row) => {
-      return (
-        <NSpace justify="center">
-          <NButton text type="info" onClick={() => openDrawer(row)}>
-            编辑
-          </NButton>
-          <NButton text type="error" onClick={() => handleDelete(row.id)}>
-            删除
-          </NButton>
-        </NSpace>
-      );
-    },
+    render: (row) => (
+      <NSpace justify="center">
+        <NButton text type="info" onClick={() => openDrawer(row)}>
+          编辑
+        </NButton>
+        <NButton text type="error" onClick={() => handleDelete(row.id)}>
+          删除
+        </NButton>
+      </NSpace>
+    ),
   },
 ]);
 
