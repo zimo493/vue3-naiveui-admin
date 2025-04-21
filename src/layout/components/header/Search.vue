@@ -40,6 +40,68 @@ watchEffect(() => {
 
 const excludedRoutes = ref(["/500", "/login", "/403", "/404", "/500"]);
 
+// 搜索历史相关
+const SEARCH_HISTORY_KEY = "search_history";
+const MAX_HISTORY_LENGTH = 10;
+
+// 从localStorage获取搜索历史
+const searchHistory = ref<string[]>([]);
+
+// 初始化搜索历史
+const initSearchHistory = () => {
+  const history = localStorage.getItem(SEARCH_HISTORY_KEY);
+
+  if (history) {
+    searchHistory.value = JSON.parse(history);
+  }
+};
+
+// 添加搜索历史
+const addSearchHistory = (keyword: string) => {
+  if (!keyword.trim()) return;
+
+  // 移除已存在的相同关键词（避免重复）
+  const index = searchHistory.value.indexOf(keyword);
+
+  if (index > -1) {
+    searchHistory.value.splice(index, 1);
+  }
+
+  // 添加到历史记录开头
+  searchHistory.value.unshift(keyword);
+
+  // 限制历史记录长度
+  if (searchHistory.value.length > MAX_HISTORY_LENGTH) {
+    searchHistory.value = searchHistory.value.slice(0, MAX_HISTORY_LENGTH);
+  }
+
+  // 保存到localStorage
+  localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(searchHistory.value));
+};
+
+// 删除单个搜索历史
+const removeSearchHistory = (index: number) => {
+  searchHistory.value.splice(index, 1);
+  localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(searchHistory.value));
+};
+
+// 清空搜索历史
+const clearSearchHistory = () => {
+  searchHistory.value = [];
+  localStorage.removeItem(SEARCH_HISTORY_KEY);
+};
+
+// 使用搜索历史项
+const useHistoryItem = (keyword: string) => {
+  searchValue.value = keyword;
+  handleInputChange();
+};
+
+// 初始化搜索历史
+onMounted(() => {
+  initSearchHistory();
+});
+
 // 计算符合条件的菜单选项
 const options = computed<RouteRecordRaw[]>(() => {
   if (!searchValue.value) return [];
@@ -100,6 +162,10 @@ const handleInputChange = () => {
 
 // 选择菜单选项
 function handleSelect(value: RouteRecordRaw) {
+  // 添加到搜索历史（在关闭模态框前添加）
+  if (searchValue.value.trim()) {
+    addSearchHistory(searchValue.value);
+  }
   handleClose();
   router.push({ path: value.path, query: value.meta?.params }).then(() => (searchValue.value = ""));
 }
@@ -212,6 +278,27 @@ const highlightStyle = {
           <Icones icon="ant-design:search-outlined" :size="24" />
         </template>
       </n-input>
+      <!-- 搜索历史区域 -->
+      <n-flex v-if="searchHistory.length && !searchValue" :size="[0, 4]" vertical mt-6px>
+        <n-flex justify="space-between" align="center">
+          <n-text :depth="2" size="small">搜索历史</n-text>
+          <n-button text type="primary" size="tiny" @click="clearSearchHistory">清空</n-button>
+        </n-flex>
+        <n-space>
+          <n-tag
+            v-for="(item, idx) in searchHistory"
+            :key="idx"
+            :bordered="false"
+            size="small"
+            closable
+            style="cursor: pointer"
+            @close="removeSearchHistory(idx)"
+            @click="useHistoryItem(item)"
+          >
+            {{ item }}
+          </n-tag>
+        </n-space>
+      </n-flex>
     </template>
     <n-scrollbar ref="scrollbarRef" class="h-450px">
       <ul v-if="options.length" class="flex flex-col gap-10px p-8px p-r-3">
