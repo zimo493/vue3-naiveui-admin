@@ -27,9 +27,7 @@ import { InquiryBox } from "@/utils";
 import Icones from "@/components/common/Icones.vue";
 import GenerateCode from "./components/GenerateCode.vue";
 
-defineOptions({
-  name: "Codegen",
-});
+defineOptions({ name: "Codegen" });
 
 // 定义表单的初始值
 const query = ref<CodeGen.Query>({
