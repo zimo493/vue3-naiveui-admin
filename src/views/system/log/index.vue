@@ -65,7 +65,12 @@ const columns: DataTableColumns<Log.VO> = [
   { title: "日志模块", key: "module" },
   { title: "日志内容", key: "content" },
   { title: "IP 地址", key: "ip", sorter: "default" },
-  { title: "地区", key: "region", sorter: "default" },
+  {
+    title: "地区",
+    key: "region",
+    sorter: "default",
+    render: ({ region }) => region.replaceAll("0", "").trim(),
+  },
   { title: "浏览器", key: "browser", sorter: "default" },
   { title: "终端系统", key: "os", sorter: "default" },
   {
