@@ -1,4 +1,3 @@
-import type { LayoutMode } from "@/enums/layout";
 import { useAppStoreHook } from "@/store";
 
 import left from "./main/Left.vue";
@@ -13,11 +12,7 @@ export default defineComponent({
   name: "Layout",
   render: () => {
     const appStore = useAppStoreHook();
-    const layoutMap: Record<LayoutMode, any> = {
-      left,
-      top,
-      mix,
-    };
+    const layoutMap = { left, top, mix };
 
     return h(layoutMap[appStore.layoutMode]);
   },
