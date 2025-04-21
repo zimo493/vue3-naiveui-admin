@@ -340,7 +340,7 @@ const editConfig = ref<FormOption<User.Form>>({
   rules: {
     username: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
     nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-    deptId: [{ required: true, type: "number", message: "所属部门不能为空", trigger: "blur" }],
+    deptId: [{ required: true, message: "所属部门不能为空", trigger: "blur" }],
     roleIds: [{ required: true, type: "array", message: "用户角色不能为空", trigger: "blur" }],
     email: [
       {
