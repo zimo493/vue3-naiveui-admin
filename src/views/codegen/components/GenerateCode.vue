@@ -58,20 +58,20 @@
             </template>
             生成代码
           </n-button>
-          <template v-else>
+          <n-flex v-else>
             <n-button type="success" @click="active = 'basic'">
               <template #icon>
                 <Icones icon="ant-design:arrow-left-outlined" />
               </template>
               配置预览
             </n-button>
-            <n-button type="primary" :loading="downloadLoading" @click="download">
+            <n-button type="primary" :loading="downloadLoading" @click="handleExportCode">
               <template #icon>
                 <Icones icon="ant-design:download-outlined" />
               </template>
               {{ downloadLoading ? "下载中..." : "下载代码" }}
             </n-button>
-          </template>
+          </n-flex>
 
           <n-button strong secondary @click="cancel">
             <template #icon>
@@ -519,7 +519,7 @@ const highlightedCode = (key?: string) => {
 
 // 下载代码
 const downloadLoading = ref(false);
-const download = () => {
+const handleExportCode = () => {
   downloadLoading.value = true;
   GeneratorAPI.download(tableCode.value)
     .then((response) => {
