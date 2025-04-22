@@ -15,7 +15,7 @@ interface CopyHTMLElement extends HTMLElement {
  * - 本地开发和生产环境差异 ：本地开发通常是 localhost，浏览器会放宽安全限制；生产环境如果不是 HTTPS，API 就不可用。
  *
  * TODO 3.临时方案
- * 如果暂时无法上 HTTPS，可以考虑降级使用 document.execCommand('copy') 作为兼容方案，但该方法已被废弃且未来可能无法使用
+ * - 如果暂时无法上 HTTPS，可以考虑降级使用 document.execCommand('copy') 作为兼容方案，但该方法已被废弃且未来可能无法使用
  */
 
 export function install(app: App) {
