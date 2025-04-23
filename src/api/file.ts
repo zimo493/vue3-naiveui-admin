@@ -1,4 +1,5 @@
 import request from "@/utils";
+import { type AxiosProgressEvent } from "axios";
 
 const FILE_BASE_URL = "/api/v1/files";
 
@@ -6,14 +7,16 @@ export default {
   /**
    * 上传文件
    *
-   * @param formData
+   * @param formData 文件对象
+   * @param onUploadProgress 上传进度回调
    */
-  upload: (formData: FormData) =>
+  upload: (formData: FormData, onUploadProgress?: (e: AxiosProgressEvent) => void) =>
     request<any, FileInfo>({
       url: FILE_BASE_URL,
       method: "post",
       data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "multipart/form-data", repeatSubmit: false },
+      onUploadProgress,
     }),
 
   /**
