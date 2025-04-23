@@ -68,6 +68,7 @@ export const useDictStore = defineStore("dict-store", {
       console.log("init");
     },
   },
+  persist: { storage: sessionStorage },
 });
 
 export const useDictStoreHook = () => useDictStore(store);

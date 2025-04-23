@@ -176,10 +176,7 @@ export const useAppStore = defineStore("app-store", {
       window.$message.info("我会显示在这里哦😊");
     },
   },
-  persist: {
-    enabled: true,
-    strategies: [{ storage: localStorage }],
-  },
+  persist: true, // 持久化存储，默认存储在 localStorage
 });
 
 export const useAppStoreHook = () => useAppStore(pinia);

@@ -110,10 +110,7 @@ export const useTabStore = defineStore("tab-store", {
       await router.push(path);
     },
   },
-  persist: {
-    enabled: true,
-    strategies: [{ storage: sessionStorage }],
-  },
+  persist: { storage: sessionStorage },
 });
 
 export const useTabStoreHook = () => useTabStore(store);

@@ -25,6 +25,12 @@
           </template>
           删除
         </n-button>
+        <n-button type="warning" :loading="clear" :disabled="clearDisabled" @click="clearDictCache">
+          <template #icon>
+            <icon-park-outline-delete />
+          </template>
+          清除缓存
+        </n-button>
       </template>
     </SearchTable>
 
@@ -48,6 +54,7 @@ import DictTypeAPI from "@/api/system/dict/type";
 import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 import { router } from "@/router";
+import { useDictStoreHook } from "@/store";
 
 import { useTabStore } from "@/store";
 import CommonStatus from "@/components/common/CommonStatus.vue";
@@ -67,6 +74,7 @@ const tableData = ref<DictType.VO[]>([]);
 const total = ref<number>(0);
 
 const { loading, startLoading, endLoading } = useLoading();
+const { loading: clear, startLoading: clearStart, endLoading: clearEnd } = useLoading();
 
 onMounted(() => handleQuery());
 /** 查询方法 */
@@ -228,5 +236,19 @@ const handleViewItems = ({ dictCode }: DictType.VO) => {
       },
     });
   });
+};
+
+// 清除字典缓存
+const dictStore = useDictStoreHook();
+const clearDisabled = computed(() => dictStore.dict.length === 0);
+const clearDictCache = () => {
+  clearStart();
+  const dictList = dictStore.dict.map((item) => item.key);
+
+  dictStore.cleanDict();
+  setTimeout(() => {
+    clearEnd();
+    window.$message.success(`清除字典项 ${dictList.join(", ")} 成功`);
+  }, 1000);
 };
 </script>
