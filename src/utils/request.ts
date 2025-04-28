@@ -120,6 +120,7 @@ service.interceptors.response.use(resOnFulfilled, async (error) => {
 
       return Promise.reject(new Error(msg || "Error"));
     }
+    window.$message.error(msg || "系统出错");
   } else {
     let { message } = error;
 

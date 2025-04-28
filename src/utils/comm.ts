@@ -41,15 +41,15 @@ export const InquiryBox = (
   content: string,
   type: "success" | "warning" | "error" = "warning",
   title: string = "系统提示"
-) => {
-  return new Promise<void>((resolve, reject) => {
+): Promise<boolean> => {
+  return new Promise((resolve, reject) => {
     window.$dialog[type]({
       title,
       content,
       positiveText: "确定",
       negativeText: "取消",
-      onPositiveClick: () => resolve(),
-      onAfterLeave: () => reject(),
+      onPositiveClick: () => resolve(true),
+      onAfterLeave: () => reject(false),
     });
   });
 };
