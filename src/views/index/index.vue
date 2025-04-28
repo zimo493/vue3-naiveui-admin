@@ -57,7 +57,7 @@
                     <span class="text-xs">{{ isConnected ? "已连接" : "未连接" }}</span>
                   </n-text>
                 </n-space>
-                <Icones icon="majesticons:status-online" :size="42" />
+                <Icones icon="icon-park:online-meeting" :size="42" />
               </n-flex>
               <n-flex justify="space-between" align="center" text-sm text-gray>
                 <span>更新时间</span>
