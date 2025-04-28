@@ -1,9 +1,10 @@
 import { createApp, type App } from "vue";
-import AppVue from "./App";
 import { installPinia } from "@/store";
 import { installRouter } from "@/router";
+import { setupWebSocket } from "@/plugins/websocket";
 
-import AppLoading from "./components/common/AppLoading.vue";
+import AppVue from "@/App";
+import AppLoading from "@/components/common/AppLoading.vue";
 
 // 载入全局loading加载状态
 const appLoading: App<Element> = createApp(AppLoading);
@@ -27,6 +28,7 @@ const setupApp = () => {
   // 注册模块 VueRouter
   installRouter(app)
     .then(() => console.info("路由初始化完成"))
+    .then(() => setupWebSocket())
     .finally(() => appLoading.unmount());
 
   // 挂载

@@ -4,3 +4,4 @@ export * from "./useLoading";
 export * from "./useCompRef";
 export * from "./useKeepTicking";
 export * from "./useRange";
+export * from "./useWebsocket";

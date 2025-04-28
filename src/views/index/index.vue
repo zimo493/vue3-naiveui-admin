@@ -22,8 +22,53 @@
           </a>
         </n-card>
       </n-gi>
+      <n-gi :span="8">
+        <n-card
+          :segmented="{ content: true }"
+          content-style="padding:20px"
+          header-style="padding: 10px 16px"
+        >
+          <template #header>
+            <n-skeleton v-if="loading" :width="146" :sharp="false" size="medium" />
+            <span v-else>在线用户</span>
+          </template>
+          <template #header-extra>
+            <n-skeleton v-if="loading" :width="20" :sharp="false" size="small" />
+            <n-tag v-else :bordered="false" type="success">实时</n-tag>
+          </template>
 
-      <n-gi :span="12">
+          <n-space v-if="loading" vertical>
+            <div flex-y-center justify-between>
+              <n-skeleton height="30px" width="20%" :sharp="false" />
+              <n-skeleton height="40px" circle />
+            </div>
+            <div flex-y-center justify-between>
+              <n-skeleton height="30px" width="33%" :sharp="false" />
+              <n-skeleton height="30px" width="8%" :sharp="false" />
+            </div>
+          </n-space>
+          <n-space v-else vertical>
+            <n-flex text-16px vertical>
+              <n-flex justify="space-between" align="center">
+                <n-space>
+                  <n-number-animation show-separator :from="10" :to="onlineUserCount" />
+                  <n-text :type="isConnected ? 'success' : 'error'">
+                    <Icones :icon="isConnected ? link : unLink" :size="12" />
+                    <span class="text-xs">{{ isConnected ? "已连接" : "未连接" }}</span>
+                  </n-text>
+                </n-space>
+                <Icones icon="majesticons:status-online" :size="42" />
+              </n-flex>
+              <n-flex justify="space-between" align="center" text-sm text-gray>
+                <span>更新时间</span>
+                <span>{{ formattedTime }}</span>
+              </n-flex>
+            </n-flex>
+          </n-space>
+        </n-card>
+      </n-gi>
+
+      <n-gi :span="8">
         <n-card
           :segmented="{ content: true }"
           content-style="padding:20px"
@@ -35,7 +80,7 @@
           </template>
           <template #header-extra>
             <n-skeleton v-if="loading" :width="20" :sharp="false" size="small" />
-            <n-tag v-else :bordered="false" type="success">日</n-tag>
+            <n-tag v-else :bordered="false" type="primary">日</n-tag>
           </template>
 
           <n-space v-if="loading" vertical>
@@ -76,7 +121,7 @@
           </n-space>
         </n-card>
       </n-gi>
-      <n-gi :span="12">
+      <n-gi :span="8">
         <n-card
           :segmented="{ content: true }"
           content-style="padding:20px"
@@ -185,10 +230,12 @@ import type { EChartsInst } from "@/types/inst";
 import LogAPI from "@/api/system/log";
 import { parseTime } from "@/utils";
 import { EChartsOption, graphic } from "echarts";
-import { useLoading } from "@/hooks";
+import { useLoading, useOnlineCount } from "@/hooks";
 
 const up = "ant-design:arrow-up-outlined";
 const down = "ant-design:arrow-down-outlined";
+const link = "ant-design:link-outlined";
+const unLink = "ant-design:disconnect-outlined";
 
 interface List {
   key: number;
@@ -452,6 +499,22 @@ const defaultOptions: EChartsOption = {
     },
   ],
 };
+
+// 在线用户数量组件相关
+const { onlineUserCount, lastUpdateTime, isConnected } = useOnlineCount();
+
+// 记录上一次的用户数量用于计算趋势
+const previousCount = ref(0);
+
+// 监听用户数量变化，计算趋势
+watch(onlineUserCount, (newCount, oldCount) => {
+  if (oldCount > 0) {
+    previousCount.value = oldCount;
+  }
+});
+
+// 格式化时间戳
+const formattedTime = computed(() => (lastUpdateTime ? parseTime(lastUpdateTime.value) : ""));
 
 /**
  * 获取访问趋势数据，并更新图表配置
