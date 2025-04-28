@@ -17,7 +17,10 @@ const options = (item: RouteRecordRaw[]): DropdownMixedOption[] => transformTree
 function transformTree(node: RouteRecordRaw[]): DropdownMixedOption[] {
   if (!node) return [];
 
-  return node.map((item: RouteRecordRaw) => ({
+  // 过滤掉隐藏的路由
+  const menu = node.filter((item) => !item.meta?.hidden);
+
+  return menu.map((item: RouteRecordRaw) => ({
     key: item.path,
     icon: appStore.showBreadcrumbIcon
       ? item.meta?.icon
