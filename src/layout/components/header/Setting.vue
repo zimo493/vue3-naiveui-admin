@@ -237,7 +237,7 @@ const renderTag = ({ option }: { option: SelectOption }): VNodeChild => (
                   <n-space align="center" justify="space-between">
                     侧边栏触发样式
                     <n-select
-                      v-model:value="appStore.siderTrigger"
+                      v-model:value="appStore.sideTrigger"
                       class="w-10em"
                       :options="sideBarShowTrigger"
                     />

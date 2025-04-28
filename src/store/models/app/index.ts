@@ -43,7 +43,7 @@ export const useAppStore = defineStore("app-store", {
       contentFullScreen: false,
       sideWidth: 200,
       sideCollapsedWidth: 50,
-      siderTrigger: "bar",
+      sideTrigger: "bar",
       placement: "top",
     };
   },
@@ -80,7 +80,7 @@ export const useAppStore = defineStore("app-store", {
       this.contentFullScreen = false;
       this.sideWidth = 200;
       this.sideCollapsedWidth = 50;
-      this.siderTrigger = "bar";
+      this.sideTrigger = "bar";
       this.placement = "top";
 
       // 重置所有配色

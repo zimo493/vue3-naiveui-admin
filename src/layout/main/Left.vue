@@ -1,12 +1,12 @@
 <template>
-  <!-- sider-placement="right" -->
+  <!-- side-placement="right" -->
   <n-layout has-sider class="wh-full" embedded>
     <n-layout-sider
       v-if="!appStore.contentFullScreen"
       bordered
       :collapsed="appStore.collapsed"
       collapse-mode="width"
-      :show-trigger="appStore.siderTrigger"
+      :show-trigger="appStore.sideTrigger"
       :collapsed-width="appStore.sideCollapsedWidth"
       :width="appStore.sideWidth"
       content-style="display: flex;flex-direction: column;min-height:100%;"

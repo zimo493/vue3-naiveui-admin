@@ -28,7 +28,7 @@ declare namespace Status {
     sideWidth: number;
     sideCollapsedWidth: number;
     lang: App.lang;
-    siderTrigger: "bar" | "arrow-circle";
+    sideTrigger: "bar" | "arrow-circle";
     borderRadius: string;
     placement: import("naive-ui").MessageProviderProps["placement"];
   }
