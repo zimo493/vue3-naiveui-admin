@@ -9,6 +9,11 @@ const tableData: TableData[] = [
     chinese: 98,
     math: 60,
     english: 70,
+    avatar: "https://s2.loli.net/2023/05/24/yNsxFC8rLHMZQcK.jpg",
+    photo: [
+      "https://s2.loli.net/2023/05/24/yNsxFC8rLHMZQcK.jpg",
+      "https://foruda.gitee.com/images/1723603502796844527/03cdca2a_716974.gif",
+    ],
   },
   {
     key: 1,
@@ -18,6 +23,8 @@ const tableData: TableData[] = [
     chinese: 98,
     math: 66,
     english: 89,
+    avatar: "https://foruda.gitee.com/images/1723603502796844527/03cdca2a_716974.gif",
+    photo: [],
   },
   {
     key: 2,
@@ -27,6 +34,8 @@ const tableData: TableData[] = [
     chinese: 86,
     math: 74,
     english: 83,
+    avatar: "https://s2.loli.net/2023/05/24/yNsxFC8rLHMZQcK.jpg",
+    photo: [],
   },
   {
     key: 3,
@@ -36,6 +45,8 @@ const tableData: TableData[] = [
     chinese: 88,
     math: 56,
     english: 77,
+    avatar: "https://foruda.gitee.com/images/1723603502796844527/03cdca2a_716974.gif",
+    photo: [],
   },
   {
     key: 4,
@@ -45,6 +56,8 @@ const tableData: TableData[] = [
     chinese: 43,
     math: 75,
     english: 95,
+    avatar: "https://foruda.gitee.com/images/1723603502796844527/03cdca2a_716974.gif",
+    photo: [],
   },
   {
     key: 5,
@@ -54,6 +67,8 @@ const tableData: TableData[] = [
     chinese: 88,
     math: 65,
     english: 96,
+    avatar: "https://s2.loli.net/2023/05/24/yNsxFC8rLHMZQcK.jpg",
+    photo: [],
   },
   {
     key: 6,
@@ -63,6 +78,8 @@ const tableData: TableData[] = [
     chinese: 88,
     math: 45,
     english: 54,
+    avatar: "https://foruda.gitee.com/images/1723603502796844527/03cdca2a_716974.gif",
+    photo: [],
   },
 ];
 

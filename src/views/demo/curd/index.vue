@@ -56,7 +56,14 @@
       :model-value="modelValue"
       :width="580"
       @submit="submitForm"
-    />
+    >
+      <template #avatar>
+        <UploadFile v-model="modelValue.avatar" :limit="1" />
+      </template>
+      <template #photo>
+        <UploadFile v-model="modelValue.photo" />
+      </template>
+    </DrawerForm>
 
     <!-- 对话框表单 -->
     <DialogForm
@@ -65,7 +72,14 @@
       :model-value="modelValue"
       :width="580"
       @submit="submitForm"
-    />
+    >
+      <template #avatar>
+        <UploadFile v-model="modelValue.avatar" :limit="1" />
+      </template>
+      <template #photo>
+        <UploadFile v-model="modelValue.photo" />
+      </template>
+    </DialogForm>
 
     <!-- 查看 -->
     <DialogForm
@@ -74,11 +88,19 @@
       :model-value="viewValue"
       :width="580"
       is-look
-    />
+    >
+      <template #avatar>
+        <UploadFile v-model="viewValue.avatar" :limit="1" disabled />
+      </template>
+      <template #photo>
+        <UploadFile v-if="viewValue.photo?.length" v-model="viewValue.photo" disabled :limit="1" />
+        <n-empty v-else />
+      </template>
+    </DialogForm>
   </n-space>
 </template>
 <script lang="tsx" setup>
-import { NButton, NSpace, type DataTableColumns, type DataTableRowKey } from "naive-ui";
+import { NAvatar, NButton, NSpace, type DataTableColumns, type DataTableRowKey } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 import type { Form, Search, TableData } from "./config/types";
 
@@ -95,6 +117,11 @@ const { loading, startLoading, endLoading } = useLoading();
 const columns = ref<DataTableColumns<TableData>>([
   { type: "selection", options: ["all", "none"], disabled: ({ key }) => key % 3 === 0 },
   { title: "Key", key: "key" },
+  {
+    title: "Avatar",
+    key: "avatar",
+    render: ({ avatar }) => <NAvatar size={48} src={avatar} />,
+  },
   { title: "Name", key: "name" },
   { title: "Age", key: "age", sorter: (a, b) => a.age - b.age },
   { title: "Chinese Score", key: "chinese", defaultSortOrder: false },
@@ -239,6 +266,7 @@ const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys a
 const editConfig = ref<FormOption<Form>>({
   // 新增或者编辑表单配置项
   fields: [
+    { field: "avatar", label: "头像", slotName: "avatar" },
     { field: "name", label: "姓名", type: FormItemType.Input },
     { field: "address", label: "地址", type: FormItemType.Textarea },
     {
@@ -282,6 +310,7 @@ const editConfig = ref<FormOption<Form>>({
         { label: "选项4", value: 4 },
       ],
     },
+    { field: "photo", label: "图片上传", slotName: "photo" },
   ],
   labelWidth: 100, // 标签的宽度，默认没有宽度
   // 表单校验
@@ -336,12 +365,14 @@ const dialogViewRef = ref<DialogFormInst>();
 const viewConfig = ref<FormOption<TableData>>({
   // 新增或者编辑表单配置项
   fields: [
+    { field: "avatar", label: "Avatar", slotName: "avatar" },
     { field: "name", label: "Name:", type: FormItemType.Text },
     { field: "age", label: "Age:", type: FormItemType.Text },
     { field: "address", label: "Address:", type: FormItemType.Text },
     { field: "chinese", label: "Chinese:", type: FormItemType.Text },
     { field: "math", label: "Math:", type: FormItemType.Text },
     { field: "english", label: "English:", type: FormItemType.Text },
+    { field: "photo", label: "Photo", slotName: "photo" },
   ],
   labelWidth: 100, // 标签的宽度，默认没有宽度
 });
