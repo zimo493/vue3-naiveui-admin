@@ -30,8 +30,7 @@ import type { UploadCustomRequestOptions, UploadFileInfo } from "naive-ui";
 import FileAPI, { type FileInfo } from "@/api/file";
 import { InquiryBox } from "@/utils";
 
-// 定义初始类型引用
-type ModelValueType = "string" | "string-array" | "fileinfo" | "fileinfo-array";
+type PassValue = string[] | string | FileInfo[] | FileInfo | undefined;
 
 // 推拽上传配置
 interface DragOptions {
@@ -40,10 +39,24 @@ interface DragOptions {
   title?: string;
 }
 
-const initialModelValueType = ref<ModelValueType>("string");
-const initModelValueType = ref<boolean>(false); // 初始类型是否已经初始化过
+interface RemoveFile extends FileInfo {
+  idx: number;
+}
+
+/** 自定义事件 */
+const emit = defineEmits({
+  upload: (val: FileInfo) => val,
+  remove: (val: RemoveFile) => val,
+});
 
 const props = defineProps({
+  /**
+   * 文件上传值
+   */
+  value: {
+    type: [Array, String, Object] as PropType<PassValue>,
+    default: [],
+  },
   /**
    * 请求携带的额外参数
    */
@@ -102,157 +115,50 @@ const props = defineProps({
   },
 });
 
-// 不在defineModel中引用props，避免被提升到setup函数外部
-const modelValue = defineModel("modelValue", {
-  type: [Array, String, Object] as PropType<string[] | string | FileInfo[] | FileInfo>,
-  default: undefined,
-});
-
-// 内部使用数组管理文件列表
-const internalValue = computed({
-  get: () => {
-    // 如果modelValue未定义，根据limit设置默认值
-    if (modelValue.value === undefined) {
-      return props.limit === 1 ? [] : [];
-    }
-
-    // 处理不同类型的modelValue
-    if (typeof modelValue.value === "string") {
-      // 字符串类型（单图/文件模式）转为数组
-      return modelValue.value ? [modelValue.value] : [];
-    } else if (Array.isArray(modelValue.value)) {
-      // 数组类型（可能是字符串数组或FileInfo数组）
-      return modelValue.value;
-    } else if (modelValue.value && typeof modelValue.value === "object") {
-      // 单个FileInfo对象
-      return [modelValue.value];
-    }
-
-    return [];
-  },
-  set: (val: Array<string | FileInfo>) => {
-    if (val.length === 0) {
-      // 根据初始类型设置空值
-      switch (initialModelValueType.value) {
-        case "string":
-          modelValue.value = "";
-          break;
-        case "fileinfo":
-          modelValue.value = {} as FileInfo;
-          break;
-        case "string-array":
-        case "fileinfo-array":
-          modelValue.value = [];
-          break;
-        default:
-          modelValue.value = props.limit === 1 ? "" : [];
-      }
-    } else {
-      // 原有逻辑处理非空情况
-      if (
-        typeof modelValue.value === "string" ||
-        (props.limit === 1 && modelValue.value === undefined)
-      ) {
-        modelValue.value = val[0]
-          ? typeof val[0] === "string"
-            ? val[0]
-            : (val[0] as FileInfo).url
-          : "";
-      } else if (Array.isArray(modelValue.value)) {
-        if (initialModelValueType.value === "fileinfo-array") {
-          modelValue.value = val as FileInfo[];
-        } else {
-          modelValue.value = val.map((item) => (typeof item === "string" ? item : item.url));
-        }
-      } else if (modelValue.value && typeof modelValue.value === "object") {
-        modelValue.value = val.length > 0 ? val[0] : [];
-      } else {
-        modelValue.value = props.limit === 1 ? "" : [];
-      }
-    }
-  },
-});
-
 const fileList = ref<UploadFileInfo[]>([]);
 
-const setFileList = (val: string[] | string | FileInfo[] | FileInfo) => {
-  // 如果modelValue未定义，设置默认值
-  if (val === undefined) {
-    modelValue.value = props.limit === 1 ? "" : [];
+// 提取文件名从URL的逻辑
+const extractFileNameFromUrl = (url: string): string => {
+  const urlParts = url.split("/");
+  let name = urlParts.length > 0 ? urlParts[urlParts.length - 1] : url;
+  const queryParamIndex = name.indexOf("?");
+
+  if (queryParamIndex > 0) {
+    name = name.substring(0, queryParamIndex);
   }
 
-  // 根据internalValue初始化文件列表
-  fileList.value = internalValue.value.map((item, idx) => {
-    // 处理不同类型的item
-    if (typeof item === "string") {
-      // 如果是字符串（URL），尝试从URL中提取文件名
-      let name = item;
+  return name;
+};
 
-      if (props.type === "text") {
-        // 从URL中提取文件名
-        const urlParts = item.split("/");
+/** 设置文件项 */
+const setFileItem = (url: string, name?: string): UploadFileInfo => ({
+  url,
+  id: Math.random().toString(36).substring(2),
+  name: name || extractFileNameFromUrl(url),
+  status: "finished",
+});
 
-        if (urlParts.length > 0) {
-          name = urlParts[urlParts.length - 1];
-          // 如果URL包含查询参数，去除它们
-          const queryParamIndex = name.indexOf("?");
+/** 设置文件列表 */
+const setFileList = (val: PassValue) => {
+  if (!val || (Array.isArray(val) && val.length === 0)) {
+    fileList.value = [];
 
-          if (queryParamIndex > 0) {
-            name = name.substring(0, queryParamIndex);
-          }
-        }
-      }
-
-      return {
-        id: idx.toString(),
-        url: item,
-        name: name,
-        status: "finished",
-      };
-    } else {
-      // 如果是FileInfo对象，直接使用其name和url属性
-      return {
-        id: idx.toString(),
-        url: item.url,
-        name: item.name,
-        status: "finished",
-      };
-    }
-  });
-
-  if (!initModelValueType.value) {
-    // 确定初始类型
-    if (val === undefined) {
-      initialModelValueType.value = props.limit === 1 ? "string" : "string-array";
-    } else {
-      if (typeof val === "string") {
-        initialModelValueType.value = "string";
-      } else if (Array.isArray(val)) {
-        if (val.length > 0) {
-          initialModelValueType.value =
-            typeof val[0] === "object" ? "fileinfo-array" : "string-array";
-        } else {
-          // 空数组，根据其他条件推断（例如 accept 或 type）
-          initialModelValueType.value = props.type === "text" ? "fileinfo-array" : "string-array";
-        }
-      } else if (val && typeof val === "object") {
-        initialModelValueType.value = "fileinfo";
-      }
-    }
-    initModelValueType.value = true;
+    return;
+  }
+  if (Array.isArray(val)) {
+    fileList.value = val.map((item) =>
+      typeof item === "string" ? setFileItem(item) : setFileItem(item.url, item.name)
+    );
+  } else if (typeof val === "string") {
+    fileList.value = [setFileItem(val)];
+  } else {
+    fileList.value = [setFileItem(val.url, val.name)];
   }
 };
 
-// watchEffect(async () => {
-//   await nextTick();
-//   setFileList(modelValue.value);
-// });
-
 watch(
-  () => modelValue.value,
-  (val) => {
-    nextTick(() => setFileList(val));
-  },
+  () => props.value,
+  (val) => nextTick(() => val && setFileList(val)),
   { deep: true, immediate: true }
 );
 
@@ -270,10 +176,7 @@ const customRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequ
     .then((result) => {
       // 设置文件URL和文件名
       file.url = result.url;
-
-      // 如果是文件类型，确保文件名正确设置
-      file.name = props.type === "text" ? file.file?.name || file.name : file.name;
-
+      file.name = result.name;
       onFinish();
     })
     .catch((err) => {
@@ -282,6 +185,7 @@ const customRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequ
     });
 };
 
+/** 上传文件前校验 */
 const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
   const file = data.file.file;
 
@@ -324,86 +228,39 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
   return true;
 };
 
-// 修改 handleFinish 中的类型判断
+/** 上传成功回调 */
 const handleFinish = ({ file }: { file: UploadFileInfo }) => {
   if (file?.url) {
-    const newValue = [...internalValue.value];
-    // 根据初始类型决定添加的数据类型
-    const isFileInfoType = initialModelValueType.value === "fileinfo-array";
-
-    if (isFileInfoType) {
-      newValue.push({ name: file.name, url: file.url });
-    } else {
-      newValue.push(file.url);
-    }
-
-    internalValue.value = newValue;
+    emit("upload", { url: file.url, name: file.name });
   }
   window.$message.success("上传成功");
 };
 
-/**
- * 上传失败回调
- */
+/** 上传失败回调 */
 const handleError = ({ file }: { file: UploadFileInfo }) => {
   console.log("上传失败: " + file.name);
 };
 
-/**
- * 删除文件
- */
-const handleRemove = async ({ file }: { file: UploadFileInfo }): Promise<boolean> => {
+/** 删除文件 */
+const handleRemove = async ({
+  file,
+  index,
+}: {
+  file: UploadFileInfo;
+  index: number;
+}): Promise<boolean> => {
   try {
     const confirmResult = await InquiryBox(`确定删除 ${file.name} 吗？`);
 
     if (confirmResult) {
-      const currentValue = [...internalValue.value];
-      // 检查是否为FileInfo类型（即使删除后数组为空，也要保持一致的类型）
-      const isFileInfoType =
-        (Array.isArray(modelValue.value) &&
-          modelValue.value.length > 0 &&
-          typeof modelValue.value[0] === "object") ||
-        (!Array.isArray(modelValue.value) &&
-          modelValue.value &&
-          typeof modelValue.value === "object") ||
-        (Array.isArray(internalValue.value) &&
-          internalValue.value.some(
-            (item) => typeof item === "object" && "name" in item && "url" in item
-          ));
+      if (file.status === "error") return true;
+      const url = file.url ?? "";
 
-      // 查找要删除的文件
-      const idx = currentValue.findIndex((item) => {
-        if (typeof item === "string") {
-          return item === file.url;
-        } else {
-          return item.url === file.url;
-        }
-      });
+      await FileAPI.delete(url);
+      emit("remove", { url: url, name: file.name, idx: index });
+      window.$message.success("删除成功");
 
-      if (idx !== -1) {
-        // 获取要删除的URL
-        const [delItem] = currentValue.splice(idx, 1);
-        const delUrl = typeof delItem === "string" ? delItem : delItem.url;
-
-        // 确保 FileAPI.delete 返回一个 Promise
-        await FileAPI.delete(delUrl);
-
-        window.$message.success("删除成功");
-        // 保持类型一致性，即使数组为空
-        internalValue.value = currentValue;
-        // 如果删除后数组为空，但原始类型是FileInfo，确保modelValue保持正确类型
-        if (currentValue.length === 0 && isFileInfoType) {
-          if (props.limit === 1) {
-            // 单文件模式，保持为空的FileInfo数组
-            modelValue.value = [];
-          } else {
-            // 多文件模式，保持为空的FileInfo数组
-            modelValue.value = [];
-          }
-        }
-
-        return true; // 删除成功返回 true
-      }
+      return true;
     }
 
     return false; // 用户取消或未找到文件时返回 false
