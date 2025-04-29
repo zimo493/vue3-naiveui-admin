@@ -14,6 +14,10 @@ const tableData: TableData[] = [
       "https://s2.loli.net/2023/05/24/yNsxFC8rLHMZQcK.jpg",
       "https://foruda.gitee.com/images/1723603502796844527/03cdca2a_716974.gif",
     ],
+    file: [
+      "https://example.com/documents/contract.docx",
+      "https://example.com/documents/report.pdf",
+    ],
   },
   {
     key: 1,

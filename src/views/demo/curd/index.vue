@@ -54,14 +54,33 @@
       ref="drawerFormRef"
       :form-config="editConfig"
       :model-value="modelValue"
-      :width="580"
+      :width="600"
       @submit="submitForm"
     >
       <template #avatar>
-        <UploadFile v-model="modelValue.avatar" :limit="1" />
+        <UploadFile
+          :value="modelValue.avatar"
+          :limit="1"
+          @upload="(val) => (modelValue.avatar = val.url)"
+          @remove="modelValue.avatar = undefined"
+        />
       </template>
       <template #photo>
-        <UploadFile v-model="modelValue.photo" />
+        <UploadFile
+          :value="modelValue.photo"
+          @upload="(val) => modelValue.photo?.push(val.url)"
+          @remove="(val) => modelValue.photo?.splice(modelValue.photo.indexOf(val.url), 1)"
+        />
+      </template>
+      <template #file>
+        <UploadFile
+          :value="modelValue.file"
+          type="text"
+          @upload="(val) => modelValue.file?.push(val.url)"
+          @remove="(val) => modelValue.file?.splice(modelValue.file.indexOf(val.url), 1)"
+        >
+          <n-button type="primary" strong secondary>上传文件</n-button>
+        </UploadFile>
       </template>
     </DrawerForm>
 
@@ -70,14 +89,33 @@
       ref="dialogFormRef"
       :form-config="editConfig"
       :model-value="modelValue"
-      :width="580"
+      :width="800"
       @submit="submitForm"
     >
       <template #avatar>
-        <UploadFile v-model="modelValue.avatar" :limit="1" />
+        <UploadFile
+          :value="modelValue.avatar"
+          :limit="1"
+          @upload="(val) => (modelValue.avatar = val.url)"
+          @remove="modelValue.avatar = undefined"
+        />
       </template>
       <template #photo>
-        <UploadFile v-model="modelValue.photo" />
+        <UploadFile
+          :value="modelValue.photo"
+          @upload="(val) => modelValue.photo?.push(val.url)"
+          @remove="(val) => modelValue.photo?.splice(modelValue.photo.indexOf(val.url), 1)"
+        />
+      </template>
+      <template #file>
+        <UploadFile
+          :value="modelValue.file"
+          type="text"
+          @upload="(val) => modelValue.file?.push(val.url)"
+          @remove="(val) => modelValue.file?.splice(modelValue.file.indexOf(val.url), 1)"
+        >
+          <n-button type="success" strong secondary>上传文件</n-button>
+        </UploadFile>
       </template>
     </DialogForm>
 
@@ -90,11 +128,13 @@
       is-look
     >
       <template #avatar>
-        <UploadFile v-model="viewValue.avatar" :limit="1" disabled />
+        <UploadFile v-if="viewValue.avatar" :value="viewValue.avatar" :limit="1" disabled />
       </template>
       <template #photo>
-        <UploadFile v-if="viewValue.photo?.length" v-model="viewValue.photo" disabled :limit="1" />
-        <n-empty v-else />
+        <UploadFile v-if="viewValue.photo?.length" :value="viewValue.photo" disabled :limit="1" />
+      </template>
+      <template #file>
+        <UploadFile v-if="viewValue.file?.length" :value="viewValue.file" disabled />
       </template>
     </DialogForm>
   </n-space>
@@ -311,10 +351,12 @@ const editConfig = ref<FormOption<Form>>({
       ],
     },
     { field: "photo", label: "图片上传", slotName: "photo" },
+    { field: "file", label: "文件上传", slotName: "file" },
   ],
   labelWidth: 100, // 标签的宽度，默认没有宽度
   // 表单校验
   rules: {
+    avatar: [{ required: true, message: "请上传头像", trigger: ["blur", "change"] }],
     name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
     dicts: [{ required: true, type: "array", message: "请选择字典", trigger: "change" }],
   },
@@ -365,14 +407,15 @@ const dialogViewRef = ref<DialogFormInst>();
 const viewConfig = ref<FormOption<TableData>>({
   // 新增或者编辑表单配置项
   fields: [
-    { field: "avatar", label: "Avatar", slotName: "avatar" },
+    { field: "avatar", label: "Avatar:", slotName: "avatar" },
     { field: "name", label: "Name:", type: FormItemType.Text },
     { field: "age", label: "Age:", type: FormItemType.Text },
     { field: "address", label: "Address:", type: FormItemType.Text },
     { field: "chinese", label: "Chinese:", type: FormItemType.Text },
     { field: "math", label: "Math:", type: FormItemType.Text },
     { field: "english", label: "English:", type: FormItemType.Text },
-    { field: "photo", label: "Photo", slotName: "photo" },
+    { field: "photo", label: "Photo:", slotName: "photo" },
+    { field: "file", label: "File:", slotName: "file" },
   ],
   labelWidth: 100, // 标签的宽度，默认没有宽度
 });

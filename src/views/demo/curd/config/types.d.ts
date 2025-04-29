@@ -8,6 +8,7 @@ export interface TableData {
   english: number;
   avatar?: string;
   photo?: string[];
+  file?: string[];
 }
 
 export interface Form extends Partial<TableData> {
