@@ -134,7 +134,14 @@
         <UploadFile v-if="viewValue.photo?.length" :value="viewValue.photo" disabled :limit="1" />
       </template>
       <template #file>
-        <UploadFile v-if="viewValue.file?.length" :value="viewValue.file" disabled />
+        <n-flex vertical align="flex-start">
+          <n-button v-for="item in viewValue.file" :key="item" text type="primary">
+            <template #icon>
+              <Icones icon="ant-design:paper-clip-outlined" />
+            </template>
+            {{ item }}
+          </n-button>
+        </n-flex>
       </template>
     </DialogForm>
   </n-space>
