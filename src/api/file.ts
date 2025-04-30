@@ -44,7 +44,7 @@ export default {
    */
   delete: (filePath?: string) =>
     request({
-      url: "/api/v1/files",
+      url: FILE_BASE_URL,
       method: "delete",
       params: { filePath },
     }),
