@@ -36,7 +36,7 @@
       :width="1000"
       @submit="submitForm"
     >
-      <template v-if="modelValue.targetType == 2" #targetUserIds>
+      <template v-if="modelValue.targetType === 2" #targetUserIds>
         <n-select
           v-model:value="modelValue.targetUserIds"
           :options="userOptions"
@@ -57,6 +57,12 @@
       :model-value="viewValue"
       :is-look="true"
     >
+      <template #title>
+        <n-flex align="center">
+          <DictTag v-if="viewValue.type" :options="notice_type" :value="viewValue.type" />
+          <n-text>{{ viewValue.title }}</n-text>
+        </n-flex>
+      </template>
       <template #publishStatus>
         <component :is="getPublishStatusTag(viewValue.publishStatus)" />
       </template>
@@ -191,9 +197,9 @@ const columns = ref<DataTableColumns<Notice.VO>>([
     title: "通知标题",
     key: "title",
     render: ({ title, type }) => (
-      <NSpace>
-        <NText>{title}</NText>
+      <NSpace align="center">
         <DictTag options={notice_type.value} value={type} />
+        <NText>{title}</NText>
       </NSpace>
     ),
   },
@@ -380,7 +386,7 @@ const dialogViewRef = ref<DialogFormInst>();
 const viewValue = ref<Notice.DetailVO>({});
 const viewConfig = ref<FormOption<Notice.DetailVO>>({
   fields: [
-    { field: "title", label: "公告标题：", type: FormItemType.Text },
+    { field: "title", label: "公告标题：", slotName: "title" },
     { field: "publishStatus", label: "发布状态：", colSpan: 12, slotName: "publishStatus" },
     { field: "publisherName", label: "发布人：", type: FormItemType.Text, colSpan: 12 },
     { field: "publishTime", label: "发布时间：", type: FormItemType.Text, colSpan: 12 },
