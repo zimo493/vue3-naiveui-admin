@@ -11,30 +11,7 @@
     <n-flex vertical :size="[0, 16]">
       <n-grid x-gap="10">
         <n-gi h-450px :span="14">
-          <VueCropper
-            v-if="visible"
-            ref="cropper"
-            :img="option.img"
-            :outputSize="option.outputSize"
-            :outputType="option.outputType"
-            :info="option.info"
-            :canScale="option.canScale"
-            :autoCrop="option.autoCrop"
-            :autoCropWidth="option.autoCropWidth"
-            :autoCropHeight="option.autoCropHeight"
-            :fixedBox="option.fixedBox"
-            :fixed="option.fixed"
-            :fixedNumber="option.fixedNumber"
-            :canMove="option.canMove"
-            :canMoveBox="option.canMoveBox"
-            :original="option.original"
-            :centerBox="option.centerBox"
-            :infoTrue="option.infoTrue"
-            :full="option.full"
-            :enlarge="option.enlarge"
-            :mode="option.mode"
-            @real-time="realTime"
-          />
+          <VueCropper v-if="visible" ref="cropper" v-bind="option" @real-time="realTime" />
         </n-gi>
         <n-gi :span="10">
           <!-- <div class="avatar-upload-preview">
@@ -48,7 +25,7 @@
           <n-flex justify="space-between">
             <div>
               <n-upload>
-                <n-button strong type="primary">
+                <n-button strong type="success">
                   <template #icon>
                     <Icones icon="ant-design:cloud-upload-outlined" />
                   </template>
@@ -57,22 +34,22 @@
               </n-upload>
             </div>
             <n-flex>
-              <n-button @click="changeScale(1)">
+              <n-button secondary @click="changeScale(1)">
                 <template #icon>
                   <Icones icon="ant-design:plus-outlined" />
                 </template>
               </n-button>
-              <n-button @click="changeScale(-1)">
+              <n-button secondary @click="changeScale(-1)">
                 <template #icon>
                   <Icones icon="ant-design:minus-outlined" />
                 </template>
               </n-button>
-              <n-button @click="rotateLeft()">
+              <n-button secondary @click="rotateLeft()">
                 <template #icon>
                   <Icones icon="ant-design:rotate-left-outlined" />
                 </template>
               </n-button>
-              <n-button @click="rotateRight()">
+              <n-button secondary @click="rotateRight()">
                 <template #icon>
                   <Icones icon="ant-design:rotate-right-outlined" />
                 </template>
