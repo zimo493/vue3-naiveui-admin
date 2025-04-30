@@ -1,8 +1,21 @@
 import UserAPI from "@/api/system/user";
-import { useLoading } from "@/hooks";
+import { useCompRef, useLoading } from "@/hooks";
 
-import { NSpin, NGrid, NGi, NCard, NFlex, NAvatar, NH3, NTag, NEl } from "naive-ui";
+import {
+  NSpin,
+  NGrid,
+  NGi,
+  NCard,
+  NFlex,
+  NAvatar,
+  NH3,
+  NTag,
+  NEl,
+  NDivider,
+  NButton,
+} from "naive-ui";
 import Icones from "@/components/common/Icones.vue";
+import ImageCut from "@/components/custom/ImageCut/index.vue";
 
 export default defineComponent({
   name: "Profile",
@@ -34,16 +47,39 @@ export default defineComponent({
     );
 
     /** 头像组件 */
-    const Avatar = () => (
-      <NAvatar
-        size={100}
-        src={userProfile.value.avatar}
-        renderFallback={() => ErrorAvatar()}
-        v-slots={{
-          fallback: () => ErrorAvatar(),
-        }}
-      />
-    );
+    const Avatar = () => {
+      const isHover = ref(false); // 是否显示修改头像的图标
+
+      return (
+        <NFlex
+          class="relative inline-block"
+          onMouseenter={() => (isHover.value = true)}
+          onMouseleave={() => (isHover.value = false)}
+        >
+          <NAvatar
+            size={100}
+            src={userProfile.value.avatar}
+            renderFallback={() => ErrorAvatar()}
+            v-slots={{
+              fallback: () => ErrorAvatar(),
+            }}
+          />
+          {isHover.value && (
+            <NEl
+              class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex-center cursor-pointer border-rd-3px"
+              onClick={() => changeAvatar()}
+            >
+              <Icones icon="ant-design:edit-outlined" size={32} color="#fff" />
+            </NEl>
+          )}
+        </NFlex>
+      );
+    };
+
+    /** 修改头像 */
+    const changeAvatar = () => {
+      console.log("changeAvatar");
+    };
 
     /** 角色信息组件 */
     const RoleInfo = () =>
@@ -52,6 +88,18 @@ export default defineComponent({
           {role}
         </NTag>
       ));
+
+    /** 账号信息组件 */
+    // const AccountInfo = () => {};
+
+    /** 安全设置组件 */
+    // const SafeSetting = () => {};
+
+    const imageCutRef = useCompRef(ImageCut);
+    const open = () => {
+      console.log("open");
+      imageCutRef.value?.open();
+    };
 
     return () => (
       <NSpin show={loading.value}>
@@ -63,12 +111,15 @@ export default defineComponent({
                 <NH3 class="font-bold">{userProfile.value.nickname}</NH3>
                 <NFlex>{RoleInfo()}</NFlex>
               </NFlex>
+              <NDivider />
             </NCard>
           </NGi>
           <NGi span={16}>
             <NGrid yGap={10} cols={1}>
               <NGi>
-                <NCard>111111</NCard>
+                <NCard>
+                  <NButton onClick={() => open()}>打开</NButton>
+                </NCard>
               </NGi>
               <NGi>
                 <NCard>222222</NCard>
@@ -76,6 +127,7 @@ export default defineComponent({
             </NGrid>
           </NGi>
         </NGrid>
+        <ImageCut ref={imageCutRef} image={userProfile.value.avatar} />
       </NSpin>
     );
   },
