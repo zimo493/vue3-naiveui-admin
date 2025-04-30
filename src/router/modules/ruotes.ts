@@ -21,7 +21,7 @@ const appRootRoutes: RouteRecordRaw = {
     {
       path: "/profile",
       name: "Profile",
-      component: () => import("@/views/profile/index.vue"),
+      component: () => import("@/views/profile"),
       meta: { title: "个人中心", icon: "material-symbols:person-edit-sharp" },
     },
   ],
