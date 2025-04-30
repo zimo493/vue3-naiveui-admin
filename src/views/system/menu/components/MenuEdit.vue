@@ -43,7 +43,7 @@
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="modelValue.type == MenuTypeEnum.EXTLINK"
+              v-if="modelValue.type === MenuTypeEnum.EXTLINK"
               :span="24"
               label="外链地址"
               path="path"
@@ -57,14 +57,14 @@
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="modelValue.type == MenuTypeEnum.MENU"
+              v-if="modelValue.type === MenuTypeEnum.MENU"
               :span="24"
               path="routeName"
             >
               <template #label>
                 <FormTipLabel
                   label="路由名称"
-                  msg="如果需要开启缓存，需保证页面 defineOptions 中的 name 与此处一致，建议使用驼峰。例如: User"
+                  msg="如果需要开启缓存，需保证页面 defineOptions 中的 name 与此处一致，建议使用驼峰<br/>例如: User"
                 />
               </template>
               <n-input
@@ -76,18 +76,20 @@
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="modelValue.type == MenuTypeEnum.CATALOG || modelValue.type == MenuTypeEnum.MENU"
+              v-if="
+                modelValue.type === MenuTypeEnum.CATALOG || modelValue.type === MenuTypeEnum.MENU
+              "
               :span="24"
               path="routePath"
             >
               <template #label>
                 <FormTipLabel
                   label="路由路径"
-                  msg="定义应用中不同页面对应的 URL 路径，目录需以 / 开头，菜单项不用。例如：系统管理目录/system, 系统管理下的用户管理菜单 user。"
+                  msg="定义应用中不同页面对应的 URL 路径，目录需以 / 开头，菜单项不用<br/>例如：系统管理目录/system, 系统管理下的用户管理菜单 user"
                 />
               </template>
               <n-input
-                v-if="modelValue.type == MenuTypeEnum.CATALOG"
+                v-if="modelValue.type === MenuTypeEnum.CATALOG"
                 v-model:value="modelValue.routePath"
                 placeholder="system"
               />
@@ -95,14 +97,14 @@
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="modelValue.type == MenuTypeEnum.MENU"
+              v-if="modelValue.type === MenuTypeEnum.MENU"
               prop="component"
               :span="24"
             >
               <template #label>
                 <FormTipLabel
                   label="组件路径"
-                  msg="组件页面完整路径，相对于 src/views/, 如 system/user/index, 缺省后缀 .vue"
+                  msg="组件页面完整路径，相对于 src/views/<br/>如 system/user/index, 缺省后缀 .vue"
                 />
               </template>
               <n-input
@@ -116,11 +118,11 @@
               </n-input>
             </n-form-item-grid-item>
 
-            <n-form-item-grid-item v-if="modelValue.type == MenuTypeEnum.MENU" :span="24">
+            <n-form-item-grid-item v-if="modelValue.type === MenuTypeEnum.MENU" :span="24">
               <template #label>
                 <FormTipLabel
                   label="路由参数"
-                  msg="组件页面使用 `useRoute().query.参数名` 获取路由参数值。"
+                  msg="组件页面使用 `useRoute().query.参数名` 获取路由参数值"
                 />
               </template>
               <n-dynamic-input
@@ -160,7 +162,7 @@
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="modelValue.type == MenuTypeEnum.BUTTON"
+              v-if="modelValue.type === MenuTypeEnum.BUTTON"
               label="权限标识"
               prop="perm"
               :span="24"
@@ -169,7 +171,7 @@
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="modelValue.type == MenuTypeEnum.CATALOG"
+              v-if="modelValue.type === MenuTypeEnum.CATALOG"
               label="跳转路由"
               :span="24"
             >
@@ -198,7 +200,7 @@
               <template #label>
                 <FormTipLabel
                   label="始终显示"
-                  msg="选择“是”，即使目录或菜单下只有一个子节点，也会显示父节点。选择“否”，如果目录或菜单下只有一个子节点，则只显示该子节点，隐藏父节点。如果是叶子节点，请选择“否”。"
+                  msg="选择“是”，即使目录或菜单下只有一个子节点，也会显示父节点<br/>选择“否”，如果目录或菜单下只有一个子节点，则只显示该子节点，隐藏父节点<br/>如果是叶子节点，请选择“否”"
                 />
               </template>
               <n-radio-group v-model:value="modelValue.alwaysShow">
