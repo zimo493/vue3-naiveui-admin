@@ -77,9 +77,8 @@ export default defineComponent({
     };
 
     /** 修改头像 */
-    const changeAvatar = () => {
-      console.log("changeAvatar");
-    };
+    const imageCutRef = useCompRef(ImageCut);
+    const changeAvatar = () => imageCutRef.value?.open();
 
     /** 角色信息组件 */
     const RoleInfo = () =>
@@ -94,12 +93,6 @@ export default defineComponent({
 
     /** 安全设置组件 */
     // const SafeSetting = () => {};
-
-    const imageCutRef = useCompRef(ImageCut);
-    const open = () => {
-      console.log("open");
-      imageCutRef.value?.open();
-    };
 
     return () => (
       <NSpin show={loading.value}>
@@ -117,9 +110,7 @@ export default defineComponent({
           <NGi span={16}>
             <NGrid yGap={10} cols={1}>
               <NGi>
-                <NCard>
-                  <NButton onClick={() => open()}>打开</NButton>
-                </NCard>
+                <NCard>1111111</NCard>
               </NGi>
               <NGi>
                 <NCard>222222</NCard>

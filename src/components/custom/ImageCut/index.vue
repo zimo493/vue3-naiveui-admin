@@ -22,9 +22,9 @@
       </n-grid>
       <n-grid x-gap="10">
         <n-gi :span="14">
-          <n-flex justify="space-between">
+          <n-flex justify="space-between" mb-10px>
             <div>
-              <n-upload>
+              <n-upload :show-file-list="false" :default-upload="false">
                 <n-button strong type="success">
                   <template #icon>
                     <Icones icon="ant-design:cloud-upload-outlined" />
@@ -100,8 +100,6 @@ const props = defineProps({
 
 defineExpose({
   open: () => {
-    console.log(11111);
-
     visible.value = true;
     option.img = props.image;
   },
@@ -156,5 +154,7 @@ const realTime = (data: Previews) => (previews.value = data);
 /** 取消 */
 const cancel = () => {
   visible.value = false;
+  previews.value = { img: "", url: "", html: "" };
+  option.img = "";
 };
 </script>
