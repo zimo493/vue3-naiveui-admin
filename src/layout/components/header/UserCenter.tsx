@@ -12,7 +12,7 @@ export default defineComponent({
   setup() {
     const authStore = useAuthStoreHook();
     const AppStore = useAppStoreHook();
-    // const router = useRouter();
+    const router = useRouter();
 
     const { userInfo } = authStore;
 
@@ -69,13 +69,13 @@ export default defineComponent({
     ];
 
     // 选择事件
-    const handleSelect = (key: string | number) => {
+    const handleSelect = async (key: string | number) => {
       switch (key) {
         case "loginOut":
           InquiryBox("确定要退出系统吗？").then(() => authStore.logout());
           break;
         case "userCenter":
-          window.$message.warning("该功能暂未开发，敬请期待！");
+          await router.push("/profile");
           break;
         case "github":
           window.open("https://github.com/zimo493/vue3-naiveui-admin");

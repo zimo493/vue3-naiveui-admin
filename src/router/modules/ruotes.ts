@@ -18,6 +18,12 @@ const appRootRoutes: RouteRecordRaw = {
         keepAlive: true,
       },
     },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: () => import("@/views/profile/index.vue"),
+      meta: { title: "个人中心", icon: "material-symbols:person-edit-sharp" },
+    },
   ],
 };
 
