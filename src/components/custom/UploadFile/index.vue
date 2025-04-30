@@ -92,10 +92,7 @@ const props = defineProps({
   /**
    * 是否支持多选
    */
-  multiple: {
-    type: Boolean,
-    default: true,
-  },
+  multiple: { type: Boolean, default: true },
   /**
    * 是否支持拖拽上传
    */
