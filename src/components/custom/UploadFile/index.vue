@@ -10,8 +10,8 @@
     :on-error="handleError"
     :on-remove="handleRemove"
     :on-finish="handleFinish"
+    :on-before-upload="beforeUpload"
     v-bind="$attrs"
-    @before-upload="beforeUpload"
   >
     <n-upload-dragger v-if="drag">
       <div style="margin-bottom: 12px">
