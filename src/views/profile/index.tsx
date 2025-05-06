@@ -1,19 +1,10 @@
-import UserAPI from "@/api/system/user";
+import { useAuthStoreHook } from "@/store";
 import { useCompRef, useLoading } from "@/hooks";
 
-import {
-  NSpin,
-  NGrid,
-  NGi,
-  NCard,
-  NFlex,
-  NAvatar,
-  NH3,
-  NTag,
-  NEl,
-  NDivider,
-  NButton,
-} from "naive-ui";
+import FileAPI from "@/api/file";
+import UserAPI from "@/api/system/user";
+
+import { NSpin, NGrid, NGi, NCard, NFlex, NAvatar, NH3, NTag, NEl, NDivider } from "naive-ui";
 import Icones from "@/components/common/Icones.vue";
 import ImageCut from "@/components/custom/ImageCut/index.vue";
 
@@ -21,6 +12,8 @@ export default defineComponent({
   name: "Profile",
   setup() {
     const { loading, startLoading, endLoading } = useLoading();
+
+    const authStore = useAuthStoreHook();
 
     onMounted(async () => {
       await loadUserProfile();
@@ -66,7 +59,7 @@ export default defineComponent({
           />
           {isHover.value && (
             <NEl
-              class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex-center cursor-pointer border-rd-3px"
+              class="absolute top-1 left-1 bottom-1 right-1 bg-black bg-opacity-50 flex-center cursor-pointer border-rd-3px"
               onClick={() => changeAvatar()}
             >
               <Icones icon="ant-design:edit-outlined" size={32} color="#fff" />
@@ -79,6 +72,32 @@ export default defineComponent({
     /** 修改头像 */
     const imageCutRef = useCompRef(ImageCut);
     const changeAvatar = () => imageCutRef.value?.open();
+    /**
+     * 上传并设置头像
+     * @param file 文件
+     */
+    const handleSubmit = async (file: File) => {
+      // 调用文件上传API
+      try {
+        imageCutRef.value?.startLoading();
+        const { url: avatar } = await FileAPI.uploadFile(file);
+
+        // 更新用户头像
+        authStore.userInfo.avatar = avatar;
+        userProfile.value.avatar = avatar;
+        // 更新用户信息
+        await UserAPI.updateProfile({
+          avatar,
+        });
+        imageCutRef.value?.close();
+        window.$message.success("头像更新成功！");
+      } catch (error) {
+        console.error("头像上传失败：" + error);
+        window.$message.error("头像上传失败！");
+      } finally {
+        imageCutRef.value?.endLoading();
+      }
+    };
 
     /** 角色信息组件 */
     const RoleInfo = () =>
@@ -118,7 +137,11 @@ export default defineComponent({
             </NGrid>
           </NGi>
         </NGrid>
-        <ImageCut ref={imageCutRef} image={userProfile.value.avatar} />
+        <ImageCut
+          ref={imageCutRef}
+          image={userProfile.value.avatar}
+          onSubmit={(val: File) => handleSubmit(val)}
+        />
       </NSpin>
     );
   },
