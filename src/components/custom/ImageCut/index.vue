@@ -14,9 +14,6 @@
           <VueCropper v-if="visible" ref="cropper" v-bind="option" @real-time="realTime" />
         </n-gi>
         <n-gi :span="10">
-          <!-- <div class="avatar-upload-preview">
-          <img :src="previews.url" :style="previews.img" />
-        </div> -->
           <div flex-center h-450px v-html="previews.html" />
         </n-gi>
       </n-grid>
@@ -24,7 +21,12 @@
         <n-gi :span="14">
           <n-flex justify="space-between" mb-10px>
             <div>
-              <n-upload :show-file-list="false" :default-upload="false">
+              <n-upload
+                :show-file-list="false"
+                :default-upload="false"
+                :on-change="handelChange"
+                :on-before-upload="beforeUpload"
+              >
                 <n-button strong type="success">
                   <template #icon>
                     <Icones icon="ant-design:cloud-upload-outlined" />
@@ -71,7 +73,7 @@
         </n-gi>
         <n-gi :span="10">
           <n-flex justify="center">
-            <n-button type="primary">
+            <n-button type="primary" :loading="loading" @click="submit">
               <template #icon>
                 <Icones icon="ant-design:check-outlined" />
               </template>
@@ -84,6 +86,10 @@
   </n-modal>
 </template>
 <script setup lang="tsx">
+import type { UploadFileInfo } from "naive-ui";
+
+import { useLoading } from "@/hooks";
+
 import { VueCropper } from "vue-cropper";
 import "vue-cropper/dist/index.css";
 
@@ -98,11 +104,10 @@ const props = defineProps({
   width: { type: Number, default: 800 },
 });
 
-defineExpose({
-  open: () => {
-    visible.value = true;
-    option.img = props.image;
-  },
+const { loading, startLoading, endLoading } = useLoading();
+
+const emit = defineEmits({
+  submit: (val: File) => val,
 });
 
 const visible = ref(false);
@@ -151,10 +156,92 @@ const previews = ref<Previews>({ img: "", url: "", html: "" });
 /** 实时预览 */
 const realTime = (data: Previews) => (previews.value = data);
 
+/** 上传文件前校验 */
+const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
+  const file = data.file.file;
+
+  if (!file) {
+    return false;
+  }
+
+  // 校检文件类型
+  if (fileType.value) {
+    let fileExtension = "";
+
+    if (file.name.lastIndexOf(".") > -1) {
+      fileExtension = file.name.slice(file.name.lastIndexOf(".") + 1);
+    }
+    const isTypeOk = fileType.value.some((type) => {
+      if (file.type.indexOf(type) > -1) return true;
+
+      return !!(fileExtension && fileExtension.indexOf(type) > -1);
+    });
+
+    if (!isTypeOk) {
+      window.$message.error(`文件格式不正确, 请上传${fileType.value.join(" / ")}的格式文件!`);
+
+      return false;
+    }
+  }
+
+  // 校检文件大小
+  if (fileSize.value) {
+    const isLt = file.size / 1024 / 1024 < fileSize.value;
+
+    if (!isLt) {
+      window.$message.error(`上传文件大小不能超过 ${fileSize.value} MB!`);
+
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const fileName = ref(""); // 文件名
+/** 提取文件名从URL的逻辑 */
+const extractFileNameFromUrl = (url: string): string => {
+  const urlParts = url.split("/");
+  let name = urlParts.length > 0 ? urlParts[urlParts.length - 1] : url;
+  const queryParamIndex = name.indexOf("?");
+
+  if (queryParamIndex > 0) {
+    name = name.substring(0, queryParamIndex);
+  }
+
+  return name;
+};
+/** 上传改变 */
+const handelChange = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
+  fileName.value = data.file.name;
+  option.img = URL.createObjectURL(data.file.file as File);
+};
+
+/** 提交 */
+const submit = () => {
+  cropper.value?.getCropBlob((data: Blob) => {
+    const file = new File([data], fileName.value, { type: data.type });
+
+    emit("submit", file);
+  });
+};
+
 /** 取消 */
 const cancel = () => {
-  visible.value = false;
   previews.value = { img: "", url: "", html: "" };
   option.img = "";
+  visible.value = false;
 };
+
+/** 暴露 */
+defineExpose({
+  open: () => {
+    visible.value = true;
+    option.img = props.image;
+    fileName.value = props.image ? extractFileNameFromUrl(props.image) : "avatar.jpeg";
+  },
+  close: () => cancel(),
+  startLoading: () => startLoading(),
+  endLoading: () => endLoading(),
+});
 </script>
