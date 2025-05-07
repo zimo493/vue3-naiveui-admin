@@ -1,6 +1,6 @@
 <template>
-  <div>
+  <n-alert type="info">
     菜单一级
     <router-view />
-  </div>
+  </n-alert>
 </template>
