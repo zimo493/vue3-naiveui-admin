@@ -72,7 +72,7 @@
           :disabled="loading"
           @click="handleLoginSubmit"
         >
-          登录
+          {{ loading ? "登 录 中..." : "登 录" }}
         </n-button>
         <n-flex align="center" justify="center">
           <n-text>您没有账号？</n-text>
