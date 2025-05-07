@@ -59,8 +59,6 @@ const formConfig = ref<FormOption<FormFields>>({
 });
 // 表单数据
 const modelValue = ref<FormFields>({
-  selectDict: 1,
   radioDict: 2,
-  checkboxDict: [0],
 });
 </script>
