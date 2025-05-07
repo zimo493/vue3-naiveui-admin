@@ -31,7 +31,7 @@
                   <template #icon>
                     <Icones icon="ant-design:cloud-upload-outlined" />
                   </template>
-                  上传文件
+                  选择图片
                 </n-button>
               </n-upload>
             </div>
