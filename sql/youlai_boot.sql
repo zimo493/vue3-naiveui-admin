@@ -296,7 +296,6 @@ INSERT INTO `sys_menu` VALUES (38, 36, '0,36', '图片上传', 1, NULL, 'upload'
 INSERT INTO `sys_menu` VALUES (39, 36, '0,36', '图标选择器', 1, NULL, 'icon-selector', 'demo/icon-selector', NULL, NULL, 1, 1, 4, 'emojione-v1:smiling-face-with-sunglasses', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (41, 40, '0,40', 'Apifox', 1, NULL, 'apifox', 'demo/api/apifox', NULL, NULL, 1, 1, 1, 'local:apifox', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (90, 89, '0,89', 'Websocket', 1, NULL, '/function/websocket', 'demo/websocket', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (91, 89, '0,89', '敬请期待...', 2, NULL, 'other/:id', 'demo/other', NULL, NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (95, 36, '0,36', '字典组件', 1, NULL, 'dict-demo', 'demo/dictionary', NULL, NULL, 1, 1, 4, '', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (97, 89, '0,89', 'Icons', 1, NULL, 'icon-demo', 'demo/icons', NULL, NULL, 1, 1, 2, 'noto:grinning-face', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (102, 26, '0,26', 'document', 3, '', 'internal-doc', 'demo/internal-doc', NULL, NULL, NULL, 1, 1, 'local:juejin', NULL, now(), now(), NULL);
@@ -472,7 +471,6 @@ INSERT INTO `sys_role_menu` VALUES (2, 84);
 INSERT INTO `sys_role_menu` VALUES (2, 88);
 INSERT INTO `sys_role_menu` VALUES (2, 89);
 INSERT INTO `sys_role_menu` VALUES (2, 90);
-INSERT INTO `sys_role_menu` VALUES (2, 91);
 INSERT INTO `sys_role_menu` VALUES (2, 95);
 INSERT INTO `sys_role_menu` VALUES (2, 97);
 INSERT INTO `sys_role_menu` VALUES (2, 102);
@@ -515,7 +513,6 @@ INSERT INTO `sys_role_menu` VALUES (2, 146);
 INSERT INTO `sys_role_menu` VALUES (2, 147);
 INSERT INTO `sys_role_menu` VALUES (3, 89);
 INSERT INTO `sys_role_menu` VALUES (3, 90);
-INSERT INTO `sys_role_menu` VALUES (3, 91);
 INSERT INTO `sys_role_menu` VALUES (3, 97);
 
 -- ----------------------------
