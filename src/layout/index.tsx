@@ -1,8 +1,12 @@
 import { useAppStoreHook } from "@/store";
 
-import left from "./main/Left.vue";
-import top from "./main/Top.vue";
-import mix from "./main/Mix.vue";
+const layoutMap = {
+  left: defineAsyncComponent(() => import("./main/Left.vue")),
+  top: defineAsyncComponent(() => import("./main/Top.vue")),
+  mix: defineAsyncComponent(() => import("./main/Mix.vue")),
+};
+
+const appStore = useAppStoreHook();
 
 /**
  * 渲染函数
@@ -10,10 +14,5 @@ import mix from "./main/Mix.vue";
  */
 export default defineComponent({
   name: "Layout",
-  render: () => {
-    const appStore = useAppStoreHook();
-    const layoutMap = { left, top, mix };
-
-    return h(layoutMap[appStore.layoutMode]);
-  },
+  render: () => h(layoutMap[appStore.layoutMode]),
 });
