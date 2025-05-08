@@ -188,7 +188,7 @@ const handleDelete = (row: Menu.VO) => {
 const createMenuTypeTag = (type?: MenuTypeEnum): VNode => {
   // 定义类型与标签的映射关系
   const typeMap: Record<MenuTypeEnum, { type: string; label: string }> = {
-    [MenuTypeEnum.CATALOG]: { type: "warning", label: "菜单" },
+    [MenuTypeEnum.CATALOG]: { type: "warning", label: "目录" },
     [MenuTypeEnum.MENU]: { type: "success", label: "菜单" },
     [MenuTypeEnum.BUTTON]: { type: "info", label: "按钮" },
     [MenuTypeEnum.EXTLINK]: { type: "error", label: "外链" },
@@ -202,10 +202,6 @@ const createMenuTypeTag = (type?: MenuTypeEnum): VNode => {
   // 根据映射关系生成标签
   const { type: tagType, label } = typeMap[type];
 
-  return (
-    <NTag type={tagType} round bordered={false}>
-      {label}
-    </NTag>
-  );
+  return <NTag type={tagType}>{label}</NTag>;
 };
 </script>
