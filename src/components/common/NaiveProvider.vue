@@ -24,11 +24,7 @@ const registerNaiveTools = () => {
 
 const NaiveProviderContent = defineComponent({
   name: "NaiveProviderContent",
-  setup() {
-    registerNaiveTools();
-  },
-  render() {
-    return h("div");
-  },
+  setup: () => registerNaiveTools(),
+  render: () => h("div"),
 });
 </script>

@@ -82,7 +82,7 @@
           :loading="loading"
           v-on="tableEvents ?? {}"
         />
-        <pagination
+        <Pagination
           v-if="totalNum > 0"
           v-model:count="totalNum"
           v-model:page="modelValue.pageNum"
