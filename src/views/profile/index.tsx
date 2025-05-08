@@ -6,7 +6,7 @@ import UserAPI from "@/api/system/user";
 
 import { NSpin, NGrid, NGi, NCard, NFlex, NAvatar, NH3, NTag, NEl, NDivider } from "naive-ui";
 import Icones from "@/components/common/Icones.vue";
-import ImageCut from "@/components/custom/ImageCut/index.vue";
+import ImageCut from "@/components/custom/ImageCut.vue";
 
 export default defineComponent({
   name: "Profile",

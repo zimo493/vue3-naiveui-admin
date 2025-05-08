@@ -129,7 +129,7 @@ import UserAPI from "@/api/system/user";
 import RoleAPI from "@/api/system/role";
 
 import Icones from "@/components/common/Icones.vue";
-import DictTag from "@/components/custom/DictTag/index.vue";
+import DictTag from "@/components/custom/DictTag.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
 import ImportUser from "./components/ImportUser.vue";
 
