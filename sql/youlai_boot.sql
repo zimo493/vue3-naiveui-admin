@@ -300,7 +300,6 @@ INSERT INTO `sys_menu` VALUES (95, 36, '0,36', '字典组件', 1, NULL, 'dict-de
 INSERT INTO `sys_menu` VALUES (97, 89, '0,89', 'Icons', 1, NULL, 'icon-demo', 'demo/icons', NULL, NULL, 1, 1, 2, 'noto:grinning-face', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (102, 26, '0,26', 'document', 3, '', 'internal-doc', 'demo/internal-doc', NULL, NULL, NULL, 1, 1, 'local:juejin', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (108, 36, '0,36', '增删改查', 1, NULL, 'curd', 'demo/curd/index', NULL, NULL, 1, 1, 0, '', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (109, 36, '0,36', '列表选择器', 1, NULL, 'table-select', 'demo/table-select/index', NULL, NULL, 1, 1, 1, '', NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (111, 110, '0,110', '参数(type=1)', 1, 'RouteParamType1', 'route-param-type1', 'demo/route-param', NULL, 0, 1, 1, 1, 'icon-park-outline:star', NULL, now(), now(), '{\"type\":\"1\"}');
 INSERT INTO `sys_menu` VALUES (112, 110, '0,110', '参数(type=2)', 1, NULL, 'route-param-type2', 'demo/route-param', NULL, 0, 1, 1, 2, 'icon-park-solid:star', NULL, now(), now(), '{\"type\": \"2\"}');
 INSERT INTO `sys_menu` VALUES (117, 1, '0,1', '系统日志', 1, 'Log', 'log', 'system/log/index', NULL, 0, 1, 1, 6, 'icon-park-solid:log', NULL, now(), now(), NULL);
@@ -310,8 +309,6 @@ INSERT INTO `sys_menu` VALUES (126, 1, '0,1', '通知公告', 1, 'Notice', 'noti
 INSERT INTO `sys_menu` VALUES (135, 1, '0,1', '字典项', 1, 'DictItem', 'dict-item', 'system/dict/dict-item', NULL, 0, 1, 0, 6, 'icon-park-outline:ad-product', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (144, 26, '0,26', '后端文档', 3, NULL, 'https://youlai.blog.csdn.net/article/details/145178880', '', NULL, NULL, NULL, 1, 3, 'local:csdn', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (145, 26, '0,26', '移动端文档', 3, NULL, 'https://youlai.blog.csdn.net/article/details/143222890', '', NULL, NULL, NULL, 1, 4, 'local:csdn', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (146, 36, '0,36', '拖拽组件', 1, NULL, 'drag', 'demo/drag', NULL, NULL, NULL, 1, 5, 'material-symbols:drag-pan', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (147, 36, '0,36', '滚动文本', 1, NULL, 'text-scroll', 'demo/text-scroll', NULL, NULL, NULL, 1, 6, '', NULL, now(), now(), NULL);
 
 -- 三级菜单
 INSERT INTO `sys_menu` VALUES (22, 21, '0,20,21', '菜单二级', 1, NULL, 'multi-level2', 'demo/multi-level/children/level2', NULL, 0, NULL, 1, 1, 'healthicons:2', NULL, now(), now(), NULL);
@@ -478,7 +475,6 @@ INSERT INTO `sys_role_menu` VALUES (2, 105);
 INSERT INTO `sys_role_menu` VALUES (2, 106);
 INSERT INTO `sys_role_menu` VALUES (2, 107);
 INSERT INTO `sys_role_menu` VALUES (2, 108);
-INSERT INTO `sys_role_menu` VALUES (2, 109);
 INSERT INTO `sys_role_menu` VALUES (2, 110);
 INSERT INTO `sys_role_menu` VALUES (2, 111);
 INSERT INTO `sys_role_menu` VALUES (2, 112);
@@ -509,8 +505,6 @@ INSERT INTO `sys_role_menu` VALUES (2, 142);
 INSERT INTO `sys_role_menu` VALUES (2, 143);
 INSERT INTO `sys_role_menu` VALUES (2, 144);
 INSERT INTO `sys_role_menu` VALUES (2, 145);
-INSERT INTO `sys_role_menu` VALUES (2, 146);
-INSERT INTO `sys_role_menu` VALUES (2, 147);
 INSERT INTO `sys_role_menu` VALUES (3, 89);
 INSERT INTO `sys_role_menu` VALUES (3, 90);
 INSERT INTO `sys_role_menu` VALUES (3, 97);
