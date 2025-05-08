@@ -84,7 +84,7 @@ const handleContextMenu = (e: MouseEvent, route: RouteLocationNormalized) => {
   });
 };
 
-const onClickoutside = () => (showDropdown.value = false);
+const onClickOutSide = () => (showDropdown.value = false);
 </script>
 
 <template>
@@ -140,7 +140,7 @@ const onClickoutside = () => (showDropdown.value = false);
       :y="y"
       :options="options"
       :show="showDropdown"
-      :on-clickoutside="onClickoutside"
+      :on-clickoutside="onClickOutSide"
       @select="handleSelect"
     />
   </div>

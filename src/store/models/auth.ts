@@ -62,9 +62,7 @@ export const useAuthStore = defineStore("auth-store", {
           .then(() => {
             this.resetAuthStore()
               .then(() => window.$message.success("退出成功"))
-              .then(() => {
-                router.replace("/login");
-              });
+              .then(async () => await router.replace("/login"));
             resolve();
           })
           .catch((error) => reject(error));
