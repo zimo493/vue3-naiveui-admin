@@ -66,7 +66,7 @@ const fetchIconAllList = async (nameList: string[]) => {
     const categories = i.categories ?? i.uncategorized;
 
     i.icons = Object.entries(categories).reduce((prev, next) => {
-      const [_key, value] = next;
+      const [, value] = next;
 
       return prev.concat(value);
     }, [] as string[]);
