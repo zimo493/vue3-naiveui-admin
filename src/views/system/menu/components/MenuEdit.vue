@@ -420,6 +420,7 @@ const cancel = () => {
     keepAlive: 1,
     params: [],
   };
+  modelValue.value = { ...initialMenuFormData.value };
   ruleFormRef.value?.restoreValidation();
 
   modal.value = { title: "", visible: false };
