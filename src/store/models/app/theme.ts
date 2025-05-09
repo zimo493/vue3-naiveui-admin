@@ -1,15 +1,15 @@
 import type { GlobalThemeOverrides } from "naive-ui";
 
 /** 默认主色 */
-export const primaryColor: string = "#ac29e1";
+export const primaryColor = "#ac29e1";
 /** 默认信息色 */
-export const infoColor: string = "#70c0e8";
+export const infoColor = "#70c0e8";
 /** 默认成功色 */
-export const successColor: string = "#18a058";
+export const successColor = "#18a058";
 /** 默认警告色 */
-export const warningColor: string = "#f0a020";
+export const warningColor = "#f0a020";
 /** 默认错误色 */
-export const errorColor: string = "#d03050";
+export const errorColor = "#d03050";
 
 /** 默认主题配置 */
 const themeConfig: GlobalThemeOverrides = {

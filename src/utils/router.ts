@@ -46,11 +46,7 @@ export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRa
 };
 
 // 核心递归处理路由函数
-export const processRoute = (
-  route: AppRoute.RouteVO,
-  parentPath: string = "",
-  depth: number = 0
-): MenuOption[] => {
+export const processRoute = (route: AppRoute.RouteVO, parentPath = "", depth = 0): MenuOption[] => {
   if (depth > MAX_DEPTH) {
     console.warn(`菜单层级超过${MAX_DEPTH}层，路径：${route.path}`);
 
@@ -117,7 +113,7 @@ const getMenuIcon = (icon?: string) => (icon ? renderIcon(icon) : renderIcon(def
 // 标签生成函数
 const generateLabel = (
   fullPath: string,
-  title: string = "未命名菜单",
+  title = "未命名菜单",
   params?: Recordable,
   hasChildren?: boolean
 ) => {

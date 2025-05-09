@@ -142,9 +142,9 @@ export const useAppStore = defineStore("app-store", {
     },
     /**
      * @description: 页面内容重载
-     * @param {number} delay - 延迟毫秒数
+     * @param delay - 延迟毫秒数
      */
-    async reloadPage(delay: number = 800) {
+    async reloadPage(delay = 800) {
       this.loadFlag = false;
       await nextTick();
 

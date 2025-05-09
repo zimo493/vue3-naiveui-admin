@@ -189,7 +189,7 @@ watch(
 const checkboxString = computed(() => {
   const str = checkboxList.value.join();
 
-  return str == "" ? "*" : str;
+  return str === "" ? "*" : str;
 });
 
 watch(

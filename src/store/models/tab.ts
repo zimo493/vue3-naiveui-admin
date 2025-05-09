@@ -47,7 +47,7 @@ export const useTabStore = defineStore("tab-store", {
         // 获取关闭的标签索引
         const index: number = this.getTabIndex(path);
         const isLast: boolean = index + 1 === tabsLength;
-        let pushedTab: string = "";
+        let pushedTab = "";
 
         // 如果是关闭的当前页面，路由跳转到原先标签的后一个标签
         if (this.currentTabPath === path && !isLast) {

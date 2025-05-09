@@ -194,7 +194,7 @@ const handleChange = (editor: IDomEditor) => {
 onBeforeUnmount(() => {
   const editor = editorRef.value;
 
-  if (editor == null) return;
+  if (editor === null) return;
   editor.destroy();
 });
 

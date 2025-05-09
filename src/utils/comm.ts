@@ -15,8 +15,8 @@ export function tansParams(params: { [key: string]: any }) {
       if (typeof value === "object") {
         for (const key of Object.keys(value)) {
           if (value[key] !== null && value[key] !== "" && typeof value[key] !== "undefined") {
-            let params = propName + "[" + key + "]";
-            var subPart = encodeURIComponent(params) + "=";
+            const params = propName + "[" + key + "]";
+            const subPart = encodeURIComponent(params) + "=";
 
             result += subPart + encodeURIComponent(value[key]) + "&";
           }
@@ -40,7 +40,7 @@ export function tansParams(params: { [key: string]: any }) {
 export const InquiryBox = (
   content: string,
   type: "success" | "warning" | "error" = "warning",
-  title: string = "系统提示"
+  title = "系统提示"
 ): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     window.$dialog[type]({
@@ -94,7 +94,7 @@ export const exportFile = (fileData: BlobPart, fileType: MIMETYPE, fileName: str
  */
 export const parseTime = (
   time: Date | string | number,
-  pattern: string = "YYYY-MM-DD HH:mm:ss"
+  pattern = "YYYY-MM-DD HH:mm:ss"
 ): string => {
   const date = time instanceof Date ? time : new Date(time);
 

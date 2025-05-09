@@ -56,7 +56,7 @@ export default {
    */
   async download(url: string, fileName?: string) {
     const res = await request({
-      url: url,
+      url,
       method: "get",
       responseType: "blob",
     });

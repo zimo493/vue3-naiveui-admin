@@ -148,7 +148,7 @@ const columns: DataTableColumns<Menu.VO> = [
     align: "center",
     render: (row) => (
       <NSpace justify="center">
-        {(row.type == MenuTypeEnum.CATALOG || row.type == MenuTypeEnum.MENU) && (
+        {(row.type === MenuTypeEnum.CATALOG || row.type === MenuTypeEnum.MENU) && (
           <NButton size="small" quaternary type="primary" onClick={() => openDialog(row.id)}>
             新增
           </NButton>

@@ -74,12 +74,15 @@ export default defineComponent({
         case "loginOut":
           InquiryBox("确定要退出系统吗？").then(() => authStore.logout());
           break;
+
         case "userCenter":
           await router.push("/profile");
           break;
+
         case "github":
           window.open("https://github.com/zimo493/vue3-naiveui-admin");
           break;
+
         case "gitee":
           window.open("https://gitee.com/zimo493/vue3-naiveui-admin");
           break;

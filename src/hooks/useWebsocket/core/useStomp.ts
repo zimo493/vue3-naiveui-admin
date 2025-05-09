@@ -49,7 +49,7 @@ export function useStomp(options: UseStompOptions = {}) {
   const subscriptions = new Map<string, StompSubscription>();
 
   // 用于保存 STOMP 客户端的实例
-  let client = ref<Client | null>(null);
+  const client = ref<Client | null>(null);
 
   /**
    * 初始化 STOMP 客户端

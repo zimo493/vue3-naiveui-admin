@@ -254,7 +254,7 @@ const handleRemove = async ({
       const url = file.url ?? "";
 
       await FileAPI.delete(url);
-      emit("remove", { url: url, name: file.name, idx: index });
+      emit("remove", { url, name: file.name, idx: index });
       window.$message.success("删除成功");
 
       return true;

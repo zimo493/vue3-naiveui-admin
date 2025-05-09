@@ -130,9 +130,9 @@ onMounted(() => {
 
 // 赋值
 const assign = () => {
-  if (value.value == "") {
+  if (value.value === "") {
     radioValue.value = 1;
-  } else if (value.value == "*") {
+  } else if (value.value === "*") {
     radioValue.value = 2;
   } else if (value.value.indexOf("-") > -1) {
     radioValue.value = 3;
@@ -200,7 +200,7 @@ watch(
 const checkboxString = computed(() => {
   const str = checkboxList.value.join();
 
-  return str == "" ? "*" : str;
+  return str === "" ? "*" : str;
 });
 
 watch(

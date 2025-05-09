@@ -69,7 +69,7 @@ export const useRouteStore = defineStore("route-store", {
      * @param routes 路由
      * @param parentPath 父级路由路径
      */
-    setRedirect(routes: AppRoute.RouteVO[], parentPath: string = "") {
+    setRedirect(routes: AppRoute.RouteVO[], parentPath = "") {
       routes.forEach((route) => {
         const currentPath = joinPaths(parentPath, route.path);
 

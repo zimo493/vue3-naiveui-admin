@@ -172,19 +172,19 @@ const assign = () => {
   } else if (value.value === "?") {
     radioValue.value = 2;
   } else if (value.value.indexOf("-") > -1) {
-    let indexArr = value.value.split("-");
+    const indexArr = value.value.split("-");
 
     cycle01.value = isNaN(+indexArr[0]) ? 0 : +indexArr[0];
     cycle02.value = +indexArr[1];
     radioValue.value = 3;
   } else if (value.value.indexOf("#") > -1) {
-    let indexArr = value.value.split("#");
+    const indexArr = value.value.split("#");
 
     average01.value = isNaN(+indexArr[1]) ? 1 : +indexArr[1];
     average02.value = +indexArr[0];
     radioValue.value = 4;
   } else if (value.value.indexOf("L") > -1) {
-    let indexArr = value.value.split("L");
+    const indexArr = value.value.split("L");
 
     weekday.value = isNaN(+indexArr[0]) ? 1 : +indexArr[0];
     radioValue.value = 5;
@@ -256,7 +256,7 @@ watch(
 const checkboxString = computed(() => {
   const str = checkboxList.value.join();
 
-  return str == "" ? "*" : str;
+  return str === "" ? "*" : str;
 });
 
 watch(

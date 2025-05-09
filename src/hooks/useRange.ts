@@ -4,7 +4,7 @@
  */
 export const useRange = () => {
   const params: Recordable = {};
-  const setRange = (val?: [string, string], propName: string = "Time") =>
+  const setRange = (val?: [string, string], propName = "Time") =>
     ([params[`begin${propName}`], params[`end${propName}`]] = val ? val : [null, null]);
 
   function handleRange<T extends Recordable>(query: T): T {

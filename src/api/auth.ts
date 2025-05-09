@@ -25,7 +25,7 @@ export default {
     request<any, Auth.LoginResult>({
       url: `${AUTH_BASE_URL}/refresh-token`,
       method: "post",
-      params: { refreshToken: refreshToken },
+      params: { refreshToken },
       headers: { isToken: false },
     }),
 

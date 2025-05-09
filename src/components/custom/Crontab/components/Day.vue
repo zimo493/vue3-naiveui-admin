@@ -145,22 +145,22 @@ onMounted(() => assign());
 const assign = () => {
   if (value.value === "*") {
     radioValue.value = 1;
-  } else if (value.value == "?") {
+  } else if (value.value === "?") {
     radioValue.value = 2;
   } else if (value.value.indexOf("-") > -1) {
-    let indexArr = value.value.split("-");
+    const indexArr = value.value.split("-");
 
     cycle01.value = isNaN(+indexArr[0]) ? 0 : +indexArr[0];
     cycle02.value = +indexArr[1];
     radioValue.value = 3;
   } else if (value.value.indexOf("/") > -1) {
-    let indexArr = value.value.split("/");
+    const indexArr = value.value.split("/");
 
     average01.value = isNaN(+indexArr[0]) ? 0 : +indexArr[0];
     average02.value = +indexArr[1];
     radioValue.value = 4;
   } else if (value.value.indexOf("W") > -1) {
-    let indexArr = value.value.split("W");
+    const indexArr = value.value.split("W");
 
     workday.value = isNaN(+indexArr[0]) ? 0 : +indexArr[0];
     radioValue.value = 5;
@@ -244,7 +244,7 @@ watch(
 const checkboxString = computed(() => {
   const str = checkboxList.value.join();
 
-  return str == "" ? "*" : str;
+  return str === "" ? "*" : str;
 });
 
 watch(

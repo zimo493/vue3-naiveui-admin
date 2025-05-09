@@ -10,7 +10,7 @@ export const useDictStore = defineStore("dict-store", {
   actions: {
     // 获取字典
     getDict(_key: string | null) {
-      if (_key == null && _key === "") {
+      if (_key === null && _key === "") {
         return [];
       }
       try {
@@ -35,7 +35,7 @@ export const useDictStore = defineStore("dict-store", {
         }
         this.dict.push({
           key: _key,
-          value: value,
+          value,
         });
       }
     },

@@ -5,7 +5,7 @@
  * @param interval 定时器的间隔时间，以毫秒为单位，默认为3000毫秒
  * @returns 提供了两个方法：startTicker 和 stopTicker，用于手动启动和停止定时器
  */
-export function useKeepTicking(callback: () => void, interval: number = 3000) {
+export function useKeepTicking(callback: () => void, interval = 3000) {
   /** 标记定时器是否正在运行 */
   let ticking = false;
   /** 存储定时器的标识符 */

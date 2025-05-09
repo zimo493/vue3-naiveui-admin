@@ -389,7 +389,7 @@ const handleSubmit = async () => {
 
   if (menuId) {
     //修改时父级菜单不能为当前菜单
-    if (modelValue.value.parentId == menuId) {
+    if (modelValue.value.parentId === menuId) {
       window.$message.error("父级菜单不能为当前菜单");
 
       return;
