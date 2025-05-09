@@ -76,8 +76,6 @@
     "@types/node": "^22.15.16",
     "@types/nprogress": "^0.2.3",
     "@types/qs": "^6.9.18",
-    "@typescript-eslint/eslint-plugin": "^8.32.0",
-    "@typescript-eslint/parser": "^8.32.0",
     "@unocss/vite": "66.1.0-beta.10",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vitejs/plugin-vue-jsx": "^4.1.2",
