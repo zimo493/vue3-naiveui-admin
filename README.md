@@ -116,7 +116,7 @@
 ├─ .stylelintignore        # stylelint 忽略文件
 ├─ .stylelintrc.cjs        # stylelint 规则配置
 ├─ commitlint.config.cjs   # 代码提交规则配置
-├─ eslint.config.js        # eslint 规则配置
+├─ eslint.config.ts        # eslint 规则配置
 ├─ index.html              # 入口 html
 ├─ LICENSE                 # 开源协议文件
 ├─ package.json            # 依赖包管理
