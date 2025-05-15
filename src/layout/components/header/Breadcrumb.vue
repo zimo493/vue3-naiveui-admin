@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { RouteRecordRaw } from "vue-router";
+import type { DropdownMixedOption } from "naive-ui/es/dropdown/src/interface";
+
 import { useAppStoreHook } from "@/store";
-import { RouteRecordRaw } from "vue-router";
-import { DropdownMixedOption } from "naive-ui/es/dropdown/src/interface";
 import { isHttpUrl, renderIcon } from "@/utils";
+
 import { defaultIcon } from "@/modules/assets";
 
 const router = useRouter();

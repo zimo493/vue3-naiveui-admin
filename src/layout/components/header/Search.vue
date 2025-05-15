@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { RouteRecordRaw } from "vue-router";
+
 import { useRouteStore } from "@/store";
 import { useBoolean } from "@/hooks";
 import { defaultIcon } from "@/modules/assets";
-import { RouteRecordRaw } from "vue-router";
 
 const routeStore = useRouteStore();
 

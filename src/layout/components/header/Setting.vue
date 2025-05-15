@@ -1,8 +1,10 @@
 <script setup lang="tsx">
-import { LayoutMode, ThemeMode } from "@/enums";
+import type { VNodeChild } from "vue";
+
 import { useAppStoreHook } from "@/store";
+import { LayoutMode, ThemeMode } from "@/enums";
+
 import { NFlex, NText, SelectOption } from "naive-ui";
-import { VNodeChild } from "vue";
 
 const appStore = useAppStoreHook();
 

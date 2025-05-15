@@ -10,9 +10,10 @@
   />
 </template>
 <script setup lang="ts">
-import { MenuInst } from "naive-ui";
-import { useAppStoreHook, useRouteStoreHook } from "@/store";
+import type { MenuInst } from "naive-ui";
+
 import { LayoutMode } from "@/enums";
+import { useAppStoreHook, useRouteStoreHook } from "@/store";
 
 const route = useRoute();
 const appStore = useAppStoreHook();

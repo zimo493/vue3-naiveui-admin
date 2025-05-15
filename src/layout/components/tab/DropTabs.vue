@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useTabStoreHook } from "@/store";
 import { renderIcon } from "@/utils";
+import { useTabStoreHook } from "@/store";
+
 import { defaultIcon } from "@/modules/assets";
 
 const tabStore = useTabStoreHook();

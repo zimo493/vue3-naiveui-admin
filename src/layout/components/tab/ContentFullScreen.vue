@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { useAppStoreHook } from "@/store";
+
 import fullScreen from "~icons/icon-park-outline/full-screen-one";
 import offScreen from "~icons/icon-park-outline/off-screen-one";
-import { useAppStoreHook } from "@/store";
 
 const appStore = useAppStoreHook();
 </script>

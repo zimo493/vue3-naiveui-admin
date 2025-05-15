@@ -1,15 +1,19 @@
 <script setup lang="ts">
+import type { TabsInst } from "naive-ui";
 import type { RouteLocationNormalized } from "vue-router";
-import { TabsInst } from "naive-ui";
-import Reload from "./Reload.vue";
-import DropTabs from "./DropTabs.vue";
+
 import { useAppStoreHook, useTabStoreHook } from "@/store";
+
 import IconRedo from "~icons/icon-park-outline/redo";
 import IconClose from "~icons/icon-park-outline/close";
 import IconDelete from "~icons/icon-park-outline/delete-four";
 import IconLeft from "~icons/icon-park-outline/to-left";
 import IconRight from "~icons/icon-park-outline/to-right";
 import IconFullwith from "~icons/icon-park-outline/close-one";
+
+import Reload from "./Reload.vue";
+import DropTabs from "./DropTabs.vue";
+
 import { defaultIcon } from "@/modules/assets";
 
 const tabStore = useTabStoreHook();

@@ -1,5 +1,5 @@
-import type { DropdownOption } from "naive-ui";
-import { NAvatar, NEllipsis, NText, NDropdown, NEl } from "naive-ui";
+import { type DropdownOption, NAvatar, NEllipsis, NText, NDropdown, NEl } from "naive-ui";
+
 import { useAppStoreHook, useAuthStoreHook } from "@/store";
 import { InquiryBox, renderIcon } from "@/utils";
 
