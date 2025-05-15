@@ -185,12 +185,13 @@
 export default { name: "FormPro" };
 </script>
 <script setup lang="ts">
+import { type PropType } from "vue";
+import { type FormInst, type FormRules } from "naive-ui";
+import { type FormItem, type ItemOption, FormItemType } from "./types";
+
 import { useDict } from "@/hooks";
-import { FormItem, FormItemType, ItemOption } from "./types";
-import { PropType, computed } from "vue";
-import { FormInst, FormRules } from "naive-ui";
+
 import FormTipLabel from "@/components/custom/FormTipLabel";
-// import { ModelValue } from "@/views/system/dept/formConfig";
 
 const emit = defineEmits<{
   (e: "update:modelValue", v: Recordable): void;

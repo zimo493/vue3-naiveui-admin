@@ -10,9 +10,6 @@ export default { name: "ECharts" };
 import type { EChartsOption } from "echarts";
 import type { EChartsType } from "echarts/core";
 
-import * as echarts from "echarts/core";
-import { BarChart, LineChart, PieChart, RadarChart, GaugeChart } from "echarts/charts";
-
 // 系列类型的定义后缀都为 SeriesOption
 import type {
   BarSeriesOption,
@@ -31,6 +28,10 @@ import type {
   ToolboxComponentOption,
   TooltipComponentOption,
 } from "echarts/components";
+
+import * as echarts from "echarts/core";
+import { BarChart, LineChart, PieChart, RadarChart, GaugeChart } from "echarts/charts";
+
 import {
   DatasetComponent, // 数据集组件
   GridComponent,

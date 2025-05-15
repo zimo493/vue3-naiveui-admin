@@ -25,11 +25,12 @@ export default { name: "WangEditor" };
 
 <script setup lang="ts">
 import type { IDomEditor, IEditorConfig, SlateElement } from "@wangeditor-next/editor";
-import { Editor, Toolbar } from "@wangeditor-next/editor-for-vue";
-import "@wangeditor-next/editor/dist/css/style.css";
 
 // 文件上传 API
 import FileAPI from "@/api/file";
+
+import { Editor, Toolbar } from "@wangeditor-next/editor-for-vue";
+import "@wangeditor-next/editor/dist/css/style.css";
 
 type ImageElement = SlateElement & {
   src: string;

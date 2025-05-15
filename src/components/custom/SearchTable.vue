@@ -97,8 +97,8 @@
 export default { name: "SearchTable" };
 </script>
 <script lang="ts" setup>
-import { FormOption } from "@/components/custom/FormPro/types";
-import { DataTableColumns, DataTableInst } from "naive-ui";
+import type { DataTableColumns, DataTableInst } from "naive-ui";
+import type { FormOption } from "@/components/custom/FormPro/types";
 
 const emit = defineEmits<{
   (e: "search"): void;

@@ -27,8 +27,9 @@
 import type { PropType } from "vue";
 import type { UploadCustomRequestOptions, UploadFileInfo } from "naive-ui";
 
-import FileAPI, { type FileInfo } from "@/api/file";
 import { InquiryBox } from "@/utils";
+
+import FileAPI, { type FileInfo } from "@/api/file";
 
 type PassValue = string[] | string | FileInfo[] | FileInfo | undefined;
 

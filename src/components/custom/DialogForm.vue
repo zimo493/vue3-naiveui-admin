@@ -47,8 +47,9 @@
 export default { name: "DialogForm" };
 </script>
 <script setup lang="ts">
-import { DrawerPlacement } from "naive-ui";
-import { FormOption } from "@/components/custom/FormPro/types";
+import type { DrawerPlacement } from "naive-ui";
+import type { FormOption } from "@/components/custom/FormPro/types";
+
 import FormPro from "@/components/custom/FormPro/index.vue";
 
 const props = defineProps({

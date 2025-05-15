@@ -154,9 +154,11 @@
 export default { name: "SearchForm" };
 </script>
 <script lang="ts" setup>
-import { FormInst, FormRules } from "naive-ui";
-import { FormItem, FormItemType, ItemOption } from "./types";
+import { type FormInst, type FormRules } from "naive-ui";
+import { type FormItem, type ItemOption, FormItemType } from "./types";
+
 import { useDict } from "@/hooks";
+
 import FormTipLabel from "@/components/custom/FormTipLabel";
 
 const props = defineProps({

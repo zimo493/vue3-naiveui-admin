@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { NSpace, NTag, type TagProps } from "naive-ui";
+import { type TagProps, NSpace, NTag } from "naive-ui";
 import { toRefs } from "vue";
 
 export default defineComponent({
