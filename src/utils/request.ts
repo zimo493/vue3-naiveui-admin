@@ -104,7 +104,7 @@ service.interceptors.request.use(reqOnFulfilled, (error: AxiosError) => Promise.
 service.interceptors.response.use(resOnFulfilled, async (error) => {
   const { config, response } = error;
 
-  if (response) {
+  if (response.data) {
     const { code, msg } = response.data;
 
     if (code === ResultEnum.ACCESS_TOKEN_INVALID) {
