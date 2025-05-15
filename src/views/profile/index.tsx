@@ -41,13 +41,13 @@ export default defineComponent({
 
     /** 头像组件 */
     const Avatar = () => {
-      const isHover = ref(false); // 是否显示修改头像的图标
+      const isEdit = ref(false); // 是否显示修改头像的图标
 
       return (
         <NFlex
           class="relative inline-block"
-          onMouseenter={() => (isHover.value = true)}
-          onMouseleave={() => (isHover.value = false)}
+          onMouseenter={() => (isEdit.value = true)}
+          onMouseleave={() => (isEdit.value = false)}
         >
           <NAvatar
             size={100}
@@ -57,7 +57,7 @@ export default defineComponent({
               fallback: () => ErrorAvatar(),
             }}
           />
-          {isHover.value && (
+          {isEdit.value && (
             <NEl
               class="absolute top-1 left-1 bottom-1 right-1 bg-black bg-opacity-50 flex-center cursor-pointer border-rd-3px"
               onClick={() => changeAvatar()}
