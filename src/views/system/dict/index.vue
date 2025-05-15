@@ -51,12 +51,11 @@ import { type DrawerFormInst } from "@/types/inst";
 
 import DictTypeAPI from "@/api/system/dict/type";
 
+import { router } from "@/router";
 import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
-import { router } from "@/router";
-import { useDictStoreHook } from "@/store";
+import { useDictStoreHook, useTabStoreHook } from "@/store";
 
-import { useTabStore } from "@/store";
 import CommonStatus from "@/components/common/CommonStatus.vue";
 
 defineOptions({
@@ -227,7 +226,7 @@ const handleViewItems = ({ dictCode }: DictType.VO) => {
     const route = router.resolve({ path, query });
 
     // 添加标签页
-    useTabStore().addTab({
+    useTabStoreHook().addTab({
       ...route, // 解构路由对象，确保包含所有必要属性
       name: `dict-item`,
       meta: {

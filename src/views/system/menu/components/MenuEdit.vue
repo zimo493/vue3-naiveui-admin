@@ -246,10 +246,11 @@ export default { name: "MenuEdit" };
 </script>
 <script lang="tsx" setup>
 import type { FormInst, FormRules } from "naive-ui";
+
+import { useLoading } from "@/hooks";
 import { MenuTypeEnum } from "@/enums";
 
 import MenuAPI from "@/api/system/menu";
-import { useLoading } from "@/hooks";
 
 import FormTipLabel from "@/components/custom/FormTipLabel";
 

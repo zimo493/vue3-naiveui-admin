@@ -76,11 +76,13 @@
 export default { name: "ImportUser" };
 </script>
 <script lang="ts" setup>
-import { type UploadFileInfo, type UploadCustomRequestOptions, type UploadInst } from "naive-ui";
-import { useLoading } from "@/hooks";
-import UserAPI from "@/api/system/user";
-import { MIMETYPE, ResultEnum } from "@/enums";
+import type { UploadFileInfo, UploadCustomRequestOptions, UploadInst } from "naive-ui";
+
 import { exportFile } from "@/utils";
+import { useLoading } from "@/hooks";
+import { MIMETYPE, ResultEnum } from "@/enums";
+
+import UserAPI from "@/api/system/user";
 
 const { loading, startLoading, endLoading } = useLoading();
 

@@ -52,6 +52,7 @@
   </div>
 </template>
 <script lang="tsx" setup>
+import type { VNodeChild } from "vue";
 import {
   type DataTableColumns,
   type DataTableRowKey,
@@ -70,10 +71,9 @@ import DictDataAPI from "@/api/system/dict/data";
 
 import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
+import { useTabStoreHook } from "@/store";
 
 import CommonStatus from "@/components/common/CommonStatus.vue";
-import { VNodeChild } from "vue";
-import { useTabStoreHook } from "@/store";
 
 defineOptions({
   name: "DictItem",

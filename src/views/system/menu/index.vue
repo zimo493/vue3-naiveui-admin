@@ -42,7 +42,7 @@
 export default { name: "SysMenu" };
 </script>
 <script setup lang="tsx">
-import type { VNode } from "vue";
+import { type VNode } from "vue";
 import { type DataTableColumns, NButton, NSpace, NTag, NText } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
@@ -52,9 +52,9 @@ import { InquiryBox, local } from "@/utils";
 
 import MenuAPI from "@/api/system/menu";
 
+import MenuEdit from "./components/MenuEdit.vue";
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
-import MenuEdit from "./components/MenuEdit.vue";
 
 const { loading, startLoading, endLoading } = useLoading();
 

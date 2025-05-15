@@ -129,21 +129,19 @@ const columns = ref<DataTableColumns<Dept.VO>>([
     key: "action",
     align: "center",
     width: 200,
-    render: (row) => {
-      return (
-        <NSpace justify="center">
-          <NButton text type="primary" onClick={() => openDrawer(row.id)}>
-            新增
-          </NButton>
-          <NButton text type="info" onClick={() => handleEdit(row)}>
-            编辑
-          </NButton>
-          <NButton text type="error" onClick={() => handleDelete(row.id)}>
-            删除
-          </NButton>
-        </NSpace>
-      );
-    },
+    render: (row) => (
+      <NSpace justify="center">
+        <NButton text type="primary" onClick={() => openDrawer(row.id)}>
+          新增
+        </NButton>
+        <NButton text type="info" onClick={() => handleEdit(row)}>
+          编辑
+        </NButton>
+        <NButton text type="error" onClick={() => handleDelete(row.id)}>
+          删除
+        </NButton>
+      </NSpace>
+    ),
   },
 ]);
 

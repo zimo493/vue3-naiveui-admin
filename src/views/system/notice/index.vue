@@ -83,8 +83,8 @@ import {
   NTag,
   NText,
 } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 import { type DialogFormInst } from "@/types/inst";
+import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import { InquiryBox } from "@/utils";
 import { useDict, useLoading } from "@/hooks";

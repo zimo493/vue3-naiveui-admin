@@ -117,7 +117,7 @@ import {
   NText,
   NInput,
 } from "naive-ui";
-import { FormItemType, type FormOption } from "@/components/custom/FormPro/types";
+import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 import { useCompRef, useDict, useLoading } from "@/hooks";
 
 import { DrawerFormInst } from "@/types/inst";
@@ -129,9 +129,9 @@ import UserAPI from "@/api/system/user";
 import RoleAPI from "@/api/system/role";
 
 import Icones from "@/components/common/Icones.vue";
+import ImportUser from "./components/ImportUser.vue";
 import DictTag from "@/components/custom/DictTag.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
-import ImportUser from "./components/ImportUser.vue";
 
 const { loading, startLoading, endLoading } = useLoading();
 const { gender } = useDict("gender");

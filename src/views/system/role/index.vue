@@ -53,8 +53,8 @@ import RoleAPI from "@/api/system/role";
 import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 
-import CommonStatus from "@/components/common/CommonStatus.vue";
 import DataScope from "./components/DataScope.vue";
+import CommonStatus from "@/components/common/CommonStatus.vue";
 
 // 定义表单的初始值
 const query = ref<Role.Query>({
