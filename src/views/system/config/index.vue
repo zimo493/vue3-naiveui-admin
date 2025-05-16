@@ -29,7 +29,7 @@
 
     <!-- 新增、编辑 -->
     <DrawerForm
-      ref="drawerFormRef"
+      ref="drawerForm"
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
@@ -40,7 +40,6 @@
 <script setup lang="tsx">
 import { type DataTableColumns, NButton, NSpace } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
-import { type DrawerFormInst } from "@/types/inst";
 
 import ConfigAPI from "@/api/system/config";
 
@@ -130,7 +129,7 @@ const editConfig = ref<FormOption<Config.Form>>({
 const modelValue = ref<Config.Form>({});
 
 /** 新增、编辑 */
-const drawerFormRef = ref<DrawerFormInst>();
+const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: Config.VO) => {
   drawerFormRef.value?.open(row ? "编辑配置" : "新增配置", modelValue.value);
 

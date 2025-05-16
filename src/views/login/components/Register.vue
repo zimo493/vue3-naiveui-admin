@@ -1,7 +1,7 @@
 <template>
   <div>
     <n-h2 depth="3" class="text-center">注 册</n-h2>
-    <n-form ref="formRef" :rules="rules" :model="model" :show-label="false" size="large">
+    <n-form ref="form" :rules="rules" :model="model" :show-label="false" size="large">
       <n-form-item path="username">
         <n-input v-model:value="model.username" clearable placeholder="请输入用户名">
           <template #prefix>
@@ -49,7 +49,7 @@
       </n-form-item>
       <n-form-item v-if="enabled" path="captchaCode">
         <n-input
-          ref="captchaRef"
+          ref="captcha"
           v-model:value="model.captchaCode"
           clearable
           placeholder="请输入验证码"
@@ -173,7 +173,7 @@ const getCaptcha = () => {
     .finally(() => (captchaLoading.value = false));
 };
 
-const formRef = ref<FormInst | null>(null);
+const formRef = useTemplateRef<FormInst>("form");
 
 const isLoading = ref<boolean>(false);
 

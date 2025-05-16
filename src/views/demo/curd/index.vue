@@ -51,7 +51,7 @@
 
     <!-- 抽屉表单 -->
     <DrawerForm
-      ref="drawerFormRef"
+      ref="drawerForm"
       :form-config="editConfig"
       :model-value="modelValue"
       :width="600"
@@ -86,7 +86,7 @@
 
     <!-- 对话框表单 -->
     <DialogForm
-      ref="dialogFormRef"
+      ref="dialogForm"
       :form-config="editConfig"
       :model-value="modelValue"
       :width="800"
@@ -121,7 +121,7 @@
 
     <!-- 查看 -->
     <DialogForm
-      ref="dialogViewRef"
+      ref="dialogView"
       :form-config="viewConfig"
       :model-value="viewValue"
       :width="580"
@@ -162,7 +162,6 @@ import type { Form, Search, TableData } from "./config/types";
 import tableData from "./config/tableData";
 
 import { useLoading } from "@/hooks";
-import { DialogFormInst, DrawerFormInst } from "@/types/inst";
 
 import Icones from "@/components/common/Icones.vue";
 import { InquiryBox } from "@/utils";
@@ -380,7 +379,7 @@ const editConfig = ref<FormOption<Form>>({
 const modelValue = ref<Form>({});
 
 /** 新增、编辑 */
-const drawerFormRef = ref<DrawerFormInst>();
+const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: TableData) => {
   drawerFormRef.value?.open(row ? "编辑表单" : "新增表单", modelValue.value);
   if (row) {
@@ -394,7 +393,7 @@ const openDrawer = (row?: TableData) => {
 };
 
 // 对话框弹窗
-const dialogFormRef = ref<DialogFormInst>();
+const dialogFormRef = useTemplateRef("dialogForm");
 const openDialog = (row?: TableData) => {
   dialogFormRef.value?.open(row ? "编辑表单" : "新增表单", modelValue.value);
   if (row) {
@@ -418,7 +417,7 @@ const submitForm = async (val: Form) => {
 };
 
 // 查看
-const dialogViewRef = ref<DialogFormInst>();
+const dialogViewRef = useTemplateRef("dialogView");
 const viewConfig = ref<FormOption<TableData>>({
   // 新增或者编辑表单配置项
   fields: [

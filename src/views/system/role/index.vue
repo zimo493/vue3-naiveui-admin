@@ -29,7 +29,7 @@
     </SearchTable>
     <!-- 新增、编辑 -->
     <DrawerForm
-      ref="drawerFormRef"
+      ref="drawerForm"
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
@@ -37,7 +37,7 @@
     />
 
     <!-- 分配角色数据权限 -->
-    <DataScope ref="dataScopeRef" @success="handleQuery" />
+    <DataScope ref="dataScope" @success="handleQuery" />
   </div>
 </template>
 <script lang="tsx">
@@ -46,14 +46,12 @@ export default { name: "Role" };
 <script setup lang="tsx">
 import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
-import { type DrawerFormInst } from "@/types/inst";
 
 import RoleAPI from "@/api/system/role";
 
 import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 
-import DataScope from "./components/DataScope.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
 
 // 定义表单的初始值
@@ -156,7 +154,7 @@ const modelValue = ref<Role.Form>({
   status: 1,
 });
 /** 新增、编辑 */
-const drawerFormRef = ref<DrawerFormInst>();
+const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: Role.VO) => {
   drawerFormRef.value?.open(row ? "编辑角色" : "新增角色", modelValue.value);
 
@@ -199,7 +197,7 @@ const handleDelete = (roleId?: string) => {
 };
 
 /** 分配角色数据权限 */
-const dataScopeRef = ref<InstanceType<typeof DataScope> | null>(null);
+const dataScopeRef = useTemplateRef("dataScope");
 const handleOpenAssignPermDialog = (row: Role.VO) =>
   dataScopeRef.value?.open(row, `【${row.name}】权限分配`);
 </script>

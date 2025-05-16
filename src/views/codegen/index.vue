@@ -12,7 +12,7 @@
       @reset="handleQuery"
     />
     <!-- 生成代码预览 -->
-    <GenerateCode ref="generateCodeRef" />
+    <GenerateCode ref="generateCode" />
   </div>
 </template>
 <script setup lang="tsx">
@@ -21,11 +21,10 @@ import { type FormOption, FormItemType } from "@/components/custom/FormPro/types
 
 import GeneratorAPI from "@/api/codeGen";
 
-import { useCompRef, useLoading } from "@/hooks";
+import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
-import GenerateCode from "./components/GenerateCode.vue";
 
 defineOptions({ name: "Codegen" });
 
@@ -103,7 +102,7 @@ const columns = ref<DataTableColumns<CodeGen.VO>>([
 ]);
 
 // 生成代码
-const generateCodeRef = useCompRef(GenerateCode);
+const generateCodeRef = useTemplateRef("generateCode");
 const openDrawer = (row: CodeGen.VO) => {
   generateCodeRef.value?.open(row.tableName);
   console.log(row);

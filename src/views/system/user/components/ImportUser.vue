@@ -22,7 +22,7 @@
       </n-table>
     </n-alert>
     <n-upload
-      ref="uploadRef"
+      ref="upload"
       multiple
       directory-dnd
       accept=".xls,.xlsx"
@@ -96,7 +96,7 @@ const emit = defineEmits<{
   (e: "success"): void;
 }>();
 
-const uploadRef = ref<UploadInst | null>(null);
+const uploadRef = useTemplateRef<UploadInst>("upload");
 
 const visible = ref(false);
 

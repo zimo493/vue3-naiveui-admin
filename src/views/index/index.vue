@@ -192,7 +192,7 @@
               @update:value="fetchVisitTrendData"
             />
           </template>
-          <ECharts ref="chartRef" height="517px" />
+          <ECharts ref="chart" height="517px" />
         </n-card>
       </n-gi>
       <n-gi :span="6">
@@ -226,7 +226,6 @@
 </template>
 
 <script lang="tsx" setup>
-import type { EChartsInst } from "@/types/inst";
 import LogAPI from "@/api/system/log";
 import { parseTime } from "@/utils";
 import { EChartsOption, graphic } from "echarts";
@@ -528,7 +527,7 @@ const fetchVisitTrendData = () => {
   }).then((data) => updateCharts(data));
 };
 
-const chartRef = ref<EChartsInst>();
+const chartRef = useTemplateRef("chart");
 const updateCharts = (data: Log.VisitTrendVO) => {
   chartRef.value?.updateCharts({
     xAxis: { data: data.dates },

@@ -35,7 +35,7 @@
     </SearchTable>
 
     <!-- 新增、编辑 -->
-    <MenuEdit ref="editRef" @success="handleQuery" />
+    <MenuEdit ref="edit" @success="handleQuery" />
   </div>
 </template>
 <script lang="tsx">
@@ -52,7 +52,6 @@ import { InquiryBox, local } from "@/utils";
 
 import MenuAPI from "@/api/system/menu";
 
-import MenuEdit from "./components/MenuEdit.vue";
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
 
@@ -165,7 +164,7 @@ const columns: DataTableColumns<Menu.VO> = [
 ];
 
 // 新增、编辑
-const editRef = ref<InstanceType<typeof MenuEdit> | null>(null);
+const editRef = useTemplateRef("edit");
 const openDialog = (row?: Menu.VO | string) => editRef.value?.open(row);
 
 // const openDialog = (row?: Menu.VO | string) => {

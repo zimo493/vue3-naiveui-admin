@@ -43,7 +43,7 @@
 
     <!-- 新增、编辑 -->
     <DrawerForm
-      ref="drawerFormRef"
+      ref="drawerForm"
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
@@ -64,7 +64,6 @@ import {
   SelectOption,
 } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
-import { type DrawerFormInst } from "@/types/inst";
 
 import DictTypeAPI from "@/api/system/dict/type";
 import DictDataAPI from "@/api/system/dict/data";
@@ -228,7 +227,7 @@ const modelValue = ref<DictData.Form>({
 });
 
 /** 新增、编辑 */
-const drawerFormRef = ref<DrawerFormInst>();
+const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: DictData.VO) => {
   drawerFormRef.value?.open(row ? "编辑字典项" : "新增字典项", modelValue.value);
 

@@ -3,7 +3,7 @@
     <n-drawer-content :title="modal.title">
       <n-spin :show="loading">
         <n-form
-          ref="ruleFormRef"
+          ref="ruleForm"
           :rules="rules"
           :model="modelValue"
           label-align="right"
@@ -312,7 +312,7 @@ defineExpose({
 //   }));
 // };
 
-const ruleFormRef = ref<FormInst | null>(null);
+const ruleFormRef = useTemplateRef<FormInst>("ruleForm");
 
 const modal = ref<DrawerModal>({
   title: "",

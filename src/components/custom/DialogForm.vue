@@ -11,7 +11,7 @@
     <slot name="header" />
     <n-spin :show="show">
       <FormPro
-        ref="formProRef"
+        ref="formPro"
         v-bind="formConfig"
         :modelValue="val"
         :is-look="isLook"
@@ -49,8 +49,6 @@ export default { name: "DialogForm" };
 <script setup lang="ts">
 import type { DrawerPlacement } from "naive-ui";
 import type { FormOption } from "@/components/custom/FormPro/types";
-
-import FormPro from "@/components/custom/FormPro/index.vue";
 
 const props = defineProps({
   formConfig: {
@@ -97,7 +95,7 @@ const emit = defineEmits<{
 }>();
 
 const show = ref<boolean>(false); // 加载状态
-const formProRef = ref<InstanceType<typeof FormPro>>();
+const formProRef = useTemplateRef("formPro");
 
 // 点击提交
 const handleSubmit = () => formProRef.value?.submit();

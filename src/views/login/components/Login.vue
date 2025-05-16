@@ -1,7 +1,7 @@
 <template>
   <div>
     <n-h3 mt-0 depth="3" text-center>登 录</n-h3>
-    <n-form ref="formRef" :rules="rules" :model="model" :show-label="false" size="large">
+    <n-form ref="form" :rules="rules" :model="model" :show-label="false" size="large">
       <n-form-item path="username">
         <n-input
           v-model:value="model.username"
@@ -36,7 +36,7 @@
       </n-form-item>
       <n-form-item path="captchaCode">
         <n-input
-          ref="captchaRef"
+          ref="captcha"
           v-model:value="model.captchaCode"
           placeholder="请输入验证码"
           clearable
@@ -120,9 +120,9 @@ onMounted(() => {
   getCookie();
 });
 
-const formRef = ref<FormInst>();
+const formRef = useTemplateRef<FormInst>("form");
 
-const captchaRef = ref<InputInst | null>(null);
+const captchaRef = useTemplateRef<InputInst>("captcha");
 
 const loading = ref(false); // 按钮 loading 状态
 

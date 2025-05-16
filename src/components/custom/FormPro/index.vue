@@ -3,7 +3,7 @@
     <slot name="header" />
   </div>
   <n-form
-    ref="ruleFormRef"
+    ref="ruleForm"
     v-bind="$attrs"
     :rules="rules"
     :model="val"
@@ -135,7 +135,6 @@
           </template>
           <template v-else-if="item.type === FormItemType.Datepicker">
             <n-date-picker
-              ref="dateRef"
               v-model:value="val[item.field]"
               :clearable="item.clearable ?? true"
               v-bind="item.otherOptions"
@@ -290,15 +289,13 @@ const selectOption = (opt?: ItemOption[]) => {
   });
 };
 
-const ruleFormRef = ref<FormInst | null>(null);
+const ruleFormRef = useTemplateRef<FormInst>("form");
 
 // 提交按钮触发
 const handleQuery = async () => {
   await ruleFormRef.value?.validate();
   emit("submit", val.value);
 };
-
-const dateRef = ref();
 
 // 重置按钮触发
 function resetQuery() {

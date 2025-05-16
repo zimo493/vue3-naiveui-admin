@@ -73,7 +73,7 @@
 
     <!-- 新增、编辑 -->
     <DrawerForm
-      ref="drawerFormRef"
+      ref="drawerForm"
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
@@ -120,7 +120,6 @@ import {
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 import { useCompRef, useDict, useLoading } from "@/hooks";
 
-import { DrawerFormInst } from "@/types/inst";
 import { exportFile, InquiryBox } from "@/utils";
 import { MIMETYPE } from "@/enums";
 
@@ -363,7 +362,7 @@ const modelValue = ref<User.Form>({
   status: 1,
 });
 /** 新增、编辑 */
-const drawerFormRef = ref<DrawerFormInst>();
+const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: User.VO) => {
   drawerFormRef.value?.open(row ? "编辑用户" : "新增用户", modelValue.value);
 

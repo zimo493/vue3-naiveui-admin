@@ -13,7 +13,7 @@ const rules = {
 const model = ref({
   account: "",
 });
-const formRef = ref<FormInst>();
+const formRef = useTemplateRef<FormInst>("form");
 
 const handleRegister = async () => {
   await formRef.value?.validate();
@@ -24,7 +24,7 @@ const handleRegister = async () => {
 <template>
   <div>
     <n-h3 depth="3" class="text-center">重置密码</n-h3>
-    <n-form ref="formRef" :rules="rules" :model="model" :show-label="false" size="large">
+    <n-form ref="form" :rules="rules" :model="model" :show-label="false" size="large">
       <n-form-item path="account">
         <n-input v-model:value="model.account" clearable placeholder="请输入用户名">
           <template #prefix>

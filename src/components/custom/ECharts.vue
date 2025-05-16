@@ -1,5 +1,5 @@
 <template>
-  <div ref="chartRef" :style="{ width, height }" />
+  <div ref="chart" :style="{ width, height }" />
 </template>
 
 <script lang="ts">
@@ -85,7 +85,7 @@ const props = defineProps({
   theme: { type: String, default: "light" },
 });
 
-const chartRef = ref<HTMLDivElement>();
+const chartRef = useTemplateRef<HTMLDivElement>("chart");
 const chartInstance = ref<EChartsType>();
 
 // 初始化图表
@@ -93,11 +93,11 @@ const init = async () => {
   await nextTick();
   if (!chartRef.value) return;
   // 校验 Dom 节点上是否已经挂载了 ECharts 实例，只有未挂载时才初始化
-  chartInstance.value = echarts.getInstanceByDom(chartRef.value as HTMLDivElement);
+  chartInstance.value = echarts.getInstanceByDom(chartRef.value);
   if (!chartInstance.value) {
     // 初始化 ECharts 实例
     chartInstance.value = markRaw(
-      echarts.init(chartRef.value as HTMLDivElement, props.theme, {
+      echarts.init(chartRef.value, props.theme, {
         renderer: "canvas", // 设置渲染方式可为 svg或canvas 较复杂使用canvas渲染
       })
     );

@@ -19,7 +19,7 @@
       </template>
 
       <n-tree
-        ref="treeInstRef"
+        ref="treeInst"
         block-line
         checkable
         :show-irrelevant-nodes="false"

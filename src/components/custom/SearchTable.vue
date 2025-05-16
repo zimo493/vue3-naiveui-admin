@@ -73,7 +73,7 @@
         </n-flex>
         <n-data-table
           v-if="showTable"
-          ref="tableRef"
+          ref="table"
           :size="size"
           v-bind="$attrs"
           :columns="columns"
@@ -166,7 +166,7 @@ const handleQuery = () => emit("search");
 // 重置
 const handleReset = () => emit("reset");
 
-const tableRef = ref<DataTableInst>();
+const tableRef = useTemplateRef<DataTableInst>("table");
 // 导出
 const download = () =>
   tableRef.value?.downloadCsv({

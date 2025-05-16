@@ -36,7 +36,7 @@
     </SearchTable>
     <!-- 新增、编辑 -->
     <DrawerForm
-      ref="drawerFormRef"
+      ref="drawerForm"
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
@@ -59,7 +59,6 @@ export default { name: "Dept" };
 <script setup lang="tsx">
 import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
-import { type DrawerFormInst } from "@/types/inst";
 
 import DeptAPI from "@/api/system/dept";
 
@@ -177,7 +176,7 @@ const modelValue = ref<Dept.Form>({
   sort: 1,
 });
 /** 新增、编辑 */
-const drawerFormRef = ref<DrawerFormInst>();
+const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (deptId?: string) => {
   if (deptId) {
     modelValue.value.parentId = deptId;

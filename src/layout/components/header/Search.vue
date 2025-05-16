@@ -184,7 +184,7 @@ watchEffect(() => {
   if (enter.value) handleEnter();
 });
 
-const scrollbarRef = ref();
+const scrollbarRef = useTemplateRef("scrollbar");
 
 // 上箭头操作
 function handleArrowup() {
@@ -301,7 +301,7 @@ const highlightStyle = {
         </n-space>
       </n-flex>
     </template>
-    <n-scrollbar ref="scrollbarRef" class="h-450px">
+    <n-scrollbar ref="scrollbar" class="h-450px">
       <ul v-if="options.length" class="flex flex-col gap-10px p-8px p-r-3">
         <n-el
           v-for="(option, index) in options"

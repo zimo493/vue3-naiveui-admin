@@ -1,6 +1,6 @@
 <template>
   <n-menu
-    ref="menuInstRef"
+    ref="menu"
     accordion
     :collapsed="collapsed"
     :indent="20"
@@ -19,7 +19,7 @@ const route = useRoute();
 const appStore = useAppStoreHook();
 const routesStore = useRouteStoreHook();
 
-const menuInstRef = ref<MenuInst | null>(null);
+const menuInstRef = useTemplateRef<MenuInst>("menu");
 
 watch(
   () => route.path,

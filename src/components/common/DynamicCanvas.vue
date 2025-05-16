@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvasRef" block :width="width" :height="height" />
+  <canvas ref="canvas" block :width="width" :height="height" />
 </template>
 
 <script lang="ts">
@@ -41,7 +41,7 @@ interface ThreeDParam {
 }
 
 // 响应式状态
-const canvasRef = ref<HTMLCanvasElement | null>(null);
+const canvasRef = useTemplateRef("canvas");
 const width = ref(window.innerWidth);
 const height = ref(window.innerHeight);
 

@@ -28,7 +28,7 @@ const handleTab = (route: RouteLocationNormalized) => {
   });
 };
 
-const tabsInstRef = ref<TabsInst | null>(null);
+const tabsInstRef = useTemplateRef<TabsInst>("tabs");
 const handleClose = (path: string) => tabStore.closeTab(path).then(() => updateBar());
 
 /** 删除之后手动更新一下指示条 */
@@ -94,7 +94,7 @@ const onClickOutSide = () => (showDropdown.value = false);
 <template>
   <div class="wh-full flex items-end tabs">
     <n-tabs
-      ref="tabsInstRef"
+      ref="tabs"
       size="small"
       :tabs-padding="10"
       :value="tabStore.currentTabPath"

@@ -15,7 +15,7 @@
       <Logo v-if="appStore.showLogo" />
       <n-scrollbar class="flex-1">
         <n-menu
-          ref="menuInstRef"
+          ref="menu"
           :collapsed="appStore.collapsed"
           :indent="20"
           :collapsed-width="appStore.sideCollapsedWidth"
@@ -35,7 +35,7 @@
         <div v-if="!appStore.contentFullScreen" class="h-50px flex-y-center justify-between">
           <!-- <CollapseButton /> -->
           <n-menu
-            ref="menuInstRef"
+            ref="menu"
             mode="horizontal"
             responsive
             :options="topMenu"
@@ -98,7 +98,7 @@ const appStore = useAppStoreHook();
 const pageRoute = useRoute();
 const router = useRouter();
 
-const menuInstRef = ref<MenuInst | null>(null);
+const menuInstRef = useTemplateRef<MenuInst>("menu");
 
 watch(
   () => pageRoute.path,

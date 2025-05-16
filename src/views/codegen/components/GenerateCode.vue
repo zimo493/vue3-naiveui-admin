@@ -3,7 +3,7 @@
     <n-drawer-content :title="`生成代码 - ${tableCode}`" closable>
       <n-spin :show="loading">
         <template v-if="active === 'basic'">
-          <FormPro ref="formProRef" v-bind="formConfig" :modelValue="modelValue" use-type="submit">
+          <FormPro ref="formPro" v-bind="formConfig" :modelValue="modelValue" use-type="submit">
             <template #parentMenuId>
               <n-tree-select
                 v-model:value="modelValue.parentMenuId"
@@ -92,11 +92,10 @@ import GeneratorAPI from "@/api/codeGen";
 import MenuAPI from "@/api/system/menu";
 import DictAPI from "@/api/system/dict/type";
 
-import { useCompRef, useLoading } from "@/hooks";
+import { useLoading } from "@/hooks";
 import { FormTypeEnum, MIMETYPE, QueryTypeEnum } from "@/enums";
 
 import { NCheckbox, NFlex, NInput, NInputNumber, NSpace, NText } from "naive-ui";
-import FormPro from "@/components/custom/FormPro/index.vue";
 import EditableCheckbox from "./EditableCheckbox";
 import Selection from "./Selection";
 import Icones from "@/components/common/Icones.vue";
@@ -331,7 +330,7 @@ const checkAllSelected = (key: keyof CodeGen.FieldConfig, isCheckAllRef: Ref) =>
 };
 
 // 保存配置
-const formProRef = useCompRef(FormPro);
+const formProRef = useTemplateRef("formPro");
 const genCode = async () => {
   await formProRef.value?.instance()?.validate();
   await GeneratorAPI.saveGenConfig(tableCode.value, modelValue.value);

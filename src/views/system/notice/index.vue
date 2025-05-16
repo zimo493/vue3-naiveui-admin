@@ -30,7 +30,7 @@
 
     <!-- 新增、编辑 -->
     <DialogForm
-      ref="dialogFormRef"
+      ref="dialogForm"
       :form-config="editConfig"
       :model-value="modelValue"
       :width="1000"
@@ -51,12 +51,7 @@
     </DialogForm>
 
     <!-- 详情 -->
-    <DialogForm
-      ref="dialogViewRef"
-      :form-config="viewConfig"
-      :model-value="viewValue"
-      :is-look="true"
-    >
+    <DialogForm ref="dialogView" :form-config="viewConfig" :model-value="viewValue" :is-look="true">
       <template #title>
         <n-flex align="center">
           <DictTag v-if="viewValue.type" :options="notice_type" :value="viewValue.type" />
@@ -83,7 +78,6 @@ import {
   NTag,
   NText,
 } from "naive-ui";
-import { type DialogFormInst } from "@/types/inst";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import { InquiryBox } from "@/utils";
@@ -352,7 +346,7 @@ const modelValue = ref<Notice.Form>({
   targetType: 1, // 默认目标类型为全体
 });
 
-const dialogFormRef = ref<DialogFormInst>();
+const dialogFormRef = useTemplateRef("dialogForm");
 /** 新增、编辑 */
 const openDrawer = (row?: Notice.VO) => {
   getUserList(); // 获取用户列表
@@ -381,7 +375,7 @@ const submitForm = async (val: Notice.Form) => {
 };
 
 // 查看详情
-const dialogViewRef = ref<DialogFormInst>();
+const dialogViewRef = useTemplateRef("dialogView");
 const viewValue = ref<Notice.DetailVO>({});
 const viewConfig = ref<FormOption<Notice.DetailVO>>({
   fields: [
