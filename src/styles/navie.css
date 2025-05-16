@@ -51,8 +51,3 @@
 .n-image-preview-toolbar .n-base-icon {
   width: auto;
 }
-
-.n-menu .n-menu-item-content.n-menu-item-content--selected::before {
-  box-sizing: border-box;
-  border-bottom: 2px solid var(--n-item-text-color-active);
-}
