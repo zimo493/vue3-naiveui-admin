@@ -104,7 +104,7 @@ service.interceptors.request.use(reqOnFulfilled, (error: AxiosError) => Promise.
 service.interceptors.response.use(resOnFulfilled, async (error) => {
   const { config, response } = error;
 
-  if (response.data) {
+  if (response?.data) {
     const { code, msg } = response.data;
 
     if (code === ResultEnum.ACCESS_TOKEN_INVALID) {
@@ -204,6 +204,6 @@ async function handleTokenRefresh(config: InternalAxiosRequestConfig) {
 async function handleSessionExpired() {
   InquiryBox("您的会话已过期，请重新登录").then(async () => {
     await useAuthStoreHook().resetAuthStore();
-    router.replace("/login");
+    await router.replace("/login");
   });
 }
