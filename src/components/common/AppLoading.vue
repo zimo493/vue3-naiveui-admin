@@ -1,5 +1,5 @@
-<script lang="ts">
-export default { name: "AppLoading" };
+<script lang="ts" setup>
+defineOptions({ name: "AppLoading" });
 </script>
 
 <template>

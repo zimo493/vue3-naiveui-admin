@@ -54,12 +54,11 @@
   </n-drawer>
 </template>
 
-<script lang="ts">
-export default { name: "DataScope" };
-</script>
 <script lang="ts" setup>
 import MenuAPI from "@/api/system/menu";
 import RoleAPI from "@/api/system/role";
+
+defineOptions({ name: "DataScope" });
 
 const emit = defineEmits<{
   (e: "success"): void;

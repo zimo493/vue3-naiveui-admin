@@ -241,9 +241,6 @@
     </n-drawer-content>
   </n-drawer>
 </template>
-<script lang="tsx">
-export default { name: "MenuEdit" };
-</script>
 <script lang="tsx" setup>
 import type { FormInst, FormRules } from "naive-ui";
 
@@ -262,6 +259,8 @@ const { loading, startLoading, endLoading } = useLoading();
 //     type: Array as PropType<Menu.VO[]>,
 //   },
 // });
+
+defineOptions({ name: "MenuEdit" });
 
 const emit = defineEmits<{
   (e: "success"): void;

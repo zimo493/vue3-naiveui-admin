@@ -81,11 +81,10 @@
     </template>
   </n-modal>
 </template>
-<script lang="ts">
-export default { name: "Crontab" };
-</script>
 
 <script lang="ts" setup>
+defineOptions({ name: "Crontab" });
+
 const props = defineProps({
   modelValue: {
     type: String,

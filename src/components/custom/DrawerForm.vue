@@ -41,12 +41,11 @@
     </n-drawer-content>
   </n-drawer>
 </template>
-<script lang="ts">
-export default { name: "DrawerForm" };
-</script>
 <script lang="ts" setup>
 import type { DrawerPlacement } from "naive-ui";
 import type { FormOption } from "@/components/custom/FormPro/types";
+
+defineOptions({ name: "DrawerForm" });
 
 const props = defineProps({
   formConfig: {

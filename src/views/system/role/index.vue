@@ -40,9 +40,6 @@
     <DataScope ref="dataScope" @success="handleQuery" />
   </div>
 </template>
-<script lang="tsx">
-export default { name: "Role" };
-</script>
 <script setup lang="tsx">
 import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
@@ -53,6 +50,8 @@ import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 
 import CommonStatus from "@/components/common/CommonStatus.vue";
+
+defineOptions({ name: "Role" });
 
 // 定义表单的初始值
 const query = ref<Role.Query>({

@@ -92,14 +92,14 @@ import GeneratorAPI from "@/api/codeGen";
 import MenuAPI from "@/api/system/menu";
 import DictAPI from "@/api/system/dict/type";
 
+import { exportFile } from "@/utils";
 import { useLoading } from "@/hooks";
 import { FormTypeEnum, MIMETYPE, QueryTypeEnum } from "@/enums";
 
-import { NCheckbox, NFlex, NInput, NInputNumber, NSpace, NText } from "naive-ui";
-import EditableCheckbox from "./EditableCheckbox";
 import Selection from "./Selection";
+import EditableCheckbox from "./EditableCheckbox";
 import Icones from "@/components/common/Icones.vue";
-import { exportFile } from "@/utils";
+import { NCheckbox, NFlex, NInput, NInputNumber, NSpace, NText } from "naive-ui";
 
 defineOptions({ name: "GenerateCode" });
 

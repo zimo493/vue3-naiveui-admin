@@ -180,9 +180,6 @@
     </n-grid>
   </n-form>
 </template>
-<script lang="ts">
-export default { name: "FormPro" };
-</script>
 <script setup lang="ts">
 import { type PropType } from "vue";
 import { type FormInst, type FormRules } from "naive-ui";
@@ -191,6 +188,8 @@ import { type FormItem, type ItemOption, FormItemType } from "./types";
 import { useDict } from "@/hooks";
 
 import FormTipLabel from "@/components/custom/FormTipLabel";
+
+defineOptions({ name: "FormPro" });
 
 const emit = defineEmits<{
   (e: "update:modelValue", v: Recordable): void;

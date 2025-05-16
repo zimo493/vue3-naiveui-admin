@@ -1,4 +1,4 @@
-import { createApp, type App } from "vue";
+import { type App, createApp } from "vue";
 import { installPinia } from "@/store";
 import { installRouter } from "@/router";
 import { setupWebSocket } from "@/plugins/websocket";

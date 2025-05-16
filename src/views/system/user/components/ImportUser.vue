@@ -72,9 +72,6 @@
     </template>
   </n-modal>
 </template>
-<script lang="ts">
-export default { name: "ImportUser" };
-</script>
 <script lang="ts" setup>
 import type { UploadFileInfo, UploadCustomRequestOptions, UploadInst } from "naive-ui";
 
@@ -85,6 +82,8 @@ import { MIMETYPE, ResultEnum } from "@/enums";
 import UserAPI from "@/api/system/user";
 
 const { loading, startLoading, endLoading } = useLoading();
+
+defineOptions({ name: "ImportUser" });
 
 defineExpose({
   open: () => {
@@ -125,16 +124,7 @@ const beforeUpload = async (data: { file: UploadFileInfo; fileList: UploadFileIn
 };
 const error = ref("");
 /** 自定义上传 */
-const customRequest = ({
-  file,
-  data,
-  headers,
-  withCredentials,
-  action,
-  onFinish,
-  onError,
-  onProgress,
-}: UploadCustomRequestOptions) => {
+const customRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequestOptions) => {
   startLoading();
   console.log(file);
   UserAPI.import("1", file.file as File, (e) => {

@@ -14,11 +14,12 @@
   </div>
 </template>
 
-<script lang="ts">
-export default { name: "CopyText" };
-</script>
-
 <script setup lang="ts">
+defineOptions({
+  name: "CopyText",
+  inheritAttrs: false,
+});
+
 const { maxLength } = defineProps<{
   maxLength?: string;
 }>();

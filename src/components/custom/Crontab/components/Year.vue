@@ -84,12 +84,11 @@
     </n-radio-group>
   </n-card>
 </template>
-<script lang="ts">
-export default { name: "CrontabYear" };
-</script>
 
 <script lang="ts" setup>
 import { checkNumber } from "@/utils";
+
+defineOptions({ name: "CrontabYear" });
 
 const props = defineProps({
   modelValue: {

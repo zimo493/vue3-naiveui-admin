@@ -2,10 +2,6 @@
   <div ref="chart" :style="{ width, height }" />
 </template>
 
-<script lang="ts">
-export default { name: "ECharts" };
-</script>
-
 <script setup lang="ts">
 import type { EChartsOption } from "echarts";
 import type { EChartsType } from "echarts/core";
@@ -78,6 +74,8 @@ echarts.use([
   RadarChart,
   GaugeChart,
 ]);
+
+defineOptions({ name: "ECharts" });
 
 const props = defineProps({
   width: { type: String, default: "100%" },

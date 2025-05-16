@@ -6,6 +6,6 @@
   </n-flex>
 </template>
 
-<script lang="ts">
-export default { name: "ContentLoading" };
+<script lang="ts" setup>
+defineOptions({ name: "ContentLoading" });
 </script>

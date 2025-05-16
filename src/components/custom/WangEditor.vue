@@ -19,9 +19,6 @@
     />
   </div>
 </template>
-<script lang="ts">
-export default { name: "WangEditor" };
-</script>
 
 <script setup lang="ts">
 import type { IDomEditor, IEditorConfig, SlateElement } from "@wangeditor-next/editor";
@@ -43,6 +40,8 @@ type VideoElement = SlateElement & {
   src: string;
   poster?: string;
 };
+
+defineOptions({ name: "WangEditor" });
 
 const props = defineProps({
   modelValue: {

@@ -93,12 +93,11 @@
     </n-card>
   </n-el>
 </template>
-<script lang="ts">
-export default { name: "SearchTable" };
-</script>
 <script lang="ts" setup>
 import type { DataTableColumns, DataTableInst } from "naive-ui";
 import type { FormOption } from "@/components/custom/FormPro/types";
+
+defineOptions({ name: "SearchTable" });
 
 const emit = defineEmits<{
   (e: "search"): void;

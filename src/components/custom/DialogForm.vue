@@ -43,12 +43,11 @@
     </template>
   </n-modal>
 </template>
-<script lang="ts">
-export default { name: "DialogForm" };
-</script>
 <script setup lang="ts">
 import type { DrawerPlacement } from "naive-ui";
 import type { FormOption } from "@/components/custom/FormPro/types";
+
+defineOptions({ name: "DialogForm" });
 
 const props = defineProps({
   formConfig: {

@@ -102,9 +102,6 @@
     <ImportUser ref="importUserRef" @success="handleQuery" />
   </div>
 </template>
-<script lang="tsx">
-export default { name: "User" };
-</script>
 <script setup lang="tsx">
 import {
   type DataTableColumns,
@@ -131,6 +128,8 @@ import Icones from "@/components/common/Icones.vue";
 import ImportUser from "./components/ImportUser.vue";
 import DictTag from "@/components/custom/DictTag.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
+
+defineOptions({ name: "User" });
 
 const { loading, startLoading, endLoading } = useLoading();
 const { gender } = useDict("gender");

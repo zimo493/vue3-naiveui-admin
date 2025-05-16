@@ -38,9 +38,6 @@
     <MenuEdit ref="edit" @success="handleQuery" />
   </div>
 </template>
-<script lang="tsx">
-export default { name: "SysMenu" };
-</script>
 <script setup lang="tsx">
 import { type VNode } from "vue";
 import { type DataTableColumns, NButton, NSpace, NTag, NText } from "naive-ui";
@@ -54,6 +51,8 @@ import MenuAPI from "@/api/system/menu";
 
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
+
+defineOptions({ name: "SysMenu" });
 
 const { loading, startLoading, endLoading } = useLoading();
 

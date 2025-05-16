@@ -105,11 +105,10 @@
     </n-radio-group>
   </n-card>
 </template>
-<script lang="ts">
-export default { name: "CrontabDay" };
-</script>
 <script lang="ts" setup>
 import { checkNumber, zeroFill } from "@/utils";
+
+defineOptions({ name: "CrontabDay" });
 
 const props = defineProps({
   modelValue: {

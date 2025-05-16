@@ -2,10 +2,6 @@
   <canvas ref="canvas" block :width="width" :height="height" />
 </template>
 
-<script lang="ts">
-export default { name: "DynamicCanvas" };
-</script>
-
 <script lang="ts" setup>
 // 类型定义
 interface Point3D {
@@ -39,6 +35,8 @@ interface ThreeDParam {
   rot: Point3D;
   pos: Point3D;
 }
+
+defineOptions({ name: "DynamicCanvas" });
 
 // 响应式状态
 const canvasRef = useTemplateRef("canvas");

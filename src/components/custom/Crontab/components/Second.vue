@@ -77,13 +77,12 @@
     </n-radio-group>
   </n-card>
 </template>
-<script lang="ts">
-export default { name: "CrontabSecond" };
-</script>
 
 <script lang="ts" setup>
 import { zeroFill } from "@/utils";
 import { checkNumber } from "@/utils";
+
+defineOptions({ name: "CrontabSecond" });
 
 const props = defineProps({
   modelValue: {

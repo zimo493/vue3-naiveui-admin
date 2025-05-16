@@ -25,7 +25,7 @@ const privateKey: string =
 
 /* 加密 */
 export const encrypt = (txt: string) => {
-  const encryptor: JSEncrypt = new JSEncrypt();
+  const encryptor = new JSEncrypt();
 
   encryptor.setPublicKey(publicKey); // 设置公钥
 
@@ -34,7 +34,7 @@ export const encrypt = (txt: string) => {
 
 /* 解密 */
 export const decrypt = (txt: string) => {
-  const encryptor: JSEncrypt = new JSEncrypt();
+  const encryptor = new JSEncrypt();
 
   encryptor.setPrivateKey(privateKey); // 设置私钥
 

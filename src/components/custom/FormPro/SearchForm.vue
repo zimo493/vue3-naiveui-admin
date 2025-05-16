@@ -149,9 +149,6 @@
     </n-grid>
   </n-form>
 </template>
-<script lang="ts">
-export default { name: "SearchForm" };
-</script>
 <script lang="ts" setup>
 import { type FormInst, type FormRules } from "naive-ui";
 import { type FormItem, type ItemOption, FormItemType } from "./types";
@@ -159,6 +156,8 @@ import { type FormItem, type ItemOption, FormItemType } from "./types";
 import { useDict } from "@/hooks";
 
 import FormTipLabel from "@/components/custom/FormTipLabel";
+
+defineOptions({ name: "SearchForm" });
 
 const props = defineProps({
   fields: {

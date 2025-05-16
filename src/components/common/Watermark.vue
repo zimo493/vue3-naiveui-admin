@@ -1,7 +1,6 @@
-<script lang="ts">
-export default { name: "Watermark" };
-</script>
 <script setup lang="ts">
+defineOptions({ name: "Watermark" });
+
 defineProps({
   showWatermark: { type: Boolean, default: false },
   text: { type: String, default: "vue3-naiveui-admin" },

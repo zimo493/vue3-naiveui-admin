@@ -5,10 +5,12 @@
     </n-flex>
   </n-el>
 </template>
-<script lang="ts">
-export default { name: "CommonWrapper" };
-</script>
 <script lang="ts" setup>
+defineOptions({
+  name: "CommonWrapper",
+  inheritAttrs: false,
+});
+
 defineProps({
   padding: {
     type: String,

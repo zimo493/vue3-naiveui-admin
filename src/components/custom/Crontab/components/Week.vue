@@ -118,11 +118,10 @@
     </n-radio-group>
   </n-card>
 </template>
-<script lang="ts">
-export default { name: "CrontabWeek" };
-</script>
 <script lang="ts" setup>
 import { checkNumber } from "@/utils";
+
+defineOptions({ name: "CrontabWeek" });
 
 const props = defineProps({
   modelValue: {
