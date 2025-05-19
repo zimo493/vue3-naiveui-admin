@@ -139,8 +139,8 @@ importers:
         specifier: ^15.5.2
         version: 15.5.2
       naive-ui:
-        specifier: 2.40.0
-        version: 2.40.0(vue@3.5.13(typescript@5.8.3))
+        specifier: ^2.41.0
+        version: 2.41.0(vue@3.5.13(typescript@5.8.3))
       postcss:
         specifier: ^8.5.3
         version: 8.5.3
@@ -3381,8 +3381,8 @@ packages:
   mute-stream@0.0.8:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
 
-  naive-ui@2.40.0:
-    resolution: {integrity: sha512-ym/1+HBL1oU4DR2JLKH3KQpfslt2jrKI6uqEkIdEcgz88F2Ec2xXew8RR/Fd9Gx7Cj4jTAvipnOElEgyrPf3bQ==}
+  naive-ui@2.41.0:
+    resolution: {integrity: sha512-KnmLg+xPLwXV8QVR7ZZ69eCjvel7R5vru8+eFe4VoAJHEgqAJgVph6Zno9K2IVQRpSF3GBGea3tjavslOR4FAA==}
     peerDependencies:
       vue: ^3.0.0
 
@@ -8245,7 +8245,7 @@ snapshots:
 
   mute-stream@0.0.8: {}
 
-  naive-ui@2.40.0(vue@3.5.13(typescript@5.8.3)):
+  naive-ui@2.41.0(vue@3.5.13(typescript@5.8.3)):
     dependencies:
       '@css-render/plugin-bem': 0.15.14(css-render@0.15.14)
       '@css-render/vue3-ssr': 0.15.14(vue@3.5.13(typescript@5.8.3))
