@@ -25,4 +25,5 @@ dist-ssr
 
 .eslintcache
 .stylelintcache
+.eslintrc-auto-import.json
 /src/typings/*.d.ts
