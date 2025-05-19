@@ -76,7 +76,7 @@ export default defineConfig(({ mode }) => {
         include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
 
         eslintrc: {
-          enabled: false,
+          enabled: true,
           filepath: "./.eslintrc-auto-import.json",
           globalsPropValue: true,
         },
