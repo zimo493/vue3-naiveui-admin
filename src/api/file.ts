@@ -6,7 +6,6 @@ const FILE_BASE_URL = "/api/v1/files";
 export default {
   /**
    * 上传文件
-   *
    * @param formData 文件对象
    * @param onUploadProgress 上传进度回调
    */
@@ -21,6 +20,7 @@ export default {
 
   /**
    * 上传文件
+   * @param file 文件对象
    */
   uploadFile: (file: File) => {
     const formData = new FormData();
@@ -39,7 +39,6 @@ export default {
 
   /**
    * 删除文件
-   *
    * @param filePath 文件完整路径
    */
   delete: (filePath?: string) =>
@@ -51,8 +50,8 @@ export default {
 
   /**
    * 下载文件
-   * @param url
-   * @param fileName
+   * @param url 文件下载地址
+   * @param fileName 文件名
    */
   async download(url: string, fileName?: string) {
     const res = await request({
@@ -73,6 +72,8 @@ export default {
 
 /**
  * 文件API类型声明
+ * @property name 文件名
+ * @property url 文件路径
  */
 export interface FileInfo {
   /** 文件名 */

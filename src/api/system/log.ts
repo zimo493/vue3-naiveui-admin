@@ -5,15 +5,13 @@ const LOG_BASE_URL = "/api/v1/logs";
 export default {
   /**
    * 获取日志分页列表
-   *
    * @param params 查询参数
    */
   getPage: (params: Log.Query) => get<PageResult<Log.VO[]>>(`${LOG_BASE_URL}/page`, params),
 
   /**
    * 获取访问趋势
-   *
-   * @param params
+   * @param params 查询参数
    * @returns
    */
   getVisitTrend: (params: Log.VisitTrendQuery) =>
@@ -21,8 +19,6 @@ export default {
 
   /**
    * 获取访问统计
-   *
-   * @returns
    */
   getVisitStats: () => get<Log.VisitStatsVO>(`${LOG_BASE_URL}/visit-stats`),
 };
