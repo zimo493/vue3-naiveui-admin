@@ -6,13 +6,13 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-3178C6?logo=typescript)
 ![UnoCSS](https://img.shields.io/badge/UnoCSS-65.5.0-333?logo=unocss)
 ![NaiveUI](https://img.shields.io/badge/NaiveUI-2.41.0-63e2b7.svg)
-![Author](https://img.shields.io/badge/Author-@zimo493-orange.svg)
+![Author](https://img.shields.io/badge/Author--orange.svg)
 </div>
 
 ![](https://foruda.gitee.com/images/1708618984641188532/a7cca095_716974.png "rainbow.png")
 
 ## 介绍 📖
-[vue3-naiveui-admin](https://gitee.com/zimo493/vue3-naiveui-admin) 基于 `Vue3` `Vite` `TypeScript` 和 `Naive UI` 搭建的极简开箱即用企业级后台管理前端模板。 配套 Java 后端 [youlai-boot](https://gitee.com/youlaiorg/youlai-boot) 和 Node 后端 [youlai-nest](https://gitee.com/youlaiorg/youlai-nest) 。 提供Element Plus 三版本供开发者快速开发。
+[vue3-naiveui-admin](https://gitee.com/zimo493/vue3-naiveui-admin) 基于 `Vue3` `Vite` `TypeScript` 和 `Naive UI` 搭建的极简开箱即用企业级后台管理前端模板。 配套 Java 后端 [youlai-boot](https://gitee.com/youlaiorg/youlai-boot) 和 Node 后端 [youlai-nest](https://gitee.com/youlaiorg/youlai-nest) 。 提供`Element Plus`三版本供开发者快速开发。
 > 标准版: [vue3-element-admin](https://gitee.com/youlaiorg/vue3-element-admin) <br />
 > 精简版: [vue3-element-template](https://gitee.com/youlaiorg/vue3-element-template) <br />
 > JS版本: [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin) <br />
@@ -26,14 +26,14 @@
 - GitCode: -
 
 ## 项目功能 🔨
-- 基于`Vue3.5`、`Vite6`、`TypeScript`、`NaiveUI`、`UnoCSS` `tsx` 等最新技术栈开发，单文件组件 **＜ script setup ＞**
+- 基于 `Vue3.5`、`Vite6`、`TypeScript`、`NaiveUI`、`UnoCSS` `tsx` 等最新技术栈开发，单文件组件 **＜ script setup ＞**
 - 使用 `Pinia` 替代 `Vuex`，轻量、简单、易用，集成 `Pinia` 持久化插件
 - 使用 `ESLint` + `Prettier` + `Stylelint` + `EditorConfig` 约束和统一代码规范
 - 集成 `Husky` + `lint-staged` + `commitlint` + `commitizen` + `cz-git` 配置 `Git` 提交规范
 - 使用 `KeepAlive` 对页面进行缓存
 - 使用 `TypeScript` 对 `Axios` 整个二次封装（请求拦截、常用请求封装…）
 - 基于 `Naive` 二次封装 `FormPro`、基于 `FormPro` 封装 `SearchTable`、`DialogForm`、`DrawerForm` 组件，在一定程度上提高您的开发效率
-- 支持自定义主题色、页面过度等超多设置，黑暗主题适配，界面样式保持 Naive 风格
+- 支持 `自定义主题色`、`页面过度`等超多设置，黑暗主题适配，界面样式保持 Naive 风格
 
 ## 项目目录 📁
 <details>
@@ -120,7 +120,7 @@
 ├─ index.html              # 入口 html
 ├─ LICENSE                 # 开源协议文件
 ├─ package.json            # 依赖包管理
-├─ pnpm-lock.json          # 依赖包包版本锁
+├─ pnpm-lock.json          # 依赖包包版本锁定文件
 ├─ README.md               # README 介绍
 ├─ tsconfig.json           # typescript 全局配置
 ├─ unocss.config.js        # unocss 配置
@@ -148,7 +148,7 @@ pnpm dev
 ```
 
 ## 提交规范
-### 执行 `pnpm commit` 唤起 git commit 交互，根据提示完成信息的输入和选择。
+> 执行 `pnpm commit` 唤起 git commit 交互，根据提示完成信息的输入和选择。
 ```shell
 PS E:\Code\vue-naiveui-admin> pnpm commit
 
@@ -194,10 +194,12 @@ pnpm build  # 参考package.json "scripts" 配置
 将打包生成在 `dist` 目录下的文件拷贝至服务器 `/website/dist` 目录下
 ```
 
+**🪧 提示**
+> 不在 `nginx.conf` 中直接配置，单独配置方便后期维护<br/>
+> 创建 `/etc/nginx/conf.d/admin.conf` 文件<br/>
+> `nginx.conf` 默认会加载 `/etc/nginx/conf.d/*.conf` 文件
+
 ```bash
-# 不在 nginx.conf 中直接配置，单独配置方便后期维护
-# 创建 /etc/nginx/conf.d/admin.conf 文件
-# nginx.conf 默认会加载 /etc/nginx/conf.d/ 下的所有 *.conf 文件
 
 vim /etc/nginx/conf.d/admin.conf
 ```
@@ -208,9 +210,9 @@ server {
   listen 80;
   server_name localhost;
   location / {
-    root /website/dist;
+    root /website/dist; # 对应上传的文件夹路径
     try_files $uri $uri/ /index.html;
-    index index.html index.htm;
+    index index.html;
   }
   # 反向代理配置
   location /prod-api/ {
@@ -218,7 +220,9 @@ server {
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header REMOTE-HOST $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_pass http://localhost:8989/; # localhost:8989 替换成实际的后端API地址
+    
+    # localhost:8989 替换成实际的后端API地址，如果末尾不添加 / ，则请求就会携带代理路径（/prod-api）
+    proxy_pass http://localhost:8989/;
   }
 }
 ```
