@@ -203,15 +203,6 @@ const renderTag = ({ option }: { option: SelectOption }): VNodeChild => (
                   />
                 </n-space>
                 <n-divider>界面功能</n-divider>
-                <n-space align="center" justify="space-between">
-                  Message提示位置
-                  <n-select
-                    v-model:value="appStore.placement"
-                    class="w-10em"
-                    :options="messagePositions"
-                    @update:value="appStore.setPlacement"
-                  />
-                </n-space>
 
                 <n-space align="center" justify="space-between">
                   圆角大小
@@ -234,16 +225,7 @@ const renderTag = ({ option }: { option: SelectOption }): VNodeChild => (
                     @update:value="appStore.reloadPage"
                   />
                 </n-space>
-
                 <template v-if="setSideBar">
-                  <n-space align="center" justify="space-between">
-                    侧边栏触发样式
-                    <n-select
-                      v-model:value="appStore.sideTrigger"
-                      class="w-10em"
-                      :options="sideBarShowTrigger"
-                    />
-                  </n-space>
                   <n-space align="center" justify="space-between">
                     侧边栏宽度
                     <n-input-number v-model:value="appStore.sideWidth" class="w-10em" :min="180" />
@@ -256,7 +238,24 @@ const renderTag = ({ option }: { option: SelectOption }): VNodeChild => (
                       :min="50"
                     />
                   </n-space>
+                  <n-space align="center" justify="space-between">
+                    侧边栏触发样式
+                    <n-select
+                      v-model:value="appStore.sideTrigger"
+                      class="w-10em"
+                      :options="sideBarShowTrigger"
+                    />
+                  </n-space>
                 </template>
+                <n-space align="center" justify="space-between">
+                  Message提示位置
+                  <n-select
+                    v-model:value="appStore.placement"
+                    class="w-10em"
+                    :options="messagePositions"
+                    @update:value="appStore.setPlacement"
+                  />
+                </n-space>
 
                 <n-space justify="space-between">
                   logo显示
@@ -267,24 +266,24 @@ const renderTag = ({ option }: { option: SelectOption }): VNodeChild => (
                   <n-switch v-model:value="appStore.showProgress" />
                 </n-space>
                 <n-space justify="space-between">
-                  固定顶部和底部
-                  <n-switch v-model:value="appStore.fixed" />
-                </n-space>
-                <n-space justify="space-between">
-                  多页签显示
-                  <n-switch v-model:value="appStore.showTabs" />
-                </n-space>
-                <n-space justify="space-between">
-                  底部版权
-                  <n-switch v-model:value="appStore.showFooter" />
-                </n-space>
-                <n-space justify="space-between">
                   面包屑
                   <n-switch v-model:value="appStore.showBreadcrumb" />
                 </n-space>
                 <n-space justify="space-between">
                   面包屑图标
                   <n-switch v-model:value="appStore.showBreadcrumbIcon" />
+                </n-space>
+                <n-space justify="space-between">
+                  多页签显示
+                  <n-switch v-model:value="appStore.showTabs" />
+                </n-space>
+                <n-space justify="space-between">
+                  固定顶部和底部
+                  <n-switch v-model:value="appStore.fixed" />
+                </n-space>
+                <n-space justify="space-between">
+                  底部版权
+                  <n-switch v-model:value="appStore.showFooter" />
                 </n-space>
                 <n-space justify="space-between">
                   水印
