@@ -11,19 +11,19 @@
 
 ![](https://foruda.gitee.com/images/1708618984641188532/a7cca095_716974.png "rainbow.png")
 
-## 介绍 📖
+## 项目介绍 📖
 [vue3-naiveui-admin](https://gitee.com/zimo493/vue3-naiveui-admin) 基于 `Vue3` `Vite` `TypeScript` 和 `Naive UI` 搭建的极简开箱即用企业级后台管理前端模板。 配套 Java 后端 [youlai-boot](https://gitee.com/youlaiorg/youlai-boot) 和 Node 后端 [youlai-nest](https://gitee.com/youlaiorg/youlai-nest) 。 提供`Element Plus`三版本供开发者快速开发。
-> 标准版: [vue3-element-admin](https://gitee.com/youlaiorg/vue3-element-admin) <br />
-> 精简版: [vue3-element-template](https://gitee.com/youlaiorg/vue3-element-template) <br />
-> JS版本: [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin) <br />
+> **标准版:** [vue3-element-admin](https://gitee.com/youlaiorg/vue3-element-admin) <br />
+> **精简版:** [vue3-element-template](https://gitee.com/youlaiorg/vue3-element-template) <br />
+> **JS版本:** [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin) <br />
 
 ## 在线体验 👀
 - Link：-
 
 ## 代码仓库 ⭐
-- Gitee：https://gitee.com/zimo493/vue3-naiveui-admin
-- GitHub：https://github.com/zimo493/vue3-naiveui-admin
-- GitCode: -
+- **Gitee：** https://gitee.com/zimo493/vue3-naiveui-admin
+- **GitHub：** https://github.com/zimo493/vue3-naiveui-admin
+- **GitCode：** -
 
 ## 项目功能 🔨
 - 基于 `Vue3.5`、`Vite6`、`TypeScript`、`NaiveUI`、`UnoCSS` `tsx` 等最新技术栈开发，单文件组件 **＜ script setup ＞**
