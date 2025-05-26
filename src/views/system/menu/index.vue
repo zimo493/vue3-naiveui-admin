@@ -142,19 +142,34 @@ const columns: DataTableColumns<Menu.VO> = [
   {
     title: "操作",
     key: "action",
-    width: 200,
+    width: 220,
     align: "center",
     render: (row) => (
       <NSpace justify="center">
         {(row.type === MenuTypeEnum.CATALOG || row.type === MenuTypeEnum.MENU) && (
-          <NButton size="small" quaternary type="primary" onClick={() => openDialog(row.id)}>
+          <NButton
+            text
+            type="primary"
+            v-slots={{ icon: () => <Icones icon="ant-design:plus-outlined" /> }}
+            onClick={() => openDialog(row.id)}
+          >
             新增
           </NButton>
         )}
-        <NButton size="small" quaternary type="info" onClick={() => openDialog(row)}>
+        <NButton
+          text
+          type="info"
+          v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
+          onClick={() => openDialog(row)}
+        >
           编辑
         </NButton>
-        <NButton size="small" type="error" quaternary onClick={() => handleDelete(row)}>
+        <NButton
+          text
+          type="error"
+          v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
+          onClick={() => handleDelete(row)}
+        >
           删除
         </NButton>
       </NSpace>

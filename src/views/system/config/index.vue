@@ -46,6 +46,8 @@ import ConfigAPI from "@/api/system/config";
 import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 
+import Icones from "@/components/common/Icones.vue";
+
 defineOptions({
   name: "Config",
   inheritAttrs: false,
@@ -98,10 +100,20 @@ const columns = ref<DataTableColumns<Config.VO>>([
     render: (row) => {
       return (
         <NSpace justify="center">
-          <NButton text type="info" onClick={() => openDrawer(row)}>
+          <NButton
+            text
+            type="info"
+            v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
+            onClick={() => openDrawer(row)}
+          >
             编辑
           </NButton>
-          <NButton text type="error" onClick={() => handleDelete(row.id)}>
+          <NButton
+            text
+            type="error"
+            v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
+            onClick={() => handleDelete(row.id)}
+          >
             删除
           </NButton>
         </NSpace>

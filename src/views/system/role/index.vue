@@ -49,6 +49,7 @@ import RoleAPI from "@/api/system/role";
 import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 
+import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
 
 defineOptions({ name: "Role" });
@@ -96,16 +97,31 @@ const columns = ref<DataTableColumns<Role.VO>>([
     title: "操作",
     key: "action",
     align: "center",
-    width: 200,
+    width: 240,
     render: (row) => (
       <NSpace justify="center">
-        <NButton text type="warning" onClick={() => handleOpenAssignPermDialog(row)}>
+        <NButton
+          text
+          type="warning"
+          v-slots={{ icon: () => <Icones icon="ant-design:node-index-outlined" /> }}
+          onClick={() => handleOpenAssignPermDialog(row)}
+        >
           数据权限
         </NButton>
-        <NButton text type="info" onClick={() => openDrawer(row)}>
+        <NButton
+          text
+          type="info"
+          v-slots={{ icon: () => <Icones icon="ant-design:plus-outlined" /> }}
+          onClick={() => openDrawer(row)}
+        >
           编辑
         </NButton>
-        <NButton text type="error" onClick={() => handleDelete(row.id)}>
+        <NButton
+          text
+          type="error"
+          v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
+          onClick={() => handleDelete(row.id)}
+        >
           删除
         </NButton>
       </NSpace>

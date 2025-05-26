@@ -62,6 +62,7 @@ import DeptAPI from "@/api/system/dept";
 import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 
+import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
 
 defineOptions({ name: "Dept" });
@@ -126,16 +127,31 @@ const columns = ref<DataTableColumns<Dept.VO>>([
     title: "操作",
     key: "action",
     align: "center",
-    width: 200,
+    width: 220,
     render: (row) => (
       <NSpace justify="center">
-        <NButton text type="primary" onClick={() => openDrawer(row.id)}>
+        <NButton
+          text
+          type="primary"
+          v-slots={{ icon: () => <Icones icon="ant-design:plus-outlined" /> }}
+          onClick={() => openDrawer(row.id)}
+        >
           新增
         </NButton>
-        <NButton text type="info" onClick={() => handleEdit(row)}>
+        <NButton
+          text
+          type="info"
+          v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
+          onClick={() => handleEdit(row)}
+        >
           编辑
         </NButton>
-        <NButton text type="error" onClick={() => handleDelete(row.id)}>
+        <NButton
+          text
+          type="error"
+          v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
+          onClick={() => handleDelete(row.id)}
+        >
           删除
         </NButton>
       </NSpace>

@@ -72,6 +72,7 @@ import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 import { useTabStoreHook } from "@/store";
 
+import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
 
 defineOptions({
@@ -153,10 +154,20 @@ const columns = ref<DataTableColumns<DictData.VO>>([
     width: 150,
     render: (row) => (
       <NSpace justify="center">
-        <NButton text type="info" onClick={() => openDrawer(row)}>
+        <NButton
+          text
+          type="info"
+          v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
+          onClick={() => openDrawer(row)}
+        >
           编辑
         </NButton>
-        <NButton text type="error" onClick={() => handleDelete(row.id)}>
+        <NButton
+          text
+          type="error"
+          v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
+          onClick={() => handleDelete(row.id)}
+        >
           删除
         </NButton>
       </NSpace>
