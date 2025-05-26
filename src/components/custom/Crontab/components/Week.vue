@@ -123,11 +123,8 @@ import { checkNumber } from "@/utils";
 
 defineOptions({ name: "CrontabWeek" });
 
-const props = defineProps({
-  modelValue: {
-    required: true,
-    type: String,
-  },
+const { modelValue } = defineProps({
+  modelValue: { required: true, type: String },
 });
 
 const emit = defineEmits<{
@@ -152,7 +149,7 @@ const weekList = [
 ];
 
 const value = computed({
-  get: () => props.modelValue,
+  get: () => modelValue,
   set: (v) => emit("update:modelValue", v),
 });
 

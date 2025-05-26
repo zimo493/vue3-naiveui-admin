@@ -47,7 +47,13 @@ import type { FormOption } from "@/components/custom/FormPro/types";
 
 defineOptions({ name: "DrawerForm" });
 
-const props = defineProps({
+const {
+  formConfig,
+  modelValue,
+  placement = "right",
+  width = 502,
+  isLook = false,
+} = defineProps({
   formConfig: {
     required: true,
     type: Object as PropType<FormOption<Recordable>>,
@@ -56,29 +62,19 @@ const props = defineProps({
     required: true,
     type: Object as PropType<Recordable>,
   },
-  placement: {
-    type: String as PropType<DrawerPlacement>,
-    default: "right",
-  },
-  width: {
-    type: Number,
-    default: 502,
-  },
-  isLook: {
-    type: Boolean,
-    default: false,
-  },
+  placement: { type: String as PropType<DrawerPlacement> },
+  width: { type: Number },
+  isLook: { type: Boolean },
 });
+
 const modal = ref<DrawerModal>({
   title: "",
   visible: false,
 });
 
 const val = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(v) {
+  get: () => modelValue,
+  set: (v) => {
     emit("update:modelValue", v);
   },
 });

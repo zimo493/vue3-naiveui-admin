@@ -17,7 +17,7 @@
       :x-gap="isLook ? 12 : useType === 'submit' ? (gutter ? gutter : 0) : gutter"
       :y-gap="isLook ? 12 : useType === 'submit' ? 0 : gutter"
     >
-      <template v-for="item in fields" :key="item.field">
+      <template v-for="item in fieldList" :key="item.field">
         <n-form-item-grid-item
           v-if="!item.isHidden"
           :span="item.colSpan ? item.colSpan : useType === 'submit' ? 24 : 4"
@@ -197,7 +197,18 @@ const emit = defineEmits<{
   (e: "submit", v: Recordable): void;
 }>();
 
-const props = defineProps({
+const {
+  modelValue,
+  fields,
+  rules = {},
+  useType = "search",
+  labelPlacement = "left",
+  labelAlign = "right",
+  isLook = false,
+  gutter = 16,
+  showLabel = true,
+  showFeedback = false,
+} = defineProps({
   modelValue: {
     required: true,
     type: Object as PropType<Recordable>,
@@ -206,46 +217,20 @@ const props = defineProps({
     required: true,
     type: Array as PropType<FormItem<Recordable>[]>,
   },
-  rules: {
-    type: Object as PropType<FormRules>,
-    default: () => ({}),
-  },
-  useType: {
-    type: String as PropType<"search" | "submit">,
-    default: "search",
-  },
-  gutter: {
-    type: Number,
-    default: 16,
-  },
-  labelPlacement: {
-    type: String as PropType<"left" | "top">,
-    default: "left",
-  },
-  labelAlign: {
-    type: String as PropType<"left" | "right">,
-    default: "right",
-  },
-  labelWidth: {
-    type: Number,
-  },
-  showFeedback: {
-    type: Boolean,
-    default: false,
-  },
-  showLabel: {
-    type: Boolean,
-    default: true,
-  },
+  rules: { type: Object as PropType<FormRules> },
+  useType: { type: String as PropType<"search" | "submit"> },
+  labelPlacement: { type: String as PropType<"left" | "top"> },
+  labelAlign: { type: String as PropType<"left" | "right"> },
   // 是否是查看
-  isLook: {
-    type: Boolean,
-    default: false,
-  },
+  isLook: { type: Boolean },
+  gutter: { type: Number },
+  showLabel: { type: Boolean },
+  labelWidth: { type: Number },
+  showFeedback: { type: Boolean },
 });
 
-const fields = computed(() =>
-  props.fields.map((item) => {
+const fieldList = computed(() =>
+  fields.map((item) => {
     if (item.type && item.dict) {
       if ([FormItemType.Select, FormItemType.Radio, FormItemType.Checkbox].includes(item.type)) {
         const dict = useDict(item.dict);
@@ -268,10 +253,8 @@ const fields = computed(() =>
 );
 
 const val = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(v) {
+  get: () => modelValue,
+  set: (v) => {
     emit("update:modelValue", v);
   },
 });
@@ -308,6 +291,8 @@ function resetQuery() {
 defineExpose({
   instance: () => ruleFormRef.value,
   submit: async () => {
+    console.log(ruleFormRef.value);
+
     await ruleFormRef.value?.validate();
     emit("submit", val.value);
   },

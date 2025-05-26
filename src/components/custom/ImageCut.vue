@@ -99,9 +99,9 @@ interface Previews {
   html: string;
 }
 
-const props = defineProps({
-  image: { type: String, default: "" },
-  width: { type: Number, default: 800 },
+const { image = "", width = 800 } = defineProps({
+  image: { type: String },
+  width: { type: Number },
 });
 
 const { loading, startLoading, endLoading } = useLoading();
@@ -237,8 +237,8 @@ const cancel = () => {
 defineExpose({
   open: () => {
     visible.value = true;
-    option.img = props.image;
-    fileName.value = props.image ? extractFileNameFromUrl(props.image) : "avatar.jpeg";
+    option.img = image;
+    fileName.value = image ? extractFileNameFromUrl(image) : "avatar.jpeg";
   },
   close: () => cancel(),
   startLoading: () => startLoading(),

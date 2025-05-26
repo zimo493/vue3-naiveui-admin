@@ -18,11 +18,9 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  modelValue: string;
-}
-
-const props = defineProps<Props>();
+const { modelValue } = defineProps({
+  modelValue: { required: true, type: String },
+});
 
 const dayRule = ref<string>("");
 const dayRuleSup = ref<string | number | number[]>("");
@@ -31,7 +29,7 @@ const resultList = ref<string[]>([]);
 const isShow = ref<boolean>(false);
 const isCalculating = ref<boolean>(false);
 
-const value = computed(() => props.modelValue);
+const value = computed(() => modelValue);
 
 // 使用防抖处理，避免频繁计算
 let debounceTimer: NodeJS.Timeout | null = null;

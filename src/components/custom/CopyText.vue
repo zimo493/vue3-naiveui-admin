@@ -1,6 +1,6 @@
 <template>
   <div v-if="modelValue" class="inline-flex items-center justify-center gap-0.5em">
-    <n-ellipsis :style="{ 'max-width': maxLength || '12em' }">
+    <n-ellipsis :style="{ maxWidth }">
       {{ modelValue }}
     </n-ellipsis>
     <n-tooltip trigger="hover">
@@ -20,8 +20,8 @@ defineOptions({
   inheritAttrs: false,
 });
 
-const { maxLength } = defineProps<{
-  maxLength?: string;
-}>();
+const { maxWidth = "12em" } = defineProps({
+  maxWidth: { type: Number },
+});
 const modelValue = defineModel<string>("value", { required: true });
 </script>

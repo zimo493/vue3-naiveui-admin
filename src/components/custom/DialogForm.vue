@@ -49,7 +49,12 @@ import type { FormOption } from "@/components/custom/FormPro/types";
 
 defineOptions({ name: "DialogForm" });
 
-const props = defineProps({
+const {
+  formConfig,
+  modelValue,
+  width = 700,
+  isLook = false,
+} = defineProps({
   formConfig: {
     required: true,
     type: Object as PropType<FormOption<Recordable>>,
@@ -58,19 +63,11 @@ const props = defineProps({
     required: true,
     type: Object as PropType<Recordable>,
   },
-  placement: {
-    type: String as PropType<DrawerPlacement>,
-    default: "right",
-  },
-  width: {
-    type: Number,
-    default: 700,
-  },
-  isLook: {
-    type: Boolean,
-    default: false,
-  },
+  placement: { type: String as PropType<DrawerPlacement> },
+  width: { type: Number },
+  isLook: { type: Boolean },
 });
+
 const modal = ref<{
   title: string;
   visible: boolean;
@@ -80,13 +77,12 @@ const modal = ref<{
 });
 
 const val = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(v) {
+  get: () => modelValue,
+  set: (v) => {
     emit("update:modelValue", v);
   },
 });
+
 const emit = defineEmits<{
   (e: "update:modelValue", v: Recordable): void;
   (e: "submit", v: Recordable): void;

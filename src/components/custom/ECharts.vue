@@ -77,10 +77,14 @@ echarts.use([
 
 defineOptions({ name: "ECharts" });
 
-const props = defineProps({
-  width: { type: String, default: "100%" },
-  height: { type: String, default: "500px" },
-  theme: { type: String, default: "light" },
+const {
+  width = "100%",
+  height = "100%",
+  theme = "light",
+} = defineProps({
+  width: { type: String },
+  height: { type: String },
+  theme: { type: String },
 });
 
 const chartRef = useTemplateRef<HTMLDivElement>("chart");
@@ -95,7 +99,7 @@ const init = async () => {
   if (!chartInstance.value) {
     // 初始化 ECharts 实例
     chartInstance.value = markRaw(
-      echarts.init(chartRef.value, props.theme, {
+      echarts.init(chartRef.value, theme, {
         renderer: "canvas", // 设置渲染方式可为 svg或canvas 较复杂使用canvas渲染
       })
     );

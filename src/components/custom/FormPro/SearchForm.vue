@@ -159,38 +159,28 @@ import FormTipLabel from "@/components/custom/FormTipLabel";
 
 defineOptions({ name: "SearchForm" });
 
-const props = defineProps({
+const {
+  fields,
+  modelValue = {},
+  gutter = 16,
+  labelPlacement = "left",
+  labelAlign = "right",
+  rules = {},
+  showLabel = true,
+  collapseLength: foldingLength,
+  controlsSpan: operateSpan,
+} = defineProps({
   fields: {
     required: true,
     type: Array as PropType<FormItem<Recordable>[]>,
   },
-  modelValue: {
-    type: Object as PropType<Recordable>,
-    default: () => {},
-  },
-  gutter: {
-    type: Number,
-    default: 16,
-  },
-  labelPlacement: {
-    type: String as PropType<"left" | "top">,
-    default: "left",
-  },
-  labelAlign: {
-    type: String as PropType<"left" | "right">,
-    default: "right",
-  },
-  labelWidth: {
-    type: Number,
-  },
-  rules: {
-    type: Object as PropType<FormRules>,
-    default: () => ({}),
-  },
-  showLabel: {
-    type: Boolean,
-    default: true,
-  },
+  modelValue: { type: Object as PropType<Recordable> },
+  labelPlacement: { type: String as PropType<"left" | "top"> },
+  labelAlign: { type: String as PropType<"left" | "right"> },
+  rules: { type: Object as PropType<FormRules> },
+  gutter: { type: Number },
+  labelWidth: { type: Number },
+  showLabel: { type: Boolean },
   collapseLength: { type: Number },
   controlsSpan: { type: Number },
 });
@@ -203,52 +193,48 @@ const emit = defineEmits<{
 
 onMounted(() => getSpanCount());
 
-const controlsSpan = props.controlsSpan ?? 4;
+const controlsSpan = operateSpan ?? 4;
 
 const ruleFormRef = useTemplateRef<FormInst>("ruleForm"); // 获取表单实例
 const isCollapse = ref(true); // 默认折叠
 const defaultSpan = 4; // 默认 span 为 4
-const collapseLength = props.collapseLength ?? 3; // 默认折叠长度为 3
+const collapseLength = foldingLength ?? 3; // 默认折叠长度为 3
 
 // 判断是否需要显示折叠按钮
 const showFoldBtn = computed(() => {
-  const fields = props.fields || [];
+  const fieldList = fields || [];
 
-  return fields.length > collapseLength;
+  return fieldList.length > collapseLength;
 });
 const rSpanCount = ref<number>(controlsSpan); // 默认给按钮区域分配 4 的 span
 
 const val = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(v) {
+  get: () => modelValue,
+  set: (v) => {
     emit("update:modelValue", v);
   },
 });
 
 // 切片计算
 const sliceCodList = computed(() => {
-  return props.fields
-    ?.slice(0, isCollapse.value ? collapseLength : props.fields.length)
-    .map((item) => {
-      if (item.type && item.dict) {
-        if ([FormItemType.Select, FormItemType.Radio, FormItemType.Checkbox].includes(item.type)) {
-          const dict = useDict(item.dict);
+  return fields?.slice(0, isCollapse.value ? collapseLength : fields.length).map((item) => {
+    if (item.type && item.dict) {
+      if ([FormItemType.Select, FormItemType.Radio, FormItemType.Checkbox].includes(item.type)) {
+        const dict = useDict(item.dict);
 
-          item.options = dict[item.dict].value.map((i) => ({
-            label: i.label,
-            value: i.value,
-          }));
-
-          return item;
-        }
+        item.options = dict[item.dict].value.map((i) => ({
+          label: i.label,
+          value: i.value,
+        }));
 
         return item;
       }
 
       return item;
-    });
+    }
+
+    return item;
+  });
 });
 
 /** 表单默认值 */
@@ -281,8 +267,7 @@ function resetQuery() {
 // 计算右侧按钮区域的 span 值
 const getSpanCount = () => {
   let totalSpan = 0;
-  const visibleItems =
-    (isCollapse.value ? props.fields?.slice(0, collapseLength) : props.fields) ?? [];
+  const visibleItems = (isCollapse.value ? fields?.slice(0, collapseLength) : fields) ?? [];
 
   // 计算每行的 span 值
   let currentLineSpan = 0;

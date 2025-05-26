@@ -85,10 +85,8 @@
 <script lang="ts" setup>
 defineOptions({ name: "Crontab" });
 
-const props = defineProps({
-  modelValue: {
-    type: String,
-  },
+const { modelValue } = defineProps({
+  modelValue: { type: String },
 });
 
 const emit = defineEmits<{
@@ -106,7 +104,7 @@ interface CrontabValue {
 }
 
 const value = computed({
-  get: () => props.modelValue,
+  get: () => modelValue,
   set: (v) => emit("update:modelValue", v),
 });
 

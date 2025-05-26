@@ -104,51 +104,37 @@ const emit = defineEmits<{
   (e: "reset"): void;
 }>();
 
-const props = defineProps({
-  formConfig: {
-    type: Object as PropType<Omit<FormOption<Recordable>, "showFeedback">>,
-  },
-  modelValue: {
-    type: Object as PropType<Recordable>,
-    default: () => {},
-  },
-  collapseLength: {
-    type: Number,
-    default: 3,
-  },
-  controlsSpan: {
-    type: Number,
-    default: 4,
-  },
-  columns: {
-    required: true,
-    type: Array as PropType<DataTableColumns<any>>,
-  },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  rowKey: {
-    default: (row: Recordable) => row.id,
-  },
+const {
+  formConfig,
+  modelValue = {},
+  collapseLength = 3,
+  controlsSpan = 4,
+  loading = false,
+  showTable = true,
+  total = 0,
+} = defineProps({
   tableData: {
     require: true,
     type: Array as PropType<Array<object>>,
   },
-  showTable: {
-    type: Boolean,
-    default: true,
+  columns: {
+    type: Array as PropType<DataTableColumns<any>>,
+    required: true,
   },
-  total: {
-    type: Number,
-    default: 0,
+  formConfig: {
+    type: Object as PropType<Omit<FormOption<Recordable>, "showFeedback">>,
   },
-  tableEvents: {
-    type: Object as PropType<{ [key: string]: Function }>,
-  },
+  modelValue: { type: Object as PropType<Recordable> },
+  collapseLength: { type: Number },
+  controlsSpan: { type: Number },
+  loading: { type: Boolean },
+  rowKey: { default: (row: Recordable) => row.id },
+  showTable: { type: Boolean },
+  total: { type: Number },
+  tableEvents: { type: Object as PropType<{ [key: string]: Function }> },
 });
 
-const totalNum = computed(() => props.total);
+const totalNum = computed(() => total);
 
 // 是否展开查询
 const show = ref<boolean>(true);

@@ -82,11 +82,8 @@ import { checkNumber, zeroFill } from "@/utils";
 
 defineOptions({ name: "CrontabMin" });
 
-const props = defineProps({
-  modelValue: {
-    required: true,
-    type: String,
-  },
+const { modelValue } = defineProps({
+  modelValue: { required: true, type: String },
 });
 
 const emit = defineEmits<{
@@ -101,7 +98,7 @@ const average02 = ref<number>(1);
 const checkboxList = ref<number[]>([]);
 
 const value = computed({
-  get: () => props.modelValue,
+  get: () => modelValue,
   set: (v) => emit("update:modelValue", v),
 });
 

@@ -4,7 +4,7 @@
     :max="limit"
     :accept="accept"
     :list-type="type"
-    :multiple="limit > 1"
+    :multiple="limit > 1 ? multiple : false"
     :directory-dnd="drag"
     :custom-request="customRequest"
     :on-error="handleError"
@@ -50,22 +50,33 @@ const emit = defineEmits({
   remove: (val: RemoveFile) => val,
 });
 
-const props = defineProps({
+const {
+  value = [],
+  data = {},
+  name = "file",
+  limit = 10,
+  maxFileSize = 10,
+  accept = "image/*",
+  type = "image-card",
+  multiple = true,
+  drag = false,
+  dragOptions = {
+    icon: "ep:upload-filled",
+    iconSize: 50,
+    title: "点击此处 或 拖动文件到该区域进行上传",
+  },
+} = defineProps({
   /**
    * 文件上传值
    */
   value: {
     type: [Array, String, Object] as PropType<PassValue>,
-    default: [],
   },
   /**
    * 请求携带的额外参数
    */
   data: {
     type: Object,
-    default: () => {
-      return {};
-    },
   },
   /**
    * 上传文件的参数名
@@ -155,7 +166,7 @@ const setFileList = (val: PassValue) => {
 };
 
 watch(
-  () => props.value,
+  () => value,
   (val) => nextTick(() => val && setFileList(val)),
   { deep: true, immediate: true }
 );
@@ -164,9 +175,9 @@ watch(
 const customRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequestOptions) => {
   const formData = new FormData();
 
-  formData.append(props.name, file.file as File);
+  formData.append(name, file.file as File);
   // 添加参数处理
-  Object.entries(props.data).forEach(([key, val]) => formData.append(key, val));
+  Object.entries(data).forEach(([key, val]) => formData.append(key, val));
 
   FileAPI.upload(formData, (e) => {
     onProgress({ percent: Math.round((e.loaded / Number(e.total)) * 100) });
@@ -192,11 +203,11 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
   }
 
   // 校验文件类型：虽然 accept 属性限制了用户在文件选择器中可选的文件类型，但仍需在上传时再次校验文件实际类型，确保符合 accept 的规则
-  const acceptTypes = props.accept.split(",").map((type) => type.trim());
+  const acceptTypes = accept.split(",").map((type) => type.trim());
 
   // 检查文件格式是否符合 accept
   const isValidType = acceptTypes.some((type) => {
-    if (["*", "*.*"].includes(props.accept)) {
+    if (["*", "*.*"].includes(accept)) {
       return true;
     } else if (type === "image/*") {
       // 如果是 image/*，检查 MIME 类型是否以 "image/" 开头
@@ -211,14 +222,14 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
   });
 
   if (!isValidType) {
-    window.$message.error(`上传文件的格式不正确，请上传格式为 ${props.accept} 的文件`);
+    window.$message.error(`上传文件的格式不正确，请上传格式为 ${accept} 的文件`);
 
     return false;
   }
 
   // 限制文件大小
-  if (file.size > props.maxFileSize * 1024 * 1024) {
-    window.$message.error("上传文件大小不能大于" + props.maxFileSize + "M");
+  if (file.size > maxFileSize * 1024 * 1024) {
+    window.$message.error("上传文件大小不能大于" + maxFileSize + "M");
 
     return false;
   }
