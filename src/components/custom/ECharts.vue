@@ -3,132 +3,138 @@
 </template>
 
 <script setup lang="ts">
+/** 核心类型 */
 import type { EChartsOption } from "echarts";
 import type { EChartsType } from "echarts/core";
-
-// 系列类型的定义后缀都为 SeriesOption
-import type {
-  BarSeriesOption,
-  GaugeSeriesOption,
-  LineSeriesOption,
-  PieSeriesOption,
-  RadarSeriesOption,
-} from "echarts/charts";
-
-// 组件类型的定义后缀都为 ComponentOption
+/** 图表系列类型（按需添加） */
+import type { BarSeriesOption, LineSeriesOption } from "echarts/charts";
+/** 组件类型（按需添加） */
 import type {
   DatasetComponentOption,
   GridComponentOption,
   LegendComponentOption,
   TitleComponentOption,
-  ToolboxComponentOption,
   TooltipComponentOption,
 } from "echarts/components";
 
+/** 核心模块 */
 import * as echarts from "echarts/core";
-import { BarChart, LineChart, PieChart, RadarChart, GaugeChart } from "echarts/charts";
-
+/** 图表类型（按需注册） */
+import { BarChart, LineChart } from "echarts/charts";
+/**功能组件（按需注册） */
 import {
-  DatasetComponent, // 数据集组件
-  GridComponent,
-  LegendComponent,
-  TitleComponent,
-  ToolboxComponent,
-  TooltipComponent,
-  TransformComponent, // 内置数据转换器组件 (filter, sort)
+  DatasetComponent, // 数据集支持
+  GridComponent, // 直角坐标系网格
+  LegendComponent, // 图例组件
+  TitleComponent, // 标题组件
+  TooltipComponent, // 提示框组件
+  TransformComponent, // 数据转换（过滤/排序）
 } from "echarts/components";
+/** 特性模块 */
+import { LabelLayout, UniversalTransition } from "echarts/features"; // 标签布局与过渡动画
+/** 渲染器 */
+import { CanvasRenderer } from "echarts/renderers"; // 使用Canvas渲染
 
-import { LabelLayout, UniversalTransition } from "echarts/features";
-import { CanvasRenderer } from "echarts/renderers";
-
-// 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
+/**
+ * 自定义组合配置类型
+ * 说明：通过组合实际使用的图表类型和组件类型生成完整的配置类型
+ * 注意：添加新图表类型时需在此处扩展
+ */
 export type ECOption = echarts.ComposeOption<
   | BarSeriesOption
-  | PieSeriesOption
   | LineSeriesOption
   | TitleComponentOption
   | TooltipComponentOption
   | GridComponentOption
   | LegendComponentOption
   | DatasetComponentOption
-  | ToolboxComponentOption
-  | RadarSeriesOption
-  | GaugeSeriesOption
 >;
 
-// 注册必须的组件
+/** 注册必需组件（按需增减） */
 echarts.use([
-  TitleComponent,
-  TooltipComponent,
-  GridComponent,
-  LegendComponent,
-  DatasetComponent,
-  TransformComponent,
-  BarChart,
-  PieChart,
-  LineChart,
-  LabelLayout,
-  UniversalTransition,
-  CanvasRenderer,
-  ToolboxComponent,
-  RadarChart,
-  GaugeChart,
+  /** 基础组件 */
+  TitleComponent, // 标题
+  TooltipComponent, // 提示框
+  GridComponent, // 网格系统
+  LegendComponent, // 图例
+  DatasetComponent, // 数据集
+  TransformComponent, // 数据转换
+
+  /** 图表类型 */
+  BarChart, // 柱状图
+  LineChart, // 折线图
+
+  /** 特性模块 */
+  LabelLayout, // 自动标签布局
+  UniversalTransition, // 通用过渡动画
+
+  /** 渲染器 */
+  CanvasRenderer, // 必须注册一个渲染器
 ]);
 
 defineOptions({ name: "ECharts" });
 
+/** Props定义 */
 const {
-  width = "100%",
-  height = "100%",
-  theme = "light",
+  width = "100%", // 默认容器宽度
+  height = "100%", // 默认容器高度
+  theme = "light", // 默认主题样式
 } = defineProps({
   width: { type: String },
   height: { type: String },
   theme: { type: String },
 });
 
-const chartRef = useTemplateRef<HTMLDivElement>("chart");
-const chartInstance = ref<EChartsType>();
+/** 图表实例 */
+const chartRef = useTemplateRef<HTMLDivElement>("chart"); // 图表容器引用
+const chartInstance = ref<EChartsType>(); // ECharts实例引用
 
-// 初始化图表
+/** 初始化图表实例 */
 const init = async () => {
-  await nextTick();
+  await nextTick(); // 等待DOM更新
   if (!chartRef.value) return;
-  // 校验 Dom 节点上是否已经挂载了 ECharts 实例，只有未挂载时才初始化
+
+  // 检查已有实例避免重复初始化
   chartInstance.value = echarts.getInstanceByDom(chartRef.value);
   if (!chartInstance.value) {
-    // 初始化 ECharts 实例
+    // 创建新实例（markRaw避免不必要的响应式转换）
     chartInstance.value = markRaw(
       echarts.init(chartRef.value, theme, {
-        renderer: "canvas", // 设置渲染方式可为 svg或canvas 较复杂使用canvas渲染
+        renderer: "canvas", // 指定渲染模式（canvas性能更好）
       })
     );
   }
 };
 
-// 监听尺寸变化，自动调整
+/** 初始化配置（清空后设置） */
+const initOptions = async (options: EChartsOption) => {
+  await nextTick();
+  chartInstance.value?.clear(); // 清空旧配置
+  chartInstance.value?.setOption(options); // 应用新配置
+};
+
+/** 更新图表配置（增量更新） */
+const updateCharts = async (options: EChartsOption) => {
+  await nextTick();
+  chartInstance.value?.setOption(options); // ECharts会自动合并配置
+  chartInstance.value?.hideLoading(); // 确保关闭加载动画
+};
+
+/** 挂载时初始化 */
+onMounted(() => init());
+
+/** 卸载时销毁实例释放内存 */
+onBeforeUnmount(() => chartInstance.value?.dispose());
+
+/** 监听容器尺寸变化自动调整图表 */
 useResizeObserver(chartRef, () => {
   chartInstance.value?.resize();
 });
 
-// 初始化 options
-const initOptions = async (options: EChartsOption) => {
-  await nextTick();
-  chartInstance.value?.clear();
-  chartInstance.value?.setOption(options);
-};
-
-/** 重新渲染图表 */
-const updateCharts = async (options: EChartsOption) => {
-  await nextTick();
-  chartInstance.value?.setOption(options);
-  console.log("渲染图表", options);
-  chartInstance.value?.hideLoading();
-};
-
-onMounted(() => init());
-/** 容器被销毁之后，销毁实例 */
-onBeforeUnmount(() => chartInstance.value?.dispose());
-
-defineExpose({ getInstance: () => chartInstance.value, updateCharts, initOptions });
+/** 允许父组件访问实例和方法 */
+defineExpose({
+  getInstance: () => chartInstance.value, // 获取实例引用
+  updateCharts, // 配置更新方法
+  initOptions, // 初始化配置方法
+});
 </script>
