@@ -40,13 +40,23 @@
 <summary> vue3-naiveui-admin </summary>
 
 ```text
-├─ .vscode                  # VSCode 推荐配置
 ├─ .husky                   # Git 提交钩子
+├─ .vscode                  # VSCode 推荐配置
+├─ build                    # 构建文件配置
+│  ├─ buildOptions.ts        # Vite构建配置
+│  ├─ cssOptions.ts          # CSS 配置
+│  ├─ index.ts               # 构建入口
+│  ├─ optimizeDepsOptions.ts # 依赖优化配置
+│  ├─ pluginsOptions.ts      # 插件配置
+│  ├─ resolveOptions.ts      # 路径配置
+│  ├─ rollupOptions.ts       # rollup 配置
+│  ├─ serverOptions.ts       # 开发服务器配置
+│  └─ terserOptions.ts       # terser 配置
 ├─ locales                  # 国际化文件
 ├─ public                   # 静态资源文件（该文件夹不会被打包）
 ├─ sql                      # 数据库脚本
 │  └─ youlai_boot.sql        # 基础数据库脚本
-├─ src
+├─ src                      # 源代码
 │  ├─ api                   # API 接口管理
 │  ├─ assets                # 静态资源文件
 │     └── svg-icons          # 自定义svg图标资源(图标选择器选择本地图标源)
