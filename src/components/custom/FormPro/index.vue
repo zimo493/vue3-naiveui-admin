@@ -288,7 +288,7 @@ const selectOption = (opt?: ItemOption[]) => {
   });
 };
 
-const ruleFormRef = useTemplateRef<FormInst>("form");
+const ruleFormRef = useTemplateRef<FormInst>("ruleForm");
 
 // 提交按钮触发
 const handleQuery = async () => {

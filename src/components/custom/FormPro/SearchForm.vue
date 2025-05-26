@@ -205,7 +205,7 @@ onMounted(() => getSpanCount());
 
 const controlsSpan = props.controlsSpan ?? 4;
 
-const ruleFormRef = useTemplateRef<FormInst>("form"); // 获取表单实例
+const ruleFormRef = useTemplateRef<FormInst>("ruleForm"); // 获取表单实例
 const isCollapse = ref(true); // 默认折叠
 const defaultSpan = 4; // 默认 span 为 4
 const collapseLength = props.collapseLength ?? 3; // 默认折叠长度为 3
