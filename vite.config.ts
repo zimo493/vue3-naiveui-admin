@@ -20,7 +20,7 @@ const __APP_INFO__ = {
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   // 根据当前工作目录中的 `mode` 加载 .env 文件
-  const env = loadEnv(mode, __dirname);
+  const env = loadEnv(mode, __dirname) as ImportMetaEnv;
 
   return {
     base: env.VITE_BASE_URL, // 基础路径

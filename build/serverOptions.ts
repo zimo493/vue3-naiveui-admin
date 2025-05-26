@@ -4,7 +4,7 @@ import type { ServerOptions } from "vite";
  * 开发服务器配置
  * @param env 环境变量
  */
-export const serverOptions = (env: Record<string, string>): ServerOptions => {
+export const serverOptions = (env: ImportMetaEnv): ServerOptions => {
   return {
     // 允许IP访问
     host: "0.0.0.0",
