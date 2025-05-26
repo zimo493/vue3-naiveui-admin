@@ -153,6 +153,9 @@ importers:
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
+      rollup:
+        specifier: ^4.41.1
+        version: 4.41.1
       sass:
         specifier: ^1.89.0
         version: 1.89.0
