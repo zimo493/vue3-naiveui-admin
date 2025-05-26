@@ -8,11 +8,8 @@
 <script lang="ts" setup>
 defineOptions({ name: "CommonWrapper" });
 
-defineProps({
-  padding: {
-    type: String,
-    default: "p-2",
-  },
+const { padding = "p-2" } = defineProps({
+  padding: { type: String },
 });
 </script>
 <style scoped>

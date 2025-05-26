@@ -1,9 +1,9 @@
 <script setup lang="ts">
 defineOptions({ name: "Watermark" });
 
-defineProps({
-  showWatermark: { type: Boolean, default: false },
-  text: { type: String, default: "vue3-naiveui-admin" },
+const { showWatermark = false, text = "vue3-naiveui-admin" } = defineProps({
+  showWatermark: { type: Boolean },
+  text: { type: String },
 });
 </script>
 

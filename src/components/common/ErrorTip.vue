@@ -1,8 +1,8 @@
 <script setup lang="ts">
-defineProps<{
+const { type = "403" } = defineProps({
   /** 异常类型 403 404 500 */
-  type: "403" | "404" | "500";
-}>();
+  type: { type: String as PropType<"403" | "404" | "500"> },
+});
 const map = {
   403: {
     title: "403 禁止访问",

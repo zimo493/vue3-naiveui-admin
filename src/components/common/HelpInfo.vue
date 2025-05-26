@@ -1,9 +1,7 @@
 <script setup lang="ts">
-interface Props {
-  message: string;
-}
-
-const props = defineProps<Props>();
+const { message = "" } = defineProps({
+  message: { type: String },
+});
 </script>
 
 <template>
@@ -11,6 +9,6 @@ const props = defineProps<Props>();
     <template #trigger>
       <icon-park-outline-help />
     </template>
-    <div v-html="props.message" />
+    <div v-html="message" />
   </n-tooltip>
 </template>
