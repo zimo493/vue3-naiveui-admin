@@ -11,20 +11,18 @@ const { pkg } = __APP_INFO__;
 </script>
 
 <template>
-  <n-el wh-full flex flex-col class="login" style="background-color: var(--body-color)">
+  <!-- bg="[var(--body-color)]" -->
+  <n-el wh-full flex flex-col bg="[url(@/assets/images/login-bg.svg)]">
     <div fixed top-40px right-40px text-lg>
       <DarkModeSwitch />
     </div>
     <n-el flex-1 flex-center>
-      <n-el
-        class="p-4xl sm:w-450px sm:h-700px"
-        style="background: var(--card-color); border-radius: 10px; box-shadow: var(--box-shadow-1)"
-      >
+      <n-el border-rd-10px shadow="[var(--box-shadow-2)]" sm:w-450px sm:h-700px p-4xl>
         <div w-full flex flex-col items-center>
           <SvgIconsLogo class="text-5em" />
 
           <n-badge :value="`v${pkg.version}`" type="success" :offset="[0, 15]">
-            <h2 text-24px m-xl>{{ pkg.name }}</h2>
+            <n-h1 text-24px p-xl m-0>{{ pkg.name }}</n-h1>
           </n-badge>
 
           <transition name="fade-slide" mode="out-in">
@@ -33,7 +31,7 @@ const { pkg } = __APP_INFO__;
         </div>
       </n-el>
     </n-el>
-    <n-layout-footer w-full text-center bordered>
+    <n-layout-footer h-30px flex-center>
       <!-- 登录页底部版权 -->
       <n-text size="small" whitespace-nowrap text-12px>
         Copyright © 2021 - 2025
