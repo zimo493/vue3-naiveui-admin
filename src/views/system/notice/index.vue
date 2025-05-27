@@ -34,6 +34,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="1000"
+      :loading="submitLoading"
       @submit="submitForm"
     >
       <template v-if="modelValue.targetType === 2" #targetUserIds>
@@ -80,7 +81,7 @@ import {
 } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
-import { InquiryBox } from "@/utils";
+import { submitLoading, startSubmitLoading, endSubmitLoading, InquiryBox } from "@/utils";
 import { useDict, useLoading } from "@/hooks";
 
 import NoticeAPI from "@/api/system/notice";
@@ -363,15 +364,20 @@ const openDrawer = (row?: Notice.VO) => {
 };
 
 const submitForm = async (val: Notice.Form) => {
-  if (val.targetType !== 2) {
-    val.targetUserIds = undefined;
+  try {
+    startSubmitLoading();
+    if (val.targetType !== 2) {
+      val.targetUserIds = undefined;
+    }
+    val.id ? await NoticeAPI.update(val.id, val) : await NoticeAPI.create(val);
+
+    window.$message.success("操作成功");
+
+    dialogFormRef.value?.close();
+    handleQuery();
+  } finally {
+    endSubmitLoading();
   }
-  val.id ? await NoticeAPI.update(val.id, val) : await NoticeAPI.create(val);
-
-  window.$message.success("操作成功");
-
-  dialogFormRef.value?.close();
-  handleQuery();
 };
 
 // 查看详情

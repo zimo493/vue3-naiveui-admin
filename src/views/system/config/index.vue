@@ -18,7 +18,7 @@
           </template>
           新增
         </n-button>
-        <n-button type="warning" @click="handleRefreshCache()">
+        <n-button type="warning" :loading="submitLoading" @click="handleRefreshCache()">
           <template #icon>
             <icon-park-outline-refresh />
           </template>
@@ -33,6 +33,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
+      :loading="submitLoading"
       @submit="submitForm"
     />
   </div>
@@ -44,7 +45,7 @@ import { type FormOption, FormItemType } from "@/components/custom/FormPro/types
 import ConfigAPI from "@/api/system/config";
 
 import { useLoading } from "@/hooks";
-import { InquiryBox } from "@/utils";
+import { submitLoading, startSubmitLoading, endSubmitLoading, InquiryBox } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 
@@ -157,12 +158,15 @@ const openDrawer = (row?: Config.VO) => {
 
 /** 表单提交 */
 const submitForm = async (val: Config.Form) => {
-  val.id ? await ConfigAPI.update(val.id, val) : await ConfigAPI.create(val);
-
-  window.$message.success("操作成功");
-
-  drawerFormRef.value?.close();
-  handleQuery();
+  try {
+    startSubmitLoading();
+    val.id ? await ConfigAPI.update(val.id, val) : await ConfigAPI.create(val);
+    window.$message.success("操作成功");
+    drawerFormRef.value?.close();
+    handleQuery();
+  } finally {
+    endSubmitLoading();
+  }
 };
 
 // 删除配置
@@ -175,14 +179,11 @@ const handleDelete = (id: string) => {
   });
 };
 
-// 添加刷新缓存的加载状态
-const refreshLoading = ref<boolean>(false);
-
 // 刷新缓存
 const handleRefreshCache = () => {
-  refreshLoading.value = true;
+  startSubmitLoading();
   ConfigAPI.refreshCache()
     .then(() => window.$message.success("缓存刷新成功"))
-    .finally(() => (refreshLoading.value = false));
+    .finally(() => endSubmitLoading());
 };
 </script>

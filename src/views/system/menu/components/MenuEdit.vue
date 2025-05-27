@@ -224,7 +224,7 @@
       </n-spin>
       <template #footer>
         <n-space>
-          <n-button type="primary" @click="handleSubmit">
+          <n-button type="primary" :loading="submitLoading" @click="handleSubmit">
             <template #icon>
               <Icones icon="ant-design:check-outlined" />
             </template>
@@ -246,6 +246,7 @@ import type { FormInst, FormRules } from "naive-ui";
 
 import { useLoading } from "@/hooks";
 import { MenuTypeEnum } from "@/enums";
+import { submitLoading, startSubmitLoading, endSubmitLoading } from "@/utils";
 
 import MenuAPI from "@/api/system/menu";
 
@@ -387,24 +388,29 @@ const handleSubmit = async () => {
   await ruleFormRef.value?.validate();
   const menuId = modelValue.value.id;
 
-  if (menuId) {
+  try {
     //修改时父级菜单不能为当前菜单
     if (modelValue.value.parentId === menuId) {
       window.$message.error("父级菜单不能为当前菜单");
 
       return;
     }
-    MenuAPI.update(menuId, modelValue.value).then(() => {
-      window.$message.success("修改成功");
-      emit("success");
-      cancel();
-    });
-  } else {
-    MenuAPI.create(modelValue.value).then(() => {
-      window.$message.success("新增成功");
-      emit("success");
-      cancel();
-    });
+    startSubmitLoading();
+    if (menuId) {
+      MenuAPI.update(menuId, modelValue.value).then(() => {
+        window.$message.success("修改成功");
+        emit("success");
+        cancel();
+      });
+    } else {
+      MenuAPI.create(modelValue.value).then(() => {
+        window.$message.success("新增成功");
+        emit("success");
+        cancel();
+      });
+    }
+  } finally {
+    endSubmitLoading();
   }
 };
 

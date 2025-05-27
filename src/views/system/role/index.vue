@@ -33,6 +33,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
+      :loading="submitLoading"
       @submit="submitForm"
     />
 
@@ -47,7 +48,7 @@ import { type FormOption, FormItemType } from "@/components/custom/FormPro/types
 import RoleAPI from "@/api/system/role";
 
 import { useLoading } from "@/hooks";
-import { InquiryBox } from "@/utils";
+import { submitLoading, endSubmitLoading, startSubmitLoading, InquiryBox } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
@@ -187,12 +188,17 @@ const openDrawer = (row?: Role.VO) => {
 const submitForm = async (val: Role.Form) => {
   console.log(val, "表单提交");
 
-  val.id ? await RoleAPI.update(val.id, val) : await RoleAPI.create(val);
+  try {
+    startSubmitLoading();
+    val.id ? await RoleAPI.update(val.id, val) : await RoleAPI.create(val);
 
-  window.$message.success("操作成功");
+    window.$message.success("操作成功");
 
-  drawerFormRef.value?.close();
-  handleQuery();
+    drawerFormRef.value?.close();
+    handleQuery();
+  } finally {
+    endSubmitLoading();
+  }
 };
 
 /** 选中行 */

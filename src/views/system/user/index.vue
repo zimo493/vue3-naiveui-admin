@@ -77,6 +77,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
+      :loading="submitLoading"
       @submit="submitForm"
     >
       <template #deptId>
@@ -117,7 +118,13 @@ import {
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 import { useCompRef, useDict, useLoading } from "@/hooks";
 
-import { exportFile, InquiryBox } from "@/utils";
+import {
+  submitLoading,
+  startSubmitLoading,
+  endSubmitLoading,
+  exportFile,
+  InquiryBox,
+} from "@/utils";
 import { MIMETYPE } from "@/enums";
 
 import DeptAPI from "@/api/system/dept";
@@ -378,12 +385,17 @@ const openDrawer = (row?: User.VO) => {
 const submitForm = async (val: User.Form) => {
   console.log(val, "表单提交");
 
-  val.id ? await UserAPI.update(val.id, val) : await UserAPI.create(val);
+  try {
+    startSubmitLoading();
+    val.id ? await UserAPI.update(val.id, val) : await UserAPI.create(val);
 
-  window.$message.success("操作成功");
+    window.$message.success("操作成功");
 
-  drawerFormRef.value?.close();
-  handleQuery();
+    drawerFormRef.value?.close();
+    handleQuery();
+  } finally {
+    endSubmitLoading();
+  }
 };
 
 // 重置密码

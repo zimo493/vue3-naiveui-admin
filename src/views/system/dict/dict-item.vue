@@ -47,6 +47,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
+      :loading="submitLoading"
       @submit="submitForm"
     />
   </div>
@@ -69,7 +70,7 @@ import DictTypeAPI from "@/api/system/dict/type";
 import DictDataAPI from "@/api/system/dict/data";
 
 import { useLoading } from "@/hooks";
-import { InquiryBox } from "@/utils";
+import { submitLoading, startSubmitLoading, endSubmitLoading, InquiryBox } from "@/utils";
 import { useTabStoreHook } from "@/store";
 
 import Icones from "@/components/common/Icones.vue";
@@ -265,16 +266,18 @@ const submitForm = async (val: DictData.Form) => {
   if (val.tagType === null) {
     val.tagType = "";
   }
-  if (val.id) {
-    await DictDataAPI.updateDictItem(dictCode.value, val.id, val);
-  } else {
-    await DictDataAPI.createDictItem(dictCode.value, val);
+  try {
+    startSubmitLoading();
+    val.id
+      ? await DictDataAPI.updateDictItem(dictCode.value, val.id, val)
+      : await DictDataAPI.createDictItem(dictCode.value, val);
+
+    window.$message.success("操作成功");
+    drawerFormRef.value?.close();
+    handleQuery();
+  } finally {
+    endSubmitLoading();
   }
-
-  window.$message.success("操作成功");
-
-  drawerFormRef.value?.close();
-  handleQuery();
 };
 
 /** 选中行 */
