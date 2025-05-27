@@ -168,10 +168,10 @@ const getCookie = () => {
 };
 
 const handleLoginSubmit = async () => {
-  try {
-    // 1. 表单验证
-    await formRef.value?.validate();
+  // 1. 表单验证
+  await formRef.value?.validate();
 
+  try {
     loading.value = true;
 
     // 2. 执行登录
