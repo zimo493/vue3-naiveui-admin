@@ -27,7 +27,7 @@
     <slot name="footer" />
     <template #action>
       <n-space justify="end">
-        <n-button v-if="!isLook" type="primary" @click="handleSubmit">
+        <n-button v-if="!isLook" type="primary" :loading="loading" @click="handleSubmit">
           <template #icon>
             <Icones icon="ant-design:check-outlined" />
           </template>
@@ -54,6 +54,7 @@ const {
   modelValue,
   width = 700,
   isLook = false,
+  loading = false,
 } = defineProps({
   formConfig: {
     required: true,
@@ -66,6 +67,7 @@ const {
   placement: { type: String as PropType<DrawerPlacement> },
   width: { type: Number },
   isLook: { type: Boolean },
+  loading: { type: Boolean },
 });
 
 const modal = ref<{
