@@ -6,6 +6,7 @@
     :on-mask-click="cancel"
     :style="{ width: width + 'px' }"
     :segmented="{ content: true, action: true }"
+    :draggable="draggable"
     @close="cancel"
   >
     <slot name="header" />
@@ -55,6 +56,7 @@ const {
   width = 700,
   isLook = false,
   loading = false,
+  draggable = false,
 } = defineProps({
   formConfig: {
     required: true,
@@ -68,6 +70,7 @@ const {
   width: { type: Number },
   isLook: { type: Boolean },
   loading: { type: Boolean },
+  draggable: { type: Boolean },
 });
 
 const modal = ref<{
