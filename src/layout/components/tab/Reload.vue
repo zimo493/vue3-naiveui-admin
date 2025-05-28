@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import { useLoading } from "@/hooks";
 import { useAppStoreHook } from "@/store";
 
 const appStore = useAppStoreHook();
 
-const loading = ref(false);
+const { loading, startLoading, endLoading } = useLoading();
 
 const handleReload = () => {
-  loading.value = true;
-  appStore.reloadPage().finally(() => (loading.value = false));
+  startLoading();
+  appStore.reloadPage().finally(() => endLoading());
 };
 </script>
 
