@@ -164,6 +164,8 @@ const submitForm = async (val: Config.Form) => {
     window.$message.success("操作成功");
     drawerFormRef.value?.close();
     handleQuery();
+  } catch (err) {
+    console.error(err);
   } finally {
     endSpin();
   }

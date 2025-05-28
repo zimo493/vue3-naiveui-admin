@@ -210,6 +210,8 @@ const submitForm = async (val: DictType.Form) => {
 
     drawerFormRef.value?.close();
     handleQuery();
+  } catch (err) {
+    console.error(err);
   } finally {
     endSpin();
   }

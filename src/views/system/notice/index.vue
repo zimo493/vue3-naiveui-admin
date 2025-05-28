@@ -375,6 +375,8 @@ const submitForm = async (val: Notice.Form) => {
 
     dialogFormRef.value?.close();
     handleQuery();
+  } catch (err) {
+    console.error(err);
   } finally {
     endSpin();
   }

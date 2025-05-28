@@ -196,6 +196,8 @@ const submitForm = async (val: Role.Form) => {
 
     drawerFormRef.value?.close();
     handleQuery();
+  } catch (err) {
+    console.error(err);
   } finally {
     endSpin();
   }

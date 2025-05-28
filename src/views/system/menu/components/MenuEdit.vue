@@ -409,6 +409,8 @@ const handleSubmit = async () => {
         cancel();
       });
     }
+  } catch (err) {
+    console.error(err);
   } finally {
     endSpin();
   }

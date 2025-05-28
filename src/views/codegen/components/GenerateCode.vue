@@ -340,6 +340,8 @@ const genCode = async () => {
     getConfigForm();
 
     active.value = "preview"; // 跳转到预览
+  } catch (err) {
+    console.error(err);
   } finally {
     endSpin();
   }
