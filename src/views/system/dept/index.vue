@@ -40,7 +40,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
-      :loading="submitLoading"
+      :loading="spin"
       @submit="submitForm"
     >
       <template #parentId>
@@ -61,7 +61,7 @@ import { type FormOption, FormItemType } from "@/components/custom/FormPro/types
 import DeptAPI from "@/api/system/dept";
 
 import { useLoading } from "@/hooks";
-import { submitLoading, startSubmitLoading, endSubmitLoading, InquiryBox } from "@/utils";
+import { spin, startSpin, endSpin, InquiryBox } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
@@ -213,13 +213,13 @@ const handleEdit = ({ id }: Dept.VO) => {
 const submitForm = async (val: Dept.Form) => {
   console.log(val, "表单提交");
   try {
-    startSubmitLoading();
+    startSpin();
     val.id ? await DeptAPI.update(val.id, val) : await DeptAPI.create(val);
     window.$message.success("操作成功");
     drawerFormRef.value?.close();
     handleQuery();
   } finally {
-    endSubmitLoading();
+    endSpin();
   }
 };
 

@@ -33,7 +33,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
-      :loading="submitLoading"
+      :loading="spin"
       @submit="submitForm"
     />
 
@@ -48,7 +48,7 @@ import { type FormOption, FormItemType } from "@/components/custom/FormPro/types
 import RoleAPI from "@/api/system/role";
 
 import { useLoading } from "@/hooks";
-import { submitLoading, endSubmitLoading, startSubmitLoading, InquiryBox } from "@/utils";
+import { spin, endSpin, startSpin, InquiryBox } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
@@ -189,7 +189,7 @@ const submitForm = async (val: Role.Form) => {
   console.log(val, "表单提交");
 
   try {
-    startSubmitLoading();
+    startSpin();
     val.id ? await RoleAPI.update(val.id, val) : await RoleAPI.create(val);
 
     window.$message.success("操作成功");
@@ -197,7 +197,7 @@ const submitForm = async (val: Role.Form) => {
     drawerFormRef.value?.close();
     handleQuery();
   } finally {
-    endSubmitLoading();
+    endSpin();
   }
 };
 

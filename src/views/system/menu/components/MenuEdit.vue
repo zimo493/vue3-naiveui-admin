@@ -224,7 +224,7 @@
       </n-spin>
       <template #footer>
         <n-space>
-          <n-button type="primary" :loading="submitLoading" @click="handleSubmit">
+          <n-button type="primary" :loading="spin" @click="handleSubmit">
             <template #icon>
               <Icones icon="ant-design:check-outlined" />
             </template>
@@ -246,7 +246,7 @@ import type { FormInst, FormRules } from "naive-ui";
 
 import { useLoading } from "@/hooks";
 import { MenuTypeEnum } from "@/enums";
-import { submitLoading, startSubmitLoading, endSubmitLoading } from "@/utils";
+import { spin, startSpin, endSpin } from "@/utils";
 
 import MenuAPI from "@/api/system/menu";
 
@@ -395,7 +395,7 @@ const handleSubmit = async () => {
 
       return;
     }
-    startSubmitLoading();
+    startSpin();
     if (menuId) {
       MenuAPI.update(menuId, modelValue.value).then(() => {
         window.$message.success("修改成功");
@@ -410,7 +410,7 @@ const handleSubmit = async () => {
       });
     }
   } finally {
-    endSubmitLoading();
+    endSpin();
   }
 };
 

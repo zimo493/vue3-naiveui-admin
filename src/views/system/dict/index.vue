@@ -40,7 +40,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
-      :loading="submitLoading"
+      :loading="spin"
       @submit="submitForm"
     />
   </div>
@@ -53,7 +53,7 @@ import DictTypeAPI from "@/api/system/dict/type";
 
 import { router } from "@/router";
 import { useLoading } from "@/hooks";
-import { submitLoading, startSubmitLoading, endSubmitLoading, InquiryBox } from "@/utils";
+import { spin, startSpin, endSpin, InquiryBox } from "@/utils";
 import { useDictStoreHook, useTabStoreHook } from "@/store";
 
 import Icones from "@/components/common/Icones.vue";
@@ -203,7 +203,7 @@ const openDrawer = (row?: DictType.VO) => {
 /** 表单提交 */
 const submitForm = async (val: DictType.Form) => {
   try {
-    startSubmitLoading();
+    startSpin();
     val.id ? await DictTypeAPI.update(val.id, val) : await DictTypeAPI.create(val);
 
     window.$message.success("操作成功");
@@ -211,7 +211,7 @@ const submitForm = async (val: DictType.Form) => {
     drawerFormRef.value?.close();
     handleQuery();
   } finally {
-    endSubmitLoading();
+    endSpin();
   }
 };
 

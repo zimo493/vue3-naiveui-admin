@@ -18,7 +18,7 @@
           </template>
           新增
         </n-button>
-        <n-button type="warning" :loading="submitLoading" @click="handleRefreshCache()">
+        <n-button type="warning" :loading="spin" @click="handleRefreshCache()">
           <template #icon>
             <icon-park-outline-refresh />
           </template>
@@ -33,7 +33,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
-      :loading="submitLoading"
+      :loading="spin"
       @submit="submitForm"
     />
   </div>
@@ -45,7 +45,7 @@ import { type FormOption, FormItemType } from "@/components/custom/FormPro/types
 import ConfigAPI from "@/api/system/config";
 
 import { useLoading } from "@/hooks";
-import { submitLoading, startSubmitLoading, endSubmitLoading, InquiryBox } from "@/utils";
+import { spin, startSpin, endSpin, InquiryBox } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 
@@ -159,13 +159,13 @@ const openDrawer = (row?: Config.VO) => {
 /** 表单提交 */
 const submitForm = async (val: Config.Form) => {
   try {
-    startSubmitLoading();
+    startSpin();
     val.id ? await ConfigAPI.update(val.id, val) : await ConfigAPI.create(val);
     window.$message.success("操作成功");
     drawerFormRef.value?.close();
     handleQuery();
   } finally {
-    endSubmitLoading();
+    endSpin();
   }
 };
 
@@ -181,9 +181,9 @@ const handleDelete = (id: string) => {
 
 // 刷新缓存
 const handleRefreshCache = () => {
-  startSubmitLoading();
+  startSpin();
   ConfigAPI.refreshCache()
     .then(() => window.$message.success("缓存刷新成功"))
-    .finally(() => endSubmitLoading());
+    .finally(() => endSpin());
 };
 </script>

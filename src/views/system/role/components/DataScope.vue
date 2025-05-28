@@ -36,7 +36,7 @@
       />
       <template #footer>
         <n-space>
-          <n-button type="primary" :loading="submitLoading" @click="handleAssignPermSubmit">
+          <n-button type="primary" :loading="spin" @click="handleAssignPermSubmit">
             <template #icon>
               <Icones icon="ant-design:check-outlined" />
             </template>
@@ -105,9 +105,9 @@ const updateCheckedKeys = (keys: string[]) => {
 };
 
 // 分配菜单权限提交
-const submitLoading = ref(false);
+const spin = ref(false);
 const handleAssignPermSubmit = () => {
-  submitLoading.value = true;
+  spin.value = true;
   RoleAPI.updateRoleMenus(roleId.value, selectedKeys.value)
     .then(() => {
       window.$message.success("操作成功");
@@ -115,7 +115,7 @@ const handleAssignPermSubmit = () => {
       emit("success");
     })
     .finally(() => {
-      submitLoading.value = false;
+      spin.value = false;
     });
 };
 

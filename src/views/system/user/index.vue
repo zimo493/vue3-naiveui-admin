@@ -77,7 +77,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
-      :loading="submitLoading"
+      :loading="spin"
       @submit="submitForm"
     >
       <template #deptId>
@@ -118,13 +118,7 @@ import {
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 import { useCompRef, useDict, useLoading } from "@/hooks";
 
-import {
-  submitLoading,
-  startSubmitLoading,
-  endSubmitLoading,
-  exportFile,
-  InquiryBox,
-} from "@/utils";
+import { spin, startSpin, endSpin, exportFile, InquiryBox } from "@/utils";
 import { MIMETYPE } from "@/enums";
 
 import DeptAPI from "@/api/system/dept";
@@ -386,7 +380,7 @@ const submitForm = async (val: User.Form) => {
   console.log(val, "表单提交");
 
   try {
-    startSubmitLoading();
+    startSpin();
     val.id ? await UserAPI.update(val.id, val) : await UserAPI.create(val);
 
     window.$message.success("操作成功");
@@ -394,7 +388,7 @@ const submitForm = async (val: User.Form) => {
     drawerFormRef.value?.close();
     handleQuery();
   } finally {
-    endSubmitLoading();
+    endSpin();
   }
 };
 

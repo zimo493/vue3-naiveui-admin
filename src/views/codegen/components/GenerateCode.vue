@@ -52,12 +52,7 @@
       </n-spin>
       <template #footer>
         <n-space>
-          <n-button
-            v-if="active === 'basic'"
-            type="primary"
-            :loading="submitLoading"
-            @click="genCode"
-          >
+          <n-button v-if="active === 'basic'" type="primary" :loading="spin" @click="genCode">
             <template #icon>
               <Icones icon="ant-design:arrow-right-outlined" />
             </template>
@@ -97,7 +92,7 @@ import GeneratorAPI from "@/api/codeGen";
 import MenuAPI from "@/api/system/menu";
 import DictAPI from "@/api/system/dict/type";
 
-import { submitLoading, startSubmitLoading, endSubmitLoading, exportFile } from "@/utils";
+import { spin, startSpin, endSpin, exportFile } from "@/utils";
 import { useLoading } from "@/hooks";
 import { FormTypeEnum, MIMETYPE, QueryTypeEnum } from "@/enums";
 
@@ -338,7 +333,7 @@ const checkAllSelected = (key: keyof CodeGen.FieldConfig, isCheckAllRef: Ref) =>
 const formProRef = useTemplateRef("formPro");
 const genCode = async () => {
   try {
-    startSubmitLoading();
+    startSpin();
     await formProRef.value?.instance()?.validate();
     await GeneratorAPI.saveGenConfig(tableCode.value, modelValue.value);
 
@@ -346,7 +341,7 @@ const genCode = async () => {
 
     active.value = "preview"; // 跳转到预览
   } finally {
-    endSubmitLoading();
+    endSpin();
   }
 };
 

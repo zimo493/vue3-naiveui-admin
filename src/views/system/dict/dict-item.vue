@@ -47,7 +47,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="580"
-      :loading="submitLoading"
+      :loading="spin"
       @submit="submitForm"
     />
   </div>
@@ -70,7 +70,7 @@ import DictTypeAPI from "@/api/system/dict/type";
 import DictDataAPI from "@/api/system/dict/data";
 
 import { useLoading } from "@/hooks";
-import { submitLoading, startSubmitLoading, endSubmitLoading, InquiryBox } from "@/utils";
+import { spin, startSpin, endSpin, InquiryBox } from "@/utils";
 import { useTabStoreHook } from "@/store";
 
 import Icones from "@/components/common/Icones.vue";
@@ -267,7 +267,7 @@ const submitForm = async (val: DictData.Form) => {
     val.tagType = "";
   }
   try {
-    startSubmitLoading();
+    startSpin();
     val.id
       ? await DictDataAPI.updateDictItem(dictCode.value, val.id, val)
       : await DictDataAPI.createDictItem(dictCode.value, val);
@@ -276,7 +276,7 @@ const submitForm = async (val: DictData.Form) => {
     drawerFormRef.value?.close();
     handleQuery();
   } finally {
-    endSubmitLoading();
+    endSpin();
   }
 };
 

@@ -34,7 +34,7 @@
       :form-config="editConfig"
       :model-value="modelValue"
       :width="1000"
-      :loading="submitLoading"
+      :loading="spin"
       @submit="submitForm"
     >
       <template v-if="modelValue.targetType === 2" #targetUserIds>
@@ -81,7 +81,7 @@ import {
 } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
-import { submitLoading, startSubmitLoading, endSubmitLoading, InquiryBox } from "@/utils";
+import { spin, startSpin, endSpin, InquiryBox } from "@/utils";
 import { useDict, useLoading } from "@/hooks";
 
 import NoticeAPI from "@/api/system/notice";
@@ -365,7 +365,7 @@ const openDrawer = (row?: Notice.VO) => {
 
 const submitForm = async (val: Notice.Form) => {
   try {
-    startSubmitLoading();
+    startSpin();
     if (val.targetType !== 2) {
       val.targetUserIds = undefined;
     }
@@ -376,7 +376,7 @@ const submitForm = async (val: Notice.Form) => {
     dialogFormRef.value?.close();
     handleQuery();
   } finally {
-    endSubmitLoading();
+    endSpin();
   }
 };
 
