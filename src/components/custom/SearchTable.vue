@@ -7,6 +7,7 @@
           :collapse-length="collapseLength"
           :controls-span="controlsSpan"
           :modelValue="modelValue"
+          :loading="loading"
           @submit="handleQuery"
           @reset="handleReset"
         >
@@ -34,8 +35,8 @@
             </n-popover>
             <n-popover trigger="hover">
               <template #trigger>
-                <CommonWrapper @click="reload">
-                  <Icones icon="ant-design:reload-outlined" :class="{ 'animate-spin': iconLoad }" />
+                <CommonWrapper @click="handleQuery">
+                  <Icones icon="ant-design:reload-outlined" :class="{ 'animate-spin': loading }" />
                 </CommonWrapper>
               </template>
               <span>刷新</span>
@@ -138,14 +139,8 @@ const totalNum = computed(() => total);
 
 // 是否展开查询
 const show = ref<boolean>(true);
-// 刷新
-const iconLoad = ref<boolean>(false);
-const reload = () => {
-  iconLoad.value = true;
-  emit("search");
-  setTimeout(() => (iconLoad.value = false), 1000);
-};
-// 查询
+
+// 查询 刷新
 const handleQuery = () => emit("search");
 
 // 重置

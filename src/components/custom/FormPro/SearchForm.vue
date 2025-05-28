@@ -121,11 +121,10 @@
       <n-gi :span="rSpanCount">
         <n-flex justify="end">
           <slot name="before" />
-          <n-button type="primary" @click="handleQuery">
+          <n-button type="primary" :loading="loading" @click="handleQuery">
             <template #icon>
               <icon-park-outline-search />
             </template>
-
             搜索
           </n-button>
           <n-button strong secondary @click="resetQuery">
@@ -167,6 +166,7 @@ const {
   labelAlign = "right",
   rules = {},
   showLabel = true,
+  loading = false,
   collapseLength: foldingLength,
   controlsSpan: operateSpan,
 } = defineProps({
@@ -181,6 +181,7 @@ const {
   gutter: { type: Number },
   labelWidth: { type: Number },
   showLabel: { type: Boolean },
+  loading: { type: Boolean },
   collapseLength: { type: Number },
   controlsSpan: { type: Number },
 });

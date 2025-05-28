@@ -163,7 +163,7 @@
       </template>
       <n-gi v-if="useType === 'search'" style="min-width: 172px" :span="6">
         <n-space>
-          <n-button type="primary" @click="handleQuery">
+          <n-button type="primary" :loading="loading" @click="handleQuery">
             <template #icon>
               <icon-park-outline-search />
             </template>
@@ -205,6 +205,7 @@ const {
   labelPlacement = "left",
   labelAlign = "right",
   isLook = false,
+  loading = false,
   gutter = 16,
   showLabel = true,
   showFeedback = false,
@@ -223,6 +224,7 @@ const {
   labelAlign: { type: String as PropType<"left" | "right"> },
   // 是否是查看
   isLook: { type: Boolean },
+  loading: { type: Boolean },
   gutter: { type: Number },
   showLabel: { type: Boolean },
   labelWidth: { type: Number },
