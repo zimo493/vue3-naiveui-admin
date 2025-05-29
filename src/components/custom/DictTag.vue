@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { type TagProps, NSpace, NTag } from "naive-ui";
+import { NSpace, NTag } from "naive-ui";
 import { toRefs } from "vue";
 
 export default defineComponent({
@@ -38,25 +38,24 @@ export default defineComponent({
       })
     );
 
-    // 转换标签类型
-    const getTagType = (type: DictData.Option["tagType"]): TagProps["type"] => {
-      if (type === "danger") return "error";
-
-      return type || "default";
-    };
-
     return () => (
       <NSpace justify="center" size="small">
-        {displayedOptions.value.map((option) => (
-          <NTag
-            key={option.value}
-            type={getTagType(option.tagType)}
-            round={round.value}
-            bordered={bordered.value}
-          >
-            {option.label}
-          </NTag>
-        ))}
+        {displayedOptions.value.map((option) => {
+          if (!option.tagType) {
+            return option.label;
+          } else {
+            return (
+              <NTag
+                key={option.value}
+                type={option.tagType}
+                round={round.value}
+                bordered={bordered.value}
+              >
+                {option.label}
+              </NTag>
+            );
+          }
+        })}
       </NSpace>
     );
   },

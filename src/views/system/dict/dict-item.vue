@@ -185,27 +185,20 @@ const editConfig = ref<FormOption<DictData.Form>>({
       field: "tagType",
       label: "标签类型",
       type: FormItemType.Select,
-      clearable: false,
       options: [
-        { label: "默认", value: "" },
+        { label: "默认", value: "default" },
         { label: "主要", value: "primary" },
         { label: "成功", value: "success" },
         { label: "信息", value: "info" },
         { label: "警告", value: "warning" },
-        { label: "错误", value: "danger" },
+        { label: "错误", value: "error" },
       ],
       otherOptions: {
         /** 自定义渲染 */
         renderLabel: ({ label, value }: SelectOption): VNodeChild => (
           <NFlex align="center">
-            {value && (
-              <NText type={value === "danger" ? "error" : value}>{`${label} (${value})`}</NText>
-            )}
-            <NTag
-              type={value ? (value === "danger" ? "error" : value) : "default"}
-              bordered={false}
-              size="small"
-            >
+            {value && <NText type={value}>{`${label} (${value})`}</NText>}
+            <NTag type={value ? value : "default"} bordered={false} size="small">
               {modelValue.value.label}
             </NTag>
           </NFlex>
@@ -263,8 +256,8 @@ const openDrawer = (row?: DictData.VO) => {
 
 /** 表单提交 */
 const submitForm = async (val: DictData.Form) => {
-  if (val.tagType === null) {
-    val.tagType = "";
+  if (!val.tagType) {
+    val.tagType = "" as DictData.Form["tagType"];
   }
   try {
     startSpin();

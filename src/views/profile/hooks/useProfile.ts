@@ -36,8 +36,6 @@ export const useProfile = () => {
   const genderTagType = computed(() => {
     const type = gender.value.find((item) => +item.value === userProfile.value.gender)?.tagType;
 
-    if (type === "danger") return "error";
-
     return type ?? "default";
   });
 

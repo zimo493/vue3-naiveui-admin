@@ -63,7 +63,7 @@ declare namespace DictData {
     /**
      * 标签类型
      */
-    tagType?: "success" | "warning" | "info" | "primary" | "danger" | "";
+    tagType?: import("naive-ui").TagProps["type"];
   }
 
   /** 字典项列表 */
@@ -75,6 +75,6 @@ declare namespace DictData {
     label: string;
 
     /** 标签类型 */
-    tagType?: "" | "success" | "info" | "warning" | "danger" | "primary";
+    tagType?: import("naive-ui").TagProps["type"];
   }
 }
