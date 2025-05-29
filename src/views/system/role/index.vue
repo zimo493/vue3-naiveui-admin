@@ -112,7 +112,7 @@ const columns = ref<DataTableColumns<Role.VO>>([
         <NButton
           text
           type="info"
-          v-slots={{ icon: () => <Icones icon="ant-design:plus-outlined" /> }}
+          v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >
           编辑
