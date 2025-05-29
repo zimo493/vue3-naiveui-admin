@@ -105,14 +105,15 @@
 │     ├── auto-imports.d.ts  # 自动导入方法类型文件
 │     └── components.d.ts    # 自动导入组件类型文件
 │  ├─ utils                 # 常用工具库
-│     ├── index.ts           # 工具类统一导出出口
 │     ├── comm.ts            # 常用工具方法
 │     ├── i18n.ts            # 国际化方法
 │     ├── icon.ts            # 图标工具
+│     ├── index.ts           # 工具类统一导出出口
 │     ├── is.ts              # 各种判断方法
 │     ├── jsencrypt.ts       # encrypt加密解密方法
 │     ├── request.ts         # axios 请求封装
 │     ├── router.ts          # 路由工具
+│     ├── spin.ts            # 加载动画和通用异步操作封装工具
 │     └── storage.ts         # 存储封装工具
 │  ├─ views                 # 项目所有页面
 │  ├─ App.tsx               # APP根组件
