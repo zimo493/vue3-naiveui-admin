@@ -287,7 +287,7 @@ const columns = ref<DataTableColumns<User.VO>>([
         <NButton
           v-has-perm={["sys:user:edit"]}
           text
-          type="primary"
+          type="info"
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >
