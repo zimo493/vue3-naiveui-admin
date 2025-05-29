@@ -2,13 +2,13 @@ import { type FormItemRule } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import { useAuthStoreHook } from "@/store";
-import { useCompRef, useDict, useLoading } from "@/hooks";
 import { spin, startSpin, endSpin, local } from "@/utils";
+
+import { useCountdown } from "./useCountdown";
+import { useCompRef, useDict, useLoading } from "@/hooks";
 
 import FileAPI from "@/api/file";
 import UserAPI from "@/api/system/user";
-
-import { useCountdown } from "./useCountdown";
 
 import ImageCut from "@/components/custom/ImageCut.vue";
 import DialogForm from "@/components/custom/DialogForm.vue";
@@ -18,7 +18,7 @@ export const useProfile = () => {
   const { gender } = useDict("gender");
   const { loading, startLoading, endLoading } = useLoading();
 
-  // 倒计时
+  /** 倒计时钩子 */
   const { mobileCountdown, emailCountdown, startMobileCountdown, startEmailCountdown } =
     useCountdown();
 
@@ -28,20 +28,20 @@ export const useProfile = () => {
   /** 用户信息 */
   const userProfile = ref<User.ProfileVO>({});
 
-  /** 性别图标 */
-  const genderIcon = computed(() => {
-    if (userProfile.value.gender === 1) {
-      return "ant-design:man-outlined";
-    } else if (userProfile.value.gender === 2) {
-      return "ant-design:woman-outlined";
-    } else {
-      return "ant-design:question-outlined";
-    }
-  });
-  const genderTagType = computed(() => {
-    const type = gender.value.find((item) => +item.value === userProfile.value.gender)?.tagType;
+  /** 性别计算属性 */
+  const genderProps = computed(() => {
+    const profile = userProfile.value;
+    const genderItem = gender.value.find((item) => +item.value === profile.gender);
 
-    return type ?? "default";
+    return {
+      icon:
+        profile.gender === 1
+          ? "ant-design:man-outlined"
+          : profile.gender === 2
+            ? "ant-design:woman-outlined"
+            : "ant-design:question-outlined",
+      tagType: genderItem?.tagType || "default",
+    };
   });
 
   /** 加载用户信息 */
@@ -59,7 +59,7 @@ export const useProfile = () => {
   /** 修改头像 */
   const isEdit = ref(false); // 是否显示修改头像的图标
   const imageCutRef = useCompRef(ImageCut);
-  const changeAvatar = () => imageCutRef.value?.open();
+
   /**
    * 上传并设置头像
    * @param file 文件
@@ -296,9 +296,9 @@ export const useProfile = () => {
     spin,
     isEdit,
     loading,
-    genderIcon,
     userProfile,
-    genderTagType,
+    genderIcon: computed(() => genderProps.value.icon),
+    genderTagType: computed(() => genderProps.value.tagType),
     imageCutRef,
     userProfileForm,
     userProfileFormRef,
@@ -314,7 +314,7 @@ export const useProfile = () => {
     emailUpdateFormConfig,
     mobileCountdown,
     emailCountdown,
-    changeAvatar,
+    changeAvatar: () => imageCutRef.value?.open(),
     handleUploadSetAvatar,
     updateUserProfile,
     submitUserProfile,
