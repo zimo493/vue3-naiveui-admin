@@ -41,6 +41,10 @@ interface Local {
   lang: App.lang;
   /* 菜单列表是否默认展开第一项 */
   isExpandFirstMenu: boolean;
+  /** 手机验证码倒计时 */
+  mobileCodeExpireTime: number;
+  /** 邮箱验证码倒计时 */
+  emailCodeExpireTime: number;
 }
 
 // SessionStorage

@@ -3,7 +3,7 @@ import { type FormOption, FormItemType } from "@/components/custom/FormPro/types
 
 import { useAuthStoreHook } from "@/store";
 import { useCompRef, useDict, useLoading } from "@/hooks";
-import { spin, startSpin, endSpin } from "@/utils";
+import { spin, startSpin, endSpin, local } from "@/utils";
 
 import FileAPI from "@/api/file";
 import UserAPI from "@/api/system/user";
@@ -17,8 +17,66 @@ export const useProfile = () => {
   const { loading, startLoading, endLoading } = useLoading();
 
   onMounted(async () => {
+    /** 加载用户信息 */
     await loadUserProfile();
+    /** 从本地存储加载倒计时状态 */
+    loadCountdownState();
   });
+
+  /** 手机验证码倒计时 */
+  const mobileCountdown = ref<number>(0);
+  /** 邮箱验证码倒计时 */
+  const emailCountdown = ref<number>(0);
+
+  /** 加载倒计时状态 */
+  const loadCountdownState = () => {
+    const mobileExpireTime = local.get("mobileCodeExpireTime");
+    const emailExpireTime = local.get("emailCodeExpireTime");
+
+    if (mobileExpireTime) {
+      const remainTime = Math.floor((mobileExpireTime - Date.now()) / 1000);
+
+      if (remainTime > 0) {
+        mobileCountdown.value = remainTime;
+        startMobileCountdown();
+      }
+    }
+
+    if (emailExpireTime) {
+      const remainTime = Math.floor((emailExpireTime - Date.now()) / 1000);
+
+      if (remainTime > 0) {
+        emailCountdown.value = remainTime;
+        startEmailCountdown();
+      }
+    }
+  };
+
+  /** 开始手机验证码倒计时 */
+  const startMobileCountdown = () => {
+    if (mobileCountdown.value <= 0) return;
+
+    const timer = setInterval(() => {
+      mobileCountdown.value--;
+      if (mobileCountdown.value <= 0) {
+        clearInterval(timer);
+        local.remove("mobileCodeExpireTime");
+      }
+    }, 1000);
+  };
+
+  /** 开始邮箱验证码倒计时 */
+  const startEmailCountdown = () => {
+    if (emailCountdown.value <= 0) return;
+
+    const timer = setInterval(() => {
+      emailCountdown.value--;
+      if (emailCountdown.value <= 0) {
+        clearInterval(timer);
+        local.remove("emailCodeExpireTime");
+      }
+    }, 1000);
+  };
 
   /** 用户信息 */
   const userProfile = ref<User.ProfileVO>({});
@@ -196,6 +254,12 @@ export const useProfile = () => {
       startSpin();
       await UserAPI.sendMobileCode(mobileUpdateForm.value.mobile);
       window.$message.success("验证码发送成功");
+      // 设置倒计时
+      mobileCountdown.value = 60;
+      // 保存到本地存储，记录过期时间
+      local.set("mobileCodeExpireTime", Date.now() + 60 * 1000);
+      // 开始倒计时
+      startMobileCountdown();
     } catch (err) {
       console.error(err);
     } finally {
@@ -252,6 +316,12 @@ export const useProfile = () => {
       startSpin();
       await UserAPI.sendEmailCode(emailUpdateForm.value.email);
       window.$message.success("验证码发送成功");
+      // 设置倒计时
+      emailCountdown.value = 60;
+      // 保存到本地存储，记录过期时间
+      local.set("emailCodeExpireTime", Date.now() + 60 * 1000);
+      // 开始倒计时
+      startEmailCountdown();
     } catch (err) {
       console.error(err);
     } finally {
@@ -293,6 +363,8 @@ export const useProfile = () => {
     emailUpdateForm,
     emailUpdateFormRef,
     emailUpdateFormConfig,
+    mobileCountdown,
+    emailCountdown,
     changeAvatar,
     handleUploadSetAvatar,
     updateUserProfile,

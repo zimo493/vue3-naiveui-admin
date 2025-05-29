@@ -46,6 +46,8 @@ export default defineComponent({
       emailUpdateForm,
       emailUpdateFormRef,
       emailUpdateFormConfig,
+      mobileCountdown,
+      emailCountdown,
       changeAvatar,
       handleUploadSetAvatar,
       updateUserProfile,
@@ -233,11 +235,11 @@ export default defineComponent({
                 <NButton
                   type="info"
                   strong
-                  disabled={!mobileUpdateForm.value.mobile}
+                  disabled={!mobileUpdateForm.value.mobile || mobileCountdown.value > 0}
                   loading={spin.value}
                   onClick={() => sendMobileCode()}
                 >
-                  发送验证码
+                  {mobileCountdown.value > 0 ? `${mobileCountdown.value} 秒后重试` : "发送验证码"}
                 </NButton>
               </NInputGroup>
             ),
@@ -259,11 +261,11 @@ export default defineComponent({
                 <NButton
                   type="info"
                   strong
-                  disabled={!emailUpdateForm.value.email}
+                  disabled={!emailUpdateForm.value.email || emailCountdown.value > 0}
                   loading={spin.value}
                   onClick={() => sendEmailCode()}
                 >
-                  发送验证码
+                  {emailCountdown.value > 0 ? `${emailCountdown.value} 秒后重试` : "发送验证码"}
                 </NButton>
               </NInputGroup>
             ),
