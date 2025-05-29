@@ -2,7 +2,7 @@ import { type FormItemRule } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import { useAuthStoreHook } from "@/store";
-import { spin, startSpin, endSpin, local } from "@/utils";
+import { spin, local, executeAsync } from "@/utils";
 
 import { useCountdown } from "./useCountdown";
 import { useCompRef, useDict, useLoading } from "@/hooks";
@@ -18,12 +18,24 @@ export const useProfile = () => {
   const { gender } = useDict("gender");
   const { loading, startLoading, endLoading } = useLoading();
 
+  /** 加载用户信息 */
+  const loadUserProfile = async () => {
+    startLoading();
+    try {
+      userProfile.value = await UserAPI.getProfile();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      endLoading();
+    }
+  };
+
   /** 倒计时钩子 */
   const { mobileCountdown, emailCountdown, startMobileCountdown, startEmailCountdown } =
     useCountdown();
 
   /** 加载用户信息 */
-  onMounted(async () => await loadUserProfile());
+  onMounted(loadUserProfile);
 
   /** 用户信息 */
   const userProfile = ref<User.ProfileVO>({});
@@ -43,18 +55,6 @@ export const useProfile = () => {
       tagType: genderItem?.tagType || "default",
     };
   });
-
-  /** 加载用户信息 */
-  const loadUserProfile = async () => {
-    startLoading();
-    try {
-      userProfile.value = await UserAPI.getProfile();
-    } catch (err) {
-      console.log(err);
-    } finally {
-      endLoading();
-    }
-  };
 
   /** 修改头像 */
   const isEdit = ref(false); // 是否显示修改头像的图标
@@ -112,20 +112,15 @@ export const useProfile = () => {
   };
 
   /** 修改基本信息提交 */
-  const submitUserProfile = async (val: User.ProfileForm) => {
-    console.log(val, "提交");
-    try {
-      startSpin();
-      await UserAPI.updateProfile(val);
-      window.$message.success("账号资料修改成功");
-      await loadUserProfile();
-      userProfileFormRef.value?.close();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      endSpin();
-    }
-  };
+  const submitUserProfile = async (val: User.ProfileForm) =>
+    executeAsync(
+      () => UserAPI.updateProfile(val),
+      async () => {
+        userProfileFormRef.value?.close();
+        await loadUserProfile();
+      }
+    );
+
   /** 修改用户密码配置 */
   const passwordChangeForm = ref<User.PasswordChangeForm>({}); // 修改密码表单
   const passwordChangeFormRef = useCompRef(DialogForm);
@@ -158,19 +153,12 @@ export const useProfile = () => {
   const updatePassword = () =>
     passwordChangeFormRef.value?.open("修改密码", passwordChangeForm.value);
   /** 修改用户密码提交 */
-  const submitPassword = async (val: User.PasswordChangeForm) => {
-    console.log(val, "提交");
-    try {
-      startSpin();
-      await UserAPI.changePassword(val);
-      window.$message.success("密码修改成功");
-      passwordChangeFormRef.value?.close();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      endSpin();
-    }
-  };
+  const submitPassword = async (val: User.PasswordChangeForm) =>
+    executeAsync(
+      () => UserAPI.changePassword(val),
+      () => passwordChangeFormRef.value?.close(),
+      "密码修改成功"
+    );
 
   /** 修改手机信息配置 */
   const mobileUpdateForm = ref<User.MobileUpdateForm>({}); // 修改手机表单
@@ -198,37 +186,27 @@ export const useProfile = () => {
   };
 
   /** 绑定手机获取验证码 */
-  const sendMobileCode = async () => {
-    try {
-      startSpin();
-      await UserAPI.sendMobileCode(mobileUpdateForm.value.mobile);
-      window.$message.success("验证码发送成功");
-      // 设置倒计时
-      mobileCountdown.value = 60;
-      // 保存到本地存储，记录过期时间
-      local.set("mobileCodeExpireTime", Date.now() + 60 * 1000);
-      // 开始倒计时
-      startMobileCountdown();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      endSpin();
-    }
-  };
+  const sendMobileCode = async () =>
+    executeAsync(
+      () => UserAPI.sendMobileCode(mobileUpdateForm.value.mobile),
+      () => {
+        // 设置倒计时
+        mobileCountdown.value = 60;
+        // 保存到本地存储，记录过期时间
+        local.set("mobileCodeExpireTime", Date.now() + 60 * 1000);
+        // 开始倒计时
+        startMobileCountdown();
+      },
+      "验证码发送成功"
+    );
 
   /** 绑定手机提交 */
-  const submitMobile = async (val: User.MobileUpdateForm) => {
-    try {
-      startSpin();
-      await UserAPI.bindOrChangeMobile(val);
-      window.$message.success("手机绑定成功");
-      mobileUpdateFormRef.value?.close();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      endSpin();
-    }
-  };
+  const submitMobile = async (val: User.MobileUpdateForm) =>
+    executeAsync(
+      () => UserAPI.bindOrChangeMobile(val),
+      () => mobileUpdateFormRef.value?.close(),
+      "手机绑定成功"
+    );
 
   /** 绑定邮箱信息配置 */
   const emailUpdateForm = ref<User.EmailUpdateForm>({}); // 修改邮箱表单
@@ -260,37 +238,27 @@ export const useProfile = () => {
   };
 
   /** 绑定邮箱获取验证码 */
-  const sendEmailCode = async () => {
-    try {
-      startSpin();
-      await UserAPI.sendEmailCode(emailUpdateForm.value.email);
-      window.$message.success("验证码发送成功");
-      // 设置倒计时
-      emailCountdown.value = 60;
-      // 保存到本地存储，记录过期时间
-      local.set("emailCodeExpireTime", Date.now() + 60 * 1000);
-      // 开始倒计时
-      startEmailCountdown();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      endSpin();
-    }
-  };
+  const sendEmailCode = async () =>
+    executeAsync(
+      () => UserAPI.sendEmailCode(emailUpdateForm.value.email),
+      () => {
+        // 设置倒计时
+        emailCountdown.value = 60;
+        // 保存到本地存储，记录过期时间
+        local.set("emailCodeExpireTime", Date.now() + 60 * 1000);
+        // 开始倒计时
+        startEmailCountdown();
+      },
+      "验证码发送成功"
+    );
 
   /** 绑定邮箱提交 */
-  const submitEmail = async (val: User.EmailUpdateForm) => {
-    try {
-      startSpin();
-      await UserAPI.bindOrChangeEmail(val);
-      window.$message.success("邮箱绑定成功");
-      emailUpdateFormRef.value?.close();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      endSpin();
-    }
-  };
+  const submitEmail = async (val: User.EmailUpdateForm) =>
+    executeAsync(
+      () => UserAPI.bindOrChangeEmail(val),
+      () => emailUpdateFormRef.value?.close(),
+      "邮箱绑定成功"
+    );
 
   return {
     spin,
