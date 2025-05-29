@@ -61,7 +61,7 @@ import { type FormOption, FormItemType } from "@/components/custom/FormPro/types
 import DeptAPI from "@/api/system/dept";
 
 import { useLoading } from "@/hooks";
-import { spin, startSpin, endSpin, InquiryBox } from "@/utils";
+import { spin, executeAsync, InquiryBox } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
@@ -210,20 +210,14 @@ const handleEdit = ({ id }: Dept.VO) => {
 };
 
 /** 表单提交 */
-const submitForm = async (val: Dept.Form) => {
-  console.log(val, "表单提交");
-  try {
-    startSpin();
-    val.id ? await DeptAPI.update(val.id, val) : await DeptAPI.create(val);
-    window.$message.success("操作成功");
-    drawerFormRef.value?.close();
-    handleQuery();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    endSpin();
-  }
-};
+const submitForm = async (val: Dept.Form) =>
+  executeAsync(
+    () => (val.id ? DeptAPI.update(val.id, val) : DeptAPI.create(val)),
+    () => {
+      drawerFormRef.value?.close();
+      handleQuery();
+    }
+  );
 
 /** 选中行 */
 const selectedRowKeys = ref<string[]>([]);

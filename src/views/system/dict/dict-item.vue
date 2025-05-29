@@ -70,7 +70,7 @@ import DictTypeAPI from "@/api/system/dict/type";
 import DictDataAPI from "@/api/system/dict/data";
 
 import { useLoading } from "@/hooks";
-import { spin, startSpin, endSpin, InquiryBox } from "@/utils";
+import { spin, executeAsync, InquiryBox } from "@/utils";
 import { useTabStoreHook } from "@/store";
 
 import Icones from "@/components/common/Icones.vue";
@@ -259,20 +259,16 @@ const submitForm = async (val: DictData.Form) => {
   if (!val.tagType) {
     val.tagType = "" as DictData.Form["tagType"];
   }
-  try {
-    startSpin();
-    val.id
-      ? await DictDataAPI.updateDictItem(dictCode.value, val.id, val)
-      : await DictDataAPI.createDictItem(dictCode.value, val);
-
-    window.$message.success("操作成功");
-    drawerFormRef.value?.close();
-    handleQuery();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    endSpin();
-  }
+  executeAsync(
+    () =>
+      val.id
+        ? DictDataAPI.updateDictItem(dictCode.value, val.id, val)
+        : DictDataAPI.createDictItem(dictCode.value, val),
+    () => {
+      drawerFormRef.value?.close();
+      handleQuery();
+    }
+  );
 };
 
 /** 选中行 */

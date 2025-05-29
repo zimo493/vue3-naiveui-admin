@@ -246,7 +246,7 @@ import type { FormInst, FormRules } from "naive-ui";
 
 import { useLoading } from "@/hooks";
 import { MenuTypeEnum } from "@/enums";
-import { spin, startSpin, endSpin } from "@/utils";
+import { spin, executeAsync } from "@/utils";
 
 import MenuAPI from "@/api/system/menu";
 
@@ -383,37 +383,21 @@ function handleMenuTypeChange() {
 
 // 提交
 const handleSubmit = async () => {
-  console.log(modelValue.value, "表单提交");
-
   await ruleFormRef.value?.validate();
   const menuId = modelValue.value.id;
 
-  try {
-    //修改时父级菜单不能为当前菜单
-    if (modelValue.value.parentId === menuId) {
-      window.$message.error("父级菜单不能为当前菜单");
-
-      return;
-    }
-    startSpin();
-    if (menuId) {
-      MenuAPI.update(menuId, modelValue.value).then(() => {
-        window.$message.success("修改成功");
-        emit("success");
-        cancel();
-      });
-    } else {
-      MenuAPI.create(modelValue.value).then(() => {
-        window.$message.success("新增成功");
-        emit("success");
-        cancel();
-      });
-    }
-  } catch (err) {
-    console.error(err);
-  } finally {
-    endSpin();
+  // 修改时父级菜单不能为当前菜单
+  if (modelValue.value.parentId === menuId) {
+    return window.$message.error("父级菜单不能为当前菜单");
   }
+
+  executeAsync(
+    () => (menuId ? MenuAPI.update(menuId, modelValue.value) : MenuAPI.create(modelValue.value)),
+    () => {
+      emit("success");
+      cancel();
+    }
+  );
 };
 
 // 取消

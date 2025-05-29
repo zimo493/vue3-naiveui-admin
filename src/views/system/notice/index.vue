@@ -81,7 +81,7 @@ import {
 } from "naive-ui";
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
-import { spin, startSpin, endSpin, InquiryBox } from "@/utils";
+import { spin, executeAsync, InquiryBox } from "@/utils";
 import { useDict, useLoading } from "@/hooks";
 
 import NoticeAPI from "@/api/system/notice";
@@ -363,24 +363,14 @@ const openDrawer = (row?: Notice.VO) => {
   }
 };
 
-const submitForm = async (val: Notice.Form) => {
-  try {
-    startSpin();
-    if (val.targetType !== 2) {
-      val.targetUserIds = undefined;
+const submitForm = async (val: Notice.Form) =>
+  executeAsync(
+    () => (val.id ? NoticeAPI.update(val.id, val) : NoticeAPI.create(val)),
+    () => {
+      dialogFormRef.value?.close();
+      handleQuery();
     }
-    val.id ? await NoticeAPI.update(val.id, val) : await NoticeAPI.create(val);
-
-    window.$message.success("操作成功");
-
-    dialogFormRef.value?.close();
-    handleQuery();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    endSpin();
-  }
-};
+  );
 
 // 查看详情
 const dialogViewRef = useTemplateRef("dialogView");

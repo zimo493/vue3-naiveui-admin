@@ -55,6 +55,8 @@
 </template>
 
 <script lang="ts" setup>
+import { spin, executeAsync } from "@/utils";
+
 import MenuAPI from "@/api/system/menu";
 import RoleAPI from "@/api/system/role";
 
@@ -104,20 +106,14 @@ const updateCheckedKeys = (keys: string[]) => {
   selectedKeys.value = keys;
 };
 
-// 分配菜单权限提交
-const spin = ref(false);
-const handleAssignPermSubmit = () => {
-  spin.value = true;
-  RoleAPI.updateRoleMenus(roleId.value, selectedKeys.value)
-    .then(() => {
-      window.$message.success("操作成功");
+const handleAssignPermSubmit = () =>
+  executeAsync(
+    () => RoleAPI.updateRoleMenus(roleId.value, selectedKeys.value),
+    () => {
       handleClose();
       emit("success");
-    })
-    .finally(() => {
-      spin.value = false;
-    });
-};
+    }
+  );
 
 /** 取消 */
 const handleClose = () => (modalVisible.value = false);

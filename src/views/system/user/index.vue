@@ -118,7 +118,7 @@ import {
 import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 import { useCompRef, useDict, useLoading } from "@/hooks";
 
-import { spin, startSpin, endSpin, exportFile, InquiryBox } from "@/utils";
+import { spin, exportFile, InquiryBox, executeAsync } from "@/utils";
 import { MIMETYPE } from "@/enums";
 
 import DeptAPI from "@/api/system/dept";
@@ -376,23 +376,14 @@ const openDrawer = (row?: User.VO) => {
   }
 };
 /** 表单提交 */
-const submitForm = async (val: User.Form) => {
-  console.log(val, "表单提交");
-
-  try {
-    startSpin();
-    val.id ? await UserAPI.update(val.id, val) : await UserAPI.create(val);
-
-    window.$message.success("操作成功");
-
-    drawerFormRef.value?.close();
-    handleQuery();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    endSpin();
-  }
-};
+const submitForm = (val: User.Form) =>
+  executeAsync(
+    () => (val.id ? UserAPI.update(val.id, val) : UserAPI.create(val)),
+    () => {
+      drawerFormRef.value?.close();
+      handleQuery();
+    }
+  );
 
 // 重置密码
 const newPassword = ref<{

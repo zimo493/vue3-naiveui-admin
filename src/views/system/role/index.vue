@@ -48,7 +48,7 @@ import { type FormOption, FormItemType } from "@/components/custom/FormPro/types
 import RoleAPI from "@/api/system/role";
 
 import { useLoading } from "@/hooks";
-import { spin, endSpin, startSpin, InquiryBox } from "@/utils";
+import { spin, executeAsync, InquiryBox } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
@@ -185,23 +185,14 @@ const openDrawer = (row?: Role.VO) => {
 };
 
 /** 表单提交 */
-const submitForm = async (val: Role.Form) => {
-  console.log(val, "表单提交");
-
-  try {
-    startSpin();
-    val.id ? await RoleAPI.update(val.id, val) : await RoleAPI.create(val);
-
-    window.$message.success("操作成功");
-
-    drawerFormRef.value?.close();
-    handleQuery();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    endSpin();
-  }
-};
+const submitForm = (val: Role.Form) =>
+  executeAsync(
+    () => (val.id ? RoleAPI.update(val.id, val) : RoleAPI.create(val)),
+    () => {
+      drawerFormRef.value?.close();
+      handleQuery();
+    }
+  );
 
 /** 选中行 */
 const selectedRowKeys = ref<string[]>([]);

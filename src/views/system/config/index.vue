@@ -45,7 +45,7 @@ import { type FormOption, FormItemType } from "@/components/custom/FormPro/types
 import ConfigAPI from "@/api/system/config";
 
 import { useLoading } from "@/hooks";
-import { spin, startSpin, endSpin, InquiryBox } from "@/utils";
+import { spin, startSpin, endSpin, InquiryBox, executeAsync } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 
@@ -157,19 +157,14 @@ const openDrawer = (row?: Config.VO) => {
 };
 
 /** 表单提交 */
-const submitForm = async (val: Config.Form) => {
-  try {
-    startSpin();
-    val.id ? await ConfigAPI.update(val.id, val) : await ConfigAPI.create(val);
-    window.$message.success("操作成功");
-    drawerFormRef.value?.close();
-    handleQuery();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    endSpin();
-  }
-};
+const submitForm = async (val: Config.Form) =>
+  executeAsync(
+    () => (val.id ? ConfigAPI.update(val.id, val) : ConfigAPI.create(val)),
+    () => {
+      drawerFormRef.value?.close();
+      handleQuery();
+    }
+  );
 
 // 删除配置
 const handleDelete = (id: string) => {

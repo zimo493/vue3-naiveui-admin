@@ -53,7 +53,7 @@ import DictTypeAPI from "@/api/system/dict/type";
 
 import { router } from "@/router";
 import { useLoading } from "@/hooks";
-import { spin, startSpin, endSpin, InquiryBox } from "@/utils";
+import { spin, executeAsync, InquiryBox } from "@/utils";
 import { useDictStoreHook, useTabStoreHook } from "@/store";
 
 import Icones from "@/components/common/Icones.vue";
@@ -201,21 +201,14 @@ const openDrawer = (row?: DictType.VO) => {
 };
 
 /** 表单提交 */
-const submitForm = async (val: DictType.Form) => {
-  try {
-    startSpin();
-    val.id ? await DictTypeAPI.update(val.id, val) : await DictTypeAPI.create(val);
-
-    window.$message.success("操作成功");
-
-    drawerFormRef.value?.close();
-    handleQuery();
-  } catch (err) {
-    console.error(err);
-  } finally {
-    endSpin();
-  }
-};
+const submitForm = async (val: DictType.Form) =>
+  executeAsync(
+    () => (val.id ? DictTypeAPI.update(val.id, val) : DictTypeAPI.create(val)),
+    () => {
+      drawerFormRef.value?.close();
+      handleQuery();
+    }
+  );
 
 /** 选中行 */
 const selectedRowKeys = ref<string[]>([]);
