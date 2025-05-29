@@ -111,7 +111,7 @@ export default {
    * 发送短信验证码（绑定或更换手机号）
    * @param mobile 手机号
    */
-  sendMobileCode: (mobile?: string) => post(`${USER_BASE_URL}/mobile/code`, null, { mobile }),
+  sendMobileCode: (mobile?: string) => post(`${USER_BASE_URL}/mobile/code`, undefined, { mobile }),
 
   /**
    * 绑定或更换手机号
@@ -123,7 +123,7 @@ export default {
    * 发送邮箱验证码（绑定或更换邮箱）
    * @param email 邮箱
    */
-  sendEmailCode: (email?: string) => post(`${USER_BASE_URL}/email/code`, null, { email }),
+  sendEmailCode: (email?: string) => post(`${USER_BASE_URL}/email/code`, undefined, { email }),
 
   /**
    * 绑定或更换邮箱
