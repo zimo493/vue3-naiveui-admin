@@ -8,6 +8,8 @@ import { spin, startSpin, endSpin, local } from "@/utils";
 import FileAPI from "@/api/file";
 import UserAPI from "@/api/system/user";
 
+import { useCountdown } from "./useCountdown";
+
 import ImageCut from "@/components/custom/ImageCut.vue";
 import DialogForm from "@/components/custom/DialogForm.vue";
 
@@ -16,67 +18,12 @@ export const useProfile = () => {
   const { gender } = useDict("gender");
   const { loading, startLoading, endLoading } = useLoading();
 
-  onMounted(async () => {
-    /** 加载用户信息 */
-    await loadUserProfile();
-    /** 从本地存储加载倒计时状态 */
-    loadCountdownState();
-  });
+  // 倒计时
+  const { mobileCountdown, emailCountdown, startMobileCountdown, startEmailCountdown } =
+    useCountdown();
 
-  /** 手机验证码倒计时 */
-  const mobileCountdown = ref<number>(0);
-  /** 邮箱验证码倒计时 */
-  const emailCountdown = ref<number>(0);
-
-  /** 加载倒计时状态 */
-  const loadCountdownState = () => {
-    const mobileExpireTime = local.get("mobileCodeExpireTime");
-    const emailExpireTime = local.get("emailCodeExpireTime");
-
-    if (mobileExpireTime) {
-      const remainTime = Math.floor((mobileExpireTime - Date.now()) / 1000);
-
-      if (remainTime > 0) {
-        mobileCountdown.value = remainTime;
-        startMobileCountdown();
-      }
-    }
-
-    if (emailExpireTime) {
-      const remainTime = Math.floor((emailExpireTime - Date.now()) / 1000);
-
-      if (remainTime > 0) {
-        emailCountdown.value = remainTime;
-        startEmailCountdown();
-      }
-    }
-  };
-
-  /** 开始手机验证码倒计时 */
-  const startMobileCountdown = () => {
-    if (mobileCountdown.value <= 0) return;
-
-    const timer = setInterval(() => {
-      mobileCountdown.value--;
-      if (mobileCountdown.value <= 0) {
-        clearInterval(timer);
-        local.remove("mobileCodeExpireTime");
-      }
-    }, 1000);
-  };
-
-  /** 开始邮箱验证码倒计时 */
-  const startEmailCountdown = () => {
-    if (emailCountdown.value <= 0) return;
-
-    const timer = setInterval(() => {
-      emailCountdown.value--;
-      if (emailCountdown.value <= 0) {
-        clearInterval(timer);
-        local.remove("emailCodeExpireTime");
-      }
-    }, 1000);
-  };
+  /** 加载用户信息 */
+  onMounted(async () => await loadUserProfile());
 
   /** 用户信息 */
   const userProfile = ref<User.ProfileVO>({});
@@ -102,6 +49,8 @@ export const useProfile = () => {
     startLoading();
     try {
       userProfile.value = await UserAPI.getProfile();
+    } catch (err) {
+      console.log(err);
     } finally {
       endLoading();
     }
