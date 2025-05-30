@@ -5,7 +5,7 @@ import { useAuthStoreHook } from "@/store";
 import { spin, local, executeAsync } from "@/utils";
 
 import { useCountdown } from "./useCountdown";
-import { useCompRef, useDict, useLoading } from "@/hooks";
+import { useCompRef, useDict } from "@/hooks";
 
 import FileAPI from "@/api/file";
 import UserAPI from "@/api/system/user";
@@ -16,19 +16,16 @@ import DialogForm from "@/components/custom/DialogForm.vue";
 export const useProfile = () => {
   const authStore = useAuthStoreHook();
   const { gender } = useDict("gender");
-  const { loading, startLoading, endLoading } = useLoading();
 
   /** 加载用户信息 */
-  const loadUserProfile = async () => {
-    startLoading();
-    try {
-      userProfile.value = await UserAPI.getProfile();
-    } catch (err) {
-      console.log(err);
-    } finally {
-      endLoading();
-    }
-  };
+  const loadUserProfile = () =>
+    executeAsync(
+      () => UserAPI.getProfile(),
+      (data) => {
+        userProfile.value = data;
+      },
+      null
+    );
 
   /** 倒计时钩子 */
   const { mobileCountdown, emailCountdown, startMobileCountdown, startEmailCountdown } =
@@ -263,7 +260,6 @@ export const useProfile = () => {
   return {
     spin,
     isEdit,
-    loading,
     userProfile,
     genderIcon: computed(() => genderProps.value.icon),
     genderTagType: computed(() => genderProps.value.tagType),

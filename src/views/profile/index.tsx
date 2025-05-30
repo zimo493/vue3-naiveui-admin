@@ -29,7 +29,6 @@ export default defineComponent({
     const {
       spin,
       isEdit,
-      loading,
       genderIcon,
       userProfile,
       imageCutRef,
@@ -173,8 +172,11 @@ export default defineComponent({
       </NCard>
     );
 
+    /** 验证码输入组件 */
+    // const VerificationCodeInput = () => {}
+
     return () => (
-      <NSpin show={loading.value}>
+      <NSpin show={spin.value}>
         <NGrid xGap={10}>
           <NGi span={8}>
             <NCard>
