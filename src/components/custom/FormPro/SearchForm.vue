@@ -77,6 +77,7 @@
               :clearable="item.clearable ?? true"
               :options="selectOption(item.options)"
               :placeholder="item.placeholder ?? `请选择${item.label}`"
+              :consistent-menu-width="false"
               v-on="item.otherEvents ?? {}"
             />
           </template>
