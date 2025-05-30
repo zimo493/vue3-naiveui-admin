@@ -13,6 +13,16 @@
  Date: 22/04/2025 08:35:05
 */
 
+-- ----------------------------
+-- Create Database
+-- ----------------------------
+CREATE DATABASE IF NOT EXISTS youlai_boot CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Create tables and initialize data
+-- ----------------------------
+use youlai_boot;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
