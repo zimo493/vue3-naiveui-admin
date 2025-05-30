@@ -2,19 +2,33 @@ import { useLoading } from "@/hooks";
 
 const { loading: spin, startLoading: startSpin, endLoading: endSpin } = useLoading();
 
-/** 通用异步操作执行器 */
-const executeAsync = async <T = null>(
-  asyncFn: () => Promise<T>,
-  onSuccess?: () => void,
-  message = "操作成功"
+/**
+ * 通用异步执行函数
+ * @param apiCall API调用函数
+ * @param onSuccess 成功回调
+ * @param message 成功消息
+ */
+const executeAsync = async <T>(
+  apiCall: () => Promise<T>,
+  onSuccess?: (data: T) => void | Promise<void>,
+  message: string | null = "操作成功"
 ) => {
   try {
     startSpin();
-    await asyncFn();
-    window.$message.success(message);
-    onSuccess?.();
-  } catch (err) {
-    console.error(err);
+    const data = await apiCall();
+
+    if (message) {
+      window.$message.success(message);
+    }
+    if (onSuccess) {
+      await onSuccess(data);
+    }
+
+    return data;
+  } catch (error) {
+    console.error(error);
+
+    return null;
   } finally {
     endSpin();
   }
