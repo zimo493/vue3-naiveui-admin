@@ -52,7 +52,7 @@ declare namespace Status {
     value: "bar" | "arrow-circle";
   }
 
-  // 主题颜色类型
+  /** 主题颜色类型 */
   type ThemeColorType = "primary" | "info" | "success" | "warning" | "error";
 
   /** auth-store */

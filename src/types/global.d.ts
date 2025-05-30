@@ -5,8 +5,6 @@ interface Window {
   $notification: import("naive-ui").NotificationApi;
 }
 
-type ThemeColor = "default" | "error" | "primary" | "info" | "success" | "warning";
-
 type Recordable<T = any> = Record<string, T>;
 
 declare namespace App {
@@ -31,15 +29,15 @@ interface PageResult<T> {
   total: number;
 }
 
-// LocalStorage
+/** LocalStorage */
 interface Local {
-  /* 存储访问token */
+  /** 存储访问token */
   accessToken: string;
-  /* 刷新token */
+  /** 刷新token */
   refreshToken: string;
-  /* 语言 */
+  /** 语言 */
   lang: App.lang;
-  /* 菜单列表是否默认展开第一项 */
+  /** 菜单列表是否默认展开第一项 */
   isExpandFirstMenu: boolean;
   /** 手机验证码倒计时 */
   mobileCodeExpireTime: number;
@@ -47,7 +45,7 @@ interface Local {
   emailCodeExpireTime: number;
 }
 
-// SessionStorage
+/** SessionStorage */
 interface Session {
   sessionObj: {
     url?: string;
@@ -56,14 +54,14 @@ interface Session {
   };
 }
 
-// 表格展开、收起
+/** 表格展开、收起 */
 interface TableExpand {
   isExpandAll: boolean; // 全部展开
   show: boolean; // 是否显示 用于切换展开\收起
   expandedRowKeys?: Array<number | string>; // 默认展开的行
 }
 
-// 抽屉表单
+/** 抽屉表单 */
 interface DrawerModal {
   title: string; // 标题
   visible: boolean; // 是否显示
