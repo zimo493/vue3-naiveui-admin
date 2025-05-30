@@ -3,14 +3,12 @@ import { NCheckbox } from "naive-ui";
 export default defineComponent({
   name: "EditableCheckbox",
   props: {
-    modelValue: {
-      type: Number,
-      required: true,
-    },
+    modelValue: { type: Number },
   },
+  emits: ["update:modelValue"],
   setup(props, { emit }) {
     const val = computed({
-      get: () => props.modelValue,
+      get: () => props.modelValue ?? 0,
       set: (v) => emit("update:modelValue", v),
     });
 
