@@ -109,7 +109,7 @@ const toLogin = () => {
   emit("update:modelValue", "login");
 };
 
-const validatePassword = (rule: FormItemRule, value: string): boolean =>
+const validatePassword = (_rule: FormItemRule, value: string): boolean =>
   !!model.value.password &&
   model.value.password.startsWith(value) &&
   model.value.password.length >= value.length &&
