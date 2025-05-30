@@ -1,27 +1,29 @@
 <template>
-  <n-upload
-    v-model:file-list="fileList"
-    :max="limit"
-    :accept="accept"
-    :list-type="type"
-    :multiple="limit > 1 ? multiple : false"
-    :directory-dnd="drag"
-    :custom-request="customRequest"
-    :on-error="handleError"
-    :on-remove="handleRemove"
-    :on-finish="handleFinish"
-    :on-before-upload="beforeUpload"
-    v-bind="$attrs"
-  >
-    <n-upload-dragger v-if="drag">
-      <div style="margin-bottom: 12px">
-        <Icones :icon="dragOptions.icon" :size="dragOptions.iconSize" />
-      </div>
-      <n-text style="font-size: 16px">{{ dragOptions.title }}</n-text>
-      <slot />
-    </n-upload-dragger>
-    <slot v-else />
-  </n-upload>
+  <n-spin :show="loading">
+    <n-upload
+      v-model:file-list="fileList"
+      :max="limit"
+      :accept="accept"
+      :list-type="type"
+      :multiple="limit > 1 ? multiple : false"
+      :directory-dnd="drag"
+      :custom-request="customRequest"
+      :on-error="handleError"
+      :on-remove="handleRemove"
+      :on-finish="handleFinish"
+      :on-before-upload="beforeUpload"
+      v-bind="$attrs"
+    >
+      <n-upload-dragger v-if="drag">
+        <div style="margin-bottom: 12px">
+          <Icones :icon="dragOptions.icon" :size="dragOptions.iconSize" />
+        </div>
+        <n-text style="font-size: 16px">{{ dragOptions.title }}</n-text>
+        <slot />
+      </n-upload-dragger>
+      <slot v-else />
+    </n-upload>
+  </n-spin>
 </template>
 <script lang="tsx" setup>
 import type { PropType } from "vue";
@@ -65,6 +67,7 @@ const {
     iconSize: 50,
     title: "点击此处 或 拖动文件到该区域进行上传",
   },
+  loading = false,
 } = defineProps({
   /**
    * 文件上传值
@@ -75,53 +78,44 @@ const {
   /**
    * 请求携带的额外参数
    */
-  data: {
-    type: Object,
-  },
+  data: { type: Object },
   /**
    * 上传文件的参数名
    */
-  name: { type: String, default: "file" },
+  name: { type: String },
   /**
    * 文件上传数量限制
    */
-  limit: { type: Number, default: 10 },
+  limit: { type: Number },
   /**
    * 单个文件的最大允许大小
    */
-  maxFileSize: { type: Number, default: 10 },
+  maxFileSize: { type: Number },
   /**
    * 上传文件类型
+   * - 默认支持所有图片格式 ，如果需要指定格式，格式如下：'.png,.jpg,.jpeg,.gif,.bmp'
    */
-  accept: {
-    type: String,
-    default: "image/*", //  默认支持所有图片格式 ，如果需要指定格式，格式如下：'.png,.jpg,.jpeg,.gif,.bmp'
-  },
+  accept: { type: String },
   /**
    * 上传组件类型
    */
-  type: { type: String as PropType<"text" | "image" | "image-card">, default: "image-card" },
+  type: { type: String as PropType<"text" | "image" | "image-card"> },
   /**
    * 是否支持多选
    */
-  multiple: { type: Boolean, default: true },
+  multiple: { type: Boolean },
   /**
    * 是否支持拖拽上传
    */
-  drag: { type: Boolean, default: false },
+  drag: { type: Boolean },
   /**
    * 拖拽上传配置
    */
-  dragOptions: {
-    type: Object as PropType<DragOptions>,
-    default: () => {
-      return {
-        icon: "ep:upload-filled",
-        iconSize: 56,
-        title: "点击此处 或 拖动文件到该区域进行上传",
-      };
-    },
-  },
+  dragOptions: { type: Object as PropType<DragOptions> },
+  /**
+   * 是否显示加载中
+   */
+  loading: { type: Boolean },
 });
 
 const fileList = ref<UploadFileInfo[]>([]);
