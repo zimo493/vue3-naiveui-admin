@@ -9,7 +9,6 @@ export default defineComponent({
     filterable: { type: Boolean, default: true },
     clearable: { type: Boolean, default: false },
   },
-  emits: ["update:modelValue"],
   setup(props, { emit }) {
     const val = computed({
       get: () => props.modelValue,
