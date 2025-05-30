@@ -33,7 +33,7 @@
 - **使用** `TypeScript` 对 `Axios` 整个二次封装（请求拦截、常用请求封装…）
 - **使用** `ESLint` + `Prettier` + `Stylelint` + `EditorConfig` 约束和统一代码规范
 - **集成** `Husky` + `lint-staged` + `commitlint` + `commitizen` + `cz-git` 配置 `Git` 提交规范
-- **支持** `自定义主题色`、`页面过度`等超多设置，黑暗主题适配，界面样式保持 Naive 风格
+- **支持** `自定义主题色`、`页面过度` 等超多设置，黑暗主题适配，界面样式保持 Naive 风格
 
 ## 项目目录 📁
 <details>
@@ -211,7 +211,6 @@ pnpm build  # 参考package.json "scripts" 配置
 > `nginx.conf` 默认会加载 `/etc/nginx/conf.d/*.conf` 文件
 
 ```bash
-
 vim /etc/nginx/conf.d/admin.conf
 ```
 
