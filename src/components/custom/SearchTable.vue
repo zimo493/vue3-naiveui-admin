@@ -81,6 +81,7 @@
           :data="tableData"
           :row-key="rowKey"
           :loading="loading"
+          :scroll-x="1200"
           v-on="tableEvents ?? {}"
         />
         <Pagination
