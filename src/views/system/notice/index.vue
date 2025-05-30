@@ -320,7 +320,7 @@ const editConfig = computed<FormOption<Notice.Form>>(() => {
           required: true,
           message: "请输入通知内容",
           trigger: "blur",
-          validator: (rule: FormItemRule, value: string) =>
+          validator: (_rule: FormItemRule, value: string) =>
             new Promise((resolve, reject) => {
               if (!value.replace(/<[^>]+>/g, "").trim()) {
                 reject(new Error("请输入通知内容"));
