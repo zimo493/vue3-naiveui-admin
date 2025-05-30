@@ -2,7 +2,8 @@ import {
   defineConfig,
   presetAttributify,
   presetIcons,
-  presetUno,
+  presetWind3,
+  presetTypography,
   transformerDirectives,
   transformerVariantGroup,
 } from "unocss";
@@ -10,9 +11,10 @@ import {
 // https://github.com/unocss/unocss
 export default defineConfig({
   presets: [
-    presetUno(), // UnoCSS 的基础预设
+    presetWind3(), // UnoCSS 的默认预设
     presetAttributify(), // 属性化模式预设，允许你通过属性来使用类名
     presetIcons(), // 图标预设
+    presetTypography(), // 版预设
   ],
   // 自定义快捷类
   shortcuts: {
