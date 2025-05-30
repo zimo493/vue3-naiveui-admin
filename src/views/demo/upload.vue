@@ -17,6 +17,7 @@
         <UploadFile
           :value="picUrlArr"
           :limit="1"
+          :loading="loading"
           @upload="(val) => picUrlArr.push(val.url)"
           @remove="(val) => picUrlArr.splice(picUrlArr.indexOf(val.url), 1)"
         />
@@ -40,6 +41,7 @@
       <n-flex vertical w="[50%]">
         <UploadFile
           :value="picUrls"
+          :loading="loading2"
           @upload="(val) => picUrls.push(val.url)"
           @remove="(val) => removeFileByIndex(picUrls, val, val.idx)"
         />
@@ -117,16 +119,23 @@
 <script lang="tsx" setup>
 import type { FileInfo } from "@/api/file";
 
+const loading = ref(false);
+const loading2 = ref(false);
+
 onMounted(async () => {
   picUrlStr.value = "https://s2.loli.net/2023/05/24/yNsxFC8rLHMZQcK.jpg";
+  loading.value = true;
+  loading2.value = true;
   picUrlArr.value = await asyncData([
     "https://foruda.gitee.com/images/1723603502796844527/03cdca2a_716974.gif",
   ]);
+  loading.value = false;
   picUrls.value = await asyncData([
     "https://s2.loli.net/2023/05/24/yNsxFC8rLHMZQcK.jpg",
     "https://foruda.gitee.com/images/1723603502796844527/03cdca2a_716974.gif",
     "https://s2.loli.net/2023/05/24/yNsxFC8rLHMZQcK.jpg",
   ]);
+  loading2.value = false;
 });
 
 const asyncData = (data: string[]) =>
