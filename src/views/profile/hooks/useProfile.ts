@@ -133,7 +133,7 @@ export const useProfile = () => {
       confirmPassword: [
         { required: true, message: "请输入确认密码", trigger: "blur" },
         {
-          validator: (rule: FormItemRule, value: string) =>
+          validator: (_rule: FormItemRule, value: string) =>
             new Promise((resolve, reject) =>
               value !== passwordChangeForm.value.newPassword
                 ? reject(new Error("两次输入的密码不一致"))
