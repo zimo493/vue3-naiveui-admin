@@ -199,7 +199,7 @@ const editConfig = ref<FormOption<DictData.Form>>({
           <NFlex align="center">
             {value && <NText type={value}>{`${label} (${value})`}</NText>}
             <NTag type={value ? value : "default"} bordered={false} size="small">
-              {modelValue.value.label}
+              {modelValue.value.label ?? "字典标签"}
             </NTag>
           </NFlex>
         ),
