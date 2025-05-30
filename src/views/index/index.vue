@@ -188,6 +188,7 @@
               w-300px
               type="daterange"
               closeOnSelect
+              :shortcuts="shortcuts"
               :is-date-disabled="(ts: number) => ts > Date.now()"
               @update:value="fetchVisitTrendData"
             />
@@ -511,6 +512,15 @@ watch(onlineUserCount, (newCount, oldCount) => {
     previousCount.value = oldCount;
   }
 });
+
+// 时间范围快捷选择
+const createTimeRange = (days: number) => () => [Date.now() - days * 864e5, Date.now()] as const;
+const shortcuts = {
+  近一周: createTimeRange(7),
+  近一月: createTimeRange(30),
+  近三月: createTimeRange(90),
+  近一年: createTimeRange(365),
+};
 
 // 格式化时间戳
 const formattedTime = computed(() => (lastUpdateTime ? parseTime(lastUpdateTime.value) : ""));
