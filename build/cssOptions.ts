@@ -1,4 +1,4 @@
-import type { CSSOptions } from "vite";
+import { type CSSOptions } from "vite";
 
 /**
  * CSS预处理器配置

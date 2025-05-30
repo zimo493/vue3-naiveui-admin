@@ -1,4 +1,4 @@
-import type { TerserOptions } from "vite";
+import { type TerserOptions } from "vite";
 
 /**
  * Terser压缩配置

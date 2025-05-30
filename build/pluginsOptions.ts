@@ -1,13 +1,13 @@
+import { type PluginOption } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import UnoCSS from "@unocss/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
-import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
-import UnoCSS from "@unocss/vite";
 import Icons from "unplugin-icons/vite";
-import { FileSystemIconLoader } from "unplugin-icons/loaders";
 import IconsResolver from "unplugin-icons/resolver";
-import type { PluginOption } from "vite";
+import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
+import { FileSystemIconLoader } from "unplugin-icons/loaders";
 
 /**
  * 插件配置

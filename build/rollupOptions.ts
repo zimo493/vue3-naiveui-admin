@@ -1,4 +1,4 @@
-import type { OutputOptions } from "rollup";
+import { type OutputOptions } from "rollup";
 
 /**
  * Rollup构建输出配置

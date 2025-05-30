@@ -1,4 +1,4 @@
-import type { ServerOptions } from "vite";
+import { type ServerOptions } from "vite";
 
 /**
  * 开发服务器配置

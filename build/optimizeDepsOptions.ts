@@ -1,4 +1,4 @@
-import type { DepOptimizationOptions } from "vite";
+import { type DepOptimizationOptions } from "vite";
 
 /**
  * 依赖优化配置
