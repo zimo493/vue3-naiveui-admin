@@ -145,22 +145,22 @@ export async function get<T>(url: string, params?: unknown): Promise<T> {
 }
 
 // post 请求
-export async function post<T>(url: string, data?: unknown, params?: unknown): Promise<T> {
+export async function post<T = null>(url: string, data?: unknown, params?: unknown): Promise<T> {
   return await service.post<any, T>(url, data, { params });
 }
 
 // put 请求
-export async function put<T>(url: string, data?: unknown, params?: unknown): Promise<T> {
+export async function put<T = null>(url: string, data?: unknown, params?: unknown): Promise<T> {
   return await service.put<any, T>(url, data, { params });
 }
 
 // delete 请求
-export async function del<T>(url: string, params?: unknown): Promise<T> {
+export async function del<T = null>(url: string, params?: unknown): Promise<T> {
   return await service.delete<any, T>(url, { params });
 }
 
 // patch 请求
-export async function patch<T>(url: string, data?: unknown): Promise<T> {
+export async function patch<T = null>(url: string, data?: unknown): Promise<T> {
   return await service.patch<any, T>(url, data);
 }
 
