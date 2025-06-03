@@ -8,6 +8,7 @@
           :controls-span="controlsSpan"
           :modelValue="modelValue"
           :loading="loading"
+          :operation-button-position="operationButtonPosition"
           @submit="handleQuery"
           @reset="handleReset"
         >
@@ -113,6 +114,7 @@ const {
   loading = false,
   showTable = true,
   total = 0,
+  operationButtonPosition = "right",
 } = defineProps({
   tableData: {
     require: true,
@@ -132,6 +134,7 @@ const {
   rowKey: { default: (row: Recordable) => row.id },
   showTable: { type: Boolean },
   total: { type: Number },
+  operationButtonPosition: { type: String as PropType<"left" | "right"> },
   tableEvents: { type: Object as PropType<{ [key: string]: Function }> },
 });
 
