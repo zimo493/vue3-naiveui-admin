@@ -304,6 +304,7 @@ INSERT INTO `sys_menu` VALUES (30, 26, '0,26', '平台文档(外链)', 3, NULL, 
 INSERT INTO `sys_menu` VALUES (37, 36, '0,36', '富文本编辑器', 1, NULL, 'wang-editor', 'demo/wang-editor', NULL, NULL, 1, 1, 2, 'icon-park-outline:edit', NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (38, 36, '0,36', '图片上传', 1, NULL, 'upload', 'demo/upload', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (39, 36, '0,36', '图标选择器', 1, NULL, 'icon-selector', 'demo/icon-selector', NULL, NULL, 1, 1, 4, 'emojione-v1:smiling-face-with-sunglasses', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (109, 36, '0,36', 'Cron表达式生成器', 1, 'Cron', 'cron', 'demo/cron', NULL, NULL, 1, 1, 1, 'icon-park-outline:timer', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (41, 40, '0,40', 'Apifox', 1, NULL, 'apifox', 'demo/api/apifox', NULL, NULL, 1, 1, 1, 'local:apifox', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (90, 89, '0,89', 'Websocket', 1, NULL, '/function/websocket', 'demo/websocket', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (95, 36, '0,36', '字典组件', 1, NULL, 'dict-demo', 'demo/dictionary', NULL, NULL, 1, 1, 4, '', NULL, now(), now(), NULL);
@@ -485,6 +486,7 @@ INSERT INTO `sys_role_menu` VALUES (2, 105);
 INSERT INTO `sys_role_menu` VALUES (2, 106);
 INSERT INTO `sys_role_menu` VALUES (2, 107);
 INSERT INTO `sys_role_menu` VALUES (2, 108);
+INSERT INTO `sys_role_menu` VALUES (2, 109);
 INSERT INTO `sys_role_menu` VALUES (2, 110);
 INSERT INTO `sys_role_menu` VALUES (2, 111);
 INSERT INTO `sys_role_menu` VALUES (2, 112);
