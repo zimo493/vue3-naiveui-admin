@@ -60,7 +60,7 @@
 import { type FormInst } from "naive-ui";
 import { useDict } from "@/hooks";
 import FormTipLabel from "@/components/custom/FormTipLabel";
-import FieldRenderer from "./component/FieldRenderer.vue";
+import FieldRenderer from "./component/FieldRender.vue";
 
 defineOptions({ name: "FormPro" });
 
