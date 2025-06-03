@@ -46,7 +46,6 @@
 </template>
 <script setup lang="ts">
 import type { DrawerPlacement } from "naive-ui";
-import type { FormOption } from "@/components/custom/FormPro/types";
 
 defineOptions({ name: "DialogForm" });
 
@@ -60,7 +59,7 @@ const {
 } = defineProps({
   formConfig: {
     required: true,
-    type: Object as PropType<FormOption<Recordable>>,
+    type: Object as PropType<TablePro.FormOption<Recordable>>,
   },
   modelValue: {
     required: true,

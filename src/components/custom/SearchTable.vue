@@ -97,7 +97,6 @@
 </template>
 <script lang="ts" setup>
 import type { DataTableColumns, DataTableInst } from "naive-ui";
-import type { FormOption } from "@/components/custom/FormPro/types";
 
 defineOptions({ name: "SearchTable" });
 
@@ -124,7 +123,7 @@ const {
     required: true,
   },
   formConfig: {
-    type: Object as PropType<Omit<FormOption<Recordable>, "showFeedback">>,
+    type: Object as PropType<Omit<TablePro.FormOption<Recordable>, "showFeedback">>,
   },
   modelValue: { type: Object as PropType<Recordable> },
   collapseLength: { type: Number },
