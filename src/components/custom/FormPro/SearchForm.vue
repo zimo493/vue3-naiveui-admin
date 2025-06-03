@@ -27,99 +27,7 @@
             <slot :name="item.slotName" />
           </template>
           <template v-else>
-            <template v-if="item.type === 'input'">
-              <n-input
-                v-model:value="val[item.field]"
-                v-bind="item.otherOptions"
-                :disabled="item.disabled ?? false"
-                :readonly="item.readonly ?? false"
-                :clearable="item.clearable ?? true"
-                type="text"
-                :placeholder="item.placeholder ?? `请输入${item.label}`"
-                v-on="item.otherEvents ?? {}"
-              />
-            </template>
-            <template v-if="item.type === 'radio'">
-              <n-radio-group
-                v-model:value="val[item.field]"
-                v-bind="item.otherOptions"
-                :disabled="item.disabled ?? false"
-                v-on="item.otherEvents ?? {}"
-              >
-                <n-space>
-                  <n-radio
-                    v-for="option in item.options"
-                    :key="option.value"
-                    :value="option.value"
-                    :label="option.label"
-                    :disabled="option.disabled ?? false"
-                  />
-                </n-space>
-              </n-radio-group>
-            </template>
-            <template v-else-if="item.type === 'checkbox'">
-              <n-checkbox-group
-                v-model:value="val[item.field]"
-                v-bind="item.otherOptions"
-                :disabled="item.disabled ?? false"
-                v-on="item.otherEvents ?? {}"
-              >
-                <n-space item-style="display: flex;">
-                  <n-checkbox
-                    v-for="option in item.options"
-                    :key="option.value"
-                    :value="option.value"
-                    :label="option.label"
-                    :disabled="option.disabled ?? false"
-                  />
-                </n-space>
-              </n-checkbox-group>
-            </template>
-            <template v-else-if="item.type === 'select'">
-              <n-select
-                v-model:value="val[item.field]"
-                v-bind="item.otherOptions"
-                :disabled="item.disabled ?? false"
-                :clearable="item.clearable ?? true"
-                :options="selectOption(item.options)"
-                :placeholder="item.placeholder ?? `请选择${item.label}`"
-                :consistent-menu-width="false"
-                v-on="item.otherEvents ?? {}"
-              />
-            </template>
-            <template v-else-if="item.type === 'tree-select'">
-              <n-tree-select
-                v-model:value="val[item.field]"
-                v-bind="item.otherOptions"
-                :disabled="item.disabled ?? false"
-                :clearable="item.clearable ?? true"
-                :options="selectOption(item.options)"
-                :placeholder="item.placeholder ?? `请选择${item.label}`"
-                key-field="value"
-                label-field="label"
-                v-on="item.otherEvents ?? {}"
-              />
-            </template>
-            <template v-else-if="item.type === 'datepicker'">
-              <n-date-picker
-                v-model:value="val[item.field]"
-                :clearable="item.clearable ?? true"
-                v-bind="item.otherOptions"
-                :disabled="item.disabled ?? false"
-                :readonly="item.readonly ?? false"
-                v-on="item.otherEvents ?? {}"
-              />
-            </template>
-            <template v-else-if="item.type === 'timepicker'">
-              <n-time-picker
-                v-model:value="val[`${item.field}`]"
-                :clearable="item.clearable ?? true"
-                v-bind="item.otherOptions"
-                :disabled="item.disabled ?? false"
-                :readonly="item.readonly ?? false"
-                v-on="item.otherEvents ?? {}"
-              />
-            </template>
+            <FieldRenderer v-model="val" :item="item" />
           </template>
         </n-form-item-grid-item>
       </template>
@@ -132,7 +40,7 @@
             </template>
             搜索
           </n-button>
-          <n-button strong secondary @click="resetQuery">
+          <n-button strong secondary :loading="loading" @click="resetQuery">
             <template #icon>
               <icon-park-outline-redo />
             </template>
@@ -155,10 +63,9 @@
 </template>
 <script lang="ts" setup>
 import { type FormInst } from "naive-ui";
-
 import { useDict } from "@/hooks";
-
 import FormTipLabel from "@/components/custom/FormTipLabel";
+import FieldRenderer from "./component/FieldRenderer.vue";
 
 defineOptions({ name: "SearchForm" });
 
@@ -247,15 +154,6 @@ const sliceCodList = computed(() => {
 
 /** 表单默认值 */
 const defaultValue = { ...val.value };
-
-/** 获取下拉框的选择项 */
-const selectOption = (opt?: TablePro.ItemOption[]) => {
-  if (!opt || !opt.length) return [];
-
-  return opt.map(({ label, value, disabled }) => {
-    return { label, value, disabled };
-  });
-};
 
 // 提交按钮触发
 const handleQuery = async () => {
