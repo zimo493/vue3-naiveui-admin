@@ -22,5 +22,5 @@ defineOptions({ name: "Cron" });
 
 const crontabRef = useTemplateRef("crontab");
 
-const cronExpression = ref("");
+const cronExpression = ref("0 0 0 * * ?");
 </script>
