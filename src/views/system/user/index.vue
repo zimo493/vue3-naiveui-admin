@@ -115,11 +115,10 @@ import {
   NText,
   NInput,
 } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
-import { useCompRef, useDict, useLoading } from "@/hooks";
 
-import { spin, exportFile, InquiryBox, executeAsync } from "@/utils";
 import { MIMETYPE } from "@/enums";
+import { useCompRef, useDict, useLoading } from "@/hooks";
+import { spin, exportFile, InquiryBox, executeAsync } from "@/utils";
 
 import DeptAPI from "@/api/system/dept";
 import UserAPI from "@/api/system/user";
@@ -184,19 +183,18 @@ const handleQuery = () => {
 };
 
 /** 搜索配置 */
-const formConfig = ref<FormOption<User.Query>>({
+const formConfig = ref<TablePro.FormOption<User.Query>>({
   fields: [
     {
       field: "keywords",
       label: "关键字",
       placeholder: "请输入用户名/昵称/手机号",
-      type: FormItemType.Input,
       colSpan: 5,
     },
     {
       field: "status",
       label: "状态",
-      type: FormItemType.Select,
+      type: "select",
       colSpan: 3,
       options: [
         { label: "正常", value: 1 },
@@ -206,7 +204,7 @@ const formConfig = ref<FormOption<User.Query>>({
     {
       field: "createTime",
       label: "创建时间",
-      type: FormItemType.Datepicker,
+      type: "datepicker",
       colSpan: 7,
       otherOptions: {
         type: "daterange",
@@ -316,19 +314,19 @@ const columns = ref<DataTableColumns<User.VO>>([
   },
 ]);
 
-const editConfig = ref<FormOption<User.Form>>({
+const editConfig = ref<TablePro.FormOption<User.Form>>({
   fields: [
-    { field: "username", label: "用户名", type: FormItemType.Input },
-    { field: "nickname", label: "用户昵称", type: FormItemType.Input },
+    { field: "username", label: "用户名" },
+    { field: "nickname", label: "用户昵称" },
     { field: "deptId", label: "所属部门", slotName: "deptId" },
-    { field: "gender", label: "性别", type: FormItemType.Select, dict: "gender" },
+    { field: "gender", label: "性别", type: "select", dict: "gender" },
     { field: "roleIds", label: "角色", slotName: "roleIds" },
-    { field: "mobile", label: "手机号码", type: FormItemType.Input },
-    { field: "email", label: "邮箱", type: FormItemType.Input },
+    { field: "mobile", label: "手机号码" },
+    { field: "email", label: "邮箱" },
     {
       field: "status",
       label: "状态",
-      type: FormItemType.Radio,
+      type: "radio",
       options: [
         { label: "正常", value: 1 },
         { label: "禁用", value: 0 },

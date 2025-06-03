@@ -40,7 +40,6 @@
 </template>
 <script setup lang="tsx">
 import { type DataTableColumns, NButton, NSpace } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import ConfigAPI from "@/api/system/config";
 
@@ -78,12 +77,11 @@ const handleQuery = () => {
 };
 
 // 查询表单
-const formConfig = ref<FormOption<Config.Query>>({
+const formConfig = ref<TablePro.FormOption<Config.Query>>({
   fields: [
     {
       field: "keywords",
       label: "关键字",
-      type: FormItemType.Input,
       placeholder: "请输入配置名称/配置键",
     },
   ],
@@ -123,12 +121,12 @@ const columns = ref<DataTableColumns<Config.VO>>([
   },
 ]);
 
-const editConfig = ref<FormOption<Config.Form>>({
+const editConfig = ref<TablePro.FormOption<Config.Form>>({
   fields: [
-    { field: "configName", label: "配置名称", type: FormItemType.Input },
-    { field: "configKey", label: "配置键", type: FormItemType.Input },
-    { field: "configValue", label: "配置值", type: FormItemType.Input },
-    { field: "remark", label: "备注", type: FormItemType.Textarea },
+    { field: "configName", label: "配置名称" },
+    { field: "configKey", label: "配置键" },
+    { field: "configValue", label: "配置值" },
+    { field: "remark", label: "备注", type: "textarea" },
   ],
   labelWidth: 80,
   rules: {

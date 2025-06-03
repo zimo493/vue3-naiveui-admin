@@ -39,9 +39,7 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { type VNode } from "vue";
 import { type DataTableColumns, NButton, NSpace, NTag, NText } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import { useLoading } from "@/hooks";
 import { MenuTypeEnum } from "@/enums";
@@ -68,8 +66,8 @@ const handleCheckedChange = async (checked: boolean) => {
   handleQuery();
 };
 
-const formConfig = ref<FormOption<Menu.Query>>({
-  fields: [{ field: "keywords", label: "菜单名称", type: FormItemType.Input }],
+const formConfig = ref<TablePro.FormOption<Menu.Query>>({
+  fields: [{ field: "keywords", label: "菜单名称" }],
 });
 
 // 展开\收起

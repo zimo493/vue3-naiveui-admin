@@ -1,5 +1,4 @@
 import { type FormItemRule } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import { useAuthStoreHook } from "@/store";
 import { spin, local, executeAsync } from "@/utils";
@@ -87,10 +86,10 @@ export const useProfile = () => {
   /** 修改用户信息配置 */
   const userProfileForm = ref<User.ProfileForm>({}); // 用户信息表单
   const userProfileFormRef = useCompRef(DialogForm);
-  const userProfileFormConfig = ref<FormOption<User.ProfileForm>>({
+  const userProfileFormConfig = ref<TablePro.FormOption<User.ProfileForm>>({
     fields: [
-      { field: "nickname", label: "昵称", type: FormItemType.Input },
-      { field: "gender", label: "性别", type: FormItemType.Select, dict: "gender" },
+      { field: "nickname", label: "昵称" },
+      { field: "gender", label: "性别", type: "select", dict: "gender" },
     ],
     rules: {
       nickname: [{ required: true, message: "请输入昵称", trigger: "blur" }],
@@ -121,11 +120,11 @@ export const useProfile = () => {
   /** 修改用户密码配置 */
   const passwordChangeForm = ref<User.PasswordChangeForm>({}); // 修改密码表单
   const passwordChangeFormRef = useCompRef(DialogForm);
-  const passwordChangeFormConfig = ref<FormOption<User.PasswordChangeForm>>({
+  const passwordChangeFormConfig = ref<TablePro.FormOption<User.PasswordChangeForm>>({
     fields: [
-      { field: "oldPassword", label: "旧密码", type: FormItemType.Password },
-      { field: "newPassword", label: "新密码", type: FormItemType.Password },
-      { field: "confirmPassword", label: "确认密码", type: FormItemType.Password },
+      { field: "oldPassword", label: "旧密码", type: "password" },
+      { field: "newPassword", label: "新密码", type: "password" },
+      { field: "confirmPassword", label: "确认密码", type: "password" },
     ],
     rules: {
       oldPassword: [{ required: true, message: "请输入旧密码", trigger: "blur" }],
@@ -160,9 +159,9 @@ export const useProfile = () => {
   /** 修改手机信息配置 */
   const mobileUpdateForm = ref<User.MobileUpdateForm>({}); // 修改手机表单
   const mobileUpdateFormRef = useCompRef(DialogForm);
-  const mobileUpdateFormConfig = ref<FormOption<User.MobileUpdateForm>>({
+  const mobileUpdateFormConfig = ref<TablePro.FormOption<User.MobileUpdateForm>>({
     fields: [
-      { field: "mobile", label: "手机号", type: FormItemType.Input },
+      { field: "mobile", label: "手机号" },
       { field: "code", label: "验证码", slotName: "code" },
     ],
     rules: {
@@ -208,9 +207,9 @@ export const useProfile = () => {
   /** 绑定邮箱信息配置 */
   const emailUpdateForm = ref<User.EmailUpdateForm>({}); // 修改邮箱表单
   const emailUpdateFormRef = useCompRef(DialogForm);
-  const emailUpdateFormConfig = ref<FormOption<User.EmailUpdateForm>>({
+  const emailUpdateFormConfig = ref<TablePro.FormOption<User.EmailUpdateForm>>({
     fields: [
-      { field: "email", label: "邮箱", type: FormItemType.Input },
+      { field: "email", label: "邮箱" },
       { field: "code", label: "验证码", slotName: "code" },
     ],
     rules: {

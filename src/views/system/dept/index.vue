@@ -56,7 +56,6 @@
 </template>
 <script setup lang="tsx">
 import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import DeptAPI from "@/api/system/dept";
 
@@ -108,8 +107,8 @@ const handleExpandAll = async (bool?: boolean) => {
   expandAll.value.show = true;
 };
 
-const formConfig = ref<FormOption<Dept.Query>>({
-  fields: [{ field: "keywords", label: "角色名称", type: FormItemType.Input }],
+const formConfig = ref<TablePro.FormOption<Dept.Query>>({
+  fields: [{ field: "keywords", label: "角色名称" }],
 });
 
 const columns = ref<DataTableColumns<Dept.VO>>([
@@ -160,22 +159,22 @@ const columns = ref<DataTableColumns<Dept.VO>>([
   },
 ]);
 
-const editConfig = ref<FormOption<Dept.Form>>({
+const editConfig = ref<TablePro.FormOption<Dept.Form>>({
   fields: [
     { field: "parentId", label: "上级部门", slotName: "parentId" },
-    { field: "name", label: "部门名称", type: FormItemType.Input },
-    { field: "code", label: "部门编号", type: FormItemType.Input },
+    { field: "name", label: "部门名称" },
+    { field: "code", label: "部门编号" },
 
     {
       field: "status",
       label: "状态",
-      type: FormItemType.Radio,
+      type: "radio",
       options: [
         { label: "正常", value: 1 },
         { label: "停用", value: 0 },
       ],
     },
-    { field: "sort", label: "排序", type: FormItemType.Number },
+    { field: "sort", label: "排序", type: "number" },
   ],
   labelWidth: 80,
   rules: {

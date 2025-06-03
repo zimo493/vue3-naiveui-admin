@@ -15,7 +15,6 @@
 </template>
 
 <script lang="tsx" setup>
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 import { type DataTableColumns } from "naive-ui";
 
 import LogAPI from "@/api/system/log";
@@ -38,14 +37,14 @@ const query = ref<Log.Query>({
 });
 
 /** 查询表单配置 */
-const formConfig = ref<FormOption<Log.Query>>({
+const formConfig = ref<TablePro.FormOption<Log.Query>>({
   fields: [
-    { field: "keywords", label: "关键字", type: FormItemType.Input },
+    { field: "keywords", label: "关键字" },
     {
       field: "createTime",
       label: "操作时间",
       colSpan: 5,
-      type: FormItemType.Datepicker,
+      type: "datepicker",
       otherOptions: {
         type: "daterange",
         closeOnSelect: true,

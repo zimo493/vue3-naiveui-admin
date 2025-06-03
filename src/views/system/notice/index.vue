@@ -79,7 +79,6 @@ import {
   NTag,
   NText,
 } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import { spin, executeAsync, InquiryBox } from "@/utils";
 import { useDict, useLoading } from "@/hooks";
@@ -130,17 +129,13 @@ const handleQuery = () => {
 };
 
 /** 搜索表单配置 */
-const formConfig = ref<FormOption<Notice.Query>>({
+const formConfig = ref<TablePro.FormOption<Notice.Query>>({
   fields: [
-    {
-      field: "title",
-      label: "标题",
-      type: FormItemType.Input,
-    },
+    { field: "title", label: "标题" },
     {
       field: "publishStatus",
       label: "发布状态",
-      type: FormItemType.Select,
+      type: "select",
       options: [
         { label: "未发布", value: 0 },
         { label: "已发布", value: 1 },
@@ -276,28 +271,28 @@ const columns = ref<DataTableColumns<Notice.VO>>([
 ]);
 
 // 编辑表单配置
-const editConfig = computed<FormOption<Notice.Form>>(() => {
-  const config: FormOption<Notice.Form> = {
+const editConfig = computed<TablePro.FormOption<Notice.Form>>(() => {
+  const config: TablePro.FormOption<Notice.Form> = {
     fields: [
-      { field: "title", label: "标题", type: FormItemType.Input, colSpan: 12 },
+      { field: "title", label: "标题", colSpan: 12 },
       {
         field: "type",
         label: "通知类型",
-        type: FormItemType.Select,
+        type: "select",
         dict: "notice_type",
         colSpan: 12,
       },
       {
         field: "level",
         label: "通知等级",
-        type: FormItemType.Select,
+        type: "select",
         dict: "notice_level",
         colSpan: 12,
       },
       {
         field: "targetType",
         label: "目标类型",
-        type: FormItemType.Radio,
+        type: "radio",
         options: [
           { label: "全体", value: 1 },
           { label: "指定用户", value: 2 },
@@ -375,12 +370,12 @@ const submitForm = async (val: Notice.Form) =>
 // 查看详情
 const dialogViewRef = useTemplateRef("dialogView");
 const viewValue = ref<Notice.DetailVO>({});
-const viewConfig = ref<FormOption<Notice.DetailVO>>({
+const viewConfig = ref<TablePro.FormOption<Notice.DetailVO>>({
   fields: [
     { field: "title", label: "公告标题：", slotName: "title" },
     { field: "publishStatus", label: "发布状态：", colSpan: 12, slotName: "publishStatus" },
-    { field: "publisherName", label: "发布人：", type: FormItemType.Text, colSpan: 12 },
-    { field: "publishTime", label: "发布时间：", type: FormItemType.Text, colSpan: 12 },
+    { field: "publisherName", label: "发布人：", type: "text", colSpan: 12 },
+    { field: "publishTime", label: "发布时间：", type: "text", colSpan: 12 },
     { field: "content", label: "公告内容：", slotName: "content" },
   ],
 });

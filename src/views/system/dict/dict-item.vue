@@ -53,7 +53,6 @@
   </div>
 </template>
 <script lang="tsx" setup>
-import type { VNodeChild } from "vue";
 import {
   type DataTableColumns,
   type DataTableRowKey,
@@ -64,7 +63,6 @@ import {
   NText,
   SelectOption,
 } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import DictTypeAPI from "@/api/system/dict/type";
 import DictDataAPI from "@/api/system/dict/data";
@@ -125,13 +123,12 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-const formConfig = ref<FormOption<DictData.Query>>({
+const formConfig = ref<TablePro.FormOption<DictData.Query>>({
   fields: [
     { field: "dictCode", label: "字典编码", slotName: "dictCode" },
     {
       field: "keywords",
       label: "关键字",
-      type: FormItemType.Input,
       placeholder: "请输入字典数据值/标签",
     },
   ],
@@ -176,15 +173,15 @@ const columns = ref<DataTableColumns<DictData.VO>>([
   },
 ]);
 
-const editConfig = ref<FormOption<DictData.Form>>({
+const editConfig = ref<TablePro.FormOption<DictData.Form>>({
   fields: [
-    { field: "label", label: "字典标签", type: FormItemType.Input },
-    { field: "value", label: "字典值", type: FormItemType.Input },
-    { field: "sort", label: "排序", type: FormItemType.Number },
+    { field: "label", label: "字典标签" },
+    { field: "value", label: "字典值" },
+    { field: "sort", label: "排序", type: "number" },
     {
       field: "tagType",
       label: "标签类型",
-      type: FormItemType.Select,
+      type: "select",
       options: [
         { label: "默认", value: "default" },
         { label: "主要", value: "primary" },
@@ -195,7 +192,7 @@ const editConfig = ref<FormOption<DictData.Form>>({
       ],
       otherOptions: {
         /** 自定义渲染 */
-        renderLabel: ({ label, value }: SelectOption): VNodeChild => (
+        renderLabel: ({ label, value }: SelectOption): VNode => (
           <NFlex align="center">
             {value && <NText type={value}>{`${label} (${value})`}</NText>}
             <NTag type={value ? value : "default"} bordered={false} size="small">
@@ -208,7 +205,7 @@ const editConfig = ref<FormOption<DictData.Form>>({
     {
       field: "status",
       label: "状态",
-      type: FormItemType.Radio,
+      type: "radio",
       options: [
         { label: "正常", value: 1 },
         { label: "禁用", value: 0 },

@@ -31,7 +31,6 @@
   </n-flex>
 </template>
 <script lang="tsx" setup>
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 import { useDict } from "@/hooks";
 
 interface FormFields {
@@ -43,17 +42,17 @@ interface FormFields {
 const { gender } = useDict("gender");
 
 // 表单配置
-const formConfig = ref<FormOption<FormFields>>({
+const formConfig = ref<TablePro.FormOption<FormFields>>({
   fields: [
     {
       field: "selectDict",
       label: "下拉框",
-      type: FormItemType.Select,
+      type: "select",
       dict: "gender",
       placeholder: "请选择性别",
     },
-    { field: "radioDict", label: "单选框", type: FormItemType.Radio, dict: "gender" },
-    { field: "checkboxDict", label: "多选框", type: FormItemType.Checkbox, dict: "gender" },
+    { field: "radioDict", label: "单选框", type: "radio", dict: "gender" },
+    { field: "checkboxDict", label: "多选框", type: "checkbox", dict: "gender" },
   ],
   labelWidth: 60,
 });

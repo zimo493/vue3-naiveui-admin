@@ -43,7 +43,6 @@
 </template>
 <script setup lang="tsx">
 import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import RoleAPI from "@/api/system/role";
 
@@ -78,8 +77,8 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-const formConfig = ref<FormOption<Role.Query>>({
-  fields: [{ field: "keywords", label: "角色名称", type: FormItemType.Input }],
+const formConfig = ref<TablePro.FormOption<Role.Query>>({
+  fields: [{ field: "keywords", label: "角色名称" }],
 });
 
 const columns = ref<DataTableColumns<Role.VO>>([
@@ -130,14 +129,14 @@ const columns = ref<DataTableColumns<Role.VO>>([
   },
 ]);
 
-const editConfig = ref<FormOption<Role.Form>>({
+const editConfig = ref<TablePro.FormOption<Role.Form>>({
   fields: [
-    { field: "name", label: "角色名称", type: FormItemType.Input },
-    { field: "code", label: "角色编码", type: FormItemType.Input },
+    { field: "name", label: "角色名称" },
+    { field: "code", label: "角色编码" },
     {
       field: "dataScope",
       label: "数据权限",
-      type: FormItemType.Select,
+      type: "select",
       options: [
         { label: "全部数据", value: 1 },
         { label: "部门及子部门数据", value: 2 },
@@ -148,13 +147,13 @@ const editConfig = ref<FormOption<Role.Form>>({
     {
       field: "status",
       label: "状态",
-      type: FormItemType.Radio,
+      type: "radio",
       options: [
         { label: "正常", value: 1 },
         { label: "停用", value: 0 },
       ],
     },
-    { field: "sort", label: "排序", type: FormItemType.Number },
+    { field: "sort", label: "排序", type: "number" },
   ],
   labelWidth: 80,
   rules: {

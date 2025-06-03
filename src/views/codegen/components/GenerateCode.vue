@@ -86,7 +86,6 @@
 </template>
 <script lang="tsx" setup>
 import type { DataTableColumns, TreeOverrideNodeClickBehavior, TreeOption } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import GeneratorAPI from "@/api/codeGen";
 import MenuAPI from "@/api/system/menu";
@@ -129,14 +128,14 @@ const tableCode = ref(""); // 表名
 const active = ref<Active>("basic");
 
 // 表单配置
-const formConfig = ref<FormOption<CodeGen.ConfigForm>>({
+const formConfig = ref<TablePro.FormOption<CodeGen.ConfigForm>>({
   fields: [
-    { field: "tableName", label: "表名", type: FormItemType.Input, colSpan: 8 },
-    { field: "businessName", label: "业务名", type: FormItemType.Input, colSpan: 8 },
-    { field: "packageName", label: "主包名", type: FormItemType.Input, colSpan: 8 },
-    { field: "moduleName", label: "模块名", type: FormItemType.Input, colSpan: 6 },
-    { field: "entityName", label: "实体名", type: FormItemType.Input, colSpan: 6 },
-    { field: "author", label: "作者", type: FormItemType.Input, colSpan: 6 },
+    { field: "tableName", label: "表名", colSpan: 8 },
+    { field: "businessName", label: "业务名", colSpan: 8 },
+    { field: "packageName", label: "主包名", colSpan: 8 },
+    { field: "moduleName", label: "模块名", colSpan: 6 },
+    { field: "entityName", label: "实体名", colSpan: 6 },
+    { field: "author", label: "作者", colSpan: 6 },
     {
       field: "parentMenuId",
       label: "上级菜单",

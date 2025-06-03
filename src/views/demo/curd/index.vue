@@ -156,7 +156,6 @@
 </template>
 <script lang="tsx" setup>
 import { NAvatar, NButton, NSpace, type DataTableColumns, type DataTableRowKey } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 import type { Form, Search, TableData } from "./config/types";
 
 import tableData from "./config/tableData";
@@ -226,27 +225,26 @@ const queryParams = ref<Search>({
   pageNum: 1,
   pageSize: 10,
 });
-const formConfig = ref<FormOption<Search>>({
+const formConfig = ref<TablePro.FormOption<Search>>({
   fields: [
     {
       field: "name",
-      type: FormItemType.Input,
       placeholder: "我不显示Label",
       colSpan: 3,
     },
-    { field: "address", label: "地址", type: FormItemType.Input, colSpan: 3 },
+    { field: "address", label: "地址", colSpan: 3 },
 
     {
       field: "options",
       label: "字典选择",
-      type: FormItemType.Select,
+      type: "select",
       dict: "notice_type",
       labelMessage: "字典示例，只需要传递 dict 即可，不需要配置 options 啦",
     },
     {
       field: "checkbox",
       label: "多选",
-      type: FormItemType.Checkbox,
+      type: "checkbox",
       options: [
         { label: "选项1", value: 1 },
         { label: "选项2", value: 2 },
@@ -265,7 +263,7 @@ const formConfig = ref<FormOption<Search>>({
     {
       field: "options",
       label: "单选组",
-      type: FormItemType.Radio,
+      type: "radio",
       dict: "notice_type",
       colSpan: 10,
       labelMessage: "不一定非要是Select, Radio也可以有",
@@ -274,26 +272,26 @@ const formConfig = ref<FormOption<Search>>({
       field: "date",
       label: "日期选择器",
       colSpan: 4,
-      type: FormItemType.Datepicker,
+      type: "datepicker",
     },
     {
       field: "time",
       label: "时间选择器",
       colSpan: 4,
-      type: FormItemType.Timepicker,
+      type: "timepicker",
     },
     {
       field: "dateTime",
       label: "时间日期选择器",
       colSpan: 5,
-      type: FormItemType.Datepicker,
+      type: "datepicker",
       otherOptions: { type: "datetime" },
     },
     {
       field: "createTime",
       label: "时间范围",
       colSpan: 5,
-      type: FormItemType.Datepicker,
+      type: "datepicker",
       otherOptions: {
         type: "daterange",
         closeOnSelect: true,
@@ -317,36 +315,36 @@ const handleQuery = () => {
 const selectedRowKeys = ref<number[]>([2, 5]); // 选中项
 const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys as number[]);
 
-const editConfig = ref<FormOption<Form>>({
+const editConfig = ref<TablePro.FormOption<Form>>({
   // 新增或者编辑表单配置项
   fields: [
     { field: "avatar", label: "头像", slotName: "avatar" },
-    { field: "name", label: "姓名", type: FormItemType.Input },
-    { field: "address", label: "地址", type: FormItemType.Textarea },
+    { field: "name", label: "姓名" },
+    { field: "address", label: "地址", type: "textarea" },
     {
       field: "dict",
       label: "字典单选",
-      type: FormItemType.Select,
+      type: "select",
       dict: "notice_type",
       labelMessage: "可以使用字典选择",
     },
     {
       field: "dict",
       label: "字典单选",
-      type: FormItemType.Radio,
+      type: "radio",
       dict: "notice_type",
     },
     {
       field: "dicts",
       label: "字典多选",
-      type: FormItemType.Checkbox,
+      type: "checkbox",
       dict: "notice_type",
       labelMessage: "可以使用字典多选",
     },
     {
       field: "dicts",
       label: "字典多选",
-      type: FormItemType.Select,
+      type: "select",
       dict: "notice_type",
       otherOptions: {
         multiple: true,
@@ -355,7 +353,7 @@ const editConfig = ref<FormOption<Form>>({
     {
       field: "options",
       label: "不使用字典",
-      type: FormItemType.Select,
+      type: "select",
       placeholder: "也可以使用本地选项",
       options: [
         { label: "选项1", value: 1 },
@@ -418,16 +416,16 @@ const submitForm = async (val: Form) => {
 
 // 查看
 const dialogViewRef = useTemplateRef("dialogView");
-const viewConfig = ref<FormOption<TableData>>({
+const viewConfig = ref<TablePro.FormOption<TableData>>({
   // 新增或者编辑表单配置项
   fields: [
     { field: "avatar", label: "Avatar:", slotName: "avatar" },
-    { field: "name", label: "Name:", type: FormItemType.Text },
-    { field: "age", label: "Age:", type: FormItemType.Text },
-    { field: "address", label: "Address:", type: FormItemType.Text },
-    { field: "chinese", label: "Chinese:", type: FormItemType.Text },
-    { field: "math", label: "Math:", type: FormItemType.Text },
-    { field: "english", label: "English:", type: FormItemType.Text },
+    { field: "name", label: "Name:", type: "text" },
+    { field: "age", label: "Age:", type: "text" },
+    { field: "address", label: "Address:", type: "text" },
+    { field: "chinese", label: "Chinese:", type: "text" },
+    { field: "math", label: "Math:", type: "text" },
+    { field: "english", label: "English:", type: "text" },
     { field: "photo", label: "Photo:", slotName: "photo" },
     { field: "file", label: "File:", slotName: "file" },
   ],

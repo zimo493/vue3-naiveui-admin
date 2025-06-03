@@ -17,7 +17,6 @@
 </template>
 <script setup lang="tsx">
 import { NButton, NSpace, type DataTableColumns } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import GeneratorAPI from "@/api/codeGen";
 
@@ -50,15 +49,8 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-const formConfig = ref<FormOption<CodeGen.Query>>({
-  fields: [
-    {
-      field: "keywords",
-      label: "关键字",
-      type: FormItemType.Input,
-      placeholder: "请输入表名",
-    },
-  ],
+const formConfig = ref<TablePro.FormOption<CodeGen.Query>>({
+  fields: [{ field: "keywords", label: "关键字", placeholder: "请输入表名" }],
 });
 
 const columns = ref<DataTableColumns<CodeGen.VO>>([

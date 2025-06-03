@@ -47,7 +47,6 @@
 </template>
 <script setup lang="tsx">
 import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "naive-ui";
-import { type FormOption, FormItemType } from "@/components/custom/FormPro/types";
 
 import DictTypeAPI from "@/api/system/dict/type";
 
@@ -88,19 +87,18 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-const formConfig = ref<FormOption<DictType.Query>>({
+const formConfig = ref<TablePro.FormOption<DictType.Query>>({
   fields: [
     {
       field: "keywords",
       label: "关键字",
-      type: FormItemType.Input,
       placeholder: "字典名称/字典编码",
       colSpan: 6,
     },
     {
       field: "status",
       label: "状态",
-      type: FormItemType.Select,
+      type: "select",
       colSpan: 4,
       options: [
         { label: "正常", value: 1 },
@@ -157,20 +155,20 @@ const columns = ref<DataTableColumns<DictType.VO>>([
   },
 ]);
 
-const editConfig = ref<FormOption<DictType.Form>>({
+const editConfig = ref<TablePro.FormOption<DictType.Form>>({
   fields: [
-    { field: "name", label: "字典名称", type: FormItemType.Input },
-    { field: "dictCode", label: "字典编码", type: FormItemType.Input },
+    { field: "name", label: "字典名称" },
+    { field: "dictCode", label: "字典编码" },
     {
       field: "status",
       label: "状态",
-      type: FormItemType.Radio,
+      type: "radio",
       options: [
         { label: "正常", value: 1 },
         { label: "禁用", value: 0 },
       ],
     },
-    { field: "remark", label: "备注", type: FormItemType.Textarea },
+    { field: "remark", label: "备注", type: "textarea" },
   ],
   labelWidth: 80,
   rules: {
