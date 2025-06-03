@@ -49,6 +49,7 @@ import MenuAPI from "@/api/system/menu";
 
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
+import { defaultIcon } from "@/modules/assets";
 
 defineOptions({ name: "SysMenu" });
 
@@ -111,10 +112,10 @@ const columns: DataTableColumns<Menu.VO> = [
   {
     title: "菜单名称",
     key: "name",
-    width: 200,
+    width: 240,
     render: ({ icon, name }) => (
       <>
-        <Icones class="mr-[6px]" icon={icon} />
+        <Icones class="mr-[6px]" icon={icon ? icon : defaultIcon} />
         <NText>{name}</NText>
       </>
     ),
