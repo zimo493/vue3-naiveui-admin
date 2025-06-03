@@ -1,29 +1,29 @@
 <template>
-  <n-spin :show="loading">
-    <n-upload
-      v-model:file-list="fileList"
-      :max="limit"
-      :accept="accept"
-      :list-type="type"
-      :multiple="limit > 1 ? multiple : false"
-      :directory-dnd="drag"
-      :custom-request="customRequest"
-      :on-error="handleError"
-      :on-remove="handleRemove"
-      :on-finish="handleFinish"
-      :on-before-upload="beforeUpload"
-      v-bind="$attrs"
-    >
-      <n-upload-dragger v-if="drag">
-        <div style="margin-bottom: 12px">
-          <Icones :icon="dragOptions.icon" :size="dragOptions.iconSize" />
-        </div>
-        <n-text style="font-size: 16px">{{ dragOptions.title }}</n-text>
-        <slot />
-      </n-upload-dragger>
-      <slot v-else />
-    </n-upload>
-  </n-spin>
+  <n-spin v-if="loading" />
+  <n-upload
+    v-else
+    v-model:file-list="fileList"
+    :max="limit"
+    :accept="accept"
+    :list-type="type"
+    :multiple="limit > 1 ? multiple : false"
+    :directory-dnd="drag"
+    :custom-request="customRequest"
+    :on-error="handleError"
+    :on-remove="handleRemove"
+    :on-finish="handleFinish"
+    :on-before-upload="beforeUpload"
+    v-bind="$attrs"
+  >
+    <n-upload-dragger v-if="drag">
+      <div style="margin-bottom: 12px">
+        <Icones :icon="dragOptions.icon" :size="dragOptions.iconSize" />
+      </div>
+      <n-text style="font-size: 16px">{{ dragOptions.title }}</n-text>
+      <slot />
+    </n-upload-dragger>
+    <slot v-else />
+  </n-upload>
 </template>
 <script lang="tsx" setup>
 import type { PropType } from "vue";
