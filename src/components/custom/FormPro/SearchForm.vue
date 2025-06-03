@@ -21,106 +21,110 @@
           <template v-if="item.labelMessage" #label>
             <FormTipLabel :label="item.label" :msg="item.labelMessage" />
           </template>
-          <template v-if="item.type === FormItemType.Input">
-            <n-input
-              v-model:value="val[item.field]"
-              v-bind="item.otherOptions"
-              :disabled="item.disabled ?? false"
-              :readonly="item.readonly ?? false"
-              :clearable="item.clearable ?? true"
-              type="text"
-              :placeholder="item.placeholder ?? `请输入${item.label}`"
-              v-on="item.otherEvents ?? {}"
-            />
-          </template>
-          <template v-if="item.type === FormItemType.Radio">
-            <n-radio-group
-              v-model:value="val[item.field]"
-              v-bind="item.otherOptions"
-              :disabled="item.disabled ?? false"
-              v-on="item.otherEvents ?? {}"
-            >
-              <n-space>
-                <n-radio
-                  v-for="option in item.options"
-                  :key="option.value"
-                  :value="option.value"
-                  :label="option.label"
-                  :disabled="option.disabled ?? false"
-                />
-              </n-space>
-            </n-radio-group>
-          </template>
-          <template v-if="item.type === FormItemType.Checkbox">
-            <n-checkbox-group
-              v-model:value="val[item.field]"
-              v-bind="item.otherOptions"
-              :disabled="item.disabled ?? false"
-              v-on="item.otherEvents ?? {}"
-            >
-              <n-space item-style="display: flex;">
-                <n-checkbox
-                  v-for="option in item.options"
-                  :key="option.value"
-                  :value="option.value"
-                  :label="option.label"
-                  :disabled="option.disabled ?? false"
-                />
-              </n-space>
-            </n-checkbox-group>
-          </template>
-          <template v-else-if="item.type === FormItemType.Select">
-            <n-select
-              v-model:value="val[item.field]"
-              v-bind="item.otherOptions"
-              :disabled="item.disabled ?? false"
-              :clearable="item.clearable ?? true"
-              :options="selectOption(item.options)"
-              :placeholder="item.placeholder ?? `请选择${item.label}`"
-              :consistent-menu-width="false"
-              v-on="item.otherEvents ?? {}"
-            />
-          </template>
-          <template v-else-if="item.type === FormItemType.TreeSelect">
-            <n-tree-select
-              v-model:value="val[item.field]"
-              v-bind="item.otherOptions"
-              :disabled="item.disabled ?? false"
-              :clearable="item.clearable ?? true"
-              :options="selectOption(item.options)"
-              :placeholder="item.placeholder ?? `请选择${item.label}`"
-              key-field="value"
-              label-field="label"
-              v-on="item.otherEvents ?? {}"
-            />
-          </template>
-          <template v-else-if="item.type === FormItemType.Datepicker">
-            <n-date-picker
-              v-model:value="val[item.field]"
-              :clearable="item.clearable ?? true"
-              v-bind="item.otherOptions"
-              :disabled="item.disabled ?? false"
-              :readonly="item.readonly ?? false"
-              v-on="item.otherEvents ?? {}"
-            />
-          </template>
-          <template v-else-if="item.type === FormItemType.Timepicker">
-            <n-time-picker
-              v-model:value="val[`${item.field}`]"
-              :clearable="item.clearable ?? true"
-              v-bind="item.otherOptions"
-              :disabled="item.disabled ?? false"
-              :readonly="item.readonly ?? false"
-              v-on="item.otherEvents ?? {}"
-            />
-          </template>
+
+          <!-- 优先展示自定义插槽 -->
           <template v-if="item.slotName != undefined">
             <slot :name="item.slotName" />
+          </template>
+          <template v-else>
+            <template v-if="item.type === 'input'">
+              <n-input
+                v-model:value="val[item.field]"
+                v-bind="item.otherOptions"
+                :disabled="item.disabled ?? false"
+                :readonly="item.readonly ?? false"
+                :clearable="item.clearable ?? true"
+                type="text"
+                :placeholder="item.placeholder ?? `请输入${item.label}`"
+                v-on="item.otherEvents ?? {}"
+              />
+            </template>
+            <template v-if="item.type === 'radio'">
+              <n-radio-group
+                v-model:value="val[item.field]"
+                v-bind="item.otherOptions"
+                :disabled="item.disabled ?? false"
+                v-on="item.otherEvents ?? {}"
+              >
+                <n-space>
+                  <n-radio
+                    v-for="option in item.options"
+                    :key="option.value"
+                    :value="option.value"
+                    :label="option.label"
+                    :disabled="option.disabled ?? false"
+                  />
+                </n-space>
+              </n-radio-group>
+            </template>
+            <template v-else-if="item.type === 'checkbox'">
+              <n-checkbox-group
+                v-model:value="val[item.field]"
+                v-bind="item.otherOptions"
+                :disabled="item.disabled ?? false"
+                v-on="item.otherEvents ?? {}"
+              >
+                <n-space item-style="display: flex;">
+                  <n-checkbox
+                    v-for="option in item.options"
+                    :key="option.value"
+                    :value="option.value"
+                    :label="option.label"
+                    :disabled="option.disabled ?? false"
+                  />
+                </n-space>
+              </n-checkbox-group>
+            </template>
+            <template v-else-if="item.type === 'select'">
+              <n-select
+                v-model:value="val[item.field]"
+                v-bind="item.otherOptions"
+                :disabled="item.disabled ?? false"
+                :clearable="item.clearable ?? true"
+                :options="selectOption(item.options)"
+                :placeholder="item.placeholder ?? `请选择${item.label}`"
+                :consistent-menu-width="false"
+                v-on="item.otherEvents ?? {}"
+              />
+            </template>
+            <template v-else-if="item.type === 'tree-select'">
+              <n-tree-select
+                v-model:value="val[item.field]"
+                v-bind="item.otherOptions"
+                :disabled="item.disabled ?? false"
+                :clearable="item.clearable ?? true"
+                :options="selectOption(item.options)"
+                :placeholder="item.placeholder ?? `请选择${item.label}`"
+                key-field="value"
+                label-field="label"
+                v-on="item.otherEvents ?? {}"
+              />
+            </template>
+            <template v-else-if="item.type === 'datepicker'">
+              <n-date-picker
+                v-model:value="val[item.field]"
+                :clearable="item.clearable ?? true"
+                v-bind="item.otherOptions"
+                :disabled="item.disabled ?? false"
+                :readonly="item.readonly ?? false"
+                v-on="item.otherEvents ?? {}"
+              />
+            </template>
+            <template v-else-if="item.type === 'timepicker'">
+              <n-time-picker
+                v-model:value="val[`${item.field}`]"
+                :clearable="item.clearable ?? true"
+                v-bind="item.otherOptions"
+                :disabled="item.disabled ?? false"
+                :readonly="item.readonly ?? false"
+                v-on="item.otherEvents ?? {}"
+              />
+            </template>
           </template>
         </n-form-item-grid-item>
       </template>
       <n-gi :span="rSpanCount">
-        <n-flex justify="end">
+        <n-flex :justify="operationButtonPosition === 'left' ? 'start' : 'end'">
           <slot name="before" />
           <n-button type="primary" :loading="loading" @click="handleQuery">
             <template #icon>
@@ -150,8 +154,7 @@
   </n-form>
 </template>
 <script lang="ts" setup>
-import { type FormInst, type FormRules } from "naive-ui";
-import { type FormItem, type ItemOption, FormItemType } from "./types";
+import { type FormInst } from "naive-ui";
 
 import { useDict } from "@/hooks";
 
@@ -168,23 +171,25 @@ const {
   rules = {},
   showLabel = true,
   loading = false,
+  operationButtonPosition = "right",
   collapseLength: foldingLength,
   controlsSpan: operateSpan,
 } = defineProps({
   fields: {
     required: true,
-    type: Array as PropType<FormItem<Recordable>[]>,
+    type: Array as PropType<TablePro.FormItem<Recordable>[]>,
   },
   modelValue: { type: Object as PropType<Recordable> },
   labelPlacement: { type: String as PropType<"left" | "top"> },
   labelAlign: { type: String as PropType<"left" | "right"> },
-  rules: { type: Object as PropType<FormRules> },
+  rules: { type: Object as PropType<TablePro.FormOption<Recordable>["rules"]> },
   gutter: { type: Number },
   labelWidth: { type: Number },
   showLabel: { type: Boolean },
   loading: { type: Boolean },
   collapseLength: { type: Number },
   controlsSpan: { type: Number },
+  operationButtonPosition: { type: String as PropType<"left" | "right"> },
 });
 
 const emit = defineEmits<{
@@ -220,8 +225,9 @@ const val = computed({
 // 切片计算
 const sliceCodList = computed(() => {
   return fields?.slice(0, isCollapse.value ? collapseLength : fields.length).map((item) => {
-    if (item.type && item.dict) {
-      if ([FormItemType.Select, FormItemType.Radio, FormItemType.Checkbox].includes(item.type)) {
+    if (!item.type) item.type = "input";
+    if (item.dict) {
+      if (["select", "radio", "checkbox"].includes(item.type)) {
         const dict = useDict(item.dict);
 
         item.options = dict[item.dict].value.map((i) => ({
@@ -243,7 +249,7 @@ const sliceCodList = computed(() => {
 const defaultValue = { ...val.value };
 
 /** 获取下拉框的选择项 */
-const selectOption = (opt?: ItemOption[]) => {
+const selectOption = (opt?: TablePro.ItemOption[]) => {
   if (!opt || !opt.length) return [];
 
   return opt.map(({ label, value, disabled }) => {
