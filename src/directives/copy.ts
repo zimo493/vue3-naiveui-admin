@@ -2,6 +2,7 @@ import type { App, Directive } from "vue";
 
 interface CopyHTMLElement extends HTMLElement {
   _copyText: string;
+  _msg: string;
 }
 
 /**
@@ -40,11 +41,12 @@ export function install(app: App) {
 
   function handlerCopy(this: CopyHTMLElement) {
     if (!clipboardEnable()) return;
-    copy(this._copyText).then(() => window.$message.success("复制成功"));
+    copy(this._copyText).then(() => window.$message.success(this._msg));
   }
 
-  function updateClipboard(el: CopyHTMLElement, text: string) {
-    el._copyText = text;
+  function updateClipboard(el: CopyHTMLElement, text: string | { text: string; msg: string }) {
+    el._copyText = typeof text === "string" ? text : text.text;
+    el._msg = typeof text === "string" ? "复制成功" : text.msg;
     el.addEventListener("click", handlerCopy);
   }
 
