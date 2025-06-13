@@ -4,6 +4,9 @@ import type { Router } from "vue-router";
 
 const { pkg } = __APP_INFO__;
 
+// 白名单
+const whiteList = ["/login"];
+
 export const setupRouterGuard = (router: Router) => {
   const appStore = useAppStoreHook();
   const routeStore = useRouteStoreHook();
@@ -19,7 +22,7 @@ export const setupRouterGuard = (router: Router) => {
     const isLogin = Boolean(local.get("accessToken"));
 
     if (!isLogin) {
-      if (to.name === "login") {
+      if (to.name === "login" || whiteList.includes(to.path)) {
         next();
       } else {
         next(`/login?redirect=${to.path}`);
