@@ -22,7 +22,7 @@ export const setupRouterGuard = (router: Router) => {
     const isLogin = Boolean(local.get("accessToken"));
 
     if (!isLogin) {
-      if (to.name === "login" || whiteList.includes(to.path)) {
+      if (whiteList.includes(to.path)) {
         next();
       } else {
         next(`/login?redirect=${to.path}`);
