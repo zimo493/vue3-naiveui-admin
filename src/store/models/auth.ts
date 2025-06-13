@@ -117,7 +117,7 @@ export const useAuthStore = defineStore("auth-store", {
 
       // 重定向到登录页
       await router.replace({
-        name: "login",
+        path: "/login",
         query: {
           redirect: route.fullPath,
         },

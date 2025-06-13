@@ -49,7 +49,7 @@ export const setupRouterGuard = (router: Router) => {
     }
 
     // 判断当前页是否在login,则定位去首页
-    if (to.name === "login") {
+    if (to.name === "Login") {
       next({ path: "/" });
 
       return false;
