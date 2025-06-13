@@ -96,6 +96,52 @@ const renderLabel = ({ label, value }: SelectOption): VNodeChild => (
 const renderTag = ({ option }: { option: SelectOption }): VNodeChild => (
   <NText>{option.label}</NText>
 );
+
+const themeConfig = computed(() => {
+  const { common } = appStore.theme;
+
+  return `import type { GlobalThemeOverrides } from "naive-ui";
+
+/** 默认主色 */
+export const primaryColor = "${common?.primaryColor}";
+/** 默认信息色 */
+export const infoColor = "${common?.infoColor}";
+/** 默认成功色 */
+export const successColor = "${common?.successColor}";
+/** 默认警告色 */
+export const warningColor = "${common?.warningColor}";
+/** 默认错误色 */
+export const errorColor = "${common?.errorColor}";
+
+/** 默认主题配置 */
+const themeConfig: GlobalThemeOverrides = {
+  common: {
+    primaryColor,
+    primaryColorHover: "${common?.primaryColorHover}",
+    primaryColorPressed: "${common?.primaryColorPressed}",
+    primaryColorSuppl: "${common?.primaryColorSuppl}",
+    infoColor,
+    infoColorHover: "${common?.infoColorHover}",
+    infoColorPressed: "${common?.infoColorPressed}",
+    infoColorSuppl: "${common?.infoColorSuppl}",
+    successColor,
+    successColorHover: "${common?.successColorHover}",
+    successColorPressed: "${common?.successColorPressed}",
+    successColorSuppl: "${common?.successColorSuppl}",
+    warningColor,
+    warningColorHover: "${common?.warningColorHover}",
+    warningColorPressed: "${common?.warningColorPressed}",
+    warningColorSuppl: "${common?.warningColorSuppl}",
+    errorColor,
+    errorColorHover: "${common?.errorColorHover}",
+    errorColorPressed: "${common?.errorColorPressed}",
+    errorColorSuppl: "${common?.errorColorSuppl}",
+  },
+};
+
+export default themeConfig;
+`;
+});
 </script>
 
 <template>
@@ -143,7 +189,26 @@ const renderTag = ({ option }: { option: SelectOption }): VNodeChild => (
                   </n-space>
                 </n-flex>
 
-                <n-divider>主题颜色</n-divider>
+                <n-divider>
+                  <span mr-10px>主题颜色</span>
+
+                  <n-tooltip trigger="hover">
+                    <template #trigger>
+                      <n-button
+                        v-copy="{
+                          text: themeConfig,
+                          msg: '主题颜色配置已复制到剪贴板',
+                        }"
+                        type="primary"
+                        size="small"
+                        quaternary
+                      >
+                        复制
+                      </n-button>
+                    </template>
+                    <span>复制后可粘贴替换 src/store/models/app/theme.ts 文件中的内容</span>
+                  </n-tooltip>
+                </n-divider>
                 <n-space align="center" justify="space-between">
                   主色
                   <n-color-picker
