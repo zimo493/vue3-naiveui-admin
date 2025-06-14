@@ -1,5 +1,5 @@
 <template>
-  <n-drawer v-model:show="modalVisible" :width="560">
+  <n-drawer v-model:show="modalVisible" :width="500">
     <n-drawer-content :title="title">
       <template #header>
         <n-spin :show="loading">
