@@ -12,37 +12,53 @@ const MAX_DEPTH = 5; // 最大递归深度
  * @returns 解析后的路由配置数组
  */
 export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRaw[] => {
-  const parsedRoutes: RouteRecordRaw[] = [];
+  // 预加载所有视图组件
+  const viewModules = import.meta.glob("@/views/**/*.vue");
 
-  const modules = import.meta.glob("@/views/**/*.vue");
+  // 内部递归解析函数
+  const parse = (routes: AppRoute.RouteVO[]): RouteRecordRaw[] => {
+    return routes.reduce<RouteRecordRaw[]>((parsed, route) => {
+      // 跳过HTTP链接路径
+      if (isHttpUrl(route.path)) return parsed;
 
-  rawRoutes.forEach((route) => {
-    const normalizedRoute = { ...route } as RouteRecordRaw;
+      // 创建路由配置副本
+      const record: RouteRecordRaw = { ...route } as RouteRecordRaw;
 
-    if (normalizedRoute.component?.toString() === "Layout") {
-      normalizedRoute.component = undefined;
-    }
+      // 处理组件映射
+      if (record.component) {
+        const compStr = record.component.toString();
 
-    // 处理组件路径
-    else if (normalizedRoute.component && normalizedRoute.component.toString() !== "Layout") {
-      const component = modules[`/src/views/${normalizedRoute.component}.vue`];
+        if (compStr === "Layout") {
+          // 明确设置Layout组件标识
+          record.component = undefined;
+        } else {
+          // 标准化组件路径：移除首尾斜杠，确保路径一致性
+          const normalizedPath = compStr.replace(/^\/+|\/+$/g, "");
 
-      if (component) {
-        normalizedRoute.component = component;
-      } else {
-        // 修复：使用函数包装 import 语句
-        normalizedRoute.component = () => import("@/views/error/404");
+          // 匹配视图组件
+          const modulePath = `/src/views/${normalizedPath}.vue`;
+
+          if (modulePath) {
+            record.component = viewModules[modulePath];
+          } else {
+            // 修复：使用函数包装 import 语句
+            record.component = () => import("@/views/error/404");
+          }
+        }
       }
-    }
-    // 递归解析子路由
-    if (normalizedRoute.children) {
-      normalizedRoute.children = parseDynamicRoutes(route.children);
-    }
 
-    parsedRoutes.push(normalizedRoute);
-  });
+      // 递归处理子路由
+      if (route.children?.length) {
+        record.children = parse(route.children);
+      }
 
-  return parsedRoutes;
+      parsed.push(record);
+
+      return parsed;
+    }, []);
+  };
+
+  return parse(rawRoutes);
 };
 
 // 核心递归处理路由函数
