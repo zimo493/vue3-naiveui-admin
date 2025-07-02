@@ -114,7 +114,7 @@ export const useRouteStore = defineStore("route-store", {
           (menu) =>
             menu.key !== undefined && // 过滤无效项
             (menu.children?.length || menu.key) // 有效菜单需有key或子项
-        ) as any;
+        );
     },
 
     /** 设置缓存路由 */
