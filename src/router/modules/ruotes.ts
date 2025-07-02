@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from "vue-router";
 
-const appRootRoutes: RouteRecordRaw = {
+export default <RouteRecordRaw>{
   path: "/",
   name: "Root",
   redirect: "/",
@@ -60,5 +60,3 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: { title: "找不到页面", icon: "icon-park-outline:ghost", hidden: true },
   },
 ];
-
-export default appRootRoutes;
