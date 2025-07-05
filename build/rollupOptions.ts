@@ -10,8 +10,21 @@ export const rollupOutputOptions: OutputOptions = {
   assetFileNames: "assets/[ext]/[name]-[hash].[ext]", // 统一资源文件路径
   manualChunks: (id) => {
     /** 核心框架 */
-    if (/[\\/]node_modules[\\/](vue|vue-router|vue-i18n|pinia)[\\/]/.test(id)) {
+    if (/[\\/]node_modules[\\/](vue|vue-router|pinia)[\\/]/.test(id)) {
       return "vue-core";
+    }
+
+    /** UI框架 */
+    if (/[\\/]node_modules[\\/]naive-ui[\\/]/.test(id)) {
+      return "naive-ui";
+    }
+
+    /** 国际化相关 */
+    if (/[\\/]node_modules[\\/]vue-i18n[\\/]/.test(id)) {
+      return "i18n-core";
+    }
+    if (/[\\/]locales[\\/]/.test(id)) {
+      return "i18n-locales";
     }
 
     /** 完整打包 ECharts 避免继承链断裂 */
@@ -24,14 +37,46 @@ export const rollupOutputOptions: OutputOptions = {
       return id.includes("plugin") ? "editor-plugins" : "editor-core";
     }
 
-    /** 工具库 */
-    if (/[\\/]node_modules[\\/](axios|@vueuse|lodash-es|dayjs|radash)[\\/]/.test(id)) {
+    /** 代码高亮 */
+    if (/[\\/]node_modules[\\/]highlight\.js[\\/]/.test(id)) {
+      return "highlight";
+    }
+
+    /** 图片裁剪 */
+    if (/[\\/]node_modules[\\/]vue-cropper[\\/]/.test(id)) {
+      return "cropper";
+    }
+
+    /** 大型工具库独立分包 */
+    if (/[\\/]node_modules[\\/]lodash-es[\\/]/.test(id)) {
+      return "lodash";
+    }
+    if (/[\\/]node_modules[\\/]@vueuse[\\/]/.test(id)) {
+      return "vueuse";
+    }
+
+    /** 其他工具库合并打包 */
+    if (
+      /[\\/]node_modules[\\/](axios|dayjs|radash|colord|qs|js-cookie|jsencrypt|nprogress)[\\/]/.test(
+        id
+      )
+    ) {
       return "utils";
     }
 
     /** 图标库 */
     if (/[\\/]node_modules[\\/](@iconify|unplugin-icons)[\\/]/.test(id)) {
       return "icons";
+    }
+
+    /** Excel相关 */
+    if (/[\\/]node_modules[\\/]exceljs[\\/]/.test(id)) {
+      return "excel";
+    }
+
+    /** WebSocket相关 */
+    if (/[\\/]node_modules[\\/]@stomp[\\/]/.test(id)) {
+      return "websocket";
     }
   },
 };
