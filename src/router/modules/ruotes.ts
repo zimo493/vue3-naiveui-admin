@@ -30,6 +30,12 @@ export default <RouteRecordRaw>{
 // 公共路由
 export const constantRoutes: RouteRecordRaw[] = [
   {
+    path: "/test",
+    name: "Test",
+    component: () => import("@/views/test.vue"),
+    meta: { title: "测试页面", icon: "fluent:error-circle-20-filled" },
+  },
+  {
     path: "/login",
     name: "Login",
     component: () => import("@/views/login/index.vue"),
