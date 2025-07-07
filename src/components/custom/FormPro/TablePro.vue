@@ -128,12 +128,13 @@ interface Props<T> {
   total?: number;
   showTable?: boolean;
   collapseRows?: number;
+  operationSpan?: number;
   formConfig?: FormPro.FormItemConfig[];
 }
 
 interface Emits<T> {
+  (e: "query", v: T): void;
   (e: "reset", v: T): void;
-  (e: "submit", v: T): void;
 }
 
 interface Expose {
@@ -153,6 +154,7 @@ const props = withDefaults(defineProps<Props<T>>(), {
   showTable: true,
   operationButtonPosition: "right",
   collapseRows: 3,
+  operationSpan: 4,
 });
 
 const {
@@ -166,6 +168,7 @@ const {
   showTable,
   operationButtonPosition,
   formConfig,
+  operationSpan: operationWidth,
 } = props;
 
 const totalNum = computed(() => total);
@@ -202,7 +205,7 @@ const ruleFormRef = useTemplateRef("ruleForm"); // 获取表单实例
 // 提交按钮触发
 const handleQuery = async () => {
   await ruleFormRef.value?.validate();
-  emit("submit", modelValue.value);
+  emit("query", modelValue.value);
 };
 
 // 重置按钮触发
@@ -213,6 +216,9 @@ function resetQuery() {
 
 // 是否折叠
 const isCollapse = ref<boolean>(true);
+
+// 默认的右侧按钮操作区
+const defaultOperationSpan = operationWidth; // 默认 span 为 4
 
 // 展示的表单配置
 const showFormConfig = computed(() => {
@@ -233,6 +239,7 @@ const showFoldBtn = computed(() => {
   return config && config.length > props.collapseRows;
 });
 
+// 计算操作区按钮的占位宽度
 const operationSpan = computed<number>(() => {
   let totalSpan = 0;
 
@@ -244,7 +251,7 @@ const operationSpan = computed<number>(() => {
   const showForm = showFormConfig.value.filter((i) => !i.hidden);
 
   for (const item of showForm) {
-    const itemSpan = item.span || 4;
+    const itemSpan = item.span || defaultOperationSpan;
 
     if (currentLineSpan + itemSpan > 24) {
       currentLineSpan = itemSpan;
@@ -258,8 +265,9 @@ const operationSpan = computed<number>(() => {
   // 计算剩余的 span 值
   const remainingSpan = 24 - (totalSpan % 24);
 
-  return remainingSpan < 4 ? 24 : remainingSpan;
+  return remainingSpan < defaultOperationSpan ? 24 : remainingSpan;
 });
+
 // 切换折叠状态
 const toggleCollapse = () => {
   isCollapse.value = !isCollapse.value;
