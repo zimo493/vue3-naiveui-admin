@@ -1,5 +1,6 @@
 type Component = import("vue").Component;
 type VNode = import("vue").VNode;
+type GridFromItem = import("naive-ui").GridItemProps & import("naive-ui").FormItemProps;
 
 /**
  * 响应式 span 配置
@@ -21,6 +22,7 @@ interface BaseFormItemConfig {
   dict?: string;
   hidden?: boolean;
   props?: Record<string, any>;
+  formItemProps?: Omit<GridFromItem, "path" | "span">;
   labelMessage?: string;
   slots?: Record<string, (val: never) => VNode[]>;
 }

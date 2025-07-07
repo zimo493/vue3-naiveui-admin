@@ -1,22 +1,19 @@
 <template>
   <div p-2>
-    {{ model }}
     <TablePro
       v-model="model"
       :search="{
-        formConfig: formConfig,
+        formConfig,
+        formProps: { rules },
       }"
+      operation-button-position="left"
       @reset="reset"
       @submit="submit"
     />
-
-    <!-- <FormProTwo :form-config="formConfig"></FormProTwo> -->
   </div>
 </template>
 <script lang="tsx" setup>
-import { NButton, NEl, SelectOption } from "naive-ui";
-
-// import FormProTwo from "@/components/custom/FormPro/FormProTwo.vue";
+import { FormItemRule, FormRules, NButton, NEl, SelectOption } from "naive-ui";
 
 // 定义表单数据模型
 interface DemoFormModel {
@@ -59,9 +56,12 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
     label: "姓名",
     props: { placeholder: "请你输入你的姓名" },
     labelMessage: "或许不想知道你的花园长得咋样",
+    formItemProps: {
+      // labelWidth: 200,
+    },
     slots: {
-      suffix: () => [h("div", null, "后缀")],
-      prefix: () => [h("div", null, "前缀")],
+      prefix: () => [h("div", {}, "🎈")],
+      // suffix: () => [h("div", null, "后缀")],
     },
   },
   {
@@ -101,10 +101,27 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
   {
     name: "hobbies",
     label: "兴趣爱好",
-    component: "checkbox-group",
+    component: "select",
     hidden: model.value.sex === 2,
-    span: 6,
+    props: {
+      multiple: true,
+      maxTagCount: "responsive",
+    },
     dict: "hobby",
+  },
+  {
+    name: "notification",
+    label: "接收通知",
+    component: "switch",
+    span: 2,
+    props: {
+      checkedValue: 1,
+      uncheckedValue: -1,
+      round: false,
+    },
+    slots: {
+      icon: () => [h(NEl, {}, () => "😄")],
+    },
   },
   {
     name: "birthday",
@@ -125,19 +142,6 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
     },
   },
   {
-    name: "notification",
-    label: "接收通知",
-    component: "switch",
-    props: {
-      checkedValue: 1,
-      uncheckedValue: -1,
-      round: false,
-    },
-    slots: {
-      icon: () => [h(NEl, {}, () => "😄")],
-    },
-  },
-  {
     name: "aihao",
     label: "爱好",
     // component: () => h(NEl, {}, () => "哈哈哈哈哈哈哈哈"),
@@ -151,32 +155,34 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
 ]);
 
 // 初始化表单数据
-const model = ref<DemoFormModel>({});
+const model = ref<DemoFormModel>({
+  notification: 1,
+});
 
 // 表单验证规则
-// const rules: FormRules = {
-//   name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
-//   age: [{ required: true, type: "number", message: "请输入年龄", trigger: "blur" }],
-//   notification: [
-//     {
-//       validator: (_: FormItemRule, value: number) => value === 1,
-//       trigger: "change",
-//       message: "请打开接收通知",
-//     },
-//   ],
-//   birthday: [
-//     {
-//       type: "date",
-//       required: true,
-//       message: "请选择日期",
-//       trigger: "change",
-//     },
-//   ],
-//   password: [
-//     { required: true, message: "请输入密码", trigger: "blur" },
-//     { min: 6, message: "密码长度不能小于6位", trigger: "blur" },
-//   ],
-// };
+const rules: FormRules = {
+  name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+  age: [{ required: true, type: "number", message: "请输入年龄", trigger: "blur" }],
+  notification: [
+    {
+      validator: (_: FormItemRule, value: number) => value === 1,
+      trigger: "change",
+      message: "请打开接收通知",
+    },
+  ],
+  birthday: [
+    {
+      type: "date",
+      required: true,
+      message: "请选择日期",
+      trigger: "change",
+    },
+  ],
+  password: [
+    { required: true, message: "请输入密码", trigger: "blur" },
+    { min: 6, message: "密码长度不能小于6位", trigger: "blur" },
+  ],
+};
 
 const option = ref<SelectOption[]>([{ label: "男", value: 1 }]);
 

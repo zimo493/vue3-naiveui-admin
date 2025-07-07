@@ -1,12 +1,8 @@
 <template>
-  <n-form
-    ref="formRef"
-    :model="modelValue"
-    v-bind="{ ...defaultFormProps, ...formProps, ...$attrs }"
-  >
+  <n-form ref="formRef" :model="modelValue" v-bind="{ ...defaultFormProps, ...formProps }">
     <n-grid v-bind="{ ...defaultGridProps, ...gridProps }">
       <template v-for="item in formItems" :key="item.name">
-        <n-form-item-grid-item :span="item.span ?? 4" :path="item.name">
+        <n-form-item-gi v-bind="item.formItemProps" :span="item.span ?? 4" :path="item.name">
           <template #label>
             <FormTipLabel v-if="item.labelMessage" :label="item.label" :msg="item.labelMessage" />
             <span v-else>{{ item.label }}</span>
@@ -19,7 +15,7 @@
               v-bind="{ ...item.props }"
             ></component>
           </slot>
-        </n-form-item-grid-item>
+        </n-form-item-gi>
       </template>
       <n-gi :span="operationSpan">
         <slot name="operation" :model="modelValue" />
@@ -74,7 +70,7 @@ const getDict = (dict: string) => {
  */
 const defaultFormProps: FormProps = {
   labelPlacement: "left",
-  labelWidth: "auto",
+  labelWidth: 80,
 };
 
 /**
