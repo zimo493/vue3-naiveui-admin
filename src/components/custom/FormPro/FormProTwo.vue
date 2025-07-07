@@ -6,7 +6,7 @@
   >
     <n-grid v-bind="{ ...defaultGridProps, ...gridProps }">
       <template v-for="item in formItems" :key="item.name">
-        <n-form-item-gi :span="getResponsiveSpan(item)" :path="item.name">
+        <n-form-item-grid-item :span="item.span ?? 4" :path="item.name">
           <template #label>
             <FormTipLabel v-if="item.labelMessage" :label="item.label" :msg="item.labelMessage" />
             <span v-else>{{ item.label }}</span>
@@ -15,10 +15,11 @@
             <component
               :is="renderComponent(item)"
               v-model:value="modelValue[item.name]"
+              clsss="flex items-center justify-start"
               v-bind="{ ...item.props }"
             ></component>
           </slot>
-        </n-form-item-gi>
+        </n-form-item-grid-item>
       </template>
       <n-gi :span="operationSpan">
         <slot name="operation" :model="modelValue" />
@@ -80,7 +81,7 @@ const defaultFormProps: FormProps = {
  * 默认的GridProps
  */
 const defaultGridProps: GridProps = {
-  xGap: 20,
+  xGap: 16,
 };
 
 /**
@@ -94,7 +95,7 @@ const {
   formConfig = [],
   formProps = {},
   gridProps = {},
-  operationSpan = 12,
+  operationSpan = 4,
 } = defineProps({
   formConfig: {
     type: Object as PropType<FormPro.FormItemConfig[]>,
@@ -120,68 +121,6 @@ const formRef = useTemplateRef<FormInst>("formRef");
 
 // 过滤表单配置项
 const formItems = computed(() => formConfig.filter((item) => !item.hidden));
-
-// 屏幕尺寸响应式
-const screenWidth = ref(window.innerWidth);
-
-// 监听窗口大小变化
-const handleResize = () => {
-  screenWidth.value = window.innerWidth;
-};
-
-onMounted(() => {
-  window.addEventListener("resize", handleResize);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("resize", handleResize);
-});
-// 响应式 span 计算函数
-const getResponsiveSpan = (item: FormPro.FormItemConfig) => {
-  // 根据屏幕宽度调整布局
-  const isMobile = screenWidth.value < 768;
-  const isTablet = screenWidth.value >= 768 && screenWidth.value < 1024;
-  const isDesktop = screenWidth.value >= 1024;
-
-  // 如果用户明确设置了 span
-  if (item.span) {
-    // 如果是响应式配置对象
-    if (typeof item.span === "object") {
-      if (isMobile && item.span.mobile !== undefined) {
-        return item.span.mobile;
-      }
-      if (isTablet && item.span.tablet !== undefined) {
-        return item.span.tablet;
-      }
-      if (isDesktop && item.span.desktop !== undefined) {
-        return item.span.desktop;
-      }
-
-      // 如果没有匹配的配置，使用默认值
-      return item.span.mobile ?? item.span.tablet ?? item.span.desktop ?? 12;
-    }
-
-    // 如果是数字，直接返回
-    return item.span;
-  }
-
-  // 根据组件类型和屏幕尺寸自动设置默认 span
-  const componentType = typeof item.component === "string" ? item.component : "input";
-
-  if (componentType === "textarea") {
-    return isMobile ? 24 : 24; // 这些组件总是占满宽度
-  } else if (
-    ["select", "radio-group", "checkbox-group", "date-picker", "time-picker"].includes(
-      componentType
-    )
-  ) {
-    return isMobile ? 24 : isTablet ? 12 : 8; // 响应式调整
-  } else if (componentType === "switch") {
-    return isMobile ? 12 : 6; // 开关组件较窄
-  } else {
-    return isMobile ? 24 : isTablet ? 12 : 8; // 响应式调整
-  }
-};
 
 // 创建异步组件的工具函数
 const createAsyncComponent = (componentName: NComponentName) =>
@@ -211,6 +150,12 @@ watchEffect(() => {
  */
 const renderComponent = (item: FormPro.FormItemConfig) => {
   const { component: comp, label, props = {}, slots } = item;
+
+  // 如果是函数组件
+  if (comp && typeof comp === "function") {
+    return comp;
+  }
+
   const type = comp ?? "input";
 
   // 构建组件属性
@@ -295,7 +240,7 @@ const componentMap: Record<string, Component> = {
  * @param component 组件名称或组件
  */
 const getComponent = (component: string | Component): Component =>
-  typeof component === "string" ? componentMap[component as NComponentName] : component;
+  typeof component === "string" ? componentMap[component] : component;
 
 // 暴露表单实例方法
 const formInstance: FormPro.FormInstance = {

@@ -9,10 +9,14 @@
       @reset="reset"
       @submit="submit"
     />
+
+    <!-- <FormProTwo :form-config="formConfig"></FormProTwo> -->
   </div>
 </template>
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import { FormItemRule, FormRules, NButton, NEl, SelectOption } from "naive-ui";
+
+// import FormProTwo from "@/components/custom/FormPro/FormProTwo.vue";
 
 // 定义表单数据模型
 interface DemoFormModel {
@@ -64,11 +68,13 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
     name: "age",
     label: "年龄",
     component: "number",
+    span: 3,
     labelMessage: "I wish they all could be California girls",
   },
   {
     name: "sex",
     label: "性别",
+    span: 3,
     component: "select",
     props: {
       options: option.value,
@@ -97,6 +103,7 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
     label: "兴趣爱好",
     component: "checkbox-group",
     hidden: model.value.sex === 2,
+    span: 6,
     dict: "hobby",
   },
   {
@@ -132,13 +139,14 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
   {
     name: "aihao",
     label: "爱好",
-    // component: h(, { msg: "哈哈哈哈哈哈哈哈" }),
+    // component: () => h(NEl, {}, () => "哈哈哈哈哈哈哈哈"),
+    component: () => <NEl>哈哈哈哈哈哈哈哈 😁</NEl>,
   },
-  {
-    label: "备注",
-    name: "remark",
-    component: "textarea",
-  },
+  // {
+  //   label: "备注",
+  //   name: "remark",
+  //   component: "textarea",
+  // },
 ]);
 
 // 初始化表单数据
@@ -186,6 +194,6 @@ const submit = async (val: DemoFormModel) => {
 };
 
 const reset = (val: DemoFormModel) => {
-  console.log(val);
+  console.log(model.value, "传递的值", val);
 };
 </script>

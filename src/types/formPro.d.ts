@@ -17,7 +17,7 @@ interface BaseFormItemConfig {
   name: string;
   label: string;
   component?: ComponentType; // 可选，默认为 input
-  span?: number | ResponsiveSpan;
+  span?: number;
   dict?: string;
   hidden?: boolean;
   props?: Record<string, any>;
@@ -119,7 +119,7 @@ interface SwitchFormItemConfig extends BaseFormItemConfig {
  * 自定义组件配置
  */
 interface CustomFormItemConfig extends BaseFormItemConfig {
-  component: VNode | (() => VNode);
+  component: Component | (() => VNode);
   props?: Record<string, any>;
   slots?: Record<string, (val: any) => VNode[]>;
 }
@@ -140,8 +140,7 @@ declare namespace FormPro {
     | "time-picker"
     | "switch"
     | Component
-    | VNode
-    | (() => VNode | VNode[]);
+    | (() => VNode);
 
   /**
    * 联合类型
