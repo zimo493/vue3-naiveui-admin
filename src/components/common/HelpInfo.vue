@@ -5,9 +5,9 @@ const { message = "" } = defineProps({
 </script>
 
 <template>
-  <n-tooltip :show-arrow="false" trigger="hover">
+  <n-tooltip trigger="hover">
     <template #trigger>
-      <icon-park-outline-help />
+      <icon-park-outline-help class="cursor-pointer" />
     </template>
     <div v-html="message" />
   </n-tooltip>

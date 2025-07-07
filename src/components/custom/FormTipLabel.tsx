@@ -9,7 +9,7 @@ export default defineComponent({
   },
   setup(props) {
     return () => (
-      <NFlex justify="end" size={[3, 0]}>
+      <NFlex justify="end" size={[4, 0]}>
         <HelpInfo message={props.msg} />
         <NText>{props.label}</NText>
       </NFlex>

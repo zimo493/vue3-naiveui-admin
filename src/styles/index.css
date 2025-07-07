@@ -28,6 +28,10 @@ body,
   font-size: 12px;
 }
 
+svg {
+  outline: none;
+}
+
 .link-type,
 .link-type:focus {
   padding: 4px 0;
