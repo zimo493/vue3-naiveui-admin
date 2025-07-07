@@ -1,10 +1,10 @@
 <template>
   <div p-2>
+    {{ model }}
     <TablePro
       v-model="model"
       :search="{
         formConfig: formConfig,
-        formProps: { rules },
       }"
       @reset="reset"
       @submit="submit"
@@ -14,21 +14,21 @@
   </div>
 </template>
 <script lang="tsx" setup>
-import { FormItemRule, FormRules, NButton, NEl, SelectOption } from "naive-ui";
+import { NButton, NEl, SelectOption } from "naive-ui";
 
 // import FormProTwo from "@/components/custom/FormPro/FormProTwo.vue";
 
 // 定义表单数据模型
 interface DemoFormModel {
-  name: string;
-  age: number;
-  sex: number;
-  hobbies: string[];
-  notification: number;
-  birthday: number;
-  password: string;
-  aihao: string;
-  remark: string;
+  name?: string;
+  age?: number;
+  sex?: number;
+  hobbies?: string[];
+  notification?: number;
+  birthday?: number;
+  password?: string;
+  aihao?: string;
+  remark?: string;
 }
 
 onMounted(async () => {
@@ -111,6 +111,7 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
     label: "生日",
     component: "date-picker",
     props: { type: "date" },
+    span: 3,
     slots: {
       confirm: ({ onConfirm }) => [
         h(NButton, { type: "primary", size: "small", onClick: () => onConfirm() }, () => "确定😎"),
@@ -150,42 +151,32 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
 ]);
 
 // 初始化表单数据
-const model = ref<DemoFormModel>({
-  name: "",
-  age: 0,
-  sex: 1,
-  hobbies: [],
-  notification: 1,
-  birthday: new Date().getTime(),
-  password: "",
-  aihao: "",
-  remark: "",
-});
+const model = ref<DemoFormModel>({});
 
 // 表单验证规则
-const rules: FormRules = {
-  name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
-  age: [{ required: true, type: "number", message: "请输入年龄", trigger: "blur" }],
-  notification: [
-    {
-      validator: (_: FormItemRule, value: number) => value === 1,
-      trigger: "change",
-      message: "请打开接收通知",
-    },
-  ],
-  birthday: [
-    {
-      type: "date",
-      required: true,
-      message: "请选择日期",
-      trigger: "change",
-    },
-  ],
-  password: [
-    { required: true, message: "请输入密码", trigger: "blur" },
-    { min: 6, message: "密码长度不能小于6位", trigger: "blur" },
-  ],
-};
+// const rules: FormRules = {
+//   name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+//   age: [{ required: true, type: "number", message: "请输入年龄", trigger: "blur" }],
+//   notification: [
+//     {
+//       validator: (_: FormItemRule, value: number) => value === 1,
+//       trigger: "change",
+//       message: "请打开接收通知",
+//     },
+//   ],
+//   birthday: [
+//     {
+//       type: "date",
+//       required: true,
+//       message: "请选择日期",
+//       trigger: "change",
+//     },
+//   ],
+//   password: [
+//     { required: true, message: "请输入密码", trigger: "blur" },
+//     { min: 6, message: "密码长度不能小于6位", trigger: "blur" },
+//   ],
+// };
 
 const option = ref<SelectOption[]>([{ label: "男", value: 1 }]);
 

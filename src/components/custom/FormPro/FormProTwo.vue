@@ -15,7 +15,7 @@
             <component
               :is="renderComponent(item)"
               v-model:value="modelValue[item.name]"
-              clsss="flex items-center justify-start"
+              clsss="w-[100%] flex items-center justify-start"
               v-bind="{ ...item.props }"
             ></component>
           </slot>
@@ -74,7 +74,7 @@ const getDict = (dict: string) => {
  */
 const defaultFormProps: FormProps = {
   labelPlacement: "left",
-  labelWidth: 80,
+  labelWidth: "auto",
 };
 
 /**
@@ -185,6 +185,18 @@ const renderComponent = (item: FormPro.FormItemConfig) => {
     return h(component, { showPasswordOn: "mousedown", ...defaultProps, type: "password" }, slots);
   }
 
+  if (type === "select") {
+    return h(
+      component,
+      {
+        filterable: true,
+        consistentMenuWidth: false,
+        ...defaultProps,
+      },
+      slots
+    );
+  }
+
   return h(component, defaultProps, slots);
 };
 
@@ -242,6 +254,8 @@ const componentMap: Record<string, Component> = {
 const getComponent = (component: string | Component): Component =>
   typeof component === "string" ? componentMap[component] : component;
 
+const defaultModel = { ...modelValue.value };
+
 // 暴露表单实例方法
 const formInstance: FormPro.FormInstance = {
   validate: async () => {
@@ -249,6 +263,10 @@ const formInstance: FormPro.FormInstance = {
   },
   reset: () => {
     formRef.value?.restoreValidation();
+
+    Object.keys(modelValue.value).forEach((key) => {
+      (modelValue.value as Recordable)[key] = unref(defaultModel)[key] ?? null;
+    });
   },
 };
 

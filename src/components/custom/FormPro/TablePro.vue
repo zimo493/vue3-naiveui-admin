@@ -7,7 +7,7 @@
           ref="ruleForm"
           v-model:model-value="modelValue"
           :form-config="showFormConfig"
-          :form-props="{ labelWidth: 'auto', showFeedback: false, ...search.formProps }"
+          :form-props="{ showFeedback: false, ...search.formProps }"
           :operationSpan="operationSpan"
           :grid-props="{ yGap: 16, ...search.gridProps }"
         >
