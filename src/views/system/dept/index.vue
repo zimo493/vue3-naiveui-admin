@@ -1,16 +1,18 @@
 <template>
   <div>
-    <SearchTable
-      :showTable="expandAll.show"
-      :formConfig="formConfig"
-      :modelValue="query"
+    <TablePro
+      v-model="queryParams"
+      :show-table="expandAll.show"
+      :form-config="formConfig"
       :columns="columns"
-      :tableData="tableData"
+      :table-data="tableData"
       :loading="loading"
-      :default-expand-all="expandAll.isExpandAll"
-      :rowKey="(row: Dept.VO) => row.id"
-      @update:checked-row-keys="handleCheck"
-      @search="handleQuery"
+      :row-key="(row) => row.id"
+      :table-props="{
+        defaultExpandAll: expandAll.isExpandAll,
+        onUpdateCheckedRowKeys: handleCheck,
+      }"
+      @query="handleQuery"
       @reset="handleQuery"
     >
       <template #controls>
@@ -33,25 +35,16 @@
           {{ expandAll.isExpandAll ? "收起" : "展开" }}
         </n-button>
       </template>
-    </SearchTable>
+    </TablePro>
+
     <!-- 新增、编辑 -->
     <DrawerForm
       ref="drawerForm"
-      :form-config="editConfig"
-      :model-value="modelValue"
-      :width="580"
+      v-model="modelValue"
+      :form="editFormConfig"
       :loading="spin"
       @submit="submitForm"
-    >
-      <template #parentId>
-        <n-tree-select
-          v-model:value="modelValue.parentId"
-          :options="deptOptions"
-          key-field="value"
-          label-field="label"
-        />
-      </template>
-    </DrawerForm>
+    />
   </div>
 </template>
 <script setup lang="tsx">
@@ -60,7 +53,7 @@ import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "na
 import DeptAPI from "@/api/system/dept";
 
 import { useLoading } from "@/hooks";
-import { spin, executeAsync, InquiryBox } from "@/utils";
+import { spin, executeAsync, InquiryBox, startSpin, endSpin } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
@@ -71,7 +64,7 @@ const up = "ant-design:caret-up-filled";
 const down = "ant-design:caret-down-filled";
 
 // 定义表单的初始值
-const query = ref<Dept.Query>({});
+const queryParams = ref<Dept.Query>({});
 
 const tableData = ref<Dept.VO[]>([]);
 const deptOptions = ref<OptionType[]>([]);
@@ -88,7 +81,7 @@ onMounted(async () => {
 /** 查询方法 */
 const handleQuery = () => {
   startLoading();
-  DeptAPI.getList(query.value)
+  DeptAPI.getList(queryParams.value)
     .then(async (data) => {
       tableData.value = data;
       await handleExpandAll(true); // 接口调用之后展开所有
@@ -107,9 +100,7 @@ const handleExpandAll = async (bool?: boolean) => {
   expandAll.value.show = true;
 };
 
-const formConfig = ref<TablePro.FormOption<Dept.Query>>({
-  fields: [{ field: "keywords", label: "角色名称" }],
-});
+const formConfig = ref<FormPro.FormItemConfig[]>([{ name: "keywords", label: "角色名称" }]);
 
 const columns = ref<DataTableColumns<Dept.VO>>([
   { type: "selection", options: ["all", "none"] },
@@ -159,31 +150,44 @@ const columns = ref<DataTableColumns<Dept.VO>>([
   },
 ]);
 
-const editConfig = ref<TablePro.FormOption<Dept.Form>>({
-  fields: [
-    { field: "parentId", label: "上级部门", slotName: "parentId" },
-    { field: "name", label: "部门名称" },
-    { field: "code", label: "部门编号" },
+const editFormConfig: DialogForm.Form = {
+  config: [
+    {
+      name: "parentId",
+      label: "上级部门",
+      component: "treeSelect",
+      props: {
+        keyField: "value",
+        labelField: "label",
+        options: deptOptions.value,
+      },
+    },
+    { name: "name", label: "部门名称" },
+    { name: "code", label: "部门编号" },
 
     {
-      field: "status",
+      name: "status",
       label: "状态",
-      type: "radio",
-      options: [
-        { label: "正常", value: 1 },
-        { label: "停用", value: 0 },
-      ],
+      component: "radio",
+      props: {
+        options: [
+          { label: "正常", value: 1 },
+          { label: "停用", value: 0 },
+        ],
+      },
     },
-    { field: "sort", label: "排序", type: "number" },
+    { name: "sort", label: "排序", component: "number" },
   ],
-  labelWidth: 80,
-  rules: {
-    name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
-    code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
-    dataScope: [{ required: true, type: "number", message: "请选择数据权限", trigger: "change" }],
-    status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+  props: {
+    rules: {
+      name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
+      code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
+      dataScope: [{ required: true, type: "number", message: "请选择数据权限", trigger: "change" }],
+      status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+    },
   },
-});
+};
+
 /** 初始化表单 */
 const modelValue = ref<Dept.Form>({
   status: 1,
@@ -193,17 +197,15 @@ const modelValue = ref<Dept.Form>({
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (deptId?: string) => {
-  if (deptId) {
-    modelValue.value.parentId = deptId;
-  }
+  modelValue.value.parentId = deptId ? deptId : "0";
   drawerFormRef.value?.open("新增部门", modelValue.value);
 };
 
 const handleEdit = ({ id }: Dept.VO) => {
-  drawerFormRef.value?.startLoading();
+  startSpin();
   DeptAPI.getFormData(id).then((data) => {
     Object.assign(modelValue.value, data);
-    drawerFormRef.value?.hideLoading();
+    endSpin();
   });
   drawerFormRef.value?.open("编辑部门", modelValue.value);
 };

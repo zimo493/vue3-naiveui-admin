@@ -1,15 +1,15 @@
 <template>
   <div>
-    <SearchTable
-      :formConfig="formConfig"
-      :modelValue="query"
+    <TablePro
+      v-model="query"
+      :form-config="formConfig"
       :columns="columns"
-      :tableData="tableData"
+      :table-data="tableData"
       :total="total"
       :loading="loading"
-      :rowKey="(row: DictType.VO) => row.id"
+      :row-key="(row) => row.id"
       @update:checked-row-keys="handleCheck"
-      @search="handleQuery"
+      @query="handleQuery"
       @reset="handleQuery"
     >
       <template #controls>
@@ -32,14 +32,13 @@
           清除缓存
         </n-button>
       </template>
-    </SearchTable>
+    </TablePro>
 
     <!-- 新增、编辑 -->
     <DrawerForm
       ref="drawerForm"
-      :form-config="editConfig"
+      :form="editFormConfig"
       :model-value="modelValue"
-      :width="580"
       :loading="spin"
       @submit="submitForm"
     />
@@ -52,7 +51,7 @@ import DictTypeAPI from "@/api/system/dict/type";
 
 import { router } from "@/router";
 import { useLoading } from "@/hooks";
-import { spin, executeAsync, InquiryBox } from "@/utils";
+import { spin, executeAsync, InquiryBox, endSpin, startSpin } from "@/utils";
 import { useDictStoreHook, useTabStoreHook } from "@/store";
 
 import Icones from "@/components/common/Icones.vue";
@@ -87,26 +86,13 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-const formConfig = ref<TablePro.FormOption<DictType.Query>>({
-  fields: [
-    {
-      field: "keywords",
-      label: "关键字",
-      placeholder: "字典名称/字典编码",
-      colSpan: 6,
-    },
-    {
-      field: "status",
-      label: "状态",
-      type: "select",
-      colSpan: 4,
-      options: [
-        { label: "正常", value: 1 },
-        { label: "禁用", value: 0 },
-      ],
-    },
-  ],
-});
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  {
+    name: "keywords",
+    label: "关键字",
+    props: { placeholder: "请输入字典名称 / 字典编码" },
+  },
+]);
 
 const columns = ref<DataTableColumns<DictType.VO>>([
   { type: "selection", options: ["all", "none"] },
@@ -155,28 +141,31 @@ const columns = ref<DataTableColumns<DictType.VO>>([
   },
 ]);
 
-const editConfig = ref<TablePro.FormOption<DictType.Form>>({
-  fields: [
-    { field: "name", label: "字典名称" },
-    { field: "dictCode", label: "字典编码" },
+const editFormConfig: DialogForm.Form = {
+  config: [
+    { name: "name", label: "字典名称" },
+    { name: "dictCode", label: "字典编码" },
     {
-      field: "status",
+      name: "status",
       label: "状态",
-      type: "radio",
-      options: [
-        { label: "正常", value: 1 },
-        { label: "禁用", value: 0 },
-      ],
+      component: "radio",
+      props: {
+        options: [
+          { label: "正常", value: 1 },
+          { label: "禁用", value: 0 },
+        ],
+      },
     },
-    { field: "remark", label: "备注", type: "textarea" },
+    { name: "remark", label: "备注", component: "textarea" },
   ],
-  labelWidth: 80,
-  rules: {
-    name: [{ required: true, message: "请输入字典名称", trigger: "blur" }],
-    dictCode: [{ required: true, message: "请输入字典编码", trigger: "blur" }],
-    status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+  props: {
+    rules: {
+      name: [{ required: true, message: "请输入字典名称", trigger: "blur" }],
+      dictCode: [{ required: true, message: "请输入字典编码", trigger: "blur" }],
+      status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+    },
   },
-});
+};
 
 /** 初始化表单 */
 const modelValue = ref<DictType.Form>({
@@ -189,12 +178,12 @@ const openDrawer = (row?: DictType.VO) => {
   drawerFormRef.value?.open(row ? "编辑字典" : "新增字典", modelValue.value);
 
   if (row) {
-    drawerFormRef.value?.startLoading();
+    startSpin();
     DictTypeAPI.getFormData(row.id)
       .then((data) => {
         modelValue.value = { ...data };
       })
-      .finally(() => drawerFormRef.value?.hideLoading());
+      .finally(() => endSpin());
   }
 };
 

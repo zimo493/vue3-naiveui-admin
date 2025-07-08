@@ -1,14 +1,14 @@
 <template>
   <div>
-    <SearchTable
-      :formConfig="formConfig"
-      :modelValue="query"
+    <TablePro
+      v-model="query"
+      :form-config="formConfig"
       :columns="columns"
-      :tableData="tableData"
+      :table-data="tableData"
       :total="total"
       :loading="loading"
-      :rowKey="(row:Log.VO)=> row.id"
-      @search="handleQuery"
+      :rowKey="(row) => row.id"
+      @query="handleQuery"
       @reset="handleQuery"
     />
   </div>
@@ -37,24 +37,20 @@ const query = ref<Log.Query>({
 });
 
 /** 查询表单配置 */
-const formConfig = ref<TablePro.FormOption<Log.Query>>({
-  fields: [
-    { field: "keywords", label: "关键字" },
-    {
-      field: "createTime",
-      label: "操作时间",
-      colSpan: 5,
-      type: "datepicker",
-      otherOptions: {
-        type: "daterange",
-        closeOnSelect: true,
-      },
-      otherEvents: {
-        updateFormattedValue: (value: [string, string]) => (query.value.createTime = value),
-      },
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  { name: "keywords", label: "关键字" },
+  {
+    name: "createTime",
+    label: "操作时间",
+    span: 5,
+    component: "date",
+    props: {
+      type: "daterange",
+      closeOnSelect: true,
+      onUpdateFormattedValue: (value: [string, string]) => (query.value.createTime = value),
     },
-  ],
-});
+  },
+]);
 
 const tableData = ref<Log.VO[]>([]);
 const total = ref<number>(0);

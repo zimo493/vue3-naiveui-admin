@@ -1,15 +1,17 @@
 <template>
   <div>
-    <SearchTable
-      :formConfig="formConfig"
-      :modelValue="query"
+    <TablePro
+      v-model="queryParams"
+      :form-config="formConfig"
       :columns="columns"
       :tableData="tableData"
       :total="total"
       :loading="loading"
-      :rowKey="(row: Role.VO) => row.id"
-      @update:checked-row-keys="handleCheck"
-      @search="handleQuery"
+      :row-key="(row) => row.id"
+      :table-props="{
+        'onUpdate:checkedRowKeys': handleCheck,
+      }"
+      @query="handleQuery"
       @reset="handleQuery"
     >
       <template #controls>
@@ -26,13 +28,13 @@
           删除
         </n-button>
       </template>
-    </SearchTable>
+    </TablePro>
+
     <!-- 新增、编辑 -->
     <DrawerForm
       ref="drawerForm"
-      :form-config="editConfig"
-      :model-value="modelValue"
-      :width="580"
+      v-model="modelValue"
+      :form="editFormConfig"
       :loading="spin"
       @submit="submitForm"
     />
@@ -47,7 +49,7 @@ import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "na
 import RoleAPI from "@/api/system/role";
 
 import { useLoading } from "@/hooks";
-import { spin, executeAsync, InquiryBox } from "@/utils";
+import { spin, executeAsync, InquiryBox, startSpin, endSpin } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
@@ -55,7 +57,7 @@ import CommonStatus from "@/components/common/CommonStatus.vue";
 defineOptions({ name: "Role" });
 
 // 定义表单的初始值
-const query = ref<Role.Query>({
+const queryParams = ref<Role.Query>({
   pageNum: 1,
   pageSize: 10,
 });
@@ -69,7 +71,7 @@ onMounted(() => handleQuery());
 /** 查询方法 */
 const handleQuery = () => {
   startLoading();
-  RoleAPI.getPage(query.value)
+  RoleAPI.getPage(queryParams.value)
     .then(async (res) => {
       tableData.value = res.list;
       total.value = res.total;
@@ -77,9 +79,7 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-const formConfig = ref<TablePro.FormOption<Role.Query>>({
-  fields: [{ field: "keywords", label: "角色名称" }],
-});
+const formConfig = ref<FormPro.FormItemConfig[]>([{ name: "keywords", label: "角色名称" }]);
 
 const columns = ref<DataTableColumns<Role.VO>>([
   { type: "selection", options: ["all", "none"] },
@@ -129,40 +129,46 @@ const columns = ref<DataTableColumns<Role.VO>>([
   },
 ]);
 
-const editConfig = ref<TablePro.FormOption<Role.Form>>({
-  fields: [
-    { field: "name", label: "角色名称" },
-    { field: "code", label: "角色编码" },
+const editFormConfig: DialogForm.Form = {
+  config: [
+    { name: "name", label: "角色名称" },
+    { name: "code", label: "角色编码" },
     {
-      field: "dataScope",
+      name: "dataScope",
       label: "数据权限",
-      type: "select",
-      options: [
-        { label: "全部数据", value: 1 },
-        { label: "部门及子部门数据", value: 2 },
-        { label: "本部门数据", value: 3 },
-        { label: "本人数据", value: 4 },
-      ],
+      component: "select",
+      props: {
+        options: [
+          { label: "全部数据", value: 1 },
+          { label: "部门及子部门数据", value: 2 },
+          { label: "本部门数据", value: 3 },
+          { label: "本人数据", value: 4 },
+        ],
+      },
     },
     {
-      field: "status",
+      name: "status",
       label: "状态",
-      type: "radio",
-      options: [
-        { label: "正常", value: 1 },
-        { label: "停用", value: 0 },
-      ],
+      component: "radio",
+      props: {
+        options: [
+          { label: "正常", value: 1 },
+          { label: "停用", value: 0 },
+        ],
+      },
     },
-    { field: "sort", label: "排序", type: "number" },
+    { name: "sort", label: "排序", component: "number" },
   ],
-  labelWidth: 80,
-  rules: {
-    name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
-    code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
-    dataScope: [{ required: true, type: "number", message: "请选择数据权限", trigger: "change" }],
-    status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+  props: {
+    rules: {
+      name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
+      code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
+      dataScope: [{ required: true, type: "number", message: "请选择数据权限", trigger: "change" }],
+      status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+    },
   },
-});
+};
+
 /** 初始化表单 */
 const modelValue = ref<Role.Form>({
   sort: 1,
@@ -174,12 +180,12 @@ const openDrawer = (row?: Role.VO) => {
   drawerFormRef.value?.open(row ? "编辑角色" : "新增角色", modelValue.value);
 
   if (row) {
-    drawerFormRef.value?.startLoading();
+    startSpin();
     RoleAPI.getFormData(row.id)
       .then((data) => {
         modelValue.value = { ...data };
       })
-      .finally(() => drawerFormRef.value?.hideLoading());
+      .finally(() => endSpin());
   }
 };
 

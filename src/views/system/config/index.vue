@@ -1,14 +1,14 @@
 <template>
   <div>
-    <SearchTable
-      :formConfig="formConfig"
-      :modelValue="query"
+    <TablePro
+      v-model="query"
+      :form-config="formConfig"
       :columns="columns"
-      :tableData="tableData"
+      :table-data="tableData"
       :total="total"
       :loading="loading"
-      :rowKey="(row: Config.VO) => row.id"
-      @search="handleQuery"
+      :row-key="(row) => row.id"
+      @query="handleQuery"
       @reset="handleQuery"
     >
       <template #controls>
@@ -25,14 +25,13 @@
           刷新缓存
         </n-button>
       </template>
-    </SearchTable>
+    </TablePro>
 
     <!-- 新增、编辑 -->
     <DrawerForm
       ref="drawerForm"
-      :form-config="editConfig"
-      :model-value="modelValue"
-      :width="580"
+      v-model="modelValue"
+      :form="editFormConfig"
       :loading="spin"
       @submit="submitForm"
     />
@@ -77,15 +76,13 @@ const handleQuery = () => {
 };
 
 // 查询表单
-const formConfig = ref<TablePro.FormOption<Config.Query>>({
-  fields: [
-    {
-      field: "keywords",
-      label: "关键字",
-      placeholder: "请输入配置名称/配置键",
-    },
-  ],
-});
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  {
+    name: "keywords",
+    label: "关键字",
+    props: { placeholder: "请输入配置名称 / 配置键" },
+  },
+]);
 
 const columns = ref<DataTableColumns<Config.VO>>([
   { title: "配置名称", key: "configName", align: "center" },
@@ -121,20 +118,21 @@ const columns = ref<DataTableColumns<Config.VO>>([
   },
 ]);
 
-const editConfig = ref<TablePro.FormOption<Config.Form>>({
-  fields: [
-    { field: "configName", label: "配置名称" },
-    { field: "configKey", label: "配置键" },
-    { field: "configValue", label: "配置值" },
-    { field: "remark", label: "备注", type: "textarea" },
+const editFormConfig: DialogForm.Form = {
+  config: [
+    { name: "configName", label: "配置名称" },
+    { name: "configKey", label: "配置键" },
+    { name: "configValue", label: "配置值" },
+    { name: "remark", label: "备注", component: "textarea" },
   ],
-  labelWidth: 80,
-  rules: {
-    configName: [{ required: true, message: "请输入配置名称", trigger: "blur" }],
-    configKey: [{ required: true, message: "请输入配置键", trigger: "blur" }],
-    configValue: [{ required: true, message: "请输入配置值", trigger: "blur" }],
+  props: {
+    rules: {
+      configName: [{ required: true, message: "请输入配置名称", trigger: "blur" }],
+      configKey: [{ required: true, message: "请输入配置键", trigger: "blur" }],
+      configValue: [{ required: true, message: "请输入配置值", trigger: "blur" }],
+    },
   },
-});
+};
 
 /** 初始化表单 */
 const modelValue = ref<Config.Form>({});
@@ -145,12 +143,12 @@ const openDrawer = (row?: Config.VO) => {
   drawerFormRef.value?.open(row ? "编辑配置" : "新增配置", modelValue.value);
 
   if (row) {
-    drawerFormRef.value?.startLoading();
+    startSpin();
     ConfigAPI.getFormData(row.id)
       .then((data) => {
         modelValue.value = { ...data };
       })
-      .finally(() => drawerFormRef.value?.hideLoading());
+      .finally(() => endSpin());
   }
 };
 

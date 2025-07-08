@@ -1,16 +1,18 @@
 <template>
   <div>
-    <SearchTable
-      :showTable="expandAll.show"
-      :formConfig="formConfig"
-      :modelValue="query"
+    <TablePro
+      v-model="query"
+      :form-config="formConfig"
+      :show-table="expandAll.show"
       :columns="columns"
       :tableData="tableData"
       :loading="loading"
-      :default-expand-all="expandAll.isExpandAll"
-      :default-expanded-row-keys="expandAll.expandedRowKeys"
-      :rowKey="(row: Menu.VO) => row.id"
-      @search="handleQuery"
+      :row-key="(row) => row.id"
+      :table-props="{
+        defaultExpandAll: expandAll.isExpandAll,
+        defaultExpandedRowKeys: expandAll.expandedRowKeys,
+      }"
+      @query="handleQuery"
       @reset="handleQuery"
     >
       <template #controls>
@@ -32,7 +34,7 @@
           </n-checkbox>
         </div>
       </template>
-    </SearchTable>
+    </TablePro>
 
     <!-- 新增、编辑 -->
     <MenuEdit ref="edit" @success="handleQuery" />
@@ -67,9 +69,7 @@ const handleCheckedChange = async (checked: boolean) => {
   handleQuery();
 };
 
-const formConfig = ref<TablePro.FormOption<Menu.Query>>({
-  fields: [{ field: "keywords", label: "菜单名称" }],
-});
+const formConfig = ref<FormPro.FormItemConfig[]>([{ name: "keywords", label: "菜单名称" }]);
 
 // 展开\收起
 const expandAll = ref<TableExpand>({

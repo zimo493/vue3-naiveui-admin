@@ -25,16 +25,18 @@
         </n-card>
       </n-gi>
       <n-gi :span="20">
-        <SearchTable
-          :formConfig="formConfig"
-          :modelValue="queryParams"
+        <TablePro
+          v-model="queryParams"
+          :form-config="formConfig"
           :columns="columns"
           :tableData="tableData"
           :total="total"
           :loading="loading"
-          :rowKey="(row: User.VO) => row.id"
-          @update:checked-row-keys="handleCheck"
-          @search="handleQuery"
+          :row-key="(row) => row.id"
+          :table-props="{
+            onUpdateCheckedRowKeys: handleCheck,
+          }"
+          @query="handleQuery"
           @reset="handleReset"
         >
           <template #controls>
@@ -67,37 +69,18 @@
               导出
             </n-button>
           </template>
-        </SearchTable>
+        </TablePro>
       </n-gi>
     </n-grid>
 
     <!-- 新增、编辑 -->
     <DrawerForm
       ref="drawerForm"
-      :form-config="editConfig"
-      :model-value="modelValue"
-      :width="580"
+      v-model="modelValue"
+      :form="editFormConfig"
       :loading="spin"
       @submit="submitForm"
-    >
-      <template #deptId>
-        <n-tree-select
-          v-model:value="modelValue.deptId"
-          :options="deptOptions"
-          key-field="value"
-          label-field="label"
-          placeholder="请选择部门"
-        />
-      </template>
-      <template #roleIds>
-        <n-select
-          v-model:value="modelValue.roleIds"
-          :options="roleOptions"
-          multiple
-          placeholder="请选择角色"
-        />
-      </template>
-    </DrawerForm>
+    />
 
     <!-- 用户导入 -->
     <ImportUser ref="importUserRef" @success="handleQuery" />
@@ -114,11 +97,12 @@ import {
   NSpace,
   NText,
   NInput,
+  NTag,
 } from "naive-ui";
 
 import { MIMETYPE } from "@/enums";
 import { useCompRef, useDict, useLoading } from "@/hooks";
-import { spin, exportFile, InquiryBox, executeAsync } from "@/utils";
+import { spin, startSpin, endSpin, exportFile, InquiryBox, executeAsync } from "@/utils";
 
 import DeptAPI from "@/api/system/dept";
 import UserAPI from "@/api/system/user";
@@ -169,7 +153,6 @@ const queryParams = ref<User.Query>({
 
 const tableData = ref<User.VO[]>([]); // 表格数据
 const total = ref<number>(0); // 表格数据总量
-// const rowKey = (row: User.VO) => row.id; // 表格行key
 
 /** 查询方法 */
 const handleQuery = () => {
@@ -182,46 +165,58 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-/** 搜索配置 */
-const formConfig = ref<TablePro.FormOption<User.Query>>({
-  fields: [
-    {
-      field: "keywords",
-      label: "关键字",
-      placeholder: "请输入用户名/昵称/手机号",
-      colSpan: 5,
+/**
+ * 搜索表单配置
+ */
+const statusOptions = [
+  { label: "正常", value: 1, type: "success" },
+  { label: "禁用", value: 0, type: "error" },
+];
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  {
+    name: "keywords",
+    label: "关键字",
+    props: { placeholder: "请输入用户名/昵称/手机号" },
+    span: 5,
+  },
+  {
+    name: "status",
+    label: "状态",
+    component: "select",
+    props: {
+      options: statusOptions,
+      // 自定义渲染标签
+      renderTag: ({ option }) => (
+        <NTag type={option.type} bordered={false}>
+          {option.label}
+        </NTag>
+      ),
     },
-    {
-      field: "status",
-      label: "状态",
-      type: "select",
-      colSpan: 3,
-      options: [
-        { label: "正常", value: 1 },
-        { label: "禁用", value: 0 },
+  },
+  {
+    name: "createTime",
+    label: "创建时间",
+    component: "date",
+    span: 6,
+    props: {
+      type: "daterange",
+      closeOnSelect: true,
+      onUpdateFormattedValue: (val: [string, string]) => (queryParams.value.createTime = val),
+    },
+    slots: {
+      confirm: ({ onConfirm }) => [
+        h(NButton, { type: "primary", size: "small", onClick: () => onConfirm() }, () => "确定😎"),
+      ],
+      clear: ({ onClear }) => [
+        h(NButton, { size: "small", onClick: () => onClear() }, () => "取消🙄"),
       ],
     },
-    {
-      field: "createTime",
-      label: "创建时间",
-      type: "datepicker",
-      colSpan: 7,
-      otherOptions: {
-        type: "daterange",
-        closeOnSelect: true,
-      },
-      otherEvents: {
-        updateFormattedValue: (value: [string, string]) => (queryParams.value.createTime = value),
-      },
-    },
-  ],
-  // showLabel: false, // 不显示标签
-});
+  },
+]);
 
 /** 表格配置 */
 const columns = ref<DataTableColumns<User.VO>>([
   { type: "selection", options: ["all", "none"] },
-
   {
     key: "avatar",
     align: "center",
@@ -314,47 +309,64 @@ const columns = ref<DataTableColumns<User.VO>>([
   },
 ]);
 
-const editConfig = ref<TablePro.FormOption<User.Form>>({
-  fields: [
-    { field: "username", label: "用户名" },
-    { field: "nickname", label: "用户昵称" },
-    { field: "deptId", label: "所属部门", slotName: "deptId" },
-    { field: "gender", label: "性别", type: "select", dict: "gender" },
-    { field: "roleIds", label: "角色", slotName: "roleIds" },
-    { field: "mobile", label: "手机号码" },
-    { field: "email", label: "邮箱" },
+/** 抽屉表单Props */
+const editFormConfig = computed<DialogForm.Form>(() => ({
+  // 表单项配置
+  config: [
+    { name: "username", label: "用户名" },
+    { name: "nickname", label: "用户昵称" },
     {
-      field: "status",
+      name: "deptId",
+      label: "所属部门",
+      component: "treeSelect",
+      props: {
+        options: deptOptions.value,
+        keyField: "value",
+        labelField: "label",
+        indent: 12,
+      },
+    },
+    { name: "gender", label: "性别", component: "select", dict: "gender" },
+    {
+      name: "roleIds",
+      label: "角色",
+      component: "select",
+      props: { multiple: true, options: roleOptions.value },
+    },
+    { name: "mobile", label: "手机号码" },
+    { name: "email", label: "邮箱" },
+    {
+      name: "status",
       label: "状态",
-      type: "radio",
-      options: [
-        { label: "正常", value: 1 },
-        { label: "禁用", value: 0 },
-      ],
+      component: "radio",
+      props: { options: statusOptions },
     },
   ],
-  labelWidth: 80,
-  rules: {
-    username: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
-    nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-    deptId: [{ required: true, message: "所属部门不能为空", trigger: "blur" }],
-    roleIds: [{ required: true, type: "array", message: "用户角色不能为空", trigger: "blur" }],
-    email: [
-      {
-        pattern: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
-        message: "请输入正确的邮箱地址",
-        trigger: "blur",
-      },
-    ],
-    mobile: [
-      {
-        pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
-        message: "请输入正确的手机号码",
-        trigger: "blur",
-      },
-    ],
+  // NForm属性
+  props: {
+    rules: {
+      username: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
+      nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
+      deptId: [{ required: true, message: "所属部门不能为空", trigger: "blur" }],
+      roleIds: [{ required: true, type: "array", message: "用户角色不能为空", trigger: "blur" }],
+      email: [
+        {
+          pattern: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
+          message: "请输入正确的邮箱地址",
+          trigger: "blur",
+        },
+      ],
+      mobile: [
+        {
+          pattern: /^1[3-9]\d{9}$/,
+          message: "请输入正确的手机号码",
+          trigger: "blur",
+        },
+      ],
+    },
   },
-});
+}));
+
 /** 初始化表单 */
 const modelValue = ref<User.Form>({
   status: 1,
@@ -365,12 +377,12 @@ const openDrawer = (row?: User.VO) => {
   drawerFormRef.value?.open(row ? "编辑用户" : "新增用户", modelValue.value);
 
   if (row) {
-    drawerFormRef.value?.startLoading();
+    startSpin();
     UserAPI.getFormData(row.id)
       .then((data) => {
         modelValue.value = { ...data };
       })
-      .finally(() => drawerFormRef.value?.hideLoading());
+      .finally(() => endSpin());
   }
 };
 /** 表单提交 */

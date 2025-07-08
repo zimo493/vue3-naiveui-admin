@@ -1,24 +1,19 @@
 <template>
   <div>
-    <SearchTable
-      :formConfig="formConfig"
-      :modelValue="query"
+    <TablePro
+      v-model="query"
+      :form-config="formConfig"
       :columns="columns"
-      :tableData="tableData"
+      :table-data="tableData"
       :total="total"
       :loading="loading"
-      :rowKey="(row: DictData.VO) => row.id"
-      @update:checked-row-keys="handleCheck"
-      @search="handleQuery"
+      :row-key="(row) => row.id"
+      :table-props="{
+        onUpdateCheckedRowKeys: handleCheck,
+      }"
+      @query="handleQuery"
       @reset="handleQuery"
     >
-      <template #dictCode>
-        <n-select
-          v-model:value="query.dictCode"
-          :options="dictTypeList"
-          @update:value="handleChange"
-        />
-      </template>
       <template #controls>
         <n-button type="primary" @click="openDrawer()">
           <template #icon>
@@ -39,14 +34,13 @@
           关闭
         </n-button>
       </template>
-    </SearchTable>
+    </TablePro>
 
     <!-- 新增、编辑 -->
     <DrawerForm
       ref="drawerForm"
-      :form-config="editConfig"
-      :model-value="modelValue"
-      :width="580"
+      v-model="modelValue"
+      :form="editFormConfig"
       :loading="spin"
       @submit="submitForm"
     />
@@ -68,7 +62,7 @@ import DictTypeAPI from "@/api/system/dict/type";
 import DictDataAPI from "@/api/system/dict/data";
 
 import { useLoading } from "@/hooks";
-import { spin, executeAsync, InquiryBox } from "@/utils";
+import { spin, executeAsync, InquiryBox, startSpin, endSpin } from "@/utils";
 import { useTabStoreHook } from "@/store";
 
 import Icones from "@/components/common/Icones.vue";
@@ -123,16 +117,23 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-const formConfig = ref<TablePro.FormOption<DictData.Query>>({
-  fields: [
-    { field: "dictCode", label: "字典编码", slotName: "dictCode" },
-    {
-      field: "keywords",
-      label: "关键字",
-      placeholder: "请输入字典数据值/标签",
+const formConfig = computed<FormPro.FormItemConfig[]>(() => [
+  {
+    name: "dictCode",
+    label: "字典编码",
+    component: "select",
+    props: {
+      clearable: false,
+      options: dictTypeList.value,
+      onUpdateValue: handleChange,
     },
-  ],
-});
+  },
+  {
+    name: "keywords",
+    label: "关键字",
+    props: { placeholder: "请输入字典数据值 / 标签" },
+  },
+]);
 
 const columns = ref<DataTableColumns<DictData.VO>>([
   { type: "selection", options: ["all", "none"] },
@@ -173,24 +174,25 @@ const columns = ref<DataTableColumns<DictData.VO>>([
   },
 ]);
 
-const editConfig = ref<TablePro.FormOption<DictData.Form>>({
-  fields: [
-    { field: "label", label: "字典标签" },
-    { field: "value", label: "字典值" },
-    { field: "sort", label: "排序", type: "number" },
+/** 修改表单配置 */
+const editFormConfig: DialogForm.Form = {
+  config: [
+    { name: "label", label: "字典标签" },
+    { name: "value", label: "字典值" },
+    { name: "sort", label: "排序", component: "number" },
     {
-      field: "tagType",
+      name: "tagType",
       label: "标签类型",
-      type: "select",
-      options: [
-        { label: "默认", value: "default" },
-        { label: "主要", value: "primary" },
-        { label: "成功", value: "success" },
-        { label: "信息", value: "info" },
-        { label: "警告", value: "warning" },
-        { label: "错误", value: "error" },
-      ],
-      otherOptions: {
+      component: "select",
+      props: {
+        options: [
+          { label: "默认", value: "default" },
+          { label: "主要", value: "primary" },
+          { label: "成功", value: "success" },
+          { label: "信息", value: "info" },
+          { label: "警告", value: "warning" },
+          { label: "错误", value: "error" },
+        ],
         /** 自定义渲染 */
         renderLabel: ({ label, value }: SelectOption): VNode => (
           <NFlex align="center">
@@ -203,22 +205,25 @@ const editConfig = ref<TablePro.FormOption<DictData.Form>>({
       },
     },
     {
-      field: "status",
+      name: "status",
       label: "状态",
-      type: "radio",
-      options: [
-        { label: "正常", value: 1 },
-        { label: "禁用", value: 0 },
-      ],
+      component: "radio",
+      props: {
+        options: [
+          { label: "正常", value: 1 },
+          { label: "禁用", value: 0 },
+        ],
+      },
     },
   ],
-  labelWidth: 80,
-  rules: {
-    label: [{ required: true, message: "请输入字典标签", trigger: "blur" }],
-    value: [{ required: true, message: "请输入字典值", trigger: "blur" }],
-    status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+  props: {
+    rules: {
+      label: [{ required: true, message: "请输入字典标签", trigger: "blur" }],
+      value: [{ required: true, message: "请输入字典值", trigger: "blur" }],
+      status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+    },
   },
-});
+};
 
 /** 初始化表单 */
 const modelValue = ref<DictData.Form>({
@@ -234,12 +239,12 @@ const openDrawer = (row?: DictData.VO) => {
   drawerFormRef.value?.open(row ? "编辑字典项" : "新增字典项", modelValue.value);
 
   if (row) {
-    drawerFormRef.value?.startLoading();
+    startSpin();
     DictDataAPI.getDictItemFormData(dictCode.value, row.id)
       .then((data) => {
         modelValue.value = { ...data };
       })
-      .finally(() => drawerFormRef.value?.hideLoading());
+      .finally(() => endSpin());
   } else {
     // 新增时重置表单
     modelValue.value = {

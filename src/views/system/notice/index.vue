@@ -1,15 +1,17 @@
 <template>
   <div>
-    <SearchTable
-      :formConfig="formConfig"
-      :modelValue="query"
+    <TablePro
+      v-model="query"
+      :form-config="formConfig"
       :columns="columns"
-      :tableData="tableData"
+      :table-data="tableData"
       :total="total"
       :loading="loading"
-      :rowKey="({id}: Notice.VO) => id"
-      @update:checked-row-keys="handleCheck"
-      @search="handleQuery"
+      :row-key="({ id }) => id"
+      :table-props="{
+        onUpdateCheckedRowKeys: handleCheck,
+      }"
+      @query="handleQuery"
       @reset="handleQuery"
     >
       <template #controls>
@@ -26,13 +28,13 @@
           删除
         </n-button>
       </template>
-    </SearchTable>
+    </TablePro>
 
     <!-- 新增、编辑 -->
-    <DialogForm
-      ref="dialogForm"
-      :form-config="editConfig"
-      :model-value="modelValue"
+    <ModalForm
+      ref="modalForm"
+      v-model="modelValue"
+      :form="editFormConfig"
       :width="1000"
       :loading="spin"
       @submit="submitForm"
@@ -49,10 +51,10 @@
       <template #content>
         <WangEditor v-model="modelValue.content" />
       </template>
-    </DialogForm>
+    </ModalForm>
 
     <!-- 详情 -->
-    <DialogForm ref="dialogView" :form-config="viewConfig" :model-value="viewValue" :is-look="true">
+    <!-- <DialogForm ref="dialogView" :form-config="viewConfig" :model-value="viewValue" :is-look="true">
       <template #title>
         <n-flex align="center">
           <DictTag v-if="viewValue.type" :options="notice_type" :value="viewValue.type" />
@@ -65,7 +67,7 @@
       <template #content>
         <div v-html="viewValue.content" />
       </template>
-    </DialogForm>
+    </DialogForm> -->
   </div>
 </template>
 
@@ -80,13 +82,14 @@ import {
   NText,
 } from "naive-ui";
 
-import { spin, executeAsync, InquiryBox } from "@/utils";
+import { spin, executeAsync, InquiryBox, startSpin, endSpin } from "@/utils";
 import { useDict, useLoading } from "@/hooks";
 
 import NoticeAPI from "@/api/system/notice";
 import UserAPI from "@/api/system/user";
 
 import DictTag from "@/components/custom/DictTag.vue";
+import WangEditor from "@/components/custom/WangEditor.vue";
 
 defineOptions({
   name: "NoticeList",
@@ -129,21 +132,21 @@ const handleQuery = () => {
 };
 
 /** 搜索表单配置 */
-const formConfig = ref<TablePro.FormOption<Notice.Query>>({
-  fields: [
-    { field: "title", label: "标题" },
-    {
-      field: "publishStatus",
-      label: "发布状态",
-      type: "select",
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  { name: "title", label: "标题" },
+  {
+    name: "publishStatus",
+    label: "发布状态",
+    component: "select",
+    props: {
       options: [
         { label: "未发布", value: 0 },
         { label: "已发布", value: 1 },
         { label: "已撤回", value: -1 },
       ],
     },
-  ],
-});
+  },
+]);
 
 // 获取发布状态标签
 const getPublishStatusTag = (status?: number) => {
@@ -271,90 +274,169 @@ const columns = ref<DataTableColumns<Notice.VO>>([
 ]);
 
 // 编辑表单配置
-const editConfig = computed<TablePro.FormOption<Notice.Form>>(() => {
-  const config: TablePro.FormOption<Notice.Form> = {
-    fields: [
-      { field: "title", label: "标题", colSpan: 12 },
+const editFormConfig = computed(
+  (): DialogForm.Form => ({
+    config: [
+      { name: "title", label: "标题", span: 12 },
       {
-        field: "type",
+        name: "type",
         label: "通知类型",
-        type: "select",
+        component: "select",
         dict: "notice_type",
-        colSpan: 12,
+        span: 12,
       },
       {
-        field: "level",
+        name: "level",
         label: "通知等级",
-        type: "select",
+        component: "select",
         dict: "notice_level",
-        colSpan: 12,
+        span: 12,
       },
       {
-        field: "targetType",
+        name: "targetType",
         label: "目标类型",
-        type: "radio",
-        options: [
-          { label: "全体", value: 1 },
-          { label: "指定用户", value: 2 },
-        ],
-        colSpan: 12,
-      },
-      { field: "targetUserIds", label: "指定用户", isHidden: true, slotName: "targetUserIds" },
-      { field: "content", label: "通知内容", slotName: "content" },
-    ],
-    labelWidth: 80,
-    gutter: 30,
-    rules: {
-      title: [{ required: true, message: "请输入通知标题", trigger: "blur" }],
-      type: [{ required: true, type: "number", message: "请选择通知类型", trigger: "change" }],
-      targetUserIds: [
-        { required: true, type: "array", message: "请选择指定用户", trigger: "change" },
-      ],
-      content: [
-        {
-          required: true,
-          message: "请输入通知内容",
-          trigger: "blur",
-          validator: (_rule: FormItemRule, value: string) =>
-            new Promise((resolve, reject) => {
-              if (!value.replace(/<[^>]+>/g, "").trim()) {
-                reject(new Error("请输入通知内容"));
-              } else {
-                resolve();
-              }
-            }),
+        component: "radio",
+        span: 12,
+        props: {
+          options: [
+            { label: "全体", value: 1 },
+            { label: "指定用户", value: 2 },
+          ],
         },
-      ],
+      },
+      {
+        name: "targetUserIds",
+        label: "指定用户",
+        component: "select",
+        hidden: modelValue.value.targetType === 1,
+        props: {
+          options: userOptions.value,
+          multiple: true,
+        },
+      },
+      {
+        name: "content",
+        label: "通知内容",
+        component: () => (
+          <WangEditor
+            modelValue={modelValue.value.content}
+            onUpdate:modelValue={(val: string) => (modelValue.value.content = val)}
+          />
+        ),
+      },
+    ],
+    props: {
+      rules: {
+        title: [{ required: true, message: "请输入通知标题", trigger: "blur" }],
+        type: [{ required: true, type: "number", message: "请选择通知类型", trigger: "change" }],
+        targetUserIds: [
+          { required: true, type: "array", message: "请选择指定用户", trigger: "change" },
+        ],
+        content: [
+          {
+            required: true,
+            message: "请输入通知内容",
+            trigger: "blur",
+            validator: (_rule: FormItemRule, value: string) =>
+              new Promise((resolve, reject) => {
+                if (!value.replace(/<[^>]+>/g, "").trim()) {
+                  reject(new Error("请输入通知内容"));
+                } else {
+                  resolve();
+                }
+              }),
+          },
+        ],
+      },
     },
-  };
+    // gridProps: { xGap: 30, yGap: 30 },
+  })
+);
 
-  config.fields.find((item) => {
-    if (item.field === "targetUserIds") {
-      item.isHidden = modelValue.value.targetType === 1;
-    }
-  });
+// const editConfig = computed<TablePro.FormOption<Notice.Form>>(() => {
+//   const config: TablePro.FormOption<Notice.Form> = {
+//     fields: [
+//       { field: "title", label: "标题", colSpan: 12 },
+//       {
+//         field: "type",
+//         label: "通知类型",
+//         type: "select",
+//         dict: "notice_type",
+//         colSpan: 12,
+//       },
+//       {
+//         field: "level",
+//         label: "通知等级",
+//         type: "select",
+//         dict: "notice_level",
+//         colSpan: 12,
+//       },
+//       {
+//         field: "targetType",
+//         label: "目标类型",
+//         type: "radio",
+//         options: [
+//           { label: "全体", value: 1 },
+//           { label: "指定用户", value: 2 },
+//         ],
+//         colSpan: 12,
+//       },
+//       { field: "targetUserIds", label: "指定用户", isHidden: true, slotName: "targetUserIds" },
+//       { field: "content", label: "通知内容", slotName: "content" },
+//     ],
+//     labelWidth: 80,
+//     gutter: 30,
+//     rules: {
+//       title: [{ required: true, message: "请输入通知标题", trigger: "blur" }],
+//       type: [{ required: true, type: "number", message: "请选择通知类型", trigger: "change" }],
+//       targetUserIds: [
+//         { required: true, type: "array", message: "请选择指定用户", trigger: "change" },
+//       ],
+//       content: [
+//         {
+//           required: true,
+//           message: "请输入通知内容",
+//           trigger: "blur",
+//           validator: (_rule: FormItemRule, value: string) =>
+//             new Promise((resolve, reject) => {
+//               if (!value.replace(/<[^>]+>/g, "").trim()) {
+//                 reject(new Error("请输入通知内容"));
+//               } else {
+//                 resolve();
+//               }
+//             }),
+//         },
+//       ],
+//     },
+//   };
 
-  return config;
-});
+//   config.fields.find((item) => {
+//     if (item.field === "targetUserIds") {
+//       item.isHidden = modelValue.value.targetType === 1;
+//     }
+//   });
+
+//   return config;
+// });
 
 const modelValue = ref<Notice.Form>({
   level: "L", // 默认优先级为低
   targetType: 1, // 默认目标类型为全体
 });
 
-const dialogFormRef = useTemplateRef("dialogForm");
+const dialogFormRef = useTemplateRef("modalForm");
 /** 新增、编辑 */
 const openDrawer = (row?: Notice.VO) => {
   getUserList(); // 获取用户列表
   dialogFormRef.value?.open(row ? "编辑公告" : "新增公告", modelValue.value);
 
   if (row) {
-    dialogFormRef.value?.startLoading();
+    startSpin();
     NoticeAPI.getFormData(row.id)
       .then((data) => {
         modelValue.value = { ...data };
       })
-      .finally(() => dialogFormRef.value?.hideLoading());
+      .finally(() => endSpin());
   }
 };
 
@@ -368,26 +450,28 @@ const submitForm = async (val: Notice.Form) =>
   );
 
 // 查看详情
-const dialogViewRef = useTemplateRef("dialogView");
-const viewValue = ref<Notice.DetailVO>({});
-const viewConfig = ref<TablePro.FormOption<Notice.DetailVO>>({
-  fields: [
-    { field: "title", label: "公告标题：", slotName: "title" },
-    { field: "publishStatus", label: "发布状态：", colSpan: 12, slotName: "publishStatus" },
-    { field: "publisherName", label: "发布人：", type: "text", colSpan: 12 },
-    { field: "publishTime", label: "发布时间：", type: "text", colSpan: 12 },
-    { field: "content", label: "公告内容：", slotName: "content" },
-  ],
-});
+// const dialogViewRef = useTemplateRef("dialogView");
+// const viewValue = ref<Notice.DetailVO>({});
+// const viewConfig = ref<TablePro.FormOption<Notice.DetailVO>>({
+//   fields: [
+//     { field: "title", label: "公告标题：", slotName: "title" },
+//     { field: "publishStatus", label: "发布状态：", colSpan: 12, slotName: "publishStatus" },
+//     { field: "publisherName", label: "发布人：", type: "text", colSpan: 12 },
+//     { field: "publishTime", label: "发布时间：", type: "text", colSpan: 12 },
+//     { field: "content", label: "公告内容：", slotName: "content" },
+//   ],
+// });
 
 const viewDetail = async (id: string) => {
-  dialogViewRef.value?.startLoading();
-  dialogViewRef.value?.open(`通知公告详情`, viewValue.value);
-  try {
-    viewValue.value = await NoticeAPI.getDetail(id);
-  } finally {
-    dialogViewRef.value?.hideLoading();
-  }
+  console.log(id, "开发中...");
+
+  // dialogViewRef.value?.startLoading();
+  // dialogViewRef.value?.open(`通知公告详情`, viewValue.value);
+  // try {
+  //   viewValue.value = await NoticeAPI.getDetail(id);
+  // } finally {
+  //   dialogViewRef.value?.hideLoading();
+  // }
 };
 
 // 发布通知
