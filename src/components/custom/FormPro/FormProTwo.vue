@@ -49,7 +49,8 @@ type NComponentName =
   | "NInputNumber"
   | "NDatePicker"
   | "NTimePicker"
-  | "NSwitch";
+  | "NSwitch"
+  | "NTreeSelect";
 
 /**
  * 默认的FormProps
@@ -136,7 +137,7 @@ const dictData = computed(() => {
       cache[item.dict] =
         dict[item.dict].value?.map((i) => ({
           label: i.label,
-          value: i.value,
+          value: +i.value,
         })) || [];
     }
   });
@@ -219,7 +220,7 @@ const renderComponent = (item: FormPro.FormItemConfig) => {
 const getPlaceholder = (type: FormPro.ComponentType, label: string) => {
   if (typeof type !== "string") return undefined;
 
-  if (["select", "date-picker"].includes(type)) {
+  if (["select", "date", "treeSelect"].includes(type)) {
     return `请选择${label}`;
   }
 
@@ -252,10 +253,11 @@ const componentMap: Record<string, Component> = {
   textarea: createAsyncComponent("NInput"),
   password: createAsyncComponent("NInput"),
   number: createAsyncComponent("NInputNumber"),
-  "date-picker": createAsyncComponent("NDatePicker"),
-  "time-picker": createAsyncComponent("NTimePicker"),
+  date: createAsyncComponent("NDatePicker"),
+  time: createAsyncComponent("NTimePicker"),
   radio: transformComponent(NRadioGroup, NRadio),
   checkbox: transformComponent(NCheckboxGroup, NCheckbox),
+  treeSelect: createAsyncComponent("NTreeSelect"),
 };
 
 /**

@@ -193,7 +193,7 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
   {
     name: "birthday",
     label: "生日",
-    component: "date-picker",
+    component: "date",
     props: { type: "date" },
     span: 3,
     slots: {

@@ -132,9 +132,9 @@ interface Props<T> {
   formConfig?: FormPro.FormItemConfig[];
 }
 
-interface Emits<T> {
-  (e: "query", v: T): void;
-  (e: "reset", v: T): void;
+interface Emits {
+  (e: "query", v: Recordable): void;
+  (e: "reset", v: Recordable): void;
 }
 
 interface Expose {
@@ -142,26 +142,24 @@ interface Expose {
   resetQuery: () => void;
 }
 
-const emit = defineEmits<Emits<T>>();
+const emit = defineEmits<Emits>();
 
 const props = withDefaults(defineProps<Props<T>>(), {
   tableData: () => [],
   columns: () => [],
   tableProps: () => ({}),
-  total: 0,
   rowKey: (row: Recordable) => row.id,
+  total: 0,
   showTable: true,
   operationButtonPosition: "right",
   collapseRows: 3,
   operationSpan: 4,
 });
 
-const { total, operationSpan: operationWidth } = props;
-
-const totalNum = computed(() => total);
+const totalNum = computed(() => props.total);
 
 // 搜索参数
-const modelValue = defineModel<T>("modelValue", {
+const modelValue = defineModel<Recordable>("modelValue", {
   default: () => ({}),
 });
 
@@ -205,7 +203,7 @@ function resetQuery() {
 const isCollapse = ref<boolean>(true);
 
 // 默认的右侧按钮操作区
-const defaultOperationSpan = operationWidth; // 默认 span 为 4
+const defaultOperationSpan = props.operationSpan; // 默认 span 为 4
 
 // 展示的表单配置
 const showFormConfig = computed(() => {

@@ -3,6 +3,24 @@ type VNode = import("vue").VNode;
 type GridFromItem = import("naive-ui").GridItemProps & import("naive-ui").FormItemProps;
 
 /**
+ * 渲染组件的类型
+ */
+type CompType =
+  | "input"
+  | "textarea"
+  | "number"
+  | "password"
+  | "select"
+  | "radio"
+  | "checkbox"
+  | "date"
+  | "time"
+  | "switch"
+  | "treeSelect"
+  | Component
+  | (() => VNode);
+
+/**
  * 响应式 span 配置
  */
 interface ResponsiveSpan {
@@ -17,7 +35,7 @@ interface ResponsiveSpan {
 interface BaseFormItemConfig {
   name: string;
   label?: string;
-  component?: ComponentType; // 可选，默认为 input
+  component?: CompType; // 可选，默认为 input
   span?: number;
   dict?: string;
   hidden?: boolean;
@@ -76,6 +94,15 @@ interface SelectFormItemConfig extends BaseFormItemConfig {
 }
 
 /**
+ * 树形选择配置
+ */
+interface TreeSelectFormItemConfig extends BaseFormItemConfig {
+  component: "treeSelect";
+  props?: import("naive-ui").TreeSelectProps;
+  slots?: InstanceType<typeof import("naive-ui").NTreeSelect>["$slots"];
+}
+
+/**
  * 单选组配置
  */
 interface RadioGroupFormItemConfig extends BaseFormItemConfig {
@@ -99,7 +126,7 @@ interface CheckboxGroupFormItemConfig extends BaseFormItemConfig {
  * 日期选择器配置
  */
 interface DatePickerFormItemConfig extends BaseFormItemConfig {
-  component: "date-picker";
+  component: "date";
   props?: import("naive-ui").DatePickerProps;
   slots?: InstanceType<typeof import("naive-ui").NDatePicker>["$slots"];
   dict?: never;
@@ -109,7 +136,7 @@ interface DatePickerFormItemConfig extends BaseFormItemConfig {
  * 时间选择器配置
  */
 interface TimePickerFormItemConfig extends BaseFormItemConfig {
-  component: "time-picker";
+  component: "time";
   props?: import("naive-ui").TimePickerProps;
   dict?: never;
 }
@@ -138,19 +165,7 @@ declare namespace FormPro {
   /**
    * 渲染组件的类型
    */
-  type ComponentType =
-    | "input"
-    | "textarea"
-    | "number"
-    | "password"
-    | "select"
-    | "radio"
-    | "checkbox"
-    | "date-picker"
-    | "time-picker"
-    | "switch"
-    | Component
-    | (() => VNode);
+  type ComponentType = CompType;
 
   /**
    * 联合类型
@@ -166,7 +181,8 @@ declare namespace FormPro {
     | DatePickerFormItemConfig
     | TimePickerFormItemConfig
     | SwitchFormItemConfig
-    | CustomFormItemConfig;
+    | CustomFormItemConfig
+    | TreeSelectFormItemConfig;
 
   /**
    * FormPro 组件的 Props 类型
