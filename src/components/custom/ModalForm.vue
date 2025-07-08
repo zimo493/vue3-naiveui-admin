@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup generic="T extends Recordable">
-interface Props<T> {
+interface Props {
   props?: DialogForm.ModalProps;
   width?: number;
   form?: DialogForm.Form;
@@ -49,7 +49,7 @@ interface Props<T> {
 
 defineOptions({ name: "ModalForm" });
 
-const props = withDefaults(defineProps<Props<T>>(), {
+const props = withDefaults(defineProps<Props>(), {
   loading: false,
   width: 700,
   scrollHeight: 400,

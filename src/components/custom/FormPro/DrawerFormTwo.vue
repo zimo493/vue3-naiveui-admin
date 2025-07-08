@@ -36,7 +36,7 @@
   </n-drawer>
 </template>
 <script lang="ts" setup generic="T extends Recordable">
-interface Props<T> {
+interface Props {
   props?: DialogForm.DrawerProps;
   form?: DialogForm.Form;
   formConfig?: FormPro.FormItemConfig[];
@@ -47,7 +47,7 @@ defineOptions({
   name: "DrawerFormTwo",
 });
 
-const props = withDefaults(defineProps<Props<T>>(), {
+const props = withDefaults(defineProps<Props>(), {
   loading: false,
 });
 

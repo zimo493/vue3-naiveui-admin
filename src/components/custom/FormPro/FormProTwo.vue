@@ -23,7 +23,7 @@
   </n-form>
 </template>
 
-<script setup lang="tsx" generic="T extends Recordable">
+<script setup lang="ts" generic="T extends Recordable">
 import {
   type FormInst,
   type FormProps,
