@@ -52,6 +52,8 @@ type NComponentName =
   | "NSwitch"
   | "NTreeSelect";
 
+defineOptions({ name: "FormPro" });
+
 /**
  * 默认的FormProps
  */
@@ -137,7 +139,7 @@ const dictData = computed(() => {
       cache[item.dict] =
         dict[item.dict].value?.map((i) => ({
           label: i.label,
-          value: +i.value,
+          value: isNaN(Number(i.value)) ? i.value : Number(i.value),
         })) || [];
     }
   });

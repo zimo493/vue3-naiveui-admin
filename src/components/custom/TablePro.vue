@@ -3,7 +3,7 @@
     <n-collapse-transition v-if="(form || formConfig) && modelValue" class="mb-[10px]" :show="show">
       <!-- Search Form -->
       <n-card>
-        <FormProTwo
+        <FormPro
           ref="ruleForm"
           v-model:model-value="modelValue"
           :form-config="showFormConfig"
@@ -42,7 +42,7 @@
               <slot name="after" />
             </n-flex>
           </template>
-        </FormProTwo>
+        </FormPro>
       </n-card>
     </n-collapse-transition>
     <n-card>
@@ -115,7 +115,6 @@
 </template>
 <script lang="ts" setup generic="T extends Recordable">
 import { DataTableColumns, DataTableInst, DataTableProps } from "naive-ui";
-import FormProTwo from "./FormProTwo.vue";
 
 interface Props<T> {
   tableData?: DataTableProps["data"];
@@ -141,6 +140,8 @@ interface Expose {
   handleQuery: () => Promise<void>;
   resetQuery: () => void;
 }
+
+defineOptions({ name: "TablePro" });
 
 const emit = defineEmits<Emits>();
 

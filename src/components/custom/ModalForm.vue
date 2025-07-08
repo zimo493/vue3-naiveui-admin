@@ -10,7 +10,7 @@
   >
     <slot name="header" />
     <n-spin :show="loading">
-      <FormProTwo
+      <FormPro
         ref="formPro"
         v-model:model-value="modelValue"
         :form-config="showFormConfig"
@@ -21,7 +21,7 @@
         <template v-for="(_, name) in $slots" :key="name" #[name]="slotProps">
           <slot :name="name" v-bind="slotProps" />
         </template>
-      </FormProTwo>
+      </FormPro>
     </n-spin>
     <slot name="footer" />
     <template #action>
