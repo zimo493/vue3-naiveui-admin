@@ -5,17 +5,33 @@
         <n-button>前置按钮</n-button>
       </template>
       <template #controls>
-        <n-button type="primary" @click="openDrawer">
+        <n-button type="primary" @click="openForm('drawer')">
           <template #icon>
             <icon-park-outline-plus />
           </template>
-          新增
+          新增(抽屉)
+        </n-button>
+        <n-button type="primary" @click="openForm('modal')">
+          <template #icon>
+            <icon-park-outline-plus />
+          </template>
+          新增(对话框)
         </n-button>
       </template>
     </TablePro>
 
     <DrawerFormTwo
       ref="drawerFormTwo"
+      v-model="editModel"
+      :form="{
+        config: editConfig,
+        props: { rules },
+      }"
+      :loading="spin"
+      @submit="handleSubmit"
+    />
+    <ModalForm
+      ref="modalForm"
       v-model="editModel"
       :form="{
         config: editConfig,
@@ -54,10 +70,14 @@ const editModel = ref<DemoFormModel>({});
 
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerFormTwo");
+const modalFormRef = useTemplateRef("modalForm");
 const spin = ref(false);
-const openDrawer = () => {
+
+const openForm = (type: "drawer" | "modal") => {
   spin.value = true;
-  drawerFormRef.value?.open("新增用户", editModel.value);
+  type === "drawer"
+    ? drawerFormRef.value?.open("新增用户", editModel.value)
+    : modalFormRef.value?.open("新增用户", editModel.value);
   setTimeout(() => {
     spin.value = false;
     editModel.value = {
@@ -70,7 +90,7 @@ const openDrawer = () => {
       remark: "43643645745746",
       sex: 2,
     };
-  }, 3000);
+  }, 2000);
 };
 
 const handleSubmit = async (v: DemoFormModel) => {
@@ -137,7 +157,7 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
   {
     name: "sex",
     label: "性别选择",
-    component: "radio-group",
+    component: "radio",
     props: { options: option.value },
   },
   {
