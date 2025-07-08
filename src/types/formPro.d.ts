@@ -100,6 +100,7 @@ interface TreeSelectFormItemConfig extends BaseFormItemConfig {
   component: "treeSelect";
   props?: import("naive-ui").TreeSelectProps;
   slots?: InstanceType<typeof import("naive-ui").NTreeSelect>["$slots"];
+  dict?: never;
 }
 
 /**
