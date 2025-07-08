@@ -73,7 +73,7 @@ const emit = defineEmits<{
 }>();
 
 const formProRef = useTemplateRef("formPro");
-const modal = ref<DrawerModal>({
+const modal = ref<FormModal>({
   title: "",
   visible: false,
 });

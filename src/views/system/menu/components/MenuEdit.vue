@@ -314,7 +314,7 @@ defineExpose({
 
 const ruleFormRef = useTemplateRef<FormInst>("ruleForm");
 
-const modal = ref<DrawerModal>({
+const modal = ref<FormModal>({
   title: "",
   visible: false,
 });

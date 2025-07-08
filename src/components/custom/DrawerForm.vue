@@ -68,7 +68,7 @@ const {
   loading: { type: Boolean },
 });
 
-const modal = ref<DrawerModal>({
+const modal = ref<FormModal>({
   title: "",
   visible: false,
 });
