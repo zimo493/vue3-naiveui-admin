@@ -9,7 +9,7 @@ declare namespace DictType {
     /**
      * 字典状态（1:启用，0:禁用）
      */
-    status?: number;
+    // status?: number;
   }
   interface VO {
     /**
