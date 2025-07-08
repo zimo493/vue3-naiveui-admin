@@ -62,7 +62,7 @@ interface TableExpand {
 }
 
 /** 抽屉表单 */
-interface DrawerModal {
+interface FormModal {
   title: string; // 标题
   visible: boolean; // 是否显示
 }
