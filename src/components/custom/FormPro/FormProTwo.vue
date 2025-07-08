@@ -124,7 +124,8 @@ const dictData = computed(() => {
   const cache: Record<string, SelectOption[]> = {};
 
   formConfig.forEach((item) => {
-    if (item.dict) {
+    // 判断组件类型是否支持字典类型
+    if (item.component && item.dict && ["select", "radio", "checkbox"].includes(item.component)) {
       const dict = dictHooks.value[item.dict];
 
       dictLoading.value[item.dict] = !dict[item.dict].value?.length;
@@ -142,7 +143,7 @@ const dictData = computed(() => {
 // 监听字典数据变化更新loading状态
 watchEffect(() => {
   formConfig.forEach((item) => {
-    if (item.dict) {
+    if (item.component && item.dict && ["select", "radio", "checkbox"].includes(item.component)) {
       const dict = dictHooks.value[item.dict];
 
       if (dict[item.dict].value?.length && dictLoading.value[item.dict]) {
@@ -249,8 +250,8 @@ const componentMap: Record<string, Component> = {
   number: createAsyncComponent("NInputNumber"),
   "date-picker": createAsyncComponent("NDatePicker"),
   "time-picker": createAsyncComponent("NTimePicker"),
-  "radio-group": transformComponent(NRadioGroup, NRadio),
-  "checkbox-group": transformComponent(NCheckboxGroup, NCheckbox),
+  radio: transformComponent(NRadioGroup, NRadio),
+  checkbox: transformComponent(NCheckboxGroup, NCheckbox),
 };
 
 /**

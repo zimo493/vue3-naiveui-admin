@@ -79,7 +79,7 @@ interface SelectFormItemConfig extends BaseFormItemConfig {
  * 单选组配置
  */
 interface RadioGroupFormItemConfig extends BaseFormItemConfig {
-  component: "radio-group";
+  component: "radio";
   props?: import("naive-ui").RadioGroupProps & {
     options: import("naive-ui").SelectOption[];
   };
@@ -89,7 +89,7 @@ interface RadioGroupFormItemConfig extends BaseFormItemConfig {
  * 多选组配置
  */
 interface CheckboxGroupFormItemConfig extends BaseFormItemConfig {
-  component: "checkbox-group";
+  component: "checkbox";
   props?: import("naive-ui").CheckboxGroupProps & {
     options: import("naive-ui").SelectOption[];
   };
@@ -144,8 +144,8 @@ declare namespace FormPro {
     | "number"
     | "password"
     | "select"
-    | "radio-group"
-    | "checkbox-group"
+    | "radio"
+    | "checkbox"
     | "date-picker"
     | "time-picker"
     | "switch"
@@ -190,7 +190,7 @@ declare namespace FormPro {
 
 declare namespace DataTablePro {
   interface Form {
-    config: FormPro.FormItemConfig[];
+    config?: FormPro.FormItemConfig[];
     props?: FormPro.FormProProps["formProps"];
     gridProps?: FormPro.FormProProps["gridProps"];
     resetText?: string;
@@ -200,8 +200,8 @@ declare namespace DataTablePro {
 
 declare namespace DialogForm {
   interface Form extends Omit<DataTablePro.Form, "resetText" | "searchText"> {}
-  type DrawerProps = Omit<import("naive-ui").DrawerProps, "show">;
-
+  type DrawerProps = Omit<import("naive-ui").DrawerProps, "show">; // 抽屉属性
+  type ModalProps = Omit<import("naive-ui").ModalProps, "show" | "segmented">; // 模态框属性
   interface Instance {
     open: (title: string, data: any) => void;
     close: () => void;
