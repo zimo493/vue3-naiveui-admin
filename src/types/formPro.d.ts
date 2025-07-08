@@ -34,6 +34,7 @@ interface InputFormItemConfig extends BaseFormItemConfig {
   component?: "input"; // 可选，默认为 input
   props?: import("naive-ui").InputProps;
   slots?: InstanceType<typeof import("naive-ui").NInput>["$slots"];
+  dict?: never;
 }
 
 /**
@@ -43,6 +44,7 @@ interface TextareaFormItemConfig extends BaseFormItemConfig {
   component: "textarea";
   props?: import("naive-ui").InputProps;
   slots?: InstanceType<typeof import("naive-ui").NInput>["$slots"];
+  dict?: never;
 }
 
 /**
@@ -52,6 +54,7 @@ interface PasswordFormItemConfig extends BaseFormItemConfig {
   component: "password";
   props?: import("naive-ui").InputProps;
   slots?: InstanceType<typeof import("naive-ui").NInput>["$slots"];
+  dict?: never;
 }
 
 /**
@@ -60,6 +63,7 @@ interface PasswordFormItemConfig extends BaseFormItemConfig {
 interface NumberFormItemConfig extends BaseFormItemConfig {
   component: "number";
   props?: import("naive-ui").InputNumberProps;
+  dict?: never;
 }
 
 /**
@@ -98,6 +102,7 @@ interface DatePickerFormItemConfig extends BaseFormItemConfig {
   component: "date-picker";
   props?: import("naive-ui").DatePickerProps;
   slots?: InstanceType<typeof import("naive-ui").NDatePicker>["$slots"];
+  dict?: never;
 }
 
 /**
@@ -106,6 +111,7 @@ interface DatePickerFormItemConfig extends BaseFormItemConfig {
 interface TimePickerFormItemConfig extends BaseFormItemConfig {
   component: "time-picker";
   props?: import("naive-ui").TimePickerProps;
+  dict?: never;
 }
 
 /**
@@ -115,6 +121,7 @@ interface SwitchFormItemConfig extends BaseFormItemConfig {
   component: "switch";
   props?: import("naive-ui").SwitchProps;
   slots?: InstanceType<typeof import("naive-ui").NSwitch>["$slots"];
+  dict?: never;
 }
 
 /**
@@ -124,6 +131,7 @@ interface CustomFormItemConfig extends BaseFormItemConfig {
   component: Component | (() => VNode);
   props?: Record<string, any>;
   slots?: Record<string, (val: any) => VNode[]>;
+  dict?: never;
 }
 
 declare namespace FormPro {

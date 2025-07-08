@@ -38,6 +38,7 @@ import {
 } from "naive-ui";
 
 import FormTipLabel from "@/components/custom/FormTipLabel";
+import { useDict } from "@/hooks";
 
 type NComponentName =
   | "NInput"
@@ -46,24 +47,6 @@ type NComponentName =
   | "NDatePicker"
   | "NTimePicker"
   | "NSwitch";
-
-/**
- * 模拟获取字典数据
- * @param dict
- */
-const getDict = (dict: string) => {
-  return new Promise<SelectOption[]>((resolve) => {
-    if (!dict) resolve([]);
-    setTimeout(() => {
-      resolve([
-        { label: "选项1", value: 1 },
-        { label: "选项2", value: 2 },
-        { label: "选项3", value: 3 },
-        { label: "选项4", value: 4 },
-      ]);
-    }, 2000);
-  });
-};
 
 /**
  * 默认的FormProps
@@ -122,20 +105,51 @@ const formItems = computed(() => formConfig.filter((item) => !item.hidden));
 const createAsyncComponent = (componentName: NComponentName) =>
   defineAsyncComponent(() => import("naive-ui").then((m) => m[componentName]));
 
-// 字典数据缓存
-const dictCache = ref<Record<string, SelectOption[]>>({});
+// 字典加载状态
 const dictLoading = ref<Record<string, boolean>>({});
 
+// 缓存字典hooks
+const dictHooks = computed(() => {
+  const hooks: Record<string, ReturnType<typeof useDict>> = {};
+
+  formConfig.forEach((item) => {
+    if (item.dict && !hooks[item.dict]) {
+      hooks[item.dict] = useDict(item.dict);
+    }
+  });
+
+  return hooks;
+});
+
 // 初始化字典数据
+const dictData = computed(() => {
+  const cache: Record<string, SelectOption[]> = {};
+
+  formConfig.forEach((item) => {
+    if (item.dict) {
+      const dict = dictHooks.value[item.dict];
+
+      dictLoading.value[item.dict] = !dict[item.dict].value?.length;
+      cache[item.dict] =
+        dict[item.dict].value?.map((i) => ({
+          label: i.label,
+          value: i.value,
+        })) || [];
+    }
+  });
+
+  return cache;
+});
+
+// 监听字典数据变化更新loading状态
 watchEffect(() => {
   formConfig.forEach((item) => {
-    if (item.dict && !dictCache.value[item.dict] && !dictLoading.value[item.dict]) {
-      console.log("初始化字典数据", item.dict);
-      dictLoading.value[item.dict] = true;
-      getDict(item.dict).then((options) => {
-        dictCache.value[item.dict!] = options;
-        dictLoading.value[item.dict!] = false;
-      });
+    if (item.dict) {
+      const dict = dictHooks.value[item.dict];
+
+      if (dict[item.dict].value?.length && dictLoading.value[item.dict]) {
+        dictLoading.value[item.dict] = false;
+      }
     }
   });
 });
@@ -163,10 +177,8 @@ const renderComponent = (item: FormPro.FormItemConfig) => {
 
   // 处理字典数据
   if (item.dict) {
-    const dict = item.dict;
-
-    defaultProps.options = dictCache.value[dict];
-    defaultProps.loading = !defaultProps.options && (dictLoading.value[dict] || false);
+    defaultProps.options = dictData.value[item.dict];
+    defaultProps.loading = dictLoading.value[item.dict];
   }
 
   // 获取最终要渲染的组件
