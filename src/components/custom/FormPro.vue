@@ -50,7 +50,8 @@ type NComponentName =
   | "NDatePicker"
   | "NTimePicker"
   | "NSwitch"
-  | "NTreeSelect";
+  | "NTreeSelect"
+  | "NText";
 
 defineOptions({ name: "FormPro" });
 
@@ -211,6 +212,10 @@ const renderComponent = (item: FormPro.FormItemConfig) => {
     );
   }
 
+  if (type === "text") {
+    return h(component, defaultProps, () => modelValue.value[item.name]);
+  }
+
   return h(component, defaultProps, slots);
 };
 
@@ -260,6 +265,7 @@ const componentMap: Record<string, Component> = {
   radio: transformComponent(NRadioGroup, NRadio),
   checkbox: transformComponent(NCheckboxGroup, NCheckbox),
   treeSelect: createAsyncComponent("NTreeSelect"),
+  text: createAsyncComponent("NText"),
 };
 
 /**

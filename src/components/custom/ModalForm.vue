@@ -24,7 +24,7 @@
       </FormPro>
     </n-spin>
     <slot name="footer" />
-    <template #action>
+    <template v-if="useType === 'submit'" #action>
       <n-flex justify="end">
         <n-button type="primary" :loading="loading" @click="handleSubmit">
           <template #icon>
@@ -50,6 +50,7 @@ interface Props {
   form?: DialogForm.Form;
   formConfig?: FormPro.FormItemConfig[];
   loading?: boolean;
+  useType?: "submit" | "view";
 }
 
 defineOptions({ name: "ModalForm" });
@@ -58,6 +59,7 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
   width: 700,
   scrollHeight: 400,
+  useType: "submit",
 });
 
 // 表单参数

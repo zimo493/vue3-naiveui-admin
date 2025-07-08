@@ -54,7 +54,15 @@
     </ModalForm>
 
     <!-- 详情 -->
-    <!-- <DialogForm ref="dialogView" :form-config="viewConfig" :model-value="viewValue" :is-look="true">
+    <ModalForm
+      ref="modalView"
+      v-model="viewValue"
+      use-type="view"
+      :form="{
+        config: viewConfig,
+        props: { labelWidth: 100 },
+      }"
+    >
       <template #title>
         <n-flex align="center">
           <DictTag v-if="viewValue.type" :options="notice_type" :value="viewValue.type" />
@@ -65,9 +73,9 @@
         <component :is="getPublishStatusTag(viewValue.publishStatus)" />
       </template>
       <template #content>
-        <div v-html="viewValue.content" />
+        <div pt="[.4rem]" v-html="viewValue.content" />
       </template>
-    </DialogForm> -->
+    </ModalForm>
   </div>
 </template>
 
@@ -349,75 +357,8 @@ const editFormConfig = computed(
         ],
       },
     },
-    // gridProps: { xGap: 30, yGap: 30 },
   })
 );
-
-// const editConfig = computed<TablePro.FormOption<Notice.Form>>(() => {
-//   const config: TablePro.FormOption<Notice.Form> = {
-//     fields: [
-//       { field: "title", label: "标题", colSpan: 12 },
-//       {
-//         field: "type",
-//         label: "通知类型",
-//         type: "select",
-//         dict: "notice_type",
-//         colSpan: 12,
-//       },
-//       {
-//         field: "level",
-//         label: "通知等级",
-//         type: "select",
-//         dict: "notice_level",
-//         colSpan: 12,
-//       },
-//       {
-//         field: "targetType",
-//         label: "目标类型",
-//         type: "radio",
-//         options: [
-//           { label: "全体", value: 1 },
-//           { label: "指定用户", value: 2 },
-//         ],
-//         colSpan: 12,
-//       },
-//       { field: "targetUserIds", label: "指定用户", isHidden: true, slotName: "targetUserIds" },
-//       { field: "content", label: "通知内容", slotName: "content" },
-//     ],
-//     labelWidth: 80,
-//     gutter: 30,
-//     rules: {
-//       title: [{ required: true, message: "请输入通知标题", trigger: "blur" }],
-//       type: [{ required: true, type: "number", message: "请选择通知类型", trigger: "change" }],
-//       targetUserIds: [
-//         { required: true, type: "array", message: "请选择指定用户", trigger: "change" },
-//       ],
-//       content: [
-//         {
-//           required: true,
-//           message: "请输入通知内容",
-//           trigger: "blur",
-//           validator: (_rule: FormItemRule, value: string) =>
-//             new Promise((resolve, reject) => {
-//               if (!value.replace(/<[^>]+>/g, "").trim()) {
-//                 reject(new Error("请输入通知内容"));
-//               } else {
-//                 resolve();
-//               }
-//             }),
-//         },
-//       ],
-//     },
-//   };
-
-//   config.fields.find((item) => {
-//     if (item.field === "targetUserIds") {
-//       item.isHidden = modelValue.value.targetType === 1;
-//     }
-//   });
-
-//   return config;
-// });
 
 const modelValue = ref<Notice.Form>({
   level: "L", // 默认优先级为低
@@ -450,28 +391,24 @@ const submitForm = async (val: Notice.Form) =>
   );
 
 // 查看详情
-// const dialogViewRef = useTemplateRef("dialogView");
-// const viewValue = ref<Notice.DetailVO>({});
-// const viewConfig = ref<TablePro.FormOption<Notice.DetailVO>>({
-//   fields: [
-//     { field: "title", label: "公告标题：", slotName: "title" },
-//     { field: "publishStatus", label: "发布状态：", colSpan: 12, slotName: "publishStatus" },
-//     { field: "publisherName", label: "发布人：", type: "text", colSpan: 12 },
-//     { field: "publishTime", label: "发布时间：", type: "text", colSpan: 12 },
-//     { field: "content", label: "公告内容：", slotName: "content" },
-//   ],
-// });
+const modalViewRef = useTemplateRef("modalView");
+const viewValue = ref<Notice.DetailVO>({});
+const viewConfig = ref<FormPro.FormItemConfig[]>([
+  { name: "title", label: "公告标题：" },
+  { name: "publishStatus", label: "发布状态：", span: 12 },
+  { name: "publisherName", label: "发布人：", component: "text", span: 12 },
+  { name: "publishTime", label: "发布时间：", component: "text", span: 12 },
+  { name: "content", label: "公告内容：" },
+]);
 
 const viewDetail = async (id: string) => {
-  console.log(id, "开发中...");
-
-  // dialogViewRef.value?.startLoading();
-  // dialogViewRef.value?.open(`通知公告详情`, viewValue.value);
-  // try {
-  //   viewValue.value = await NoticeAPI.getDetail(id);
-  // } finally {
-  //   dialogViewRef.value?.hideLoading();
-  // }
+  startSpin();
+  modalViewRef.value?.open(`通知公告详情`, viewValue.value);
+  try {
+    viewValue.value = await NoticeAPI.getDetail(id);
+  } finally {
+    endSpin();
+  }
 };
 
 // 发布通知

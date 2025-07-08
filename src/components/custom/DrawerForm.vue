@@ -21,7 +21,7 @@
         </FormPro>
       </n-spin>
       <slot name="footer" />
-      <template #footer>
+      <template v-if="useType === 'submit'" #footer>
         <n-space>
           <n-button type="primary" :loading="loading" @click="handleSubmit">
             <template #icon>
@@ -46,6 +46,7 @@ interface Props {
   form?: DialogForm.Form;
   formConfig?: FormPro.FormItemConfig[];
   loading?: boolean;
+  useType?: "submit" | "view";
 }
 
 defineOptions({
@@ -54,6 +55,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
+  useType: "submit",
 });
 
 // 表单参数

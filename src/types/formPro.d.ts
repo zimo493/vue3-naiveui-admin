@@ -17,6 +17,7 @@ type CompType =
   | "time"
   | "switch"
   | "treeSelect"
+  | "text"
   | Component
   | (() => VNode);
 
@@ -153,6 +154,16 @@ interface SwitchFormItemConfig extends BaseFormItemConfig {
 }
 
 /**
+ * 文本配置
+ */
+interface TextFormItemComfig extends BaseFormItemConfig {
+  component: "text";
+  props?: import("naive-ui").TextProps;
+  slots?: InstanceType<typeof import("naive-ui").NText>["$slots"];
+  dict?: never;
+}
+
+/**
  * 自定义组件配置
  */
 interface CustomFormItemConfig extends BaseFormItemConfig {
@@ -183,7 +194,8 @@ declare namespace FormPro {
     | TimePickerFormItemConfig
     | SwitchFormItemConfig
     | CustomFormItemConfig
-    | TreeSelectFormItemConfig;
+    | TreeSelectFormItemConfig
+    | TextFormItemComfig;
 
   /**
    * FormPro 组件的 Props 类型
