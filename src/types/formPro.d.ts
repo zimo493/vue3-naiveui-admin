@@ -189,11 +189,21 @@ declare namespace FormPro {
 }
 
 declare namespace DataTablePro {
-  interface Search {
-    formConfig: FormPro.FormItemConfig[];
-    formProps?: FormPro.FormProProps["formProps"];
+  interface Form {
+    config: FormPro.FormItemConfig[];
+    props?: FormPro.FormProProps["formProps"];
     gridProps?: FormPro.FormProProps["gridProps"];
     resetText?: string;
     searchText?: string;
+  }
+}
+
+declare namespace DialogForm {
+  interface Form extends Omit<DataTablePro.Form, "resetText" | "searchText"> {}
+  type DrawerProps = Omit<import("naive-ui").DrawerProps, "show">;
+
+  interface Instance {
+    open: (title: string, data: any) => void;
+    close: () => void;
   }
 }

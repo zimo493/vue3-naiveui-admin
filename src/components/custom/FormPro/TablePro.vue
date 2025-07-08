@@ -1,19 +1,15 @@
 <template>
   <n-el flex flex-col>
-    <n-collapse-transition
-      v-if="(search || formConfig) && modelValue"
-      class="mb-[10px]"
-      :show="show"
-    >
+    <n-collapse-transition v-if="(form || formConfig) && modelValue" class="mb-[10px]" :show="show">
       <!-- Search Form -->
       <n-card>
         <FormProTwo
           ref="ruleForm"
           v-model:model-value="modelValue"
           :form-config="showFormConfig"
-          :form-props="{ showFeedback: false, labelWidth: undefined, ...(search?.formProps || {}) }"
+          :form-props="{ showFeedback: false, labelWidth: undefined, ...(form?.props || {}) }"
           :operationSpan="operationSpan"
-          :grid-props="{ yGap: 16, ...(search?.gridProps || {}) }"
+          :grid-props="{ yGap: 16, ...(form?.gridProps || {}) }"
         >
           <template #operation>
             <n-flex :justify="operationButtonPosition === 'left' ? 'start' : 'end'">
@@ -22,13 +18,13 @@
                 <template #icon>
                   <icon-park-outline-search />
                 </template>
-                {{ search?.searchText ?? "搜索" }}
+                {{ form?.searchText ?? "搜索" }}
               </n-button>
               <n-button strong secondary :loading="loading" @click="resetQuery">
                 <template #icon>
                   <icon-park-outline-redo />
                 </template>
-                {{ search?.resetText ?? "重置" }}
+                {{ form?.resetText ?? "重置" }}
               </n-button>
               <n-button v-show="showFoldBtn" type="primary" text @click="toggleCollapse">
                 <template #icon>
@@ -53,7 +49,7 @@
           </n-flex>
           <div />
           <n-space>
-            <n-popover v-if="(search || formConfig) && modelValue" trigger="hover">
+            <n-popover v-if="(form || formConfig) && modelValue" trigger="hover">
               <template #trigger>
                 <CommonWrapper @click="show = !show">
                   <Icones icon="ant-design:search-outlined" />
@@ -121,7 +117,7 @@ interface Props<T> {
   tableData?: DataTableProps["data"];
   columns?: DataTableColumns<T>;
   tableProps?: Omit<DataTableProps, "data" | "columns">;
-  search?: DataTablePro.Search;
+  form?: DataTablePro.Form;
   rowKey?: (row: T) => string | number;
   operationButtonPosition?: "left" | "right";
   loading?: boolean;
@@ -148,7 +144,6 @@ const props = withDefaults(defineProps<Props<T>>(), {
   tableData: () => [],
   columns: () => [],
   tableProps: () => ({}),
-  loading: false,
   total: 0,
   rowKey: (row: Recordable) => row.id,
   showTable: true,
@@ -157,19 +152,7 @@ const props = withDefaults(defineProps<Props<T>>(), {
   operationSpan: 4,
 });
 
-const {
-  tableData,
-  columns,
-  tableProps,
-  search = null,
-  loading,
-  total,
-  rowKey,
-  showTable,
-  operationButtonPosition,
-  formConfig,
-  operationSpan: operationWidth,
-} = props;
+const { total, operationSpan: operationWidth } = props;
 
 const totalNum = computed(() => total);
 
@@ -222,8 +205,8 @@ const defaultOperationSpan = operationWidth; // 默认 span 为 4
 
 // 展示的表单配置
 const showFormConfig = computed(() => {
-  // 优先使用直接传入的 formConfig，如果没有则使用 search.formConfig
-  const config = props.formConfig || props.search?.formConfig || [];
+  // 优先使用直接传入的 formConfig，如果没有则使用 form.config
+  const config = props.formConfig || props.form?.config || [];
 
   if (!config || !isCollapse.value) {
     return config;
@@ -234,7 +217,7 @@ const showFormConfig = computed(() => {
 
 // 是否显示折叠按钮
 const showFoldBtn = computed(() => {
-  const config = props.formConfig || props.search?.formConfig || [];
+  const config = props.formConfig || props.form?.config || [];
 
   return config && config.length > props.collapseRows;
 });
