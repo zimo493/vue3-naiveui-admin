@@ -1,14 +1,33 @@
 <template>
   <div p-2>
-    <TablePro v-model="model" :form-config="formConfig" @reset="reset" @query="query">
+    <TablePro v-model="model" :form-config="formConfig" :total="10" @reset="reset" @query="query">
       <template #before>
         <n-button>前置按钮</n-button>
       </template>
+      <template #controls>
+        <n-button type="primary" @click="openDrawer">
+          <template #icon>
+            <icon-park-outline-plus />
+          </template>
+          新增
+        </n-button>
+      </template>
     </TablePro>
+
+    <DrawerFormTwo
+      ref="drawerFormTwo"
+      v-model="editModel"
+      :form="{
+        config: editConfig,
+        props: { rules },
+      }"
+      :loading="spin"
+      @submit="handleSubmit"
+    />
   </div>
 </template>
 <script lang="tsx" setup>
-import { NButton, NEl, SelectOption } from "naive-ui";
+import { FormItemRule, FormRules, NButton, NEl, SelectOption } from "naive-ui";
 
 // 定义表单数据模型
 interface DemoFormModel {
@@ -22,6 +41,41 @@ interface DemoFormModel {
   aihao?: string;
   remark?: string;
 }
+
+const editConfig = computed((): FormPro.FormItemConfig[] =>
+  formConfig.value.map((item) => {
+    return {
+      ...item,
+      span: 24,
+    };
+  })
+);
+const editModel = ref<DemoFormModel>({});
+
+/** 新增、编辑 */
+const drawerFormRef = useTemplateRef("drawerFormTwo");
+const spin = ref(false);
+const openDrawer = () => {
+  spin.value = true;
+  drawerFormRef.value?.open("新增用户", editModel.value);
+  setTimeout(() => {
+    spin.value = false;
+    editModel.value = {
+      age: 18,
+      birthday: 1753545600000,
+      name: "23",
+      hobbies: ["1", "3"],
+      notification: 1,
+      password: "435356436",
+      remark: "43643645745746",
+      sex: 2,
+    };
+  }, 3000);
+};
+
+const handleSubmit = async (v: DemoFormModel) => {
+  console.log(v);
+};
 
 onMounted(async () => {
   option.value = await asyncData();
@@ -101,7 +155,7 @@ const formConfig = computed((): FormPro.FormItemConfig[] => [
       multiple: true,
       maxTagCount: "responsive",
     },
-    dict: "hobby",
+    dict: "notice_type",
   },
   {
     name: "notification",
@@ -150,34 +204,34 @@ const model = ref<DemoFormModel>({
 });
 
 // 表单验证规则
-// const rules: FormRules = {
-//   name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
-//   age: [{ required: true, type: "number", message: "请输入年龄", trigger: "blur" }],
-//   notification: [
-//     {
-//       validator: (_: FormItemRule, value: number) => value === 1,
-//       trigger: "change",
-//       message: "请打开接收通知",
-//     },
-//   ],
-//   birthday: [
-//     {
-//       type: "date",
-//       required: true,
-//       message: "请选择日期",
-//       trigger: "change",
-//     },
-//   ],
-//   password: [
-//     { required: true, message: "请输入密码", trigger: "blur" },
-//     { min: 6, message: "密码长度不能小于6位", trigger: "blur" },
-//   ],
-// };
+const rules: FormRules = {
+  name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+  age: [{ required: true, type: "number", message: "请输入年龄", trigger: "blur" }],
+  notification: [
+    {
+      validator: (_: FormItemRule, value: number) => value === 1,
+      trigger: "change",
+      message: "请打开接收通知",
+    },
+  ],
+  birthday: [
+    {
+      type: "date",
+      required: true,
+      message: "请选择日期",
+      trigger: "change",
+    },
+  ],
+  password: [
+    { required: true, message: "请输入密码", trigger: "blur" },
+    { min: 6, message: "密码长度不能小于6位", trigger: "blur" },
+  ],
+};
 
 const option = ref<SelectOption[]>([{ label: "男", value: 1 }]);
 
-const query = async (val: DemoFormModel) => {
-  console.log(model.value, val);
+const query = (val: DemoFormModel) => {
+  console.log(val);
 };
 
 const reset = (val: DemoFormModel) => {
