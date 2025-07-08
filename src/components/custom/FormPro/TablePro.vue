@@ -11,6 +11,10 @@
           :operationSpan="operationSpan"
           :grid-props="{ yGap: 16, ...(form?.gridProps || {}) }"
         >
+          <!-- 转发所有具名插槽 -->
+          <template v-for="(_, name) in $slots" :key="name" #[name]="slotProps">
+            <slot :name="name" v-bind="slotProps" />
+          </template>
           <template #operation>
             <n-flex :justify="operationButtonPosition === 'left' ? 'start' : 'end'">
               <slot name="before" />

@@ -1,5 +1,5 @@
 <template>
-  <n-form ref="formRef" :model="modelValue" v-bind="{ ...defaultFormProps, ...formProps }">
+  <n-form ref="formPro" :model="modelValue" v-bind="{ ...defaultFormProps, ...formProps }">
     <n-grid v-bind="{ ...defaultGridProps, ...gridProps }">
       <template v-for="item in formItems" :key="item.name">
         <n-form-item-gi
@@ -98,7 +98,7 @@ const modelValue = defineModel<T>("modelValue", {
 });
 
 // 表单引用
-const formRef = useTemplateRef<FormInst>("formRef");
+const formRef = useTemplateRef<FormInst>("formPro");
 
 // 过滤表单配置项
 const formItems = computed(() => formConfig.filter((item) => !item.hidden));

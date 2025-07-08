@@ -13,7 +13,12 @@
           :form-config="showFormConfig"
           :form-props="{ ...(form?.props || {}) }"
           :grid-props="{ ...(form?.gridProps || {}) }"
-        />
+        >
+          <!-- 转发所有具名插槽 -->
+          <template v-for="(_, name) in $slots" :key="name" #[name]="slotProps">
+            <slot :name="name" v-bind="slotProps" />
+          </template>
+        </FormProTwo>
       </n-spin>
       <slot name="footer" />
       <template #footer>
