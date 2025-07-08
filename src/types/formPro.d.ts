@@ -16,13 +16,13 @@ interface ResponsiveSpan {
  */
 interface BaseFormItemConfig {
   name: string;
-  label: string;
+  label?: string;
   component?: ComponentType; // 可选，默认为 input
   span?: number;
   dict?: string;
   hidden?: boolean;
   props?: Record<string, any>;
-  formItemProps?: Omit<GridFromItem, "path" | "span">;
+  formItemProps?: Omit<GridFromItem, "path" | "span" | "label">;
   labelMessage?: string;
   slots?: Record<string, (val: never) => VNode[]>;
 }

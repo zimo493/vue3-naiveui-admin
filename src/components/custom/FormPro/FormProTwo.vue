@@ -2,10 +2,14 @@
   <n-form ref="formRef" :model="modelValue" v-bind="{ ...defaultFormProps, ...formProps }">
     <n-grid v-bind="{ ...defaultGridProps, ...gridProps }">
       <template v-for="item in formItems" :key="item.name">
-        <n-form-item-gi v-bind="item.formItemProps" :span="item.span ?? 4" :path="item.name">
-          <template #label>
-            <FormTipLabel v-if="item.labelMessage" :label="item.label" :msg="item.labelMessage" />
-            <span v-else>{{ item.label }}</span>
+        <n-form-item-gi
+          v-bind="item.formItemProps"
+          :span="item.span ?? 4"
+          :path="item.name"
+          :label="item.label"
+        >
+          <template v-if="item.labelMessage" #label>
+            <FormTipLabel :label="item.label" :msg="item.labelMessage" />
           </template>
           <slot :name="item.name" :value="modelValue[item.name]">
             <component
@@ -171,7 +175,7 @@ const renderComponent = (item: FormPro.FormItemConfig) => {
   const defaultProps: Record<string, any> = {
     ...baseProps,
     ...props,
-    placeholder: getPlaceholder(type, label),
+    placeholder: getPlaceholder(type, label ?? ""),
   };
 
   // 处理字典数据
