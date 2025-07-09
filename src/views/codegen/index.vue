@@ -1,14 +1,15 @@
 <template>
   <div>
-    <SearchTable
-      :formConfig="formConfig"
-      :modelValue="query"
+    <TablePro
+      v-model="query"
+      :form-config="formConfig"
       :columns="columns"
-      :tableData="tableData"
+      :table-data="tableData"
       :total="total"
       :loading="loading"
-      :rowKey="({tableName}: CodeGen.VO) => tableName"
-      @search="handleQuery"
+      :row-key="({ tableName }) => tableName"
+      operation-button-position="left"
+      @query="handleQuery"
       @reset="handleQuery"
     />
     <!-- 生成代码预览 -->
@@ -16,7 +17,7 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { NButton, NSpace, type DataTableColumns } from "naive-ui";
+import { type DataTableColumns, NButton, NSpace } from "naive-ui";
 
 import GeneratorAPI from "@/api/codeGen";
 
@@ -49,9 +50,9 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-const formConfig = ref<TablePro.FormOption<CodeGen.Query>>({
-  fields: [{ field: "keywords", label: "关键字", placeholder: "请输入表名" }],
-});
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  { name: "keywords", label: "关键字", props: { placeholder: "请输入表名" } },
+]);
 
 const columns = ref<DataTableColumns<CodeGen.VO>>([
   { title: "表名", key: "tableName", align: "center" },

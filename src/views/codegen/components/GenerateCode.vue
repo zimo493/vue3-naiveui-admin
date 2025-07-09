@@ -3,7 +3,12 @@
     <n-drawer-content :title="`生成代码 - ${tableCode}`" closable>
       <n-spin :show="loading">
         <template v-if="active === 'basic'">
-          <FormPro ref="formPro" v-bind="formConfig" :modelValue="modelValue" use-type="submit">
+          <FormPro
+            ref="formPro"
+            v-model="modelValue"
+            :form-config="formConfig"
+            :form-props="{ rules, labelWidth: 90 }"
+          >
             <template #parentMenuId>
               <n-tree-select
                 v-model:value="modelValue.parentMenuId"
@@ -128,33 +133,31 @@ const tableCode = ref(""); // 表名
 const active = ref<Active>("basic");
 
 // 表单配置
-const formConfig = ref<TablePro.FormOption<CodeGen.ConfigForm>>({
-  fields: [
-    { field: "tableName", label: "表名", colSpan: 8 },
-    { field: "businessName", label: "业务名", colSpan: 8 },
-    { field: "packageName", label: "主包名", colSpan: 8 },
-    { field: "moduleName", label: "模块名", colSpan: 6 },
-    { field: "entityName", label: "实体名", colSpan: 6 },
-    { field: "author", label: "作者", colSpan: 6 },
-    {
-      field: "parentMenuId",
-      label: "上级菜单",
-      slotName: "parentMenuId",
-      colSpan: 6,
-      labelMessage: `选择上级菜单，生成代码后会自动创建对应菜单。<br />
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  { name: "tableName", label: "表名", span: 8 },
+  { name: "businessName", label: "业务名", span: 8 },
+  { name: "packageName", label: "主包名", span: 8 },
+  { name: "moduleName", label: "模块名", span: 6 },
+  { name: "entityName", label: "实体名", span: 6 },
+  { name: "author", label: "作者", span: 6 },
+  {
+    name: "parentMenuId",
+    label: "上级菜单",
+    span: 6,
+    labelMessage: `选择上级菜单，生成代码后会自动创建对应菜单。<br />
         注意1: 生成菜单后需分配权限给角色，否则菜单将无法显示。<br />
         注意2: 演示环境默认不生成菜单，如需生成，请在本地部署数据库。`,
-    },
-  ],
-  labelWidth: 90,
-  rules: {
-    tableName: [{ required: true, message: "请输入表名", trigger: "blur" }],
-    businessName: [{ required: true, message: "请输入业务名", trigger: "blur" }],
-    packageName: [{ required: true, message: "请输入主包名", trigger: "blur" }],
-    moduleName: [{ required: true, message: "请输入模块名", trigger: "blur" }],
-    entityName: [{ required: true, message: "请输入实体名", trigger: "blur" }],
   },
-});
+]);
+
+const rules = {
+  tableName: [{ required: true, message: "请输入表名", trigger: "blur" }],
+  businessName: [{ required: true, message: "请输入业务名", trigger: "blur" }],
+  packageName: [{ required: true, message: "请输入主包名", trigger: "blur" }],
+  moduleName: [{ required: true, message: "请输入模块名", trigger: "blur" }],
+  entityName: [{ required: true, message: "请输入实体名", trigger: "blur" }],
+};
+
 const modelValue = ref<CodeGen.ConfigForm>({
   fieldConfigs: [],
 });
@@ -333,7 +336,7 @@ const formProRef = useTemplateRef("formPro");
 const genCode = async () => {
   try {
     startSpin();
-    await formProRef.value?.instance()?.validate();
+    await formProRef.value?.validate();
     await GeneratorAPI.saveGenConfig(tableCode.value, modelValue.value);
 
     getConfigForm();
