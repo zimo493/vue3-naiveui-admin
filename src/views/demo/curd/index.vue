@@ -1,26 +1,27 @@
 <template>
   <n-space vertical>
     <n-alert title="DrawerForm采用抽屉组件 DialogForm采用对话框组件 配置一样" type="info" />
-    <SearchTable
-      v-model:checked-row-keys="selectedRowKeys"
-      :formConfig="formConfig"
-      :modelValue="queryParams"
-      :collapse-Length="4"
+    <TablePro
+      v-model="queryParams"
+      :form-config="formConfig"
+      :collapse-length="4"
       :controls-span="6"
       :columns="columns"
-      :tableData="tableData"
+      :table-data="tableData"
       :total="tableData.length"
       :loading="loading"
-      :rowKey="(row: TableData) => row.key"
-      @update:checked-row-keys="handleCheck"
-      @search="handleQuery"
+      :row-key="({ key }) => key"
+      :table-props="{
+        checkedRowKeys: selectedRowKeys,
+        onUpdateCheckedRowKeys: handleCheck,
+      }"
+      @query="handleQuery"
       @reset="handleQuery"
     >
       <template #before>
         <n-button tertiary @click="msg('点击了搜索组件前置自定义按钮')">前置自定义按钮</n-button>
       </template>
       <!-- <template #after><n-button>后置自定义按钮</n-button></template> -->
-
       <template #controls>
         <n-button type="primary" @click="openDrawer()">
           <template #icon>
@@ -47,24 +48,17 @@
       <template #age>
         <n-input-number v-model:value="queryParams.age" clearable placeholder="我是自定义插槽" />
       </template>
-    </SearchTable>
+    </TablePro>
 
     <!-- 抽屉表单 -->
     <DrawerForm
       ref="drawerForm"
-      :form-config="editConfig"
-      :model-value="modelValue"
+      v-model="modelValue"
+      :form="editFormConfig"
       :width="600"
+      :loading="spin"
       @submit="submitForm"
     >
-      <template #avatar>
-        <UploadFile
-          :value="modelValue.avatar"
-          :limit="1"
-          @upload="(val) => (modelValue.avatar = val.url)"
-          @remove="modelValue.avatar = undefined"
-        />
-      </template>
       <template #photo>
         <UploadFile
           :value="modelValue.photo"
@@ -85,21 +79,14 @@
     </DrawerForm>
 
     <!-- 对话框表单 -->
-    <DialogForm
-      ref="dialogForm"
-      :form-config="editConfig"
-      :model-value="modelValue"
+    <ModalForm
+      ref="modalForm"
+      v-model="modelValue"
+      :form="editFormConfig"
       :width="800"
+      :loading="spin"
       @submit="submitForm"
     >
-      <template #avatar>
-        <UploadFile
-          :value="modelValue.avatar"
-          :limit="1"
-          @upload="(val) => (modelValue.avatar = val.url)"
-          @remove="modelValue.avatar = undefined"
-        />
-      </template>
       <template #photo>
         <UploadFile
           :value="modelValue.photo"
@@ -117,15 +104,16 @@
           <n-button type="success" strong secondary>上传文件</n-button>
         </UploadFile>
       </template>
-    </DialogForm>
+    </ModalForm>
 
     <!-- 查看 -->
-    <DialogForm
-      ref="dialogView"
+    <ModalForm
+      ref="modalView"
+      v-model="viewValue"
       :form-config="viewConfig"
-      :model-value="viewValue"
       :width="580"
-      is-look
+      :loading="spin"
+      use-type="view"
     >
       <template #avatar>
         <UploadFile v-if="viewValue.avatar" :value="viewValue.avatar" :limit="1" disabled />
@@ -151,7 +139,7 @@
           </n-button>
         </n-flex>
       </template>
-    </DialogForm>
+    </ModalForm>
   </n-space>
 </template>
 <script lang="tsx" setup>
@@ -163,7 +151,9 @@ import tableData from "./config/tableData";
 import { useLoading } from "@/hooks";
 
 import Icones from "@/components/common/Icones.vue";
-import { InquiryBox } from "@/utils";
+import { spin, endSpin, InquiryBox, startSpin } from "@/utils";
+import UploadFile from "@/components/custom/UploadFile.vue";
+import { FileInfo } from "@/api/file";
 
 const { loading, startLoading, endLoading } = useLoading();
 
@@ -225,84 +215,79 @@ const queryParams = ref<Search>({
   pageNum: 1,
   pageSize: 10,
 });
-const formConfig = ref<TablePro.FormOption<Search>>({
-  fields: [
-    {
-      field: "name",
-      placeholder: "我不显示Label",
-      colSpan: 3,
-    },
-    { field: "address", label: "地址", colSpan: 3 },
-
-    {
-      field: "options",
-      label: "字典选择",
-      type: "select",
-      dict: "notice_type",
-      labelMessage: "字典示例，只需要传递 dict 即可，不需要配置 options 啦",
-    },
-    {
-      field: "checkbox",
-      label: "多选",
-      type: "checkbox",
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  {
+    name: "name",
+    span: 3,
+    props: { placeholder: "我不显示Label" },
+  },
+  { name: "address", label: "地址", span: 3 },
+  {
+    name: "options",
+    label: "字典选择",
+    component: "select",
+    dict: "notice_type",
+    labelMessage: "字典示例，只需要传递 dict 即可，不需要配置 options 啦",
+  },
+  {
+    name: "checkbox",
+    label: "多选",
+    component: "checkbox",
+    props: {
       options: [
         { label: "选项1", value: 1 },
         { label: "选项2", value: 2 },
         { label: "选项3", value: 3 },
         { label: "选项4", value: 4 },
       ],
-      colSpan: 6,
-      labelMessage: "选项也可以是配置的 options",
     },
-    {
-      field: "age",
-      label: "年龄",
-      slotName: "age",
-      labelMessage: "自定义插槽",
+    span: 6,
+    labelMessage: "选项也可以是配置的 options",
+  },
+  {
+    name: "age",
+    label: "年龄",
+    labelMessage: "自定义插槽",
+  },
+  {
+    name: "time",
+    label: "时间选择器",
+    span: 4,
+    component: "time",
+  },
+  {
+    name: "options",
+    label: "单选组",
+    component: "radio",
+    dict: "notice_type",
+    span: 10,
+    labelMessage: "不一定非要是Select, Radio也可以有",
+  },
+  {
+    name: "date",
+    label: "日期选择器",
+    span: 4,
+    component: "date",
+  },
+  {
+    name: "dateTime",
+    label: "时间日期选择器",
+    span: 5,
+    component: "date",
+    props: { type: "datetime" },
+  },
+  {
+    name: "createTime",
+    label: "时间范围",
+    span: 5,
+    component: "date",
+    props: {
+      type: "daterange",
+      closeOnSelect: true,
+      onUpdateFormattedValue: (value: [string, string]) => (queryParams.value.createTime = value),
     },
-    {
-      field: "options",
-      label: "单选组",
-      type: "radio",
-      dict: "notice_type",
-      colSpan: 10,
-      labelMessage: "不一定非要是Select, Radio也可以有",
-    },
-    {
-      field: "date",
-      label: "日期选择器",
-      colSpan: 4,
-      type: "datepicker",
-    },
-    {
-      field: "time",
-      label: "时间选择器",
-      colSpan: 4,
-      type: "timepicker",
-    },
-    {
-      field: "dateTime",
-      label: "时间日期选择器",
-      colSpan: 5,
-      type: "datepicker",
-      otherOptions: { type: "datetime" },
-    },
-    {
-      field: "createTime",
-      label: "时间范围",
-      colSpan: 5,
-      type: "datepicker",
-      otherOptions: {
-        type: "daterange",
-        closeOnSelect: true,
-      },
-      otherEvents: {
-        updateFormattedValue: (value: [string, string]) => (queryParams.value.createTime = value),
-      },
-    },
-  ],
-  // showLabel: false, // 隐藏标签
-});
+  },
+]);
 
 const handleQuery = () => {
   msg("查询参数：" + JSON.stringify(queryParams.value));
@@ -315,64 +300,77 @@ const handleQuery = () => {
 const selectedRowKeys = ref<number[]>([2, 5]); // 选中项
 const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys as number[]);
 
-const editConfig = ref<TablePro.FormOption<Form>>({
+const editFormConfig: DialogForm.Form = {
   // 新增或者编辑表单配置项
-  fields: [
-    { field: "avatar", label: "头像", slotName: "avatar" },
-    { field: "name", label: "姓名" },
-    { field: "address", label: "地址", type: "textarea" },
+  config: [
     {
-      field: "dict",
+      name: "avatar",
+      label: "头像",
+      component: () => (
+        <UploadFile
+          value={modelValue.value.avatar}
+          limit={1}
+          onUpdate={(val: FileInfo) => (modelValue.value.avatar = val.url)}
+          onRemove={() => (modelValue.value.avatar = undefined)}
+        />
+      ),
+    },
+    { name: "name", label: "姓名" },
+    { name: "address", label: "地址", component: "textarea" },
+    {
+      name: "dict",
       label: "字典单选",
-      type: "select",
+      component: "select",
       dict: "notice_type",
       labelMessage: "可以使用字典选择",
     },
     {
-      field: "dict",
+      name: "dict",
       label: "字典单选",
-      type: "radio",
+      component: "radio",
       dict: "notice_type",
     },
     {
-      field: "dicts",
+      name: "dicts",
       label: "字典多选",
-      type: "checkbox",
+      component: "checkbox",
       dict: "notice_type",
       labelMessage: "可以使用字典多选",
     },
     {
-      field: "dicts",
+      name: "dicts",
       label: "字典多选",
-      type: "select",
+      component: "select",
       dict: "notice_type",
-      otherOptions: {
-        multiple: true,
-      },
+      props: { multiple: true },
     },
     {
-      field: "options",
+      name: "options",
       label: "不使用字典",
-      type: "select",
-      placeholder: "也可以使用本地选项",
-      options: [
-        { label: "选项1", value: 1 },
-        { label: "选项2", value: 2 },
-        { label: "选项3", value: 3 },
-        { label: "选项4", value: 4 },
-      ],
+      component: "select",
+      props: {
+        placeholder: "也可以使用本地选项",
+        options: [
+          { label: "选项1", value: 1 },
+          { label: "选项2", value: 2 },
+          { label: "选项3", value: 3 },
+          { label: "选项4", value: 4 },
+        ],
+      },
     },
-    { field: "photo", label: "图片上传", slotName: "photo" },
-    { field: "file", label: "文件上传", slotName: "file" },
+    { name: "photo", label: "图片上传" },
+    { name: "file", label: "文件上传" },
   ],
-  labelWidth: 100, // 标签的宽度，默认没有宽度
-  // 表单校验
-  rules: {
-    avatar: [{ required: true, message: "请上传头像", trigger: ["blur", "change"] }],
-    name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
-    dicts: [{ required: true, type: "array", message: "请选择字典", trigger: "change" }],
+  props: {
+    // 表单校验
+    rules: {
+      avatar: [{ required: true, message: "请上传头像", trigger: ["blur", "change"] }],
+      name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+      dicts: [{ required: true, type: "array", message: "请选择字典", trigger: "change" }],
+    },
+    labelWidth: 100,
   },
-});
+};
 
 const modelValue = ref<Form>({});
 
@@ -382,24 +380,24 @@ const openDrawer = (row?: TableData) => {
   drawerFormRef.value?.open(row ? "编辑表单" : "新增表单", modelValue.value);
   if (row) {
     // 模拟接口获取数据
-    drawerFormRef.value?.startLoading();
+    startSpin();
     setTimeout(() => {
       modelValue.value = { ...row };
-      drawerFormRef.value?.hideLoading();
+      endSpin();
     }, 2000);
   }
 };
 
 // 对话框弹窗
-const dialogFormRef = useTemplateRef("dialogForm");
+const dialogFormRef = useTemplateRef("modalForm");
 const openDialog = (row?: TableData) => {
   dialogFormRef.value?.open(row ? "编辑表单" : "新增表单", modelValue.value);
   if (row) {
     // 模拟接口获取数据
-    dialogFormRef.value?.startLoading();
+    startSpin();
     setTimeout(() => {
       modelValue.value = { ...row };
-      dialogFormRef.value?.hideLoading();
+      endSpin();
     }, 2000);
   }
 };
@@ -415,30 +413,26 @@ const submitForm = async (val: Form) => {
 };
 
 // 查看
-const dialogViewRef = useTemplateRef("dialogView");
-const viewConfig = ref<TablePro.FormOption<TableData>>({
-  // 新增或者编辑表单配置项
-  fields: [
-    { field: "avatar", label: "Avatar:", slotName: "avatar" },
-    { field: "name", label: "Name:", type: "text" },
-    { field: "age", label: "Age:", type: "text" },
-    { field: "address", label: "Address:", type: "text" },
-    { field: "chinese", label: "Chinese:", type: "text" },
-    { field: "math", label: "Math:", type: "text" },
-    { field: "english", label: "English:", type: "text" },
-    { field: "photo", label: "Photo:", slotName: "photo" },
-    { field: "file", label: "File:", slotName: "file" },
-  ],
-  labelWidth: 100, // 标签的宽度，默认没有宽度
-});
+const dialogViewRef = useTemplateRef("modalView");
+const viewConfig: FormPro.FormItemConfig[] = [
+  { name: "avatar", label: "Avatar:", component: "text" },
+  { name: "name", label: "Name:", component: "text" },
+  { name: "age", label: "Age:", component: "text" },
+  { name: "address", label: "Address:", component: "text" },
+  { name: "chinese", label: "Chinese:", component: "text" },
+  { name: "math", label: "Math:", component: "text" },
+  { name: "english", label: "English:", component: "text" },
+  { name: "photo", label: "Photo:", component: "text" },
+  { name: "file", label: "File:", component: "text" },
+];
 const viewValue = ref<TableData>({} as TableData);
 const handleView = (row: TableData) => {
   dialogViewRef.value?.open("查看详情", viewValue.value);
   // 模拟接口获取数据
-  dialogViewRef.value?.startLoading();
+  startSpin();
   setTimeout(() => {
     viewValue.value = { ...row };
-    dialogViewRef.value?.hideLoading();
+    endSpin();
   }, 2000);
 };
 
