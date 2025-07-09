@@ -49,7 +49,7 @@ import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "na
 import RoleAPI from "@/api/system/role";
 
 import { useLoading } from "@/hooks";
-import { spin, executeAsync, InquiryBox, startSpin, endSpin } from "@/utils";
+import { spin, executeAsync, InquiryBox, startSpin, endSpin, statusOptions } from "@/utils";
 
 import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
@@ -150,12 +150,7 @@ const editFormConfig: DialogForm.Form = {
       name: "status",
       label: "状态",
       component: "radio",
-      props: {
-        options: [
-          { label: "正常", value: 1 },
-          { label: "停用", value: 0 },
-        ],
-      },
+      props: { options: statusOptions },
     },
     { name: "sort", label: "排序", component: "number" },
   ],

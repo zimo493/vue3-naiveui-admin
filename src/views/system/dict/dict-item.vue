@@ -62,7 +62,7 @@ import DictTypeAPI from "@/api/system/dict/type";
 import DictDataAPI from "@/api/system/dict/data";
 
 import { useLoading } from "@/hooks";
-import { spin, executeAsync, InquiryBox, startSpin, endSpin } from "@/utils";
+import { spin, executeAsync, InquiryBox, startSpin, endSpin, statusOptions } from "@/utils";
 import { useTabStoreHook } from "@/store";
 
 import Icones from "@/components/common/Icones.vue";
@@ -208,12 +208,7 @@ const editFormConfig: DialogForm.Form = {
       name: "status",
       label: "状态",
       component: "radio",
-      props: {
-        options: [
-          { label: "正常", value: 1 },
-          { label: "禁用", value: 0 },
-        ],
-      },
+      props: { options: statusOptions },
     },
   ],
   props: {

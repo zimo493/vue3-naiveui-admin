@@ -102,7 +102,15 @@ import {
 
 import { MIMETYPE } from "@/enums";
 import { useCompRef, useDict, useLoading } from "@/hooks";
-import { spin, startSpin, endSpin, exportFile, InquiryBox, executeAsync } from "@/utils";
+import {
+  spin,
+  startSpin,
+  endSpin,
+  exportFile,
+  InquiryBox,
+  executeAsync,
+  statusOptions,
+} from "@/utils";
 
 import DeptAPI from "@/api/system/dept";
 import UserAPI from "@/api/system/user";
@@ -168,10 +176,6 @@ const handleQuery = () => {
 /**
  * 搜索表单配置
  */
-const statusOptions = [
-  { label: "正常", value: 1, type: "success" },
-  { label: "禁用", value: 0, type: "error" },
-];
 const formConfig = ref<FormPro.FormItemConfig[]>([
   {
     name: "keywords",
@@ -310,62 +314,64 @@ const columns = ref<DataTableColumns<User.VO>>([
 ]);
 
 /** 抽屉表单Props */
-const editFormConfig = computed<DialogForm.Form>(() => ({
-  // 表单项配置
-  config: [
-    { name: "username", label: "用户名" },
-    { name: "nickname", label: "用户昵称" },
-    {
-      name: "deptId",
-      label: "所属部门",
-      component: "treeSelect",
-      props: {
-        options: deptOptions.value,
-        keyField: "value",
-        labelField: "label",
-        indent: 12,
+const editFormConfig = computed(
+  (): DialogForm.Form => ({
+    // 表单项配置
+    config: [
+      { name: "username", label: "用户名" },
+      { name: "nickname", label: "用户昵称" },
+      {
+        name: "deptId",
+        label: "所属部门",
+        component: "treeSelect",
+        props: {
+          options: deptOptions.value,
+          keyField: "value",
+          labelField: "label",
+          indent: 12,
+        },
+      },
+      { name: "gender", label: "性别", component: "select", dict: "gender" },
+      {
+        name: "roleIds",
+        label: "角色",
+        component: "select",
+        props: { multiple: true, options: roleOptions.value },
+      },
+      { name: "mobile", label: "手机号码" },
+      { name: "email", label: "邮箱" },
+      {
+        name: "status",
+        label: "状态",
+        component: "radio",
+        props: { options: statusOptions },
+      },
+    ],
+    // NForm属性
+    props: {
+      rules: {
+        username: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
+        nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
+        deptId: [{ required: true, message: "所属部门不能为空", trigger: "blur" }],
+        roleIds: [{ required: true, type: "array", message: "用户角色不能为空", trigger: "blur" }],
+        email: [
+          {
+            pattern: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
+            message: "请输入正确的邮箱地址",
+            trigger: "blur",
+          },
+        ],
+        mobile: [
+          {
+            pattern: /^1[3-9]\d{9}$/,
+            message: "请输入正确的手机号码",
+            trigger: "blur",
+          },
+        ],
       },
     },
-    { name: "gender", label: "性别", component: "select", dict: "gender" },
-    {
-      name: "roleIds",
-      label: "角色",
-      component: "select",
-      props: { multiple: true, options: roleOptions.value },
-    },
-    { name: "mobile", label: "手机号码" },
-    { name: "email", label: "邮箱" },
-    {
-      name: "status",
-      label: "状态",
-      component: "radio",
-      props: { options: statusOptions },
-    },
-  ],
-  // NForm属性
-  props: {
-    rules: {
-      username: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
-      nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-      deptId: [{ required: true, message: "所属部门不能为空", trigger: "blur" }],
-      roleIds: [{ required: true, type: "array", message: "用户角色不能为空", trigger: "blur" }],
-      email: [
-        {
-          pattern: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
-          message: "请输入正确的邮箱地址",
-          trigger: "blur",
-        },
-      ],
-      mobile: [
-        {
-          pattern: /^1[3-9]\d{9}$/,
-          message: "请输入正确的手机号码",
-          trigger: "blur",
-        },
-      ],
-    },
-  },
-}));
+  })
+);
 
 /** 初始化表单 */
 const modelValue = ref<User.Form>({

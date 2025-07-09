@@ -120,3 +120,8 @@ export const parseTime = (
   // 替换 pattern 中的占位符
   return pattern.replace(/YYYY|MM|DD|HH|mm|ss|dd/g, (match) => formatMap[match]);
 };
+
+export const statusOptions = [
+  { label: "正常", value: 1, type: "success" },
+  { label: "禁用", value: 0, type: "error" },
+];

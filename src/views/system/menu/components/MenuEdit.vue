@@ -185,8 +185,7 @@
               :span="24"
             >
               <n-radio-group v-model:value="modelValue.visible">
-                <n-radio :value="1" label="正常" />
-                <n-radio :value="0" label="禁用" />
+                <n-radio v-for="item in statusOptions" :value="item.value" :label="item.label" />
               </n-radio-group>
             </n-form-item-grid-item>
 
@@ -246,7 +245,7 @@ import type { FormInst, FormRules } from "naive-ui";
 
 import { useLoading } from "@/hooks";
 import { MenuTypeEnum } from "@/enums";
-import { spin, executeAsync } from "@/utils";
+import { spin, executeAsync, statusOptions } from "@/utils";
 
 import MenuAPI from "@/api/system/menu";
 

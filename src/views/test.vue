@@ -20,8 +20,8 @@
       </template>
     </TablePro>
 
-    <DrawerFormTwo
-      ref="drawerFormTwo"
+    <DrawerForm
+      ref="drawerForm"
       v-model="editModel"
       :form="{
         config: editConfig,
@@ -69,7 +69,7 @@ const editConfig = computed((): FormPro.FormItemConfig[] =>
 const editModel = ref<DemoFormModel>({});
 
 /** 新增、编辑 */
-const drawerFormRef = useTemplateRef("drawerFormTwo");
+const drawerFormRef = useTemplateRef("drawerForm");
 const modalFormRef = useTemplateRef("modalForm");
 const spin = ref(false);
 
