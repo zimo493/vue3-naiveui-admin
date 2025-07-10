@@ -1,5 +1,5 @@
 <script lang="tsx">
-import { NSpace, NTag } from "naive-ui";
+import { NFlex, NTag } from "naive-ui";
 import { toRefs } from "vue";
 
 export default defineComponent({
@@ -39,7 +39,7 @@ export default defineComponent({
     );
 
     return () => (
-      <NSpace justify="center" size="small">
+      <NFlex justify="center" align="center" size="small">
         {displayedOptions.value.map((option) => {
           if (!option.tagType) {
             return option.label;
@@ -56,7 +56,7 @@ export default defineComponent({
             );
           }
         })}
-      </NSpace>
+      </NFlex>
     );
   },
 });
