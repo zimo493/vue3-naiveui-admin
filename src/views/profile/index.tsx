@@ -21,7 +21,7 @@ import {
 import Icones from "@/components/common/Icones.vue";
 import ImageCut from "@/components/custom/ImageCut.vue";
 import CommonWrapper from "@/components/common/CommonWrapper.vue";
-import DialogForm from "@/components/custom/DialogForm.vue";
+import ModalForm from "@/components/custom/ModalForm.vue";
 
 export default defineComponent({
   name: "Profile",
@@ -202,32 +202,32 @@ export default defineComponent({
           onSubmit={(file: File) => handleUploadSetAvatar(file)}
         />
         {/* 修改基本信息 */}
-        <DialogForm
+        <ModalForm
           width={500}
-          draggable
           loading={spin.value}
           ref={userProfileFormRef}
-          form-config={userProfileFormConfig.value}
+          props={{ draggable: true }}
+          form={userProfileFormConfig.value}
           model-value={userProfileForm.value}
           onSubmit={(val: User.ProfileForm) => submitUserProfile(val)}
         />
         {/* 修改密码 */}
-        <DialogForm
+        <ModalForm
           width={500}
-          draggable
           loading={spin.value}
+          props={{ draggable: true }}
           ref={passwordChangeFormRef}
-          form-config={passwordChangeFormConfig.value}
+          form={passwordChangeFormConfig.value}
           model-value={passwordChangeForm.value}
           onSubmit={(val: User.PasswordChangeForm) => submitPassword(val)}
         />
         {/* 修改绑定手机 */}
-        <DialogForm
+        <ModalForm
           width={500}
-          draggable
           loading={spin.value}
           ref={mobileUpdateFormRef}
-          form-config={mobileUpdateFormConfig.value}
+          props={{ draggable: true }}
+          form={mobileUpdateFormConfig.value}
           model-value={mobileUpdateForm.value}
           onSubmit={(val: User.MobileUpdateForm) => submitMobile(val)}
           v-slots={{
@@ -248,12 +248,12 @@ export default defineComponent({
           }}
         />
         {/* 绑定邮箱 */}
-        <DialogForm
+        <ModalForm
           width={500}
-          draggable
           loading={spin.value}
           ref={emailUpdateFormRef}
-          form-config={emailUpdateFormConfig.value}
+          props={{ draggable: true }}
+          form={emailUpdateFormConfig.value}
           model-value={emailUpdateForm.value}
           onSubmit={(val: User.EmailUpdateForm) => submitEmail(val)}
           v-slots={{

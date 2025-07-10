@@ -10,7 +10,6 @@ import FileAPI from "@/api/file";
 import UserAPI from "@/api/system/user";
 
 import ImageCut from "@/components/custom/ImageCut.vue";
-import DialogForm from "@/components/custom/DialogForm.vue";
 
 export const useProfile = () => {
   const authStore = useAuthStoreHook();
@@ -85,17 +84,19 @@ export const useProfile = () => {
 
   /** 修改用户信息配置 */
   const userProfileForm = ref<User.ProfileForm>({}); // 用户信息表单
-  const userProfileFormRef = useCompRef(DialogForm);
-  const userProfileFormConfig = ref<TablePro.FormOption<User.ProfileForm>>({
-    fields: [
-      { field: "nickname", label: "昵称" },
-      { field: "gender", label: "性别", type: "select", dict: "gender" },
+  const userProfileFormRef = ref();
+  const userProfileFormConfig = ref<DialogForm.Form>({
+    config: [
+      { name: "nickname", label: "昵称" },
+      { name: "gender", label: "性别", component: "select", dict: "gender" },
     ],
-    rules: {
-      nickname: [{ required: true, message: "请输入昵称", trigger: "blur" }],
-      gender: [{ required: true, type: "number", message: "请选择性别", trigger: "change" }],
+    props: {
+      rules: {
+        nickname: [{ required: true, message: "请输入昵称", trigger: "blur" }],
+        gender: [{ required: true, type: "number", message: "请选择性别", trigger: "change" }],
+      },
+      labelWidth: 80,
     },
-    labelWidth: 80,
   });
   /** 修改基本信息 */
   const updateUserProfile = () => {
@@ -119,30 +120,32 @@ export const useProfile = () => {
 
   /** 修改用户密码配置 */
   const passwordChangeForm = ref<User.PasswordChangeForm>({}); // 修改密码表单
-  const passwordChangeFormRef = useCompRef(DialogForm);
-  const passwordChangeFormConfig = ref<TablePro.FormOption<User.PasswordChangeForm>>({
-    fields: [
-      { field: "oldPassword", label: "旧密码", type: "password" },
-      { field: "newPassword", label: "新密码", type: "password" },
-      { field: "confirmPassword", label: "确认密码", type: "password" },
+  const passwordChangeFormRef = ref();
+  const passwordChangeFormConfig = ref<DialogForm.Form>({
+    config: [
+      { name: "oldPassword", label: "旧密码", component: "password" },
+      { name: "newPassword", label: "新密码", component: "password" },
+      { name: "confirmPassword", label: "确认密码", component: "password" },
     ],
-    rules: {
-      oldPassword: [{ required: true, message: "请输入旧密码", trigger: "blur" }],
-      newPassword: [{ required: true, message: "请输入新密码", trigger: "blur" }],
-      confirmPassword: [
-        { required: true, message: "请输入确认密码", trigger: "blur" },
-        {
-          validator: (_rule: FormItemRule, value: string) =>
-            new Promise((resolve, reject) =>
-              value !== passwordChangeForm.value.newPassword
-                ? reject(new Error("两次输入的密码不一致"))
-                : resolve()
-            ),
-          trigger: "blur",
-        },
-      ],
+    props: {
+      rules: {
+        oldPassword: [{ required: true, message: "请输入旧密码", trigger: "blur" }],
+        newPassword: [{ required: true, message: "请输入新密码", trigger: "blur" }],
+        confirmPassword: [
+          { required: true, message: "请输入确认密码", trigger: "blur" },
+          {
+            validator: (_rule: FormItemRule, value: string) =>
+              new Promise((resolve, reject) =>
+                value !== passwordChangeForm.value.newPassword
+                  ? reject(new Error("两次输入的密码不一致"))
+                  : resolve()
+              ),
+            trigger: "blur",
+          },
+        ],
+      },
+      labelWidth: 80,
     },
-    labelWidth: 80,
   });
 
   /** 修改用户密码 */
@@ -158,20 +161,22 @@ export const useProfile = () => {
 
   /** 修改手机信息配置 */
   const mobileUpdateForm = ref<User.MobileUpdateForm>({}); // 修改手机表单
-  const mobileUpdateFormRef = useCompRef(DialogForm);
-  const mobileUpdateFormConfig = ref<TablePro.FormOption<User.MobileUpdateForm>>({
-    fields: [
-      { field: "mobile", label: "手机号" },
-      { field: "code", label: "验证码", slotName: "code" },
+  const mobileUpdateFormRef = ref();
+  const mobileUpdateFormConfig = ref<DialogForm.Form>({
+    config: [
+      { name: "mobile", label: "手机号" },
+      { name: "code", label: "验证码" },
     ],
-    rules: {
-      mobile: [
-        { required: true, message: "请输入手机号", trigger: "blur" },
-        { pattern: /^1[3-9]\d{9}$/, message: "请输入正确的手机号", trigger: "blur" },
-      ],
-      code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+    props: {
+      rules: {
+        mobile: [
+          { required: true, message: "请输入手机号", trigger: "blur" },
+          { pattern: /^1[3-9]\d{9}$/, message: "请输入正确的手机号", trigger: "blur" },
+        ],
+        code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+      },
+      labelWidth: 80,
     },
-    labelWidth: 80,
   });
   /** 绑定手机 */
   const updateMobile = () => {
@@ -206,24 +211,26 @@ export const useProfile = () => {
 
   /** 绑定邮箱信息配置 */
   const emailUpdateForm = ref<User.EmailUpdateForm>({}); // 修改邮箱表单
-  const emailUpdateFormRef = useCompRef(DialogForm);
-  const emailUpdateFormConfig = ref<TablePro.FormOption<User.EmailUpdateForm>>({
-    fields: [
-      { field: "email", label: "邮箱" },
-      { field: "code", label: "验证码", slotName: "code" },
+  const emailUpdateFormRef = ref();
+  const emailUpdateFormConfig = ref<DialogForm.Form>({
+    config: [
+      { name: "email", label: "邮箱" },
+      { name: "code", label: "验证码" },
     ],
-    rules: {
-      email: [
-        { required: true, message: "请输入邮箱", trigger: "blur" },
-        {
-          pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
-          message: "请输入正确的邮箱",
-          trigger: "blur",
-        },
-      ],
-      code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+    props: {
+      rules: {
+        email: [
+          { required: true, message: "请输入邮箱", trigger: "blur" },
+          {
+            pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
+            message: "请输入正确的邮箱",
+            trigger: "blur",
+          },
+        ],
+        code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+      },
+      labelWidth: 80,
     },
-    labelWidth: 80,
   });
   /** 绑定邮箱 */
   const updateEmail = () => {
