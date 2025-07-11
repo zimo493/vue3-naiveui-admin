@@ -27,13 +27,13 @@
             <template #icon>
               <Icones icon="ant-design:check-outlined" />
             </template>
-            提交
+            {{ form?.positiveText ?? "提交" }}
           </n-button>
           <n-button strong secondary @click="cancel">
             <template #icon>
               <Icones icon="ant-design:close-outlined" />
             </template>
-            取消
+            {{ form?.negativeText ?? "取消" }}
           </n-button>
         </n-space>
       </template>
