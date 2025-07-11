@@ -200,7 +200,7 @@ declare namespace FormPro {
   /**
    * FormPro 组件的 Props 类型
    */
-  interface FormProProps<T = FormData> {
+  interface FormProProps<T = Recordable> {
     formConfig?: FormItemConfig[];
     formProps?: Omit<import("naive-ui").FormProps, "model">;
     gridProps?: import("naive-ui").GridProps;
@@ -231,8 +231,8 @@ declare namespace DialogForm {
   type Form = DataTablePro.Form;
   type DrawerProps = Omit<import("naive-ui").DrawerProps, "show">; // 抽屉属性
   type ModalProps = Omit<import("naive-ui").ModalProps, "show" | "segmented">; // 模态框属性
-  interface Instance {
-    open: (title: string, data: any) => void;
+  interface Instance<T> {
+    open: (title: string, data: T) => void;
     close: () => void;
   }
 }
