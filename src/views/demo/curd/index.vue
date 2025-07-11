@@ -1,6 +1,5 @@
 <template>
   <n-space vertical>
-    <n-alert title="DrawerForm采用抽屉组件 DialogForm采用对话框组件 配置一样" type="info" />
     <TablePro
       v-model="queryParams"
       :form-config="formConfig"
@@ -33,7 +32,7 @@
           <template #icon>
             <icon-park-outline-plus />
           </template>
-          对话框
+          模态框
         </n-button>
         <n-button type="error" :disabled="!selectedRowKeys.length" @click="handleDelete()">
           <template #icon>
@@ -78,7 +77,7 @@
       </template>
     </DrawerForm>
 
-    <!-- 对话框表单 -->
+    <!-- 模态框表单 -->
     <ModalForm
       ref="modalForm"
       v-model="modelValue"
@@ -195,7 +194,7 @@ const columns = ref<DataTableColumns<TableData>>([
             icon: () => <Icones icon="ant-design:edit-filled" />,
           }}
         >
-          对话框
+          模态框
         </NButton>
         <NButton
           text
@@ -388,7 +387,7 @@ const openDrawer = (row?: TableData) => {
   }
 };
 
-// 对话框弹窗
+// 模态框弹窗
 const dialogFormRef = useTemplateRef("modalForm");
 const openDialog = (row?: TableData) => {
   dialogFormRef.value?.open(row ? "编辑表单" : "新增表单", modelValue.value);
