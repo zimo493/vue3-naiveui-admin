@@ -1,6 +1,6 @@
 <template>
   <div p-2>
-    <TablePro v-model="model" :form-config="formConfig" :total="10" @reset="reset" @query="query">
+    <TablePro v-model="model" :form-config="formConfig" @reset="reset" @query="query">
       <template #before>
         <n-button>前置按钮</n-button>
       </template>
@@ -25,7 +25,7 @@
       v-model="editModel"
       :form="{
         config: editConfig,
-        props: { rules },
+        props: { rules, labelWidth: 100 },
       }"
       :loading="spin"
       @submit="handleSubmit"

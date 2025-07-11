@@ -103,7 +103,7 @@ const cancel = () => {
 };
 
 // 暴露表单实例方法
-const dialogFormInstance: DialogForm.Instance = {
+const dialogFormInstance: DialogForm.Instance<T> = {
   /**
    * 打开弹窗
    * @param title 标题
