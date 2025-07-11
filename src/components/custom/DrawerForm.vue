@@ -50,7 +50,7 @@ interface Props {
 }
 
 defineOptions({
-  name: "DrawerFormTwo",
+  name: "DrawerForm",
 });
 
 const props = withDefaults(defineProps<Props>(), {
