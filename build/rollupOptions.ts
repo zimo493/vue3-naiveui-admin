@@ -14,11 +14,6 @@ export const rollupOutputOptions: OutputOptions = {
       return "vue-core";
     }
 
-    /** UI框架 */
-    if (/[\\/]node_modules[\\/]naive-ui[\\/]/.test(id)) {
-      return "naive-ui";
-    }
-
     /** 国际化相关 */
     if (/[\\/]node_modules[\\/]vue-i18n[\\/]/.test(id)) {
       return "i18n-core";
