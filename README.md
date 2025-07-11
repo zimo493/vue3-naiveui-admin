@@ -27,7 +27,7 @@
 
 ## 项目功能 🔨
 - **基于** `Vue3.5`、`Vite6`、`TypeScript`、`NaiveUI`、`UnoCSS` `tsx` 等最新技术栈开发，单文件组件 **＜ script setup ＞**
-- **基于** `Naive` 二次封装 `FormPro`、基于 `FormPro` 封装 `SearchTable`、`DialogForm`、`DrawerForm` 组件，在一定程度上提高您的开发效率
+- **基于** `Naive` 二次封装 `FormPro`、基于 `FormPro` 封装 `TablePro`、`DrawerForm`、`ModalForm` 组件，在一定程度上提高您的开发效率
 - **使用** `KeepAlive` 对页面进行缓存
 - **使用** `Pinia` 替代 `Vuex`，轻量、简单、易用，集成 `Pinia` 持久化插件
 - **使用** `TypeScript` 对 `Axios` 整个二次封装（请求拦截、常用请求封装…）
