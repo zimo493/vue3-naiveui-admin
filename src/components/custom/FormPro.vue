@@ -16,7 +16,7 @@
               :is="renderComponent(item)"
               v-model:value="modelValue[item.name]"
               v-bind="{ ...item.props }"
-            ></component>
+            />
           </slot>
         </n-form-item-gi>
       </template>
@@ -81,6 +81,7 @@ const {
   formConfig = [],
   formProps = {},
   gridProps = {},
+  operationSpan = 4,
 } = defineProps({
   formConfig: {
     type: Object as PropType<FormPro.FormItemConfig[]>,

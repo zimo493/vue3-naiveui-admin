@@ -222,13 +222,13 @@ declare namespace DataTablePro {
     config?: FormPro.FormItemConfig[];
     props?: FormPro.FormProProps["formProps"];
     gridProps?: FormPro.FormProProps["gridProps"];
-    resetText?: string;
-    searchText?: string;
+    positiveText?: string;
+    negativeText?: string;
   }
 }
 
 declare namespace DialogForm {
-  interface Form extends Omit<DataTablePro.Form, "resetText" | "searchText"> {}
+  type Form = DataTablePro.Form;
   type DrawerProps = Omit<import("naive-ui").DrawerProps, "show">; // 抽屉属性
   type ModalProps = Omit<import("naive-ui").ModalProps, "show" | "segmented">; // 模态框属性
   interface Instance {

@@ -22,13 +22,13 @@
                 <template #icon>
                   <icon-park-outline-search />
                 </template>
-                {{ form?.searchText ?? "搜索" }}
+                {{ form?.positiveText ?? "搜索" }}
               </n-button>
               <n-button strong secondary :loading="loading" @click="resetQuery">
                 <template #icon>
                   <icon-park-outline-redo />
                 </template>
-                {{ form?.resetText ?? "重置" }}
+                {{ form?.negativeText ?? "重置" }}
               </n-button>
               <n-button v-show="showFoldBtn" type="primary" text @click="toggleCollapse">
                 <template #icon>
