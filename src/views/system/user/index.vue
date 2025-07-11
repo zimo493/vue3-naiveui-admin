@@ -62,7 +62,12 @@
               导入
             </n-button>
 
-            <n-button v-has-perm="['sys:user:export']" type="warning" @click="handleExport">
+            <n-button
+              v-has-perm="['sys:user:export']"
+              type="warning"
+              :loading="exportLoading"
+              @click="handleExport"
+            >
               <template #icon>
                 <icon-park-outline-download-one />
               </template>
@@ -490,13 +495,19 @@ const handleImport = () => {
 };
 
 // 导出
+const exportLoading = ref(false);
 const handleExport = () => {
-  UserAPI.export(queryParams.value).then((response) => {
-    window.$message.loading("正在下载数据，请稍候...");
-    const fileName = decodeURI(response.headers["content-disposition"].split(";")[1].split("=")[1]);
+  exportLoading.value = true;
+  UserAPI.export(queryParams.value)
+    .then((response) => {
+      window.$message.loading("正在下载数据，请稍候...");
+      const fileName = decodeURI(
+        response.headers["content-disposition"].split(";")[1].split("=")[1]
+      );
 
-    exportFile(response.data, MIMETYPE.xlsx, fileName);
-  });
+      exportFile(response.data, MIMETYPE.xlsx, fileName);
+    })
+    .finally(() => (exportLoading.value = false));
 };
 
 /** 重置 */
