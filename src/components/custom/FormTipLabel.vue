@@ -1,3 +1,4 @@
+<script lang="tsx">
 import { NFlex, NText } from "naive-ui";
 import HelpInfo from "@/components/common/HelpInfo.vue";
 
@@ -16,3 +17,4 @@ export default defineComponent({
     );
   },
 });
+</script>

@@ -249,8 +249,6 @@ import { spin, executeAsync, statusOptions } from "@/utils";
 
 import MenuAPI from "@/api/system/menu";
 
-import FormTipLabel from "@/components/custom/FormTipLabel";
-
 const { loading, startLoading, endLoading } = useLoading();
 
 // const props = defineProps({

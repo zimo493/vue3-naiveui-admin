@@ -30,7 +30,6 @@
 <script setup lang="ts" generic="T extends Recordable">
 import { type FormInst, type FormProps, type GridProps, type SelectOption, NFlex } from "naive-ui";
 
-import FormTipLabel from "@/components/custom/FormTipLabel";
 import { useDict } from "@/hooks";
 
 type NComponentName =
