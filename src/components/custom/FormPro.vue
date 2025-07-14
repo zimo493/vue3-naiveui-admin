@@ -28,17 +28,7 @@
 </template>
 
 <script setup lang="ts" generic="T extends Recordable">
-import {
-  type FormInst,
-  type FormProps,
-  type GridProps,
-  type SelectOption,
-  NCheckbox,
-  NCheckboxGroup,
-  NFlex,
-  NRadio,
-  NRadioGroup,
-} from "naive-ui";
+import { type FormInst, type FormProps, type GridProps, type SelectOption, NFlex } from "naive-ui";
 
 import FormTipLabel from "@/components/custom/FormTipLabel";
 import { useDict } from "@/hooks";
@@ -51,6 +41,10 @@ type NComponentName =
   | "NTimePicker"
   | "NSwitch"
   | "NTreeSelect"
+  | "NCheckboxGroup"
+  | "NCheckbox"
+  | "NRadio"
+  | "NRadioGroup"
   | "NText";
 
 defineOptions({ name: "FormPro" });
@@ -109,7 +103,7 @@ const formRef = useTemplateRef<FormInst>("formPro");
 const formItems = computed(() => formConfig.filter((item) => !item.hidden));
 
 // 创建异步组件的工具函数
-const createAsyncComponent = (componentName: NComponentName) =>
+const asyncComp = (componentName: NComponentName) =>
   defineAsyncComponent(() => import("naive-ui").then((m) => m[componentName]));
 
 // 字典加载状态
@@ -202,15 +196,11 @@ const renderComponent = (item: FormPro.FormItemConfig) => {
   }
 
   if (type === "select") {
-    return h(
-      component,
-      {
-        filterable: true,
-        consistentMenuWidth: false,
-        ...defaultProps,
-      },
-      slots
-    );
+    return h(component, { filterable: true, consistentMenuWidth: false, ...defaultProps }, slots);
+  }
+
+  if (type === "treeSelect") {
+    return h(component, { filterable: true, ...defaultProps }, slots);
   }
 
   if (type === "text") {
@@ -255,18 +245,18 @@ const transformComponent =
  * 组件映射表
  */
 const componentMap: Record<string, Component> = {
-  input: createAsyncComponent("NInput"),
-  select: createAsyncComponent("NSelect"),
-  switch: createAsyncComponent("NSwitch"),
-  textarea: createAsyncComponent("NInput"),
-  password: createAsyncComponent("NInput"),
-  number: createAsyncComponent("NInputNumber"),
-  date: createAsyncComponent("NDatePicker"),
-  time: createAsyncComponent("NTimePicker"),
-  radio: transformComponent(NRadioGroup, NRadio),
-  checkbox: transformComponent(NCheckboxGroup, NCheckbox),
-  treeSelect: createAsyncComponent("NTreeSelect"),
-  text: createAsyncComponent("NText"),
+  input: asyncComp("NInput"),
+  select: asyncComp("NSelect"),
+  switch: asyncComp("NSwitch"),
+  textarea: asyncComp("NInput"),
+  password: asyncComp("NInput"),
+  number: asyncComp("NInputNumber"),
+  date: asyncComp("NDatePicker"),
+  time: asyncComp("NTimePicker"),
+  radio: transformComponent(asyncComp("NRadioGroup"), asyncComp("NRadio")),
+  checkbox: transformComponent(asyncComp("NCheckboxGroup"), asyncComp("NCheckbox")),
+  treeSelect: asyncComp("NTreeSelect"),
+  text: asyncComp("NText"),
 };
 
 /**
