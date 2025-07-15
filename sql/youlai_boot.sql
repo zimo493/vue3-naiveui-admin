@@ -284,9 +284,9 @@ CREATE TABLE `sys_menu`  (
 -- Records of sys_menu
 -- ----------------------------
 -- 一级菜单
-INSERT INTO `sys_menu` VALUES (1, 0, '0', '系统管理', 2, '', '/system', 'Layout', NULL, NULL, NULL, 1, 1, 'material-symbols:jamboard-kiosk', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (1, 0, '0', '系统管理', 2, NULL, '/system', 'Layout', NULL, NULL, NULL, 1, 1, 'material-symbols:jamboard-kiosk', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (20, 0, '0', '多级菜单', 2, NULL, '/multi-level', 'Layout', NULL, 1, NULL, 1, 9, 'bi:123', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (26, 0, '0', '平台文档', 2, '', '/doc', 'Layout', NULL, NULL, NULL, 1, 8, 'icon-park-solid:file-code', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (26, 0, '0', '平台文档', 2, NULL, '/doc', 'Layout', NULL, NULL, NULL, 1, 8, 'icon-park-solid:file-code', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (36, 0, '0', '组件封装', 2, NULL, '/component', 'Layout', NULL, NULL, NULL, 1, 10, 'ep:menu', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (40, 0, '0', '接口文档', 2, NULL, '/api', 'Layout', NULL, 1, NULL, 1, 7, 'simple-icons:apifox', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (89, 0, '0', '功能演示', 2, NULL, '/function', 'Layout', NULL, NULL, NULL, 1, 12, 'mdi:laptop', NULL, now(), now(), NULL);
@@ -299,18 +299,18 @@ INSERT INTO `sys_menu` VALUES (3, 1, '0,1', '角色管理', 1, 'Role', 'role', '
 INSERT INTO `sys_menu` VALUES (4, 1, '0,1', '菜单管理', 1, 'SysMenu', 'menu', 'system/menu/index', NULL, NULL, 1, 1, 3, 'ep:menu', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (5, 1, '0,1', '部门管理', 1, 'Dept', 'dept', 'system/dept/index', NULL, NULL, 1, 1, 4, 'icon-park-solid:network-tree', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (6, 1, '0,1', '字典管理', 1, 'Dict', 'dict', 'system/dict/index', NULL, NULL, 1, 1, 5, 'streamline:dictionary-language-book-solid', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (21, 20, '0,20', '菜单一级', 1, NULL, 'multi-level1', 'demo/multi-level/level1', NULL, 1, NULL, 1, 1, 'healthicons:1', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (21, 20, '0,20', '菜单一级', 1, 'Multilevel1', 'multi-level1', 'demo/multi-level/level1', NULL, 1, 1, 1, 1, 'healthicons:1', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (30, 26, '0,26', '平台文档(外链)', 3, NULL, 'https://juejin.cn/post/7228990409909108793', '', NULL, NULL, NULL, 1, 2, 'local:vitepress', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (37, 36, '0,36', '富文本编辑器', 1, NULL, 'wang-editor', 'demo/wang-editor', NULL, NULL, 1, 1, 2, 'icon-park-outline:edit', NULL, NULL, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (38, 36, '0,36', '图片上传', 1, NULL, 'upload', 'demo/upload', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (39, 36, '0,36', '图标选择器', 1, NULL, 'icon-selector', 'demo/icon-selector', NULL, NULL, 1, 1, 4, 'emojione-v1:smiling-face-with-sunglasses', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (37, 36, '0,36', '富文本编辑器', 1, 'WangEditor', 'wang-editor', 'demo/wang-editor', NULL, NULL, 1, 1, 2, 'icon-park-outline:edit', NULL, NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES (38, 36, '0,36', '图片上传', 1, 'Upload', 'upload', 'demo/upload', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (39, 36, '0,36', '图标选择器', 1, 'IconSelector', 'icon-selector', 'demo/icon-selector', NULL, NULL, 1, 1, 4, 'emojione-v1:smiling-face-with-sunglasses', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (109, 36, '0,36', 'Cron表达式生成器', 1, 'Cron', 'cron', 'demo/cron', NULL, NULL, 1, 1, 1, 'icon-park-outline:timer', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (41, 40, '0,40', 'Apifox', 1, NULL, 'apifox', 'demo/api/apifox', NULL, NULL, 1, 1, 1, 'local:apifox', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (90, 89, '0,89', 'Websocket', 1, NULL, '/function/websocket', 'demo/websocket', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (95, 36, '0,36', '字典组件', 1, NULL, 'dict-demo', 'demo/dictionary', NULL, NULL, 1, 1, 4, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (97, 89, '0,89', 'Icons', 1, NULL, 'icon-demo', 'demo/icons', NULL, NULL, 1, 1, 2, 'noto:grinning-face', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (102, 26, '0,26', 'document', 3, '', 'internal-doc', 'demo/internal-doc', NULL, NULL, NULL, 1, 1, 'local:juejin', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (108, 36, '0,36', '增删改查', 1, NULL, 'curd', 'demo/curd/index', NULL, NULL, 1, 1, 0, '', NULL, NULL, NULL, NULL);
+INSERT INTO `sys_menu` VALUES (41, 40, '0,40', 'Apifox', 1, 'Apifox', 'apifox', 'demo/api/apifox', NULL, NULL, 1, 1, 1, 'local:apifox', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (90, 89, '0,89', 'Websocket', 1, 'Websocket', '/function/websocket', 'demo/websocket', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (95, 36, '0,36', '字典组件', 1, 'Dictionary', 'dict-demo', 'demo/dictionary', NULL, NULL, 1, 1, 4, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (97, 89, '0,89', 'Icons', 1, 'Icon', 'icon-demo', 'demo/icons', NULL, NULL, 1, 1, 2, 'noto:grinning-face', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (102, 26, '0,26', 'document', 3, 'InternalDoc', 'internal-doc', 'demo/internal-doc', NULL, NULL, NULL, 1, 1, 'local:juejin', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (108, 36, '0,36', '增删改查', 1, 'Curd', 'curd', 'demo/curd/index', NULL, NULL, 1, 1, 0, '', NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (111, 110, '0,110', '参数(type=1)', 1, 'RouteParamType1', 'route-param-type1', 'demo/route-param', NULL, 0, 1, 1, 1, 'icon-park-outline:star', NULL, now(), now(), '{\"type\":\"1\"}');
 INSERT INTO `sys_menu` VALUES (112, 110, '0,110', '参数(type=2)', 1, NULL, 'route-param-type2', 'demo/route-param', NULL, 0, 1, 1, 2, 'icon-park-solid:star', NULL, now(), now(), '{\"type\": \"2\"}');
 INSERT INTO `sys_menu` VALUES (117, 1, '0,1', '系统日志', 1, 'Log', 'log', 'system/log/index', NULL, 0, 1, 1, 6, 'icon-park-solid:log', NULL, now(), now(), NULL);
@@ -322,11 +322,11 @@ INSERT INTO `sys_menu` VALUES (144, 26, '0,26', '后端文档', 3, NULL, 'https:
 INSERT INTO `sys_menu` VALUES (145, 26, '0,26', '移动端文档', 3, NULL, 'https://youlai.blog.csdn.net/article/details/143222890', '', NULL, NULL, NULL, 1, 4, 'local:csdn', NULL, now(), now(), NULL);
 
 -- 三级菜单
-INSERT INTO `sys_menu` VALUES (22, 21, '0,20,21', '菜单二级', 1, NULL, 'multi-level2', 'demo/multi-level/children/level2', NULL, 0, NULL, 1, 1, 'healthicons:2', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (22, 21, '0,20,21', '菜单二级', 1, 'Multilevel2', 'multi-level2', 'demo/multi-level/children/level2', NULL, 0, 1, 1, 1, 'healthicons:2', NULL, now(), now(), NULL);
 
 -- 四级菜单
-INSERT INTO `sys_menu` VALUES (23, 22, '0,20,21,22', '菜单三级-1', 1, NULL, 'multi-level3-1', 'demo/multi-level/children/children/level3-1', NULL, 0, 1, 1, 1, 'healthicons:3', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (24, 22, '0,20,21,22', '菜单三级-2', 1, NULL, 'multi-level3-2', 'demo/multi-level/children/children/level3-2', NULL, 0, 1, 1, 2, 'healthicons:3', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (23, 22, '0,20,21,22', '菜单三级-1', 1, 'Multilevel31', 'multi-level3-1', 'demo/multi-level/children/children/level3-1', NULL, 0, 1, 1, 1, 'healthicons:3', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (24, 22, '0,20,21,22', '菜单三级-2', 1, 'Multilevel32', 'multi-level3-2', 'demo/multi-level/children/children/level3-2', NULL, 0, 0, 1, 2, 'healthicons:3', NULL, now(), now(), NULL);
 
 -- 权限按钮
 INSERT INTO `sys_menu` VALUES (31, 2, '0,1,2', '用户新增', 4, NULL, '', NULL, 'sys:user:add', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
