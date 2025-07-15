@@ -121,11 +121,16 @@ export const useRouteStore = defineStore("route-store", {
     setCacheRoutes(userRoutes: AppRoute.RouteVO[]) {
       const flattenRoutes = (routes: AppRoute.RouteVO[]): string[] => {
         return routes.flatMap((route) => {
+          const names: string[] = [];
+
+          if (route.name && route.component && route.meta?.keepAlive) {
+            names.push(route.name);
+          }
           if (route.children?.length) {
-            return flattenRoutes(route.children);
+            names.push(...flattenRoutes(route.children));
           }
 
-          return route.name && route.component ? [route.name] : [];
+          return names;
         });
       };
 
