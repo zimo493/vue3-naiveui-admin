@@ -1,8 +1,11 @@
 <template>
   <n-alert type="success">
-    <n-flex vertical :size="[0, 20]">
+    <n-flex vertical>
       菜单二级
-      <router-view />
+      <KeepCache />
     </n-flex>
   </n-alert>
 </template>
+<script lang="ts" setup>
+defineOptions({ name: "Multilevel2" });
+</script>
