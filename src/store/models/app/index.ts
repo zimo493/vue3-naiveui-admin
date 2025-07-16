@@ -144,9 +144,8 @@ export const useAppStore = defineStore("app-store", {
      * @description: 页面内容重载
      * @param delay - 延迟毫秒数
      */
-    async reloadPage(delay = 800) {
+    reloadPage(delay = 600) {
       this.loadFlag = false;
-      await nextTick();
 
       return new Promise<void>((resolve) => {
         setTimeout(() => {
