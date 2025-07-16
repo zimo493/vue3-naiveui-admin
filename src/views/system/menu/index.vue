@@ -127,8 +127,14 @@ const columns: DataTableColumns<Menu.VO> = [
     render: ({ type }) => createMenuTypeTag(type),
   },
   { title: "路由名称", align: "center", key: "routeName" },
-  { title: "路由路径", align: "center", key: "routePath" },
-  { title: "组件路径", align: "center", key: "component" },
+  {
+    title: "路由路径",
+    align: "center",
+    key: "routePath",
+    width: 200,
+    ellipsis: { tooltip: true },
+  },
+  { title: "组件路径", align: "center", key: "component", width: 200, ellipsis: { tooltip: true } },
   { title: "权限标识", align: "center", key: "perm" },
   {
     title: "状态",
