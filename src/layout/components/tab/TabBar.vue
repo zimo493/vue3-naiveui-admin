@@ -61,7 +61,7 @@ const y = ref(0);
 const currentRoute = ref();
 
 const handleSelect = (key: string) => {
-  router.push(currentRoute.value.path).then(() => updateBar()); // 点击后切换到当前操作的路由
+  router.push(currentRoute.value.fullPath).then(() => updateBar()); // 点击后切换到当前操作的路由
   showDropdown.value = false;
 
   const handleFn: Record<string, () => void> = {
