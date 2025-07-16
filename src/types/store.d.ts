@@ -70,13 +70,15 @@ declare namespace Status {
     activeMenu: string;
     /** 缓存的路由 */
     cacheRoutes: string[];
+    /** 所有需要缓存的路由 */
+    allCacheRoutes: string[][];
     routes: import("vue-router").RouteRecordRaw[];
   }
 
   /** tab-store */
   interface Tab {
-    pinTabs: RouteLocationNormalized[];
-    tabs: RouteLocationNormalized[];
+    pinTabs: import("vue-router").RouteLocationNormalized[];
+    tabs: import("vue-router").RouteLocationNormalized[];
     currentTabPath: string;
   }
 }

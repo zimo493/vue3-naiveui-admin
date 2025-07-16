@@ -1,17 +1,21 @@
 import { store } from "@/store";
 import { useAuthStoreHook } from "..";
-
 import { router } from "@/router";
-
 import MenuAPI from "@/api/system/menu";
 import appRootRoutes, { constantRoutes } from "@/router/modules/ruotes";
-
-import { isHttpUrl, joinPaths, parseDynamicRoutes, processRoute } from "@/utils";
+import {
+  isHttpUrl,
+  joinPaths,
+  parseDynamicRoutes,
+  processRoute,
+  findAndMergeRouteArrays,
+} from "@/utils";
 
 export const useRouteStore = defineStore("route-store", {
   state: (): Status.Routes => {
     return {
       cacheRoutes: [],
+      allCacheRoutes: [],
       menus: [],
       routes: [],
       activeMenu: "",
@@ -21,130 +25,245 @@ export const useRouteStore = defineStore("route-store", {
   actions: {
     /**
      * 获取个人信息，初始化路由
-     * @returns void
+     * @returns Promise<boolean> 返回初始化是否成功
      */
-    async initAuthRoute() {
-      this.isInitAuthRoute = false;
+    async initAuthRoute(): Promise<boolean> {
+      try {
+        this.isInitAuthRoute = false;
+        const authStore = useAuthStoreHook();
 
-      const authStore = useAuthStoreHook();
+        // 获取用户信息
+        try {
+          await authStore.getUserInfo();
+        } catch {
+          await authStore.resetAuthStore();
 
-      /** 先获取用户信息 */
-      authStore.getUserInfo().catch(async () => {
-        await authStore.resetAuthStore();
-      });
+          return false;
+        }
 
-      /** 获取动态路由 */
-      const data = await MenuAPI.getRoutes();
+        // 获取动态路由
+        const data = await MenuAPI.getRoutes();
 
-      if (!data) {
-        return window.$message.error("获取路由失败!");
+        if (!data) {
+          window.$message?.error("获取路由失败!");
+
+          return false;
+        }
+
+        // 批量处理路由相关操作
+        this._processRouteData(data);
+        this.isInitAuthRoute = true;
+
+        return true;
+      } catch (error) {
+        console.error("初始化路由失败:", error);
+        window.$message?.error("初始化路由失败!");
+
+        return false;
       }
+    },
 
-      this.createRoutes(data);
-      this.setCacheRoutes(data);
-      this.createMenus(data);
-
-      this.isInitAuthRoute = true;
+    /**
+     * 批量处理路由数据
+     * @param userRoutes 用户路由数据
+     */
+    _processRouteData(userRoutes: AppRoute.RouteVO[]) {
+      this.createRoutes(userRoutes);
+      this.setAllCacheRoutes(userRoutes);
+      this.createMenus(userRoutes);
     },
 
     /**
      * 创建路由
-     * @param userRoutes
-     * @returns void
+     * @param userRoutes 用户路由配置
      */
     createRoutes(userRoutes: AppRoute.RouteVO[]) {
+      if (!userRoutes?.length) return;
+
       this.setRedirect(userRoutes);
       const routes = parseDynamicRoutes(userRoutes);
-      const rootRoutes = appRootRoutes;
 
-      rootRoutes.children?.push(...routes);
+      if (appRootRoutes.children) {
+        appRootRoutes.children.push(...routes);
+      }
 
-      router.addRoute(rootRoutes);
-
+      router.addRoute(appRootRoutes);
       this.routes = [...constantRoutes, ...routes];
     },
 
     /**
      * 设置重定向
-     * @param routes 路由
+     * @param routes 路由配置
      * @param parentPath 父级路由路径
      */
     setRedirect(routes: AppRoute.RouteVO[], parentPath = "") {
       routes.forEach((route) => {
         const currentPath = joinPaths(parentPath, route.path);
 
-        if (route.children) {
-          // 没有设置重定向则设置成第一个子路由
-          if (!route.redirect) {
-            const visibleChildren = route.children.filter((child) => !child.meta?.hidden);
-
-            if (visibleChildren.length > 0) {
-              const target = visibleChildren[0];
-
-              let redirectPath = joinPaths(currentPath, target.path);
-
-              // 如果子级路由有参数，则拼接参数到重定向路径中
-              if (target.meta?.params) {
-                redirectPath += "?" + new URLSearchParams(target.meta?.params).toString();
-              }
-
-              route.redirect = redirectPath;
-            }
-          }
-          // 如果路由设置了重定向并且重定向到了外部链接，则设置成普通路由
-          if (isHttpUrl(route.redirect)) {
-            route.redirect =
-              currentPath +
-              joinPaths(route.children.find((item) => !isHttpUrl(item.path))?.path || "");
-          }
+        if (route.children?.length) {
+          this._setRouteRedirect(route, currentPath);
           this.setRedirect(route.children, currentPath);
         }
       });
     },
 
     /**
+     * 设置单个路由的重定向
+     * @param route 路由配置
+     * @param currentPath 当前路径
+     */
+    _setRouteRedirect(route: AppRoute.RouteVO, currentPath: string) {
+      // 设置默认重定向到第一个可见子路由
+      if (!route.redirect) {
+        const visibleChildren = route.children?.filter((child) => !child.meta?.hidden) || [];
+
+        if (visibleChildren.length > 0) {
+          const target = visibleChildren[0];
+          let redirectPath = joinPaths(currentPath, target.path);
+
+          // 拼接路由参数
+          if (target.meta?.params) {
+            const params = new URLSearchParams(target.meta.params).toString();
+
+            redirectPath += `?${params}`;
+          }
+
+          route.redirect = redirectPath;
+        }
+      }
+
+      // 处理外部链接重定向
+      if (route.redirect && isHttpUrl(route.redirect)) {
+        const internalChild = route.children?.find((item) => !isHttpUrl(item.path));
+
+        route.redirect = currentPath + joinPaths(internalChild?.path || "");
+      }
+    },
+
+    /**
      * 生成侧边菜单
-     * @param userRoutes 路由
+     * @param userRoutes 用户路由配置
      */
     createMenus(userRoutes: AppRoute.RouteVO[]) {
-      // 生成最终菜单
+      if (!userRoutes?.length) {
+        this.menus = [];
+
+        return;
+      }
+
       this.menus = userRoutes
         .flatMap((route) => processRoute(route))
-        .filter(
-          (menu) =>
-            menu.key !== undefined && // 过滤无效项
-            (menu.children?.length || menu.key) // 有效菜单需有key或子项
-        ) as any;
+        .filter(this._isValidMenu) as any;
     },
 
-    /** 设置缓存路由 */
-    setCacheRoutes(userRoutes: AppRoute.RouteVO[]) {
-      const flattenRoutes = (routes: AppRoute.RouteVO[]): string[] => {
-        return routes.flatMap((route) => {
-          const names: string[] = [];
-
-          if (route.name && route.component && route.meta?.keepAlive) {
-            names.push(route.name);
-          }
-          if (route.children?.length) {
-            names.push(...flattenRoutes(route.children));
-          }
-
-          return names;
-        });
-      };
-
-      this.cacheRoutes = flattenRoutes(userRoutes);
+    /**
+     * 判断是否为有效菜单项
+     * @param menu 菜单项
+     * @returns 是否有效
+     */
+    _isValidMenu(menu: any): boolean {
+      return menu.key !== undefined && (menu.children?.length > 0 || menu.key);
     },
 
-    /** 设置当前激活的菜单 */
+    /**
+     * 设置缓存路由
+     * @param names 路由名称数组
+     */
+    setCacheRoutes(names: string[]) {
+      if (!names?.length) {
+        this.cacheRoutes = [];
+
+        return;
+      }
+
+      this.cacheRoutes = findAndMergeRouteArrays(this.allCacheRoutes, names);
+    },
+
+    /**
+     * 获取所有的缓存路由
+     * @param userRoutes 用户路由配置
+     */
+    setAllCacheRoutes(userRoutes: AppRoute.RouteVO[]) {
+      if (!userRoutes?.length) {
+        this.allCacheRoutes = [];
+
+        return;
+      }
+
+      const result: string[][] = [];
+
+      userRoutes.forEach((route) => {
+        if (route.children?.length) {
+          this._traverseRoutes(route.children, [], result);
+        }
+      });
+
+      this.allCacheRoutes = result;
+    },
+
+    /**
+     * 遍历路由树收集缓存路由
+     * @param nodes 路由节点
+     * @param path 当前路径
+     * @param result 结果数组
+     */
+    _traverseRoutes(nodes: AppRoute.RouteVO[], path: string[], result: string[][]) {
+      nodes.forEach((node) => {
+        const newPath = node.name ? [...path, node.name] : [...path];
+
+        // 叶子节点且需要缓存
+        if (!node.children?.length && node.meta?.keepAlive) {
+          result.push(newPath);
+        }
+
+        // 递归处理子节点
+        if (node.children?.length) {
+          this._traverseRoutes(node.children, newPath, result);
+        }
+      });
+    },
+
+    /**
+     * 设置当前激活的菜单
+     * @param key 菜单key
+     */
     setActiveMenu(key: string) {
-      this.activeMenu = key;
+      if (key && key !== this.activeMenu) {
+        this.activeMenu = key;
+      }
     },
 
-    /** 重置路由 */
+    /**
+     * 页面内容重载
+     * @returns Promise<boolean> 重载是否成功
+     */
+    async reloadPage(): Promise<boolean> {
+      try {
+        if (!this.activeMenu) {
+          console.warn("当前没有激活的菜单，无法重载页面");
+
+          return false;
+        }
+
+        await router.push(`/redirect${this.activeMenu}`);
+
+        return true;
+      } catch (error) {
+        console.error("页面重载失败:", error);
+
+        return false;
+      }
+    },
+
+    /**
+     * 重置路由存储
+     */
     resetRouteStore() {
-      router.removeRoute("Root");
+      try {
+        router.removeRoute("Root");
+      } catch (error) {
+        console.warn("移除根路由失败:", error);
+      }
       this.$reset();
     },
   },

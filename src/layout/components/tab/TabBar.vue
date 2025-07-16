@@ -2,7 +2,7 @@
 import type { TabsInst } from "naive-ui";
 import type { RouteLocationNormalized } from "vue-router";
 
-import { useAppStoreHook, useTabStoreHook } from "@/store";
+import { useAppStoreHook, useRouteStoreHook, useTabStoreHook } from "@/store";
 
 import IconRedo from "~icons/icon-park-outline/redo";
 import IconClose from "~icons/icon-park-outline/close";
@@ -17,9 +17,20 @@ import DropTabs from "./DropTabs.vue";
 import { defaultIcon } from "@/modules/assets";
 
 const tabStore = useTabStoreHook();
+const routeStore = useRouteStoreHook();
 const appStore = useAppStoreHook();
 
 const router = useRouter();
+
+// 动态页签
+const dynamicTab = ref<RouteLocationNormalized[]>([]);
+
+watchEffect(() => {
+  dynamicTab.value = tabStore.tabs;
+  const names = dynamicTab.value.map((item) => item.name as string).filter(Boolean);
+
+  routeStore.setCacheRoutes(names);
+});
 
 const handleTab = (route: RouteLocationNormalized) => {
   router.push({
@@ -113,7 +124,7 @@ const onClickOutSide = () => (showDropdown.value = false);
         </div>
       </n-tab>
       <n-tab
-        v-for="item in tabStore.tabs"
+        v-for="item in dynamicTab"
         :key="item.path"
         closable
         :name="item.path"
