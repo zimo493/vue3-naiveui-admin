@@ -234,28 +234,6 @@ export const useRouteStore = defineStore("route-store", {
     },
 
     /**
-     * 页面内容重载
-     * @returns Promise<boolean> 重载是否成功
-     */
-    async reloadPage(): Promise<boolean> {
-      try {
-        if (!this.activeMenu) {
-          console.warn("当前没有激活的菜单，无法重载页面");
-
-          return false;
-        }
-
-        await router.push(`/redirect${this.activeMenu}`);
-
-        return true;
-      } catch (error) {
-        console.error("页面重载失败:", error);
-
-        return false;
-      }
-    },
-
-    /**
      * 重置路由存储
      */
     resetRouteStore() {
