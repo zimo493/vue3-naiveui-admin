@@ -3,6 +3,7 @@
     <n-layout-sider
       v-if="!appStore.contentFullScreen"
       bordered
+      :inverted="appStore.inverted"
       :show-trigger="appStore.sideTrigger"
       :collapsed="appStore.collapsed"
       collapse-mode="width"
@@ -16,6 +17,7 @@
       <n-scrollbar class="flex-1">
         <n-menu
           ref="menu"
+          :inverted="appStore.inverted"
           :collapsed="appStore.collapsed"
           :indent="20"
           :collapsed-width="appStore.sideCollapsedWidth"

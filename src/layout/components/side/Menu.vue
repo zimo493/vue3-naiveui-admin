@@ -4,6 +4,7 @@
     accordion
     :collapsed="collapsed"
     :indent="20"
+    :inverted="appStore.inverted"
     :collapsed-width="appStore.sideCollapsedWidth"
     :options="routesStore.menus"
     :value="routesStore.activeMenu"

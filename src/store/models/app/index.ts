@@ -45,6 +45,7 @@ export const useAppStore = defineStore("app-store", {
       sideCollapsedWidth: 50,
       sideTrigger: "bar",
       placement: "top",
+      inverted: false, // 菜单反转样式
     };
   },
   getters: {
@@ -82,6 +83,7 @@ export const useAppStore = defineStore("app-store", {
       this.sideCollapsedWidth = 50;
       this.sideTrigger = "bar";
       this.placement = "top";
+      this.inverted = false;
 
       // 重置所有配色
       this.setPrimaryColor();

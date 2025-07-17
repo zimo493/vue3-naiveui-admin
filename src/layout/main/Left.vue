@@ -4,8 +4,9 @@
     <n-layout-sider
       v-if="!appStore.contentFullScreen"
       bordered
-      :collapsed="appStore.collapsed"
       collapse-mode="width"
+      :inverted="appStore.inverted"
+      :collapsed="appStore.collapsed"
       :show-trigger="appStore.sideTrigger"
       :collapsed-width="appStore.sideCollapsedWidth"
       :width="appStore.sideWidth"

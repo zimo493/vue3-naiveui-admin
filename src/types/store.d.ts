@@ -31,6 +31,7 @@ declare namespace Status {
     sideTrigger: "bar" | "arrow-circle";
     borderRadius: string;
     placement: import("naive-ui").MessageProviderProps["placement"];
+    inverted: boolean;
   }
   type TransitionAnimation =
     | ""
