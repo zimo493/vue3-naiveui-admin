@@ -151,6 +151,7 @@ const onClickOutSide = () => (showDropdown.value = false);
     <n-dropdown
       placement="bottom-start"
       trigger="manual"
+      :inverted="appStore.inverted"
       :x="x"
       :y="y"
       :options="options"
