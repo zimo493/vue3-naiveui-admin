@@ -1,36 +1,32 @@
-<script setup lang="ts">
-import { renderIcon } from "@/utils";
-import { useTabStoreHook } from "@/store";
-
-import { defaultIcon } from "@/modules/assets";
-
-const tabStore = useTabStoreHook();
-const router = useRouter();
-
-const renderDropTabsLabel = (option: any) => option.meta.title ?? "";
-
-const renderDropTabsIcon = (option: any) =>
-  option.meta?.icon ? renderIcon(option.meta?.icon)!() : renderIcon(defaultIcon)!();
-
-const handleDropTabs = (key: string, option: any) => {
-  router.push({
-    path: option.path,
-    query: option.query,
-  });
-};
-</script>
-
 <template>
   <n-dropdown
-    :options="tabStore.allTabs"
-    :render-label="renderDropTabsLabel"
-    :render-icon="renderDropTabsIcon"
     trigger="click"
-    size="small"
-    @select="handleDropTabs"
+    :options="options"
+    :show-arrow="true"
+    :inverted="appStore.inverted"
+    @select="(key) => router.push(key)"
   >
     <CommonWrapper>
       <icon-park-outline-application-menu />
     </CommonWrapper>
   </n-dropdown>
 </template>
+
+<script setup lang="ts">
+import { renderIcon } from "@/utils";
+import { useAppStoreHook, useTabStoreHook } from "@/store";
+
+import { defaultIcon } from "@/modules/assets";
+
+const router = useRouter();
+const tabStore = useTabStoreHook();
+const appStore = useAppStoreHook();
+
+const options = computed(() =>
+  tabStore.allTabs?.map((item) => ({
+    key: item.fullPath,
+    label: item.meta.title,
+    icon: item.meta?.icon ? renderIcon(item.meta.icon) : renderIcon(defaultIcon),
+  }))
+);
+</script>
