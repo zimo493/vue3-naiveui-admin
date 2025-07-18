@@ -26,6 +26,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  align: {
+    type: String as PropType<"left" | "center" | "right">,
+    default: "left",
+  },
 });
 
 const emit = defineEmits(["pagination", "update:page", "update:limit"]);
@@ -45,7 +49,7 @@ const handlePageSize = (val: number) => {
 </script>
 
 <template>
-  <div :class="{ hidden }" class="pagination">
+  <div :class="['pagination', 'flex-y-center', { hidden }]" :style="{ justifyContent: align }">
     <n-pagination
       v-model:page="currentPage"
       v-model:page-size="pageSize"
