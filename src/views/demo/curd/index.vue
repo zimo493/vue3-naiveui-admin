@@ -1,5 +1,5 @@
 <template>
-  <n-space vertical>
+  <div>
     <TablePro
       v-model="queryParams"
       :form-config="formConfig"
@@ -139,7 +139,7 @@
         </n-flex>
       </template>
     </ModalForm>
-  </n-space>
+  </div>
 </template>
 <script lang="tsx" setup>
 import { NAvatar, NButton, NSpace, type DataTableColumns, type DataTableRowKey } from "naive-ui";
