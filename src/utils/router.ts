@@ -36,12 +36,11 @@ export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRa
           const normalizedPath = compStr.replace(/^\/+|\/+$/g, "");
 
           // 匹配视图组件
-          const modulePath = `/src/views/${normalizedPath}.vue`;
+          const modulePath = viewModules[`/src/views/${normalizedPath}.vue`];
 
           if (modulePath) {
-            record.component = viewModules[modulePath];
+            record.component = modulePath;
           } else {
-            // 修复：使用函数包装 import 语句
             record.component = () => import("@/views/error/404");
           }
         }
