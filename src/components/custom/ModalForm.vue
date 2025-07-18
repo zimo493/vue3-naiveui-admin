@@ -24,9 +24,14 @@
       </FormPro>
     </n-spin>
     <slot name="footer" />
-    <template v-if="useType === 'submit'" #action>
+    <template #action>
       <n-flex justify="end">
-        <n-button type="primary" :loading="loading" @click="handleSubmit">
+        <n-button
+          v-if="useType === 'submit'"
+          type="primary"
+          :loading="loading"
+          @click="handleSubmit"
+        >
           <template #icon>
             <Icones icon="ant-design:check-outlined" />
           </template>
