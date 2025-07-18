@@ -143,9 +143,11 @@ const onClickOutSide = () => (showDropdown.value = false);
         </div>
       </n-tab>
       <template #suffix>
-        <Reload />
-        <ContentFullScreen />
-        <DropTabs />
+        <div flex-center pr-10px>
+          <Reload />
+          <ContentFullScreen />
+          <DropTabs />
+        </div>
       </template>
     </n-tabs>
     <n-dropdown

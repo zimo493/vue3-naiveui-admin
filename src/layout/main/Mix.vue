@@ -44,7 +44,7 @@
             :value="activeTopMenu"
             @update:value="updateTopMenu"
           />
-          <div class="flex-y-center gap-1 h-full p-x-xl">
+          <div class="flex-y-center gap-1 h-full p-x-10px">
             <Search />
             <!-- <Notices /> -->
             <FullScreen />
