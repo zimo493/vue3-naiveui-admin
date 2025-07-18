@@ -198,14 +198,10 @@ export default themeConfig;
 
                 <n-divider>
                   <span mr-10px>主题颜色</span>
-
-                  <n-tooltip trigger="hover">
+                  <n-tooltip trigger="hover" placement="left">
                     <template #trigger>
                       <n-button
-                        v-copy="{
-                          text: themeConfig,
-                          msg: '主题颜色配置已复制到剪贴板',
-                        }"
+                        v-copy="{ text: themeConfig, msg: '主题配色已复制到剪贴板' }"
                         type="primary"
                         size="small"
                         quaternary
@@ -213,7 +209,11 @@ export default themeConfig;
                         复制
                       </n-button>
                     </template>
-                    <span>复制后可粘贴替换 src/store/models/app/theme.ts 文件中的内容</span>
+                    <span>
+                      复制后可粘贴替换
+                      <n-tag type="info" :bordered="false">src/utils/theme.ts</n-tag>
+                      中的内容
+                    </span>
                   </n-tooltip>
                 </n-divider>
                 <n-space align="center" justify="space-between">
@@ -274,8 +274,8 @@ export default themeConfig;
                     @update:value="appStore.setErrorColor"
                   />
                 </n-space>
-                <n-divider>界面功能</n-divider>
 
+                <n-divider>界面功能</n-divider>
                 <n-space align="center" justify="space-between">
                   圆角大小
                   <n-select

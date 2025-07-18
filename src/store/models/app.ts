@@ -3,7 +3,13 @@ import { colord } from "colord";
 import { set } from "radash";
 import { store as pinia } from "@/store";
 import { LayoutMode, ThemeMode } from "@/enums";
-import theme, { primaryColor, infoColor, successColor, warningColor, errorColor } from "./theme";
+import theme, {
+  primaryColor,
+  infoColor,
+  successColor,
+  warningColor,
+  errorColor,
+} from "@/utils/theme";
 
 const docEle = ref(document.documentElement);
 
