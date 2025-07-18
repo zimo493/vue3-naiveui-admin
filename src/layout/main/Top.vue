@@ -7,13 +7,15 @@
       :native-scrollbar="false"
     >
       <n-layout-header :position="appStore.fixed ? 'absolute' : 'static'" class="z-1">
-        <div
+        <n-layout-sider
           v-if="!appStore.contentFullScreen"
-          class="h-50px flex-y-center justify-between shrink-0"
+          :inverted="appStore.inverted"
+          width="100%"
+          content-style="height:50px; display: flex; align-items: center;"
         >
           <Logo v-if="appStore.showLogo" />
           <Menu mode="horizontal" responsive />
-          <div class="flex-y-center gap-1 h-full p-x-xl">
+          <div class="flex-y-center gap-1 h-full p-x-10px">
             <Search />
             <!-- <Notices /> -->
             <FullScreen />
@@ -22,7 +24,7 @@
             <Setting />
             <UserCenter />
           </div>
-        </div>
+        </n-layout-sider>
         <TabBar v-if="appStore.showTabs" class="h-40px" />
       </n-layout-header>
       <div v-if="appStore.fixed">

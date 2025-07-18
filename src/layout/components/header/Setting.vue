@@ -142,19 +142,6 @@ const themeConfig: GlobalThemeOverrides = {
 export default themeConfig;
 `;
 });
-
-// 反转菜单禁用
-const disabledInverted = computed(() => appStore.layoutMode === LayoutMode.TOP);
-
-watch(
-  () => disabledInverted.value,
-  (v) => {
-    if (v && appStore.inverted) {
-      appStore.inverted = false;
-    }
-  },
-  { immediate: true }
-);
 </script>
 
 <template>
@@ -190,6 +177,13 @@ watch(
                     </n-tabs>
                   </n-flex>
                   <n-space justify="space-between">
+                    <n-flex align="center" justify="center" :size="[4, 0]">
+                      反转样式
+                      <HelpInfo message="来增强菜单和下拉菜单的视觉效果" />
+                    </n-flex>
+                    <n-switch v-model:value="appStore.inverted" />
+                  </n-space>
+                  <n-space justify="space-between">
                     色弱模式
                     <n-switch
                       :value="appStore.colorWeak"
@@ -199,13 +193,6 @@ watch(
                   <n-space justify="space-between">
                     黑白模式
                     <n-switch :value="appStore.grayMode" @update:value="appStore.toggleGrayMode" />
-                  </n-space>
-                  <n-space justify="space-between">
-                    <n-flex align="center" justify="center" :size="[4, 0]">
-                      菜单反转样式
-                      <HelpInfo message="来增强菜单的视觉效果，在 `顶部菜单` 模式下不可用" />
-                    </n-flex>
-                    <n-switch v-model:value="appStore.inverted" :disabled="disabledInverted" />
                   </n-space>
                 </n-flex>
 
