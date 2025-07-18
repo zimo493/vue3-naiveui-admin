@@ -21,20 +21,27 @@
         </FormPro>
       </n-spin>
       <slot name="footer" />
-      <n-space v-if="useType === 'submit'" #footer>
-        <n-button type="primary" :loading="loading" @click="handleSubmit">
-          <template #icon>
-            <Icones icon="ant-design:check-outlined" />
-          </template>
-          {{ form?.positiveText ?? "提交" }}
-        </n-button>
-        <n-button strong secondary @click="cancel">
-          <template #icon>
-            <Icones icon="ant-design:close-outlined" />
-          </template>
-          {{ form?.negativeText ?? "取消" }}
-        </n-button>
-      </n-space>
+      <template #footer>
+        <n-flex justify="end">
+          <n-button
+            v-if="useType === 'submit'"
+            type="primary"
+            :loading="loading"
+            @click="handleSubmit"
+          >
+            <template #icon>
+              <Icones icon="ant-design:check-outlined" />
+            </template>
+            {{ form?.positiveText ?? "提交" }}
+          </n-button>
+          <n-button strong secondary @click="cancel">
+            <template #icon>
+              <Icones icon="ant-design:close-outlined" />
+            </template>
+            {{ form?.negativeText ?? "取消" }}
+          </n-button>
+        </n-flex>
+      </template>
     </n-drawer-content>
   </n-drawer>
 </template>
