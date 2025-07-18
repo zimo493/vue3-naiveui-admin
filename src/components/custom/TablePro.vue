@@ -103,10 +103,11 @@
           :scroll-x="1200"
         />
         <Pagination
-          v-if="totalNum > 0"
           v-model:count="totalNum"
           v-model:page="modelValue.pageNum"
           v-model:limit="modelValue.pageSize"
+          :hidden="totalNum <= 0"
+          :align="paginationPosition"
           @pagination="handleQuery"
         />
       </n-flex>
@@ -129,6 +130,7 @@ interface Props<T> {
   collapseRows?: number;
   operationSpan?: number;
   formConfig?: FormPro.FormItemConfig[];
+  paginationPosition?: "left" | "center" | "right";
 }
 
 interface Emits {
@@ -155,6 +157,7 @@ const props = withDefaults(defineProps<Props<T>>(), {
   operationButtonPosition: "right",
   collapseRows: 3,
   operationSpan: 4,
+  paginationPosition: "left",
 });
 
 const totalNum = computed(() => props.total);
