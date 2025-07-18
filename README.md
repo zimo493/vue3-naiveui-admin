@@ -87,8 +87,7 @@
 │     └── index.ts           # 实例化路由导出
 │  ├─ store                 # pinia store
 │     ├── modules            # store模块
-│         ├── app/index.ts     # 样式布局设置相关存储
-│         ├── app/theme.ts     # 主题配置
+│         ├── app.ts     # 样式布局设置相关存储
 │         ├── auth.ts         # 用户权限相关存储
 │         ├── dict.ts         # 字典相关存储
 │         ├── routes.ts       # 路由相关存储
@@ -114,7 +113,8 @@
 │     ├── request.ts         # axios 请求封装
 │     ├── router.ts          # 路由工具
 │     ├── spin.ts            # 加载动画和通用异步操作封装工具
-│     └── storage.ts         # 存储封装工具
+│     ├── storage.ts         # 存储封装工具
+│     └── theme.ts           # 主题配置
 │  ├─ views                 # 项目所有页面
 │  ├─ App.tsx               # APP根组件
 │  └─ main.ts               # 项目入口文件
