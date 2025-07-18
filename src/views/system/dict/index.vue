@@ -8,7 +8,9 @@
       :total="total"
       :loading="loading"
       :row-key="(row) => row.id"
-      @update:checked-row-keys="handleCheck"
+      :table-props="{
+        onUpdateCheckedRowKeys: handleCheck,
+      }"
       @query="handleQuery"
       @reset="handleQuery"
     >
