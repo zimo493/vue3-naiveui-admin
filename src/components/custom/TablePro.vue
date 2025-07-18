@@ -53,31 +53,31 @@
           </n-flex>
           <div />
           <n-space>
-            <n-popover v-if="(form || formConfig) && modelValue" trigger="hover">
+            <n-tooltip v-if="(form || formConfig) && modelValue" trigger="hover">
               <template #trigger>
                 <CommonWrapper @click="show = !show">
                   <Icones icon="ant-design:search-outlined" />
                 </CommonWrapper>
               </template>
               <span>{{ show ? "隐藏搜索" : "展开搜索" }}</span>
-            </n-popover>
-            <n-popover trigger="hover">
+            </n-tooltip>
+            <n-tooltip trigger="hover">
               <template #trigger>
                 <CommonWrapper @click="handleQuery">
                   <Icones icon="ant-design:reload-outlined" :class="{ 'animate-spin': loading }" />
                 </CommonWrapper>
               </template>
               <span>刷新</span>
-            </n-popover>
-            <n-popover trigger="hover">
+            </n-tooltip>
+            <n-tooltip trigger="hover">
               <template #trigger>
                 <CommonWrapper @click="download">
                   <Icones icon="ant-design:download-outlined" />
                 </CommonWrapper>
               </template>
               <span>导出SVG</span>
-            </n-popover>
-            <n-popover trigger="hover">
+            </n-tooltip>
+            <n-tooltip trigger="hover">
               <template #trigger>
                 <n-el tag="div">
                   <n-dropdown trigger="click" :options="options" @select="handleSelect">
@@ -88,7 +88,7 @@
                 </n-el>
               </template>
               <span>表格尺寸</span>
-            </n-popover>
+            </n-tooltip>
           </n-space>
         </n-flex>
         <n-data-table
