@@ -43,50 +43,26 @@ const handleSelect = (path: string) => {
 </script>
 
 <template>
-  <div>
-    <TransitionGroup
-      v-if="appStore.showBreadcrumb"
-      name="list"
-      tag="ul"
-      style="display: flex; gap: 1em"
-    >
-      <div v-for="(item, idx) in routes" :key="item.path">
-        <n-dropdown :options="options(item.children)" :show-arrow="true" @select="handleSelect">
-          <n-el tag="li" class="flex-center gap-2 cursor-pointer split">
-            <Icones v-show="idx !== 0" icon="line-md:chevron-small-right" />
+  <div v-if="appStore.showBreadcrumb">
+    <n-breadcrumb>
+      <n-breadcrumb-item v-for="item in routes" :key="item.path">
+        <n-dropdown
+          :inverted="appStore.inverted"
+          :options="options(item.children)"
+          :show-arrow="true"
+          @select="handleSelect"
+        >
+          <n-flex align="center" justify="center" :size="[4, 0]">
             <Icones
               v-if="appStore.showBreadcrumbIcon"
               :icon="item.meta?.icon ? item.meta.icon : defaultIcon"
             />
-            <span class="whitespace-nowrap">
+            <div class="whitespace-nowrap lh-[1]">
               {{ item.meta.title }}
-            </span>
-          </n-el>
+            </div>
+          </n-flex>
         </n-dropdown>
-      </div>
-    </TransitionGroup>
+      </n-breadcrumb-item>
+    </n-breadcrumb>
   </div>
 </template>
-
-<style lang="scss">
-.split {
-  color: var(--text-color-2);
-  transition: 0.3s var(--cubic-bezier-ease-in-out);
-}
-
-.list-move,
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.3s ease;
-}
-
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(-30px);
-}
-
-.list-leave-active {
-  position: absolute;
-}
-</style>
