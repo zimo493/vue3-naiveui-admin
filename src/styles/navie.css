@@ -51,3 +51,7 @@
 .n-image-preview-toolbar .n-base-icon {
   width: auto;
 }
+
+.n-menu.n-menu--horizontal .n-menu-item-content {
+  border-top: 2px solid var(--n-border-color-horizontal);
+}
