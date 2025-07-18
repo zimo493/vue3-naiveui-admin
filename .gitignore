@@ -21,7 +21,6 @@ dist-ssr
 *.sln
 *.sw?
 
-.eslintcache
-.stylelintcache
+.*cache
 .eslintrc-auto-import.json
 /src/typings/*.d.ts
