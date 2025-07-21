@@ -17,6 +17,7 @@ declare namespace Status {
     loadFlag: boolean;
     showLogo: boolean;
     showTabs: boolean;
+    showTabsIcon: boolean;
     showFooter: boolean;
     showProgress: boolean;
     showBreadcrumb: boolean;

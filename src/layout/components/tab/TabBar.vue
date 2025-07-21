@@ -32,6 +32,11 @@ watchEffect(() => {
   routeStore.setCacheRoutes(names);
 });
 
+watch(
+  () => appStore.showTabsIcon,
+  () => nextTick(() => updateBar())
+);
+
 const handleTab = (route: RouteLocationNormalized) => {
   router.push({
     path: route.path,
@@ -42,7 +47,7 @@ const handleTab = (route: RouteLocationNormalized) => {
 const tabsInstRef = useTemplateRef<TabsInst>("tabs");
 const handleClose = (path: string) => tabStore.closeTab(path).then(() => updateBar());
 
-/** 删除之后手动更新一下指示条 */
+/** 手动更新指示条 */
 const updateBar = () => tabsInstRef.value?.syncBarPosition();
 
 const options = computed(() => {
@@ -119,7 +124,7 @@ const onClickOutSide = () => (showDropdown.value = false);
         @click="router.push(item.path)"
       >
         <div class="flex-x-center gap-2 items-center">
-          <Icones :icon="item.meta.icon" />
+          <Icones v-if="appStore.showTabsIcon" :icon="item.meta.icon" />
           {{ item.meta.title }}
         </div>
       </n-tab>
@@ -132,7 +137,10 @@ const onClickOutSide = () => (showDropdown.value = false);
         @contextmenu="handleContextMenu($event, item)"
       >
         <div class="flex-x-center gap-1 items-center">
-          <Icones :icon="item.meta?.icon ? item.meta.icon : defaultIcon" />
+          <Icones
+            v-if="appStore.showTabsIcon"
+            :icon="item.meta?.icon ? item.meta.icon : defaultIcon"
+          />
           {{ item.meta.title }}
           <Icones
             class="close"

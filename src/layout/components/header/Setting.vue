@@ -350,6 +350,10 @@ export default themeConfig;
                   <n-switch v-model:value="appStore.showTabs" />
                 </n-space>
                 <n-space justify="space-between">
+                  多页签图标
+                  <n-switch v-model:value="appStore.showTabsIcon" />
+                </n-space>
+                <n-space justify="space-between">
                   固定顶部和底部
                   <n-switch v-model:value="appStore.fixed" />
                 </n-space>
