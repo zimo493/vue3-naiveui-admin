@@ -1,5 +1,5 @@
 <template>
-  <n-back-top :bottom="80" :visibility-height="300">
+  <n-back-top :visibility-height="300">
     <n-tooltip placement="left" trigger="hover">
       <template #trigger>
         <div wh-full flex-center>
