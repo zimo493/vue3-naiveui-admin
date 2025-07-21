@@ -86,11 +86,11 @@ const value = defineModel<LayoutMode>("value", { required: true });
   width: 86px;
   height: 60px;
   padding: 0.4em;
-  border-radius: var(--border-radius);
+  border-radius: 4px;
   box-shadow: var(--box-shadow-1);
 }
 
 .grid > div {
-  border-radius: var(--border-radius);
+  border-radius: 2px;
 }
 </style>

@@ -55,3 +55,8 @@
 .n-menu.n-menu--horizontal .n-menu-item-content {
   border-top: 2px solid var(--n-border-color-horizontal);
 }
+
+.n-color-picker-trigger .n-color-picker-trigger__fill {
+  overflow: hidden;
+  border-radius: calc(var(--n-border-radius) / 2);
+}
