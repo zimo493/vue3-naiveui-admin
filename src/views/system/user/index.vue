@@ -419,7 +419,7 @@ const newPassword = ref<{
   msg: "",
 });
 const handleResetPassword = (row: User.VO) => {
-  window.$dialog.info({
+  window.$dialog.warning({
     title: "系统提示",
     positiveText: "确定",
     negativeText: "取消",
