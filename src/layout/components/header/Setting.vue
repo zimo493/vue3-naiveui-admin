@@ -363,7 +363,12 @@ export default themeConfig;
                 </n-space>
               </n-space>
               <template #footer>
-                <n-button type="warning" @click="resetSetting">重置</n-button>
+                <n-button type="warning" @click="resetSetting">
+                  <template #icon>
+                    <icon-park-outline-redo />
+                  </template>
+                  重置
+                </n-button>
               </template>
             </n-drawer-content>
           </n-drawer>
