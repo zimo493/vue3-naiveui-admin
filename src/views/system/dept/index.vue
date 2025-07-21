@@ -157,15 +157,10 @@ const editFormConfig = computed(
         name: "parentId",
         label: "上级部门",
         component: "treeSelect",
-        props: {
-          keyField: "value",
-          labelField: "label",
-          options: deptOptions.value,
-        },
+        props: { keyField: "value", labelField: "label", options: deptOptions.value },
       },
       { name: "name", label: "部门名称" },
       { name: "code", label: "部门编号" },
-
       {
         name: "status",
         label: "状态",
