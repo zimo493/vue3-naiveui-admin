@@ -83,7 +83,7 @@ const resetSetting = () => {
   });
 };
 
-const setSideBar = computed(() => [LayoutMode.LEFT, LayoutMode.MIX].includes(appStore.layoutMode));
+const setSideBar = computed(() => appStore.layoutMode !== LayoutMode.TOP);
 
 // 渲染圆角大小选项标签
 const renderLabel = ({ label, value }: SelectOption): VNodeChild => (
@@ -153,7 +153,7 @@ export default themeConfig;
           <n-drawer v-model:show="drawerActive" :width="360">
             <n-drawer-content title="系统设置" closable>
               <n-space vertical>
-                <n-divider>布局设置</n-divider>
+                <!-- <n-divider>布局设置</n-divider> -->
                 <LayoutSelector v-model:value="appStore.layoutMode" />
 
                 <n-divider>主题模式</n-divider>

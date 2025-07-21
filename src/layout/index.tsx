@@ -5,7 +5,9 @@ import left from "./main/Left.vue";
 const layoutMap = {
   left,
   top: defineAsyncComponent(() => import("./main/Top.vue")),
-  mix: defineAsyncComponent(() => import("./main/Mix.vue")),
+  right: defineAsyncComponent(() => import("./main/Right.vue")),
+  mixLeft: defineAsyncComponent(() => import("./main/MixLeft.vue")),
+  mixRight: defineAsyncComponent(() => import("./main/MixRight.vue")),
 };
 
 const appStore = useAppStoreHook();

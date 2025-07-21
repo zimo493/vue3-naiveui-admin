@@ -12,7 +12,15 @@ export const enum LayoutMode {
   TOP = "top",
 
   /**
-   * 混合菜单布局
+   * 混合左侧菜单布局
    */
-  MIX = "mix",
+  MIX_LEFT = "mixLeft",
+  /**
+   * 右侧菜单布局
+   */
+  RIGHT = "right",
+  /**
+   * 混合右侧菜单布局
+   */
+  MIX_RIGHT = "mixRight",
 }
