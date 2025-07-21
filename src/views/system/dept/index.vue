@@ -150,38 +150,42 @@ const columns = ref<DataTableColumns<Dept.VO>>([
   },
 ]);
 
-const editFormConfig: DialogForm.Form = {
-  config: [
-    {
-      name: "parentId",
-      label: "上级部门",
-      component: "treeSelect",
-      props: {
-        keyField: "value",
-        labelField: "label",
-        options: deptOptions.value,
+const editFormConfig = computed(
+  (): DialogForm.Form => ({
+    config: [
+      {
+        name: "parentId",
+        label: "上级部门",
+        component: "treeSelect",
+        props: {
+          keyField: "value",
+          labelField: "label",
+          options: deptOptions.value,
+        },
+      },
+      { name: "name", label: "部门名称" },
+      { name: "code", label: "部门编号" },
+
+      {
+        name: "status",
+        label: "状态",
+        component: "radio",
+        props: { options: statusOptions },
+      },
+      { name: "sort", label: "排序", component: "number" },
+    ],
+    props: {
+      rules: {
+        name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
+        code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
+        dataScope: [
+          { required: true, type: "number", message: "请选择数据权限", trigger: "change" },
+        ],
+        status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
       },
     },
-    { name: "name", label: "部门名称" },
-    { name: "code", label: "部门编号" },
-
-    {
-      name: "status",
-      label: "状态",
-      component: "radio",
-      props: { options: statusOptions },
-    },
-    { name: "sort", label: "排序", component: "number" },
-  ],
-  props: {
-    rules: {
-      name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
-      code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
-      dataScope: [{ required: true, type: "number", message: "请选择数据权限", trigger: "change" }],
-      status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
-    },
-  },
-};
+  })
+);
 
 /** 初始化表单 */
 const modelValue = ref<Dept.Form>({
