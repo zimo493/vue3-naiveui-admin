@@ -49,7 +49,7 @@ const value = defineModel<LayoutMode>("value", { required: true });
       <span>混合左侧菜单</span>
     </n-tooltip>
 
-    <n-tooltip placement="bottom" trigger="hover">
+    <n-tooltip trigger="hover">
       <template #trigger>
         <n-el
           :class="{ 'outline outline-2': value === LayoutMode.RIGHT }"
@@ -63,7 +63,7 @@ const value = defineModel<LayoutMode>("value", { required: true });
       <span>右侧菜单</span>
     </n-tooltip>
 
-    <n-tooltip placement="bottom" trigger="hover">
+    <n-tooltip trigger="hover">
       <template #trigger>
         <n-el
           :class="{ 'outline outline-2': value === LayoutMode.MIX_RIGHT }"

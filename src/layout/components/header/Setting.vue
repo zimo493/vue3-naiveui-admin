@@ -1,10 +1,258 @@
+<template>
+  <div>
+    <n-tooltip placement="bottom" trigger="hover">
+      <template #trigger>
+        <CommonWrapper @click="openSetting">
+          <icon-park-outline-setting-two />
+        </CommonWrapper>
+      </template>
+      <span>系统设置</span>
+    </n-tooltip>
+
+    <!-- 设置面板 -->
+    <n-drawer v-model:show="drawerActive" :width="360">
+      <n-drawer-content title="系统设置" closable>
+        <n-flex vertical>
+          <!-- <n-divider>布局设置</n-divider> -->
+          <LayoutSelector v-model:value="appStore.layoutMode" />
+
+          <n-divider>主题模式</n-divider>
+          <n-flex vertical :size="16">
+            <n-flex align="center" justify="center">
+              <n-tabs
+                v-model:value="colorMode"
+                type="segment"
+                animated
+                @update:value="appStore.setColorMode"
+              >
+                <n-tab :name="ThemeMode.LIGHT">
+                  <icon-park-outline-sun-one />
+                </n-tab>
+                <n-tab :name="ThemeMode.DARK">
+                  <icon-park-outline-moon />
+                </n-tab>
+                <n-tab :name="ThemeMode.AUTO">
+                  <icon-park-outline-laptop-computer />
+                </n-tab>
+              </n-tabs>
+            </n-flex>
+            <n-flex justify="space-between">
+              <n-flex align="center" justify="center" :size="[4, 0]">
+                反转样式
+                <HelpInfo message="来增强菜单和下拉菜单的视觉效果" />
+              </n-flex>
+              <n-switch v-model:value="appStore.inverted" />
+            </n-flex>
+            <n-flex justify="space-between">
+              色弱模式
+              <n-switch :value="appStore.colorWeak" @update:value="appStore.toggleColorWeak" />
+            </n-flex>
+            <n-flex justify="space-between">
+              黑白模式
+              <n-switch :value="appStore.grayMode" @update:value="appStore.toggleGrayMode" />
+            </n-flex>
+          </n-flex>
+
+          <n-divider>
+            <span mr-10px>主题颜色</span>
+            <n-tooltip trigger="hover" placement="left">
+              <template #trigger>
+                <n-button
+                  v-copy="{ text: themeConfig, msg: '主题配色已复制到剪贴板' }"
+                  type="primary"
+                  size="small"
+                  quaternary
+                >
+                  复制
+                </n-button>
+              </template>
+              <span>
+                复制后可粘贴替换
+                <n-tag type="info" :bordered="false">src/utils/theme.ts</n-tag>
+                中的内容
+              </span>
+            </n-tooltip>
+          </n-divider>
+          <n-flex align="center" justify="space-between">
+            主色
+            <n-color-picker
+              v-model:value="appStore.primaryColor"
+              w-100px
+              :show-alpha="false"
+              :swatches="palette"
+              @update:value="appStore.setPrimaryColor"
+            />
+          </n-flex>
+          <n-flex align="center" justify="space-between">
+            <n-flex>
+              信息色
+              <n-checkbox
+                v-model:checked="appStore.followPrimary"
+                @update:checked="appStore.handleFollowPrimary"
+              >
+                跟随主色
+              </n-checkbox>
+            </n-flex>
+            <n-color-picker
+              v-model:value="appStore.infoColor"
+              w-100px
+              :show-alpha="false"
+              :swatches="palette"
+              @update:value="appStore.setInfoColor"
+            />
+          </n-flex>
+          <n-flex align="center" justify="space-between">
+            成功色
+            <n-color-picker
+              v-model:value="appStore.successColor"
+              w-100px
+              :show-alpha="false"
+              :swatches="palette"
+              @update:value="appStore.setSuccessColor"
+            />
+          </n-flex>
+          <n-flex align="center" justify="space-between">
+            警告色
+            <n-color-picker
+              v-model:value="appStore.warningColor"
+              w-100px
+              :show-alpha="false"
+              :swatches="palette"
+              @update:value="appStore.setWarningColor"
+            />
+          </n-flex>
+          <n-flex align="center" justify="space-between">
+            错误色
+            <n-color-picker
+              v-model:value="appStore.errorColor"
+              w-100px
+              :show-alpha="false"
+              :swatches="palette"
+              @update:value="appStore.setErrorColor"
+            />
+          </n-flex>
+
+          <n-divider>界面功能</n-divider>
+          <n-flex align="center" justify="space-between">
+            圆角大小
+            <n-select
+              v-model:value="appStore.borderRadius"
+              class="w-10em"
+              :consistent-menu-width="false"
+              :options="borderRadiusOptions"
+              :render-label="renderLabel"
+              :render-tag="renderTag"
+              @update:value="appStore.setBorderRadius"
+            />
+          </n-flex>
+          <n-flex align="center" justify="space-between">
+            页面过渡
+            <n-select
+              v-model:value="appStore.transitionAnimation"
+              class="w-10em"
+              :options="transitionSelectorOptions"
+              @update:value="appStore.reloadPage"
+            />
+          </n-flex>
+          <template v-if="setSideBar">
+            <n-flex align="center" justify="space-between">
+              侧边栏宽度
+              <n-input-number v-model:value="appStore.sideWidth" class="w-10em" :min="180" />
+            </n-flex>
+            <n-flex align="center" justify="space-between">
+              侧边栏折叠宽度
+              <n-input-number
+                v-model:value="appStore.sideCollapsedWidth"
+                class="w-10em"
+                :min="50"
+              />
+            </n-flex>
+            <n-flex align="center" justify="space-between">
+              侧边栏触发样式
+              <n-select
+                v-model:value="appStore.sideTrigger"
+                class="w-10em"
+                :options="sideBarShowTrigger"
+              />
+            </n-flex>
+          </template>
+          <n-flex align="center" justify="space-between">
+            Message提示位置
+            <n-select
+              v-model:value="appStore.placement"
+              class="w-10em"
+              :options="messagePositions"
+              @update:value="appStore.setPlacement"
+            />
+          </n-flex>
+
+          <n-flex justify="space-between">
+            logo显示
+            <n-switch v-model:value="appStore.showLogo" />
+          </n-flex>
+          <n-flex justify="space-between">
+            顶部进度
+            <n-switch v-model:value="appStore.showProgress" />
+          </n-flex>
+          <n-flex justify="space-between">
+            面包屑
+            <n-switch v-model:value="appStore.showBreadcrumb" />
+          </n-flex>
+          <n-flex justify="space-between">
+            面包屑图标
+            <n-switch v-model:value="appStore.showBreadcrumbIcon" />
+          </n-flex>
+          <n-flex justify="space-between">
+            多页签显示
+            <n-switch v-model:value="appStore.showTabs" />
+          </n-flex>
+          <n-flex justify="space-between">
+            多页签图标
+            <n-switch v-model:value="appStore.showTabsIcon" />
+          </n-flex>
+          <n-flex justify="space-between">
+            固定顶部和底部
+            <n-switch v-model:value="appStore.fixed" />
+          </n-flex>
+          <n-flex justify="space-between">
+            底部版权
+            <n-switch v-model:value="appStore.showFooter" />
+          </n-flex>
+          <n-flex justify="space-between">
+            <n-flex align="center">
+              <n-text>水印</n-text>
+              <div>
+                <n-input
+                  v-model:value="appStore.watermarkText"
+                  size="small"
+                  type="text"
+                  placeholder="请输入水印文字"
+                />
+              </div>
+            </n-flex>
+            <n-switch v-model:value="appStore.showWatermark" />
+          </n-flex>
+        </n-flex>
+        <template #footer>
+          <n-button type="warning" @click="resetSetting">
+            <template #icon>
+              <icon-park-outline-redo />
+            </template>
+            重置
+          </n-button>
+        </template>
+      </n-drawer-content>
+    </n-drawer>
+  </div>
+</template>
+
 <script setup lang="tsx">
 import type { VNodeChild } from "vue";
 
 import { useAppStoreHook } from "@/store";
 import { LayoutMode, ThemeMode } from "@/enums";
 
-import { NFlex, NText, SelectOption } from "naive-ui";
+import { type SelectOption, NFlex, NText } from "naive-ui";
 
 const appStore = useAppStoreHook();
 
@@ -143,252 +391,3 @@ export default themeConfig;
 `;
 });
 </script>
-
-<template>
-  <n-tooltip placement="bottom" trigger="hover">
-    <template #trigger>
-      <CommonWrapper @click="openSetting">
-        <div>
-          <icon-park-outline-setting-two />
-          <n-drawer v-model:show="drawerActive" :width="360">
-            <n-drawer-content title="系统设置" closable>
-              <n-flex vertical>
-                <!-- <n-divider>布局设置</n-divider> -->
-                <LayoutSelector v-model:value="appStore.layoutMode" />
-
-                <n-divider>主题模式</n-divider>
-                <n-flex vertical :size="16">
-                  <n-flex align="center" justify="center">
-                    <n-tabs
-                      v-model:value="colorMode"
-                      type="segment"
-                      animated
-                      @update:value="appStore.setColorMode"
-                    >
-                      <n-tab :name="ThemeMode.LIGHT">
-                        <icon-park-outline-sun-one />
-                      </n-tab>
-                      <n-tab :name="ThemeMode.DARK">
-                        <icon-park-outline-moon />
-                      </n-tab>
-                      <n-tab :name="ThemeMode.AUTO">
-                        <icon-park-outline-laptop-computer />
-                      </n-tab>
-                    </n-tabs>
-                  </n-flex>
-                  <n-flex justify="space-between">
-                    <n-flex align="center" justify="center" :size="[4, 0]">
-                      反转样式
-                      <HelpInfo message="来增强菜单和下拉菜单的视觉效果" />
-                    </n-flex>
-                    <n-switch v-model:value="appStore.inverted" />
-                  </n-flex>
-                  <n-flex justify="space-between">
-                    色弱模式
-                    <n-switch
-                      :value="appStore.colorWeak"
-                      @update:value="appStore.toggleColorWeak"
-                    />
-                  </n-flex>
-                  <n-flex justify="space-between">
-                    黑白模式
-                    <n-switch :value="appStore.grayMode" @update:value="appStore.toggleGrayMode" />
-                  </n-flex>
-                </n-flex>
-
-                <n-divider>
-                  <span mr-10px>主题颜色</span>
-                  <n-tooltip trigger="hover" placement="left">
-                    <template #trigger>
-                      <n-button
-                        v-copy="{ text: themeConfig, msg: '主题配色已复制到剪贴板' }"
-                        type="primary"
-                        size="small"
-                        quaternary
-                      >
-                        复制
-                      </n-button>
-                    </template>
-                    <span>
-                      复制后可粘贴替换
-                      <n-tag type="info" :bordered="false">src/utils/theme.ts</n-tag>
-                      中的内容
-                    </span>
-                  </n-tooltip>
-                </n-divider>
-                <n-flex align="center" justify="space-between">
-                  主色
-                  <n-color-picker
-                    v-model:value="appStore.primaryColor"
-                    w-100px
-                    :show-alpha="false"
-                    :swatches="palette"
-                    @update:value="appStore.setPrimaryColor"
-                  />
-                </n-flex>
-                <n-flex align="center" justify="space-between">
-                  <n-flex>
-                    信息色
-                    <n-checkbox
-                      v-model:checked="appStore.followPrimary"
-                      @update:checked="appStore.handleFollowPrimary"
-                    >
-                      跟随主色
-                    </n-checkbox>
-                  </n-flex>
-                  <n-color-picker
-                    v-model:value="appStore.infoColor"
-                    w-100px
-                    :show-alpha="false"
-                    :swatches="palette"
-                    @update:value="appStore.setInfoColor"
-                  />
-                </n-flex>
-                <n-flex align="center" justify="space-between">
-                  成功色
-                  <n-color-picker
-                    v-model:value="appStore.successColor"
-                    w-100px
-                    :show-alpha="false"
-                    :swatches="palette"
-                    @update:value="appStore.setSuccessColor"
-                  />
-                </n-flex>
-                <n-flex align="center" justify="space-between">
-                  警告色
-                  <n-color-picker
-                    v-model:value="appStore.warningColor"
-                    w-100px
-                    :show-alpha="false"
-                    :swatches="palette"
-                    @update:value="appStore.setWarningColor"
-                  />
-                </n-flex>
-                <n-flex align="center" justify="space-between">
-                  错误色
-                  <n-color-picker
-                    v-model:value="appStore.errorColor"
-                    w-100px
-                    :show-alpha="false"
-                    :swatches="palette"
-                    @update:value="appStore.setErrorColor"
-                  />
-                </n-flex>
-
-                <n-divider>界面功能</n-divider>
-                <n-flex align="center" justify="space-between">
-                  圆角大小
-                  <n-select
-                    v-model:value="appStore.borderRadius"
-                    class="w-10em"
-                    :consistent-menu-width="false"
-                    :options="borderRadiusOptions"
-                    :render-label="renderLabel"
-                    :render-tag="renderTag"
-                    @update:value="appStore.setBorderRadius"
-                  />
-                </n-flex>
-                <n-flex align="center" justify="space-between">
-                  页面过渡
-                  <n-select
-                    v-model:value="appStore.transitionAnimation"
-                    class="w-10em"
-                    :options="transitionSelectorOptions"
-                    @update:value="appStore.reloadPage"
-                  />
-                </n-flex>
-                <template v-if="setSideBar">
-                  <n-flex align="center" justify="space-between">
-                    侧边栏宽度
-                    <n-input-number v-model:value="appStore.sideWidth" class="w-10em" :min="180" />
-                  </n-flex>
-                  <n-flex align="center" justify="space-between">
-                    侧边栏折叠宽度
-                    <n-input-number
-                      v-model:value="appStore.sideCollapsedWidth"
-                      class="w-10em"
-                      :min="50"
-                    />
-                  </n-flex>
-                  <n-flex align="center" justify="space-between">
-                    侧边栏触发样式
-                    <n-select
-                      v-model:value="appStore.sideTrigger"
-                      class="w-10em"
-                      :options="sideBarShowTrigger"
-                    />
-                  </n-flex>
-                </template>
-                <n-flex align="center" justify="space-between">
-                  Message提示位置
-                  <n-select
-                    v-model:value="appStore.placement"
-                    class="w-10em"
-                    :options="messagePositions"
-                    @update:value="appStore.setPlacement"
-                  />
-                </n-flex>
-
-                <n-flex justify="space-between">
-                  logo显示
-                  <n-switch v-model:value="appStore.showLogo" />
-                </n-flex>
-                <n-flex justify="space-between">
-                  顶部进度
-                  <n-switch v-model:value="appStore.showProgress" />
-                </n-flex>
-                <n-flex justify="space-between">
-                  面包屑
-                  <n-switch v-model:value="appStore.showBreadcrumb" />
-                </n-flex>
-                <n-flex justify="space-between">
-                  面包屑图标
-                  <n-switch v-model:value="appStore.showBreadcrumbIcon" />
-                </n-flex>
-                <n-flex justify="space-between">
-                  多页签显示
-                  <n-switch v-model:value="appStore.showTabs" />
-                </n-flex>
-                <n-flex justify="space-between">
-                  多页签图标
-                  <n-switch v-model:value="appStore.showTabsIcon" />
-                </n-flex>
-                <n-flex justify="space-between">
-                  固定顶部和底部
-                  <n-switch v-model:value="appStore.fixed" />
-                </n-flex>
-                <n-flex justify="space-between">
-                  底部版权
-                  <n-switch v-model:value="appStore.showFooter" />
-                </n-flex>
-                <n-flex justify="space-between">
-                  <n-flex align="center">
-                    <n-text>水印</n-text>
-                    <div>
-                      <n-input
-                        v-model:value="appStore.watermarkText"
-                        size="small"
-                        type="text"
-                        placeholder="请输入水印文字"
-                      />
-                    </div>
-                  </n-flex>
-                  <n-switch v-model:value="appStore.showWatermark" />
-                </n-flex>
-              </n-flex>
-              <template #footer>
-                <n-button type="warning" @click="resetSetting">
-                  <template #icon>
-                    <icon-park-outline-redo />
-                  </template>
-                  重置
-                </n-button>
-              </template>
-            </n-drawer-content>
-          </n-drawer>
-        </div>
-      </CommonWrapper>
-    </template>
-    <span>系统设置</span>
-  </n-tooltip>
-</template>
