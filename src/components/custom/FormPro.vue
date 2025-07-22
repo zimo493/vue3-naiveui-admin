@@ -28,23 +28,24 @@
 </template>
 
 <script setup lang="ts" generic="T extends Recordable">
-import { type FormInst, type FormProps, type GridProps, type SelectOption, NFlex } from "naive-ui";
+import type { FormInst, FormProps, GridProps, SelectOption } from "naive-ui";
+import {
+  NFlex,
+  NInput,
+  NSelect,
+  NInputNumber,
+  NDatePicker,
+  NTimePicker,
+  NSwitch,
+  NTreeSelect,
+  NCheckboxGroup,
+  NCheckbox,
+  NRadio,
+  NRadioGroup,
+  NText,
+} from "naive-ui";
 
 import { useDict } from "@/hooks";
-
-type NComponentName =
-  | "NInput"
-  | "NSelect"
-  | "NInputNumber"
-  | "NDatePicker"
-  | "NTimePicker"
-  | "NSwitch"
-  | "NTreeSelect"
-  | "NCheckboxGroup"
-  | "NCheckbox"
-  | "NRadio"
-  | "NRadioGroup"
-  | "NText";
 
 defineOptions({ name: "FormPro" });
 
@@ -100,10 +101,6 @@ const formRef = useTemplateRef<FormInst>("formPro");
 
 // 过滤表单配置项
 const formItems = computed(() => formConfig.filter((item) => !item.hidden));
-
-// 创建异步组件的工具函数
-const asyncComp = (componentName: NComponentName) =>
-  defineAsyncComponent(() => import("naive-ui").then((m) => m[componentName]));
 
 // 字典加载状态
 const dictLoading = ref<Record<string, boolean>>({});
@@ -244,18 +241,18 @@ const transformComponent =
  * 组件映射表
  */
 const componentMap: Record<string, Component> = {
-  input: asyncComp("NInput"),
-  select: asyncComp("NSelect"),
-  switch: asyncComp("NSwitch"),
-  textarea: asyncComp("NInput"),
-  password: asyncComp("NInput"),
-  number: asyncComp("NInputNumber"),
-  date: asyncComp("NDatePicker"),
-  time: asyncComp("NTimePicker"),
-  radio: transformComponent(asyncComp("NRadioGroup"), asyncComp("NRadio")),
-  checkbox: transformComponent(asyncComp("NCheckboxGroup"), asyncComp("NCheckbox")),
-  treeSelect: asyncComp("NTreeSelect"),
-  text: asyncComp("NText"),
+  input: NInput,
+  select: NSelect,
+  switch: NSwitch,
+  textarea: NInput,
+  password: NInput,
+  number: NInputNumber,
+  date: NDatePicker,
+  time: NTimePicker,
+  radio: transformComponent(NRadioGroup, NRadio),
+  checkbox: transformComponent(NCheckboxGroup, NCheckbox),
+  treeSelect: NTreeSelect,
+  text: NText,
 };
 
 /**
