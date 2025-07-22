@@ -1,4 +1,5 @@
 import type { MIMETYPE } from "@/enums";
+import Icones from "@/components/common/Icones.vue";
 
 /**
  * 参数处理
@@ -48,6 +49,15 @@ export const InquiryBox = (
       content,
       positiveText: "确定",
       negativeText: "取消",
+      positiveButtonProps: {
+        secondary: true,
+        strong: true,
+        renderIcon: () => h(Icones, { icon: "ant-design:check-outlined", size: 16 }),
+      },
+      negativeButtonProps: {
+        text: true,
+        renderIcon: () => h(Icones, { icon: "ant-design:close-outlined", size: 16 }),
+      },
       onPositiveClick: () => resolve(true),
       onAfterLeave: () => reject(false),
     });

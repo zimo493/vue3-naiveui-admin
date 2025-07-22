@@ -422,7 +422,15 @@ const handleResetPassword = (row: User.VO) => {
     title: "系统提示",
     positiveText: "确定",
     negativeText: "取消",
-    maskClosable: false,
+    positiveButtonProps: {
+      secondary: true,
+      strong: true,
+      renderIcon: () => h(Icones, { icon: "ant-design:check-outlined", size: 16 }),
+    },
+    negativeButtonProps: {
+      text: true,
+      renderIcon: () => h(Icones, { icon: "ant-design:close-outlined", size: 16 }),
+    },
     content: () => (
       <NFlex vertical>
         <NText>请输入 "{row.username}" 的新密码</NText>
@@ -448,7 +456,7 @@ const handleResetPassword = (row: User.VO) => {
           newPassword.value.msg = "密码长度必须介于 6 和 20 之间";
         } else if (/[<>"'|\\]/.test(pwd)) {
           newPassword.value.status = "error";
-          newPassword.value.msg = "不能包含非法字符";
+          newPassword.value.msg = "不能包含非法字符 < > \" ' | \\";
         } else {
           newPassword.value.status = "success";
           newPassword.value.msg = "";
