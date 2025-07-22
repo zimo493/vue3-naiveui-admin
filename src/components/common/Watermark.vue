@@ -1,16 +1,19 @@
 <script setup lang="ts">
+import { useAppStoreHook } from "@/store";
+
 defineOptions({ name: "Watermark" });
 
-const { showWatermark = false, text = "vue3-naiveui-admin" } = defineProps({
+const { showWatermark = false } = defineProps({
   showWatermark: { type: Boolean },
-  text: { type: String },
 });
+
+const appStore = useAppStoreHook();
 </script>
 
 <template>
   <n-watermark
     v-if="showWatermark"
-    :content="text"
+    :content="appStore.watermarkText"
     cross
     fullscreen
     :font-size="16"

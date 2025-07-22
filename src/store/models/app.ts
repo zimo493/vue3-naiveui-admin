@@ -45,6 +45,7 @@ export const useAppStore = defineStore("app-store", {
       showBreadcrumb: true,
       showBreadcrumbIcon: true,
       showWatermark: false,
+      watermarkText: "",
       transitionAnimation: "fade-slide",
       layoutMode: LayoutMode.LEFT,
       contentFullScreen: false,
@@ -84,6 +85,7 @@ export const useAppStore = defineStore("app-store", {
       this.showBreadcrumb = true;
       this.showBreadcrumbIcon = true;
       this.showWatermark = false;
+      this.watermarkText = "";
       this.transitionAnimation = "fade-slide";
       this.layoutMode = LayoutMode.LEFT;
       this.contentFullScreen = false;

@@ -23,6 +23,7 @@ declare namespace Status {
     showBreadcrumb: boolean;
     showBreadcrumbIcon: boolean;
     showWatermark: boolean;
+    watermarkText: string;
     transitionAnimation: TransitionAnimation;
     layoutMode: import("@/enums").LayoutMode;
     contentFullScreen: boolean;

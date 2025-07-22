@@ -152,7 +152,7 @@ export default themeConfig;
           <icon-park-outline-setting-two />
           <n-drawer v-model:show="drawerActive" :width="360">
             <n-drawer-content title="系统设置" closable>
-              <n-space vertical>
+              <n-flex vertical>
                 <!-- <n-divider>布局设置</n-divider> -->
                 <LayoutSelector v-model:value="appStore.layoutMode" />
 
@@ -176,24 +176,24 @@ export default themeConfig;
                       </n-tab>
                     </n-tabs>
                   </n-flex>
-                  <n-space justify="space-between">
+                  <n-flex justify="space-between">
                     <n-flex align="center" justify="center" :size="[4, 0]">
                       反转样式
                       <HelpInfo message="来增强菜单和下拉菜单的视觉效果" />
                     </n-flex>
                     <n-switch v-model:value="appStore.inverted" />
-                  </n-space>
-                  <n-space justify="space-between">
+                  </n-flex>
+                  <n-flex justify="space-between">
                     色弱模式
                     <n-switch
                       :value="appStore.colorWeak"
                       @update:value="appStore.toggleColorWeak"
                     />
-                  </n-space>
-                  <n-space justify="space-between">
+                  </n-flex>
+                  <n-flex justify="space-between">
                     黑白模式
                     <n-switch :value="appStore.grayMode" @update:value="appStore.toggleGrayMode" />
-                  </n-space>
+                  </n-flex>
                 </n-flex>
 
                 <n-divider>
@@ -216,7 +216,7 @@ export default themeConfig;
                     </span>
                   </n-tooltip>
                 </n-divider>
-                <n-space align="center" justify="space-between">
+                <n-flex align="center" justify="space-between">
                   主色
                   <n-color-picker
                     v-model:value="appStore.primaryColor"
@@ -225,9 +225,9 @@ export default themeConfig;
                     :swatches="palette"
                     @update:value="appStore.setPrimaryColor"
                   />
-                </n-space>
-                <n-space align="center" justify="space-between">
-                  <n-space>
+                </n-flex>
+                <n-flex align="center" justify="space-between">
+                  <n-flex>
                     信息色
                     <n-checkbox
                       v-model:checked="appStore.followPrimary"
@@ -235,7 +235,7 @@ export default themeConfig;
                     >
                       跟随主色
                     </n-checkbox>
-                  </n-space>
+                  </n-flex>
                   <n-color-picker
                     v-model:value="appStore.infoColor"
                     w-100px
@@ -243,8 +243,8 @@ export default themeConfig;
                     :swatches="palette"
                     @update:value="appStore.setInfoColor"
                   />
-                </n-space>
-                <n-space align="center" justify="space-between">
+                </n-flex>
+                <n-flex align="center" justify="space-between">
                   成功色
                   <n-color-picker
                     v-model:value="appStore.successColor"
@@ -253,8 +253,8 @@ export default themeConfig;
                     :swatches="palette"
                     @update:value="appStore.setSuccessColor"
                   />
-                </n-space>
-                <n-space align="center" justify="space-between">
+                </n-flex>
+                <n-flex align="center" justify="space-between">
                   警告色
                   <n-color-picker
                     v-model:value="appStore.warningColor"
@@ -263,8 +263,8 @@ export default themeConfig;
                     :swatches="palette"
                     @update:value="appStore.setWarningColor"
                   />
-                </n-space>
-                <n-space align="center" justify="space-between">
+                </n-flex>
+                <n-flex align="center" justify="space-between">
                   错误色
                   <n-color-picker
                     v-model:value="appStore.errorColor"
@@ -273,10 +273,10 @@ export default themeConfig;
                     :swatches="palette"
                     @update:value="appStore.setErrorColor"
                   />
-                </n-space>
+                </n-flex>
 
                 <n-divider>界面功能</n-divider>
-                <n-space align="center" justify="space-between">
+                <n-flex align="center" justify="space-between">
                   圆角大小
                   <n-select
                     v-model:value="appStore.borderRadius"
@@ -287,8 +287,8 @@ export default themeConfig;
                     :render-tag="renderTag"
                     @update:value="appStore.setBorderRadius"
                   />
-                </n-space>
-                <n-space align="center" justify="space-between">
+                </n-flex>
+                <n-flex align="center" justify="space-between">
                   页面过渡
                   <n-select
                     v-model:value="appStore.transitionAnimation"
@@ -296,30 +296,30 @@ export default themeConfig;
                     :options="transitionSelectorOptions"
                     @update:value="appStore.reloadPage"
                   />
-                </n-space>
+                </n-flex>
                 <template v-if="setSideBar">
-                  <n-space align="center" justify="space-between">
+                  <n-flex align="center" justify="space-between">
                     侧边栏宽度
                     <n-input-number v-model:value="appStore.sideWidth" class="w-10em" :min="180" />
-                  </n-space>
-                  <n-space align="center" justify="space-between">
+                  </n-flex>
+                  <n-flex align="center" justify="space-between">
                     侧边栏折叠宽度
                     <n-input-number
                       v-model:value="appStore.sideCollapsedWidth"
                       class="w-10em"
                       :min="50"
                     />
-                  </n-space>
-                  <n-space align="center" justify="space-between">
+                  </n-flex>
+                  <n-flex align="center" justify="space-between">
                     侧边栏触发样式
                     <n-select
                       v-model:value="appStore.sideTrigger"
                       class="w-10em"
                       :options="sideBarShowTrigger"
                     />
-                  </n-space>
+                  </n-flex>
                 </template>
-                <n-space align="center" justify="space-between">
+                <n-flex align="center" justify="space-between">
                   Message提示位置
                   <n-select
                     v-model:value="appStore.placement"
@@ -327,45 +327,55 @@ export default themeConfig;
                     :options="messagePositions"
                     @update:value="appStore.setPlacement"
                   />
-                </n-space>
+                </n-flex>
 
-                <n-space justify="space-between">
+                <n-flex justify="space-between">
                   logo显示
                   <n-switch v-model:value="appStore.showLogo" />
-                </n-space>
-                <n-space justify="space-between">
+                </n-flex>
+                <n-flex justify="space-between">
                   顶部进度
                   <n-switch v-model:value="appStore.showProgress" />
-                </n-space>
-                <n-space justify="space-between">
+                </n-flex>
+                <n-flex justify="space-between">
                   面包屑
                   <n-switch v-model:value="appStore.showBreadcrumb" />
-                </n-space>
-                <n-space justify="space-between">
+                </n-flex>
+                <n-flex justify="space-between">
                   面包屑图标
                   <n-switch v-model:value="appStore.showBreadcrumbIcon" />
-                </n-space>
-                <n-space justify="space-between">
+                </n-flex>
+                <n-flex justify="space-between">
                   多页签显示
                   <n-switch v-model:value="appStore.showTabs" />
-                </n-space>
-                <n-space justify="space-between">
+                </n-flex>
+                <n-flex justify="space-between">
                   多页签图标
                   <n-switch v-model:value="appStore.showTabsIcon" />
-                </n-space>
-                <n-space justify="space-between">
+                </n-flex>
+                <n-flex justify="space-between">
                   固定顶部和底部
                   <n-switch v-model:value="appStore.fixed" />
-                </n-space>
-                <n-space justify="space-between">
+                </n-flex>
+                <n-flex justify="space-between">
                   底部版权
                   <n-switch v-model:value="appStore.showFooter" />
-                </n-space>
-                <n-space justify="space-between">
-                  水印
+                </n-flex>
+                <n-flex justify="space-between">
+                  <n-flex align="center">
+                    <n-text>水印</n-text>
+                    <div>
+                      <n-input
+                        v-model:value="appStore.watermarkText"
+                        size="small"
+                        type="text"
+                        placeholder="请输入水印文字"
+                      />
+                    </div>
+                  </n-flex>
                   <n-switch v-model:value="appStore.showWatermark" />
-                </n-space>
-              </n-space>
+                </n-flex>
+              </n-flex>
               <template #footer>
                 <n-button type="warning" @click="resetSetting">
                   <template #icon>
