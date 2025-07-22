@@ -58,7 +58,7 @@
       </n-gi>
     </n-grid>
     <template #action>
-      <n-space justify="end">
+      <n-flex justify="end">
         <n-button type="primary" @click="handleSubmit">
           <template #icon>
             <Icones icon="ant-design:check-outlined" />
@@ -77,7 +77,7 @@
           </template>
           取消
         </n-button>
-      </n-space>
+      </n-flex>
     </template>
   </n-modal>
 </template>

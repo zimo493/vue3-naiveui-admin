@@ -52,7 +52,7 @@
             <slot name="controls" />
           </n-flex>
           <div />
-          <n-space>
+          <n-flex>
             <n-tooltip v-if="(form || formConfig) && modelValue" trigger="hover">
               <template #trigger>
                 <CommonWrapper @click="show = !show">
@@ -89,7 +89,7 @@
               </template>
               <span>表格尺寸</span>
             </n-tooltip>
-          </n-space>
+          </n-flex>
         </n-flex>
         <n-data-table
           v-if="showTable"

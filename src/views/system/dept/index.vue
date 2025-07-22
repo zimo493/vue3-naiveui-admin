@@ -48,7 +48,7 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "naive-ui";
+import { type DataTableColumns, type DataTableRowKey, NButton, NFlex } from "naive-ui";
 
 import DeptAPI from "@/api/system/dept";
 
@@ -120,7 +120,7 @@ const columns = ref<DataTableColumns<Dept.VO>>([
     align: "center",
     width: 220,
     render: (row) => (
-      <NSpace justify="center">
+      <NFlex justify="center">
         <NButton
           text
           type="primary"
@@ -145,7 +145,7 @@ const columns = ref<DataTableColumns<Dept.VO>>([
         >
           删除
         </NButton>
-      </NSpace>
+      </NFlex>
     ),
   },
 ]);

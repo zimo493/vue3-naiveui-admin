@@ -61,14 +61,14 @@
             指定分
             <div style="flex: 1">
               <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(4)">
-                <n-space>
+                <n-flex>
                   <n-checkbox
                     v-for="item in 60"
                     :key="item"
                     :value="item - 1"
                     :label="zeroFill(item - 1)"
                   />
-                </n-space>
+                </n-flex>
               </n-checkbox-group>
             </div>
           </n-flex>

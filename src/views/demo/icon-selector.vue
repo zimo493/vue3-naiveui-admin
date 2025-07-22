@@ -9,7 +9,7 @@ const iconName2 = ref("logos:typescript-icon"); // 在线图标
 
 <template>
   <n-card>
-    <n-space vertical :size="[0, 30]">
+    <n-flex vertical :size="[0, 30]">
       <div flex-center w="[50%]">
         <div w-80px>本地图标:</div>
         <IconSelect v-model="iconName1" />
@@ -45,6 +45,6 @@ const iconName2 = ref("logos:typescript-icon"); // 在线图标
           <Icones icon="ant-design:wechat-outlined" :size="50" color="#1CD66C" />
         </div>
       </div>
-    </n-space>
+    </n-flex>
   </n-card>
 </template>

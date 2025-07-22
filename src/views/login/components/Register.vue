@@ -73,7 +73,7 @@
         </n-spin>
       </n-form-item>
       <n-form-item>
-        <n-space vertical :size="20" class="w-full">
+        <n-flex vertical :size="20" class="w-full">
           <div>
             <n-checkbox v-model:checked="isRead">我已同意并阅读</n-checkbox>
             <n-button type="primary" text>用户协议</n-button>
@@ -91,7 +91,7 @@
             <n-text>已有账号？</n-text>
             <n-button text type="primary" @click="toLogin">登录</n-button>
           </n-flex>
-        </n-space>
+        </n-flex>
       </n-form-item>
     </n-form>
   </div>

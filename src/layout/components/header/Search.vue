@@ -285,7 +285,7 @@ const highlightStyle = {
           <n-text :depth="2" size="small">搜索历史</n-text>
           <n-button text type="primary" size="tiny" @click="clearSearchHistory">清空</n-button>
         </n-flex>
-        <n-space>
+        <n-flex>
           <n-tag
             v-for="(item, idx) in searchHistory"
             :key="idx"
@@ -298,7 +298,7 @@ const highlightStyle = {
           >
             {{ item }}
           </n-tag>
-        </n-space>
+        </n-flex>
       </n-flex>
     </template>
     <n-scrollbar ref="scrollbar" class="h-450px">

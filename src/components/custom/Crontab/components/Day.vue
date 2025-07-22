@@ -89,14 +89,14 @@
             指定日
             <div style="flex: 1">
               <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(7)">
-                <n-space>
+                <n-flex>
                   <n-checkbox
                     v-for="item in 31"
                     :key="item"
                     :value="item"
                     :label="zeroFill(item)"
                   />
-                </n-space>
+                </n-flex>
               </n-checkbox-group>
             </div>
           </n-flex>

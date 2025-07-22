@@ -59,7 +59,7 @@
           </n-el>
         </n-spin>
       </n-form-item>
-      <n-space vertical :size="20">
+      <n-flex vertical :size="20">
         <div class="flex-y-center justify-between">
           <n-checkbox v-model:checked="model.rememberMe">记住我</n-checkbox>
           <n-button type="primary" text @click="toOtherForm('resetPwd')">忘记密码？</n-button>
@@ -78,13 +78,13 @@
           <n-text>您没有账号？</n-text>
           <n-button type="primary" text @click="toOtherForm('register')">注册</n-button>
         </n-flex>
-      </n-space>
+      </n-flex>
     </n-form>
 
     <n-divider>
       <span op-80>其他</span>
     </n-divider>
-    <n-space justify="center">
+    <n-flex justify="center">
       <CommonWrapper>
         <Icones :size="20" icon="icon-park-outline:phone-telephone" />
       </CommonWrapper>
@@ -97,7 +97,7 @@
       <CommonWrapper>
         <Icones :size="20" icon="icon-park-outline:github-one" />
       </CommonWrapper>
-    </n-space>
+    </n-flex>
   </div>
 </template>
 <script setup lang="tsx">

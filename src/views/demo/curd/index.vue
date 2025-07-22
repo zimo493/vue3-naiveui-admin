@@ -142,7 +142,7 @@
   </div>
 </template>
 <script lang="tsx" setup>
-import { NAvatar, NButton, NSpace, type DataTableColumns, type DataTableRowKey } from "naive-ui";
+import { NAvatar, NButton, NFlex, type DataTableColumns, type DataTableRowKey } from "naive-ui";
 import type { Form, Search, TableData } from "./config/types";
 
 import tableData from "./config/tableData";
@@ -175,7 +175,7 @@ const columns = ref<DataTableColumns<TableData>>([
     key: "actions",
     align: "center",
     render: (row) => (
-      <NSpace justify="center">
+      <NFlex justify="center">
         <NButton
           text
           type="primary"
@@ -206,7 +206,7 @@ const columns = ref<DataTableColumns<TableData>>([
         >
           查看
         </NButton>
-      </NSpace>
+      </NFlex>
     ),
   },
 ]);

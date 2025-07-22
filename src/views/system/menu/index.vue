@@ -41,7 +41,7 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { type DataTableColumns, NButton, NSpace, NTag, NText } from "naive-ui";
+import { type DataTableColumns, NButton, NFlex, NTag, NText } from "naive-ui";
 
 import { useLoading } from "@/hooks";
 import { MenuTypeEnum } from "@/enums";
@@ -150,7 +150,7 @@ const columns: DataTableColumns<Menu.VO> = [
     width: 220,
     align: "center",
     render: (row) => (
-      <NSpace justify="center">
+      <NFlex justify="center">
         {(row.type === MenuTypeEnum.CATALOG || row.type === MenuTypeEnum.MENU) && (
           <NButton
             text
@@ -177,7 +177,7 @@ const columns: DataTableColumns<Menu.VO> = [
         >
           删除
         </NButton>
-      </NSpace>
+      </NFlex>
     ),
   },
 ];

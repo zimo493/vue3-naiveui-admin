@@ -47,7 +47,7 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "naive-ui";
+import { type DataTableColumns, type DataTableRowKey, NButton, NFlex } from "naive-ui";
 
 import DictTypeAPI from "@/api/system/dict/type";
 
@@ -121,7 +121,7 @@ const columns = ref<DataTableColumns<DictType.VO>>([
     align: "center",
     width: 200,
     render: (row) => (
-      <NSpace justify="center">
+      <NFlex justify="center">
         <NButton
           text
           type="info"
@@ -138,7 +138,7 @@ const columns = ref<DataTableColumns<DictType.VO>>([
         >
           删除
         </NButton>
-      </NSpace>
+      </NFlex>
     ),
   },
 ]);

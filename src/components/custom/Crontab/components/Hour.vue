@@ -65,36 +65,36 @@
                 <n-flex vertical>
                   <div>
                     上午：
-                    <n-space inline>
+                    <n-flex inline>
                       <n-checkbox
                         v-for="item in 12"
                         :key="item"
                         :value="item - 1"
                         :label="zeroFill(item - 1)"
                       />
-                    </n-space>
+                    </n-flex>
                   </div>
                   <div>
                     下午：
-                    <n-space inline>
+                    <n-flex inline>
                       <n-checkbox
                         v-for="item in 12"
                         :key="item"
                         :value="item + 11"
                         :label="zeroFill(item + 11)"
                       />
-                    </n-space>
+                    </n-flex>
                   </div>
                 </n-flex>
 
-                <!-- <n-space>
+                <!-- <n-flex>
                   <n-checkbox
                     v-for="item in 24"
                     :key="item"
                     :value="item - 1"
                     :label="zeroFill(item - 1)"
                   />
-                </n-space> -->
+                </n-flex> -->
               </n-checkbox-group>
             </div>
           </n-flex>

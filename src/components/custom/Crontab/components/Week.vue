@@ -102,14 +102,14 @@
             指定周
             <div style="flex: 1">
               <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(6)">
-                <n-space>
+                <n-flex>
                   <n-checkbox
                     v-for="item in weekList"
                     :key="item.value"
                     :value="item.value"
                     :label="item.label"
                   />
-                </n-space>
+                </n-flex>
               </n-checkbox-group>
             </div>
           </n-flex>

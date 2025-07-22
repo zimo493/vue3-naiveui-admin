@@ -52,7 +52,6 @@ import {
   type DataTableRowKey,
   NButton,
   NFlex,
-  NSpace,
   NTag,
   NText,
   SelectOption,
@@ -152,7 +151,7 @@ const columns = ref<DataTableColumns<DictData.VO>>([
     align: "center",
     width: 150,
     render: (row) => (
-      <NSpace justify="center">
+      <NFlex justify="center">
         <NButton
           text
           type="info"
@@ -169,7 +168,7 @@ const columns = ref<DataTableColumns<DictData.VO>>([
         >
           删除
         </NButton>
-      </NSpace>
+      </NFlex>
     ),
   },
 ]);

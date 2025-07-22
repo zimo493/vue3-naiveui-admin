@@ -17,7 +17,7 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { type DataTableColumns, NButton, NSpace } from "naive-ui";
+import { type DataTableColumns, NButton, NFlex } from "naive-ui";
 
 import GeneratorAPI from "@/api/codeGen";
 
@@ -65,7 +65,7 @@ const columns = ref<DataTableColumns<CodeGen.VO>>([
     key: "action",
     align: "center",
     render: (row) => (
-      <NSpace justify="center">
+      <NFlex justify="center">
         <NButton
           text
           type="primary"
@@ -89,7 +89,7 @@ const columns = ref<DataTableColumns<CodeGen.VO>>([
             重置配置
           </NButton>
         )}
-      </NSpace>
+      </NFlex>
     ),
   },
 ]);

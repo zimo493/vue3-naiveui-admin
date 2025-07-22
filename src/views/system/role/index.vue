@@ -44,7 +44,7 @@
   </div>
 </template>
 <script setup lang="tsx">
-import { type DataTableColumns, type DataTableRowKey, NButton, NSpace } from "naive-ui";
+import { type DataTableColumns, type DataTableRowKey, NButton, NFlex } from "naive-ui";
 
 import RoleAPI from "@/api/system/role";
 
@@ -99,7 +99,7 @@ const columns = ref<DataTableColumns<Role.VO>>([
     align: "center",
     width: 240,
     render: (row) => (
-      <NSpace justify="center">
+      <NFlex justify="center">
         <NButton
           text
           type="warning"
@@ -124,7 +124,7 @@ const columns = ref<DataTableColumns<Role.VO>>([
         >
           删除
         </NButton>
-      </NSpace>
+      </NFlex>
     ),
   },
 ]);

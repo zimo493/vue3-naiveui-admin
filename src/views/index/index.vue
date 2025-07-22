@@ -37,7 +37,7 @@
             <n-tag v-else :bordered="false" type="success">实时</n-tag>
           </template>
 
-          <n-space v-if="loading" vertical>
+          <n-flex v-if="loading" vertical>
             <div flex-y-center justify-between>
               <n-skeleton height="30px" width="20%" :sharp="false" />
               <n-skeleton height="40px" circle />
@@ -46,17 +46,17 @@
               <n-skeleton height="30px" width="33%" :sharp="false" />
               <n-skeleton height="30px" width="8%" :sharp="false" />
             </div>
-          </n-space>
-          <n-space v-else vertical>
+          </n-flex>
+          <n-flex v-else vertical>
             <n-flex text-16px vertical>
               <n-flex justify="space-between" align="center">
-                <n-space>
+                <n-flex>
                   <n-number-animation show-separator :from="10" :to="onlineUserCount" />
                   <n-text :type="isConnected ? 'success' : 'error'">
                     <Icones :icon="isConnected ? link : unLink" :size="12" />
                     <span class="text-xs">{{ isConnected ? "已连接" : "未连接" }}</span>
                   </n-text>
-                </n-space>
+                </n-flex>
                 <Icones icon="icon-park:online-meeting" :size="42" />
               </n-flex>
               <n-flex justify="space-between" align="center" text-sm text-gray>
@@ -64,7 +64,7 @@
                 <span>{{ formattedTime }}</span>
               </n-flex>
             </n-flex>
-          </n-space>
+          </n-flex>
         </n-card>
       </n-gi>
 
@@ -83,7 +83,7 @@
             <n-tag v-else :bordered="false" type="primary">日</n-tag>
           </template>
 
-          <n-space v-if="loading" vertical>
+          <n-flex v-if="loading" vertical>
             <div flex-y-center justify-between>
               <n-skeleton height="30px" width="20%" :sharp="false" />
               <n-skeleton height="40px" circle />
@@ -92,11 +92,11 @@
               <n-skeleton height="30px" width="33%" :sharp="false" />
               <n-skeleton height="30px" width="8%" :sharp="false" />
             </div>
-          </n-space>
-          <n-space v-else vertical>
+          </n-flex>
+          <n-flex v-else vertical>
             <n-flex text-16px vertical>
               <n-flex justify="space-between" align="center">
-                <n-space>
+                <n-flex>
                   <n-number-animation
                     show-separator
                     :from="999"
@@ -110,7 +110,7 @@
                     />
                     <span class="text-xs">{{ formatGrowthRate(visitStatsData.uvGrowthRate) }}</span>
                   </n-text>
-                </n-space>
+                </n-flex>
                 <Icones icon="noto:detective" :size="42" />
               </n-flex>
               <n-flex justify="space-between" align="center" text-sm text-gray>
@@ -118,7 +118,7 @@
                 <n-number-animation show-separator :from="0" :to="visitStatsData.todayPvCount" />
               </n-flex>
             </n-flex>
-          </n-space>
+          </n-flex>
         </n-card>
       </n-gi>
       <n-gi :span="8">
@@ -136,7 +136,7 @@
             <n-tag v-else :bordered="false" type="primary">日</n-tag>
           </template>
 
-          <n-space v-if="loading" vertical>
+          <n-flex v-if="loading" vertical>
             <div flex-y-center justify-between>
               <n-skeleton height="30px" width="20%" :sharp="false" />
               <n-skeleton height="40px" circle />
@@ -145,11 +145,11 @@
               <n-skeleton height="30px" width="33%" :sharp="false" />
               <n-skeleton height="30px" width="8%" :sharp="false" />
             </div>
-          </n-space>
-          <n-space v-else vertical>
+          </n-flex>
+          <n-flex v-else vertical>
             <n-flex text-16px vertical>
               <n-flex justify="space-between" align="center">
-                <n-space>
+                <n-flex>
                   <n-number-animation
                     show-separator
                     :from="999"
@@ -163,7 +163,7 @@
                     />
                     <span class="text-xs">{{ formatGrowthRate(visitStatsData.pvGrowthRate) }}</span>
                   </n-text>
-                </n-space>
+                </n-flex>
                 <Icones icon="emojione-v1:eyes" :size="42" />
               </n-flex>
               <n-flex justify="space-between" align="center" text-sm text-gray>
@@ -171,7 +171,7 @@
                 <n-number-animation show-separator :from="0" :to="visitStatsData.totalPvCount" />
               </n-flex>
             </n-flex>
-          </n-space>
+          </n-flex>
         </n-card>
       </n-gi>
 
@@ -197,7 +197,7 @@
         </n-card>
       </n-gi>
       <n-gi :span="6">
-        <n-space vertical :size="10">
+        <n-flex vertical :size="10">
           <n-card
             title="公告"
             :segmented="{ content: true }"
@@ -220,7 +220,7 @@
               </n-list-item>
             </n-list>
           </n-card>
-        </n-space>
+        </n-flex>
       </n-gi>
     </n-grid>
   </div>

@@ -3,9 +3,9 @@
     <n-drawer-content :title="title">
       <template #header>
         <n-spin :show="loading">
-          <n-space vertical class="w-full" :size="[0, 20]">
+          <n-flex vertical class="w-full" :size="[0, 20]">
             {{ title }}
-            <n-space align="center">
+            <n-flex align="center">
               <n-input v-model:value="pattern" placeholder="搜索" clearable>
                 <template #prefix>
                   <Icones icon="icon-park-outline:search" />
@@ -13,8 +13,8 @@
               </n-input>
               <n-checkbox v-model:checked="expandAll">展开/收起</n-checkbox>
               <n-checkbox v-model:checked="cascade">父子联动</n-checkbox>
-            </n-space>
-          </n-space>
+            </n-flex>
+          </n-flex>
         </n-spin>
       </template>
 
@@ -35,7 +35,7 @@
         @update:checked-keys="updateCheckedKeys"
       />
       <template #footer>
-        <n-space>
+        <n-flex>
           <n-button type="primary" :loading="spin" @click="handleAssignPermSubmit">
             <template #icon>
               <Icones icon="ant-design:check-outlined" />
@@ -48,7 +48,7 @@
             </template>
             取消
           </n-button>
-        </n-space>
+        </n-flex>
       </template>
     </n-drawer-content>
   </n-drawer>

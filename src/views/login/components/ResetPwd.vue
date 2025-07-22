@@ -33,7 +33,7 @@ const handleRegister = async () => {
         </n-input>
       </n-form-item>
       <n-form-item>
-        <n-space vertical :size="20" class="w-full">
+        <n-flex vertical :size="20" class="w-full">
           <n-button block type="warning" @click="handleRegister">重置密码</n-button>
           <n-flex justify="center">
             <n-text>想起密码？</n-text>
@@ -41,7 +41,7 @@ const handleRegister = async () => {
               登录
             </n-button>
           </n-flex>
-        </n-space>
+        </n-flex>
       </n-form-item>
     </n-form>
   </div>

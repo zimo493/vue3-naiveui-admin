@@ -56,7 +56,7 @@
         </template>
       </n-spin>
       <template #footer>
-        <n-space>
+        <n-flex>
           <n-button v-if="active === 'basic'" type="primary" :loading="spin" @click="genCode">
             <template #icon>
               <Icones icon="ant-design:arrow-right-outlined" />
@@ -84,7 +84,7 @@
             </template>
             取消
           </n-button>
-        </n-space>
+        </n-flex>
       </template>
     </n-drawer-content>
   </n-drawer>
@@ -103,7 +103,7 @@ import { FormTypeEnum, MIMETYPE, QueryTypeEnum } from "@/enums";
 import Selection from "./Selection";
 import EditableCheckbox from "./EditableCheckbox";
 import Icones from "@/components/common/Icones.vue";
-import { NCheckbox, NFlex, NInput, NInputNumber, NSpace, NText } from "naive-ui";
+import { NCheckbox, NFlex, NInput, NInputNumber, NText } from "naive-ui";
 
 defineOptions({ name: "GenerateCode" });
 

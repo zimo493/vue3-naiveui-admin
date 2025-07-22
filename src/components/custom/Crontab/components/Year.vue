@@ -68,14 +68,14 @@
             指定年
             <div style="flex: 1">
               <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(5)">
-                <n-space>
+                <n-flex>
                   <n-checkbox
                     v-for="item in 11"
                     :key="item"
                     :value="item - 1 + fullYear"
                     :label="String(item - 1 + fullYear)"
                   />
-                </n-space>
+                </n-flex>
               </n-checkbox-group>
             </div>
           </n-flex>

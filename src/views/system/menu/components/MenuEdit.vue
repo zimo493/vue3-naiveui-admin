@@ -33,12 +33,12 @@
 
             <n-form-item-grid-item :span="24" label="菜单类型" path="type">
               <n-radio-group v-model:value="modelValue.type" @change="handleMenuTypeChange">
-                <n-space>
+                <n-flex>
                   <n-radio :value="MenuTypeEnum.CATALOG" label="目录" />
                   <n-radio :value="MenuTypeEnum.MENU" label="菜单" />
                   <n-radio :value="MenuTypeEnum.BUTTON" label="按钮" />
                   <n-radio :value="MenuTypeEnum.EXTLINK" label="外链" />
-                </n-space>
+                </n-flex>
               </n-radio-group>
             </n-form-item-grid-item>
 
@@ -222,7 +222,7 @@
         </n-form>
       </n-spin>
       <template #footer>
-        <n-space>
+        <n-flex>
           <n-button type="primary" :loading="spin" @click="handleSubmit">
             <template #icon>
               <Icones icon="ant-design:check-outlined" />
@@ -235,7 +235,7 @@
             </template>
             取消
           </n-button>
-        </n-space>
+        </n-flex>
       </template>
     </n-drawer-content>
   </n-drawer>

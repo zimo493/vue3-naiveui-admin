@@ -99,7 +99,6 @@ import {
   NButton,
   NFlex,
   NImage,
-  NSpace,
   NText,
   NInput,
   NTag,
@@ -285,7 +284,7 @@ const columns = ref<DataTableColumns<User.VO>>([
     key: "action",
     align: "center",
     render: (row) => (
-      <NSpace justify="center">
+      <NFlex justify="center">
         <NButton
           v-has-perm={["sys:user:edit"]}
           text
@@ -313,7 +312,7 @@ const columns = ref<DataTableColumns<User.VO>>([
         >
           删除
         </NButton>
-      </NSpace>
+      </NFlex>
     ),
   },
 ]);
@@ -425,7 +424,7 @@ const handleResetPassword = (row: User.VO) => {
     negativeText: "取消",
     maskClosable: false,
     content: () => (
-      <NSpace vertical>
+      <NFlex vertical>
         <NText>请输入 "{row.username}" 的新密码</NText>
         <NInput
           v-model:value={newPassword.value.pwd}
@@ -437,7 +436,7 @@ const handleResetPassword = (row: User.VO) => {
         {newPassword.value.status !== "success" && (
           <NText type={newPassword.value.status}>{newPassword.value.msg}</NText>
         )}
-      </NSpace>
+      </NFlex>
     ),
     onPositiveClick: () => {
       return new Promise<void>((resolve) => {

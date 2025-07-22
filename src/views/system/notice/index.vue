@@ -85,7 +85,7 @@ import {
   type DataTableRowKey,
   FormItemRule,
   NButton,
-  NSpace,
+  NFlex,
   NTag,
   NText,
 } from "naive-ui";
@@ -197,10 +197,10 @@ const columns = ref<DataTableColumns<Notice.VO>>([
     title: "通知标题",
     key: "title",
     render: ({ title, type }) => (
-      <NSpace align="center">
+      <NFlex align="center">
         <DictTag options={notice_type.value} value={type} />
         <NText>{title}</NText>
-      </NSpace>
+      </NFlex>
     ),
   },
   // {
@@ -237,11 +237,11 @@ const columns = ref<DataTableColumns<Notice.VO>>([
     align: "center",
     render: ({ createTime, publishTime, revokeTime, publishStatus }) => {
       return (
-        <NSpace vertical size={[0, 0]}>
+        <NFlex vertical size={[0, 0]}>
           <NText>创建：{createTime}</NText>
           {publishStatus === 1 && <NText>发布：{publishTime}</NText>}
           {publishStatus === -1 && <NText>撤回：{revokeTime}</NText>}
-        </NSpace>
+        </NFlex>
       );
     },
   },
@@ -251,7 +251,7 @@ const columns = ref<DataTableColumns<Notice.VO>>([
     align: "center",
     render: (row) => {
       return (
-        <NSpace justify="center">
+        <NFlex justify="center">
           <NButton text type="info" onClick={() => viewDetail(row.id)}>
             查看
           </NButton>
@@ -275,7 +275,7 @@ const columns = ref<DataTableColumns<Notice.VO>>([
               删除
             </NButton>
           )}
-        </NSpace>
+        </NFlex>
       );
     },
   },

@@ -6,10 +6,10 @@ const value = ref("初始化内容");
 </script>
 
 <template>
-  <n-space vertical>
+  <n-flex vertical>
     <WangEditor v-model="value" />
     <n-card>
       <n-code :code="value" language="xml" word-wrap />
     </n-card>
-  </n-space>
+  </n-flex>
 </template>
