@@ -224,7 +224,6 @@
               <div>
                 <n-input
                   v-model:value="appStore.watermarkText"
-                  size="small"
                   type="text"
                   placeholder="请输入水印文字"
                 />
