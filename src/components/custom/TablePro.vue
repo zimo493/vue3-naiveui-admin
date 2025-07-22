@@ -79,13 +79,18 @@
             </n-tooltip>
             <n-tooltip trigger="hover">
               <template #trigger>
-                <n-el tag="div">
+                <!-- <n-el tag="div">
                   <n-dropdown trigger="click" :options="options" @select="handleSelect">
                     <CommonWrapper>
                       <Icones icon="ant-design:font-size-outlined" />
                     </CommonWrapper>
                   </n-dropdown>
-                </n-el>
+                </n-el> -->
+                <n-popselect v-model:value="size" :options="options" trigger="click">
+                  <CommonWrapper>
+                    <Icones icon="ant-design:font-size-outlined" />
+                  </CommonWrapper>
+                </n-popselect>
               </template>
               <span>表格尺寸</span>
             </n-tooltip>
@@ -120,7 +125,7 @@ import { DataTableColumns, DataTableInst, DataTableProps } from "naive-ui";
 interface Props<T> {
   tableData?: DataTableProps["data"];
   columns?: DataTableColumns<T>;
-  tableProps?: Omit<DataTableProps, "data" | "columns">;
+  tableProps?: Omit<DataTableProps, "data" | "columns" | "pagination">;
   form?: DataTablePro.Form;
   rowKey?: (row: T) => string | number;
   operationButtonPosition?: "left" | "right";
@@ -168,7 +173,7 @@ const modelValue = defineModel<Recordable>("modelValue", {
 });
 
 // 是否展开查询
-const show = ref<boolean>(true);
+const show = useStorage<boolean>("show", true, localStorage, { listenToStorageChanges: true });
 
 const tableRef = useTemplateRef<DataTableInst>("table");
 
@@ -181,13 +186,12 @@ const download = () =>
 
 // 尺寸
 type Size = "small" | "medium" | "large";
-const size = ref<Size>("medium");
+const size = useStorage<Size>("size", "medium", localStorage, { listenToStorageChanges: true });
 const options = [
-  { label: "小型", key: "small" },
-  { label: "默认", key: "medium" },
-  { label: "大型", key: "large" },
+  { label: "小型", value: "small" },
+  { label: "默认", value: "medium" },
+  { label: "大型", value: "large" },
 ];
-const handleSelect = (key: Size) => (size.value = key);
 
 const ruleFormRef = useTemplateRef("ruleForm"); // 获取表单实例
 
