@@ -235,7 +235,7 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
         <NText>查询</NText>
         <NCheckbox
           v-model:checked={isCheckAllQuery.value}
-          onUpdateValue={toggleCheckAll("isShowInQuery", isCheckAllQuery.value)}
+          onUpdateChecked={(v: boolean) => toggleCheckAll("isShowInQuery", v)}
         />
       </NFlex>
     ),
@@ -249,7 +249,7 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
         <NText>列表</NText>
         <NCheckbox
           v-model:checked={isCheckAllList.value}
-          onUpdateValue={toggleCheckAll("isShowInList", isCheckAllList.value)}
+          onUpdateChecked={(v: boolean) => toggleCheckAll("isShowInList", v)}
         />
       </NFlex>
     ),
@@ -263,7 +263,7 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
         <NText>表单</NText>
         <NCheckbox
           v-model:checked={isCheckAllForm.value}
-          onUpdateValue={toggleCheckAll("isShowInForm", isCheckAllForm.value)}
+          onUpdateChecked={(v: boolean) => toggleCheckAll("isShowInForm", v)}
         />
       </NFlex>
     ),
@@ -339,7 +339,7 @@ const genCode = async () => {
     await formProRef.value?.validate();
     await GeneratorAPI.saveGenConfig(tableCode.value, modelValue.value);
 
-    getConfigForm();
+    await getConfigForm();
 
     active.value = "preview"; // 跳转到预览
   } catch (err) {
