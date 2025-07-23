@@ -4,7 +4,7 @@
     v-bind="{ width: 502, placement: 'right', ...props.props }"
     :on-after-leave="cancel"
   >
-    <n-drawer-content :title="modal.title">
+    <n-drawer-content :title="modal.title" closable>
       <slot name="header" />
       <n-spin :show="loading">
         <FormPro

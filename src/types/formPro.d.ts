@@ -230,7 +230,7 @@ declare namespace DataTablePro {
 declare namespace DialogForm {
   type Form = DataTablePro.Form;
   type DrawerProps = Omit<import("naive-ui").DrawerProps, "show">; // 抽屉属性
-  type ModalProps = Omit<import("naive-ui").ModalProps, "show" | "segmented">; // 模态框属性
+  type ModalProps = Omit<import("naive-ui").ModalProps, "show" | "segmented" | "preset">; // 模态框属性
   interface Instance<T> {
     open: (title: string, data: T) => void;
     close: () => void;

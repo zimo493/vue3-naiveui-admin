@@ -1,11 +1,11 @@
 <template>
   <n-modal
     v-model:show="modal.visible"
-    preset="card"
     :title="modal.title"
     :on-mask-click="cancel"
     :style="{ width: `${width}px` }"
     :segmented="{ content: true, action: true }"
+    v-bind="{ draggable: true, ...props.props, preset: 'card' }"
     @close="cancel"
   >
     <slot name="header" />
