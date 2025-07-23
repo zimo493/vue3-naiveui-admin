@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5">路由参数type：{{ query }}</div>
+  <n-code language="json" :code="JSON.stringify(query, null, 2)"></n-code>
 </template>
 
 <script setup lang="ts">
@@ -10,5 +10,5 @@ defineOptions({
 import { useRoute } from "vue-router";
 
 // 获取query参数
-const query = useRoute().query.type as string;
+const query = useRoute().query;
 </script>
