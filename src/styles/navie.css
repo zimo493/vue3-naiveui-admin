@@ -22,25 +22,19 @@
 }
 
 .n-card.n-card--content-segmented > .n-card__content {
+  max-height: 76vh;
   padding-top: 12px;
+  overflow: auto;
 }
 
-.tabs {
-  .n-tabs {
-    .n-tabs-tab-pad {
-      width: 30px;
-    }
-  }
+.tabs .n-tabs .n-tabs-tab-pad {
+  width: 20px;
 }
 
-.n-drawer .n-drawer-content {
-  .n-drawer-header {
-    padding: 16px;
-  }
-
-  .n-drawer-body-content-wrapper {
-    padding: 16px;
-  }
+.n-drawer .n-drawer-content .n-drawer-header,
+.n-drawer .n-drawer-content .n-drawer-footer,
+.n-drawer .n-drawer-content .n-drawer-body-content-wrapper {
+  padding: 16px;
 }
 
 .n-data-table .n-data-table-th {
