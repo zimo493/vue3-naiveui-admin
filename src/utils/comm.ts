@@ -98,9 +98,9 @@ export const exportFile = (fileData: BlobPart, fileType: MIMETYPE, fileName: str
 
 /**
  * @description 格式化时间工具函数
- * @param {Date | string | number} time 时间，可以是 Date 对象、时间戳或时间字符串
- * @param {string} pattern 时间格式，例如 'YYYY-MM-DD HH:mm:ss 周dd'
- * @returns {string} 格式化后的时间字符串
+ * @param time 时间，可以是 Date 对象、时间戳或时间字符串
+ * @param pattern 时间格式，例如 'YYYY-MM-DD HH:mm:ss 周dd'
+ * @returns 格式化后的时间字符串
  */
 export const parseTime = (
   time: Date | string | number,
@@ -129,6 +129,25 @@ export const parseTime = (
 
   // 替换 pattern 中的占位符
   return pattern.replace(/YYYY|MM|DD|HH|mm|ss|dd/g, (match) => formatMap[match]);
+};
+
+/**
+ * 路径转驼峰
+ * @param path 路径
+ * @example
+ * pathToHump("user/list") // "userList"
+ * @returns 驼峰路径
+ */
+export const pathToHump = (path?: string): string => {
+  if (!path) return "";
+  // 移除斜杠
+  const withoutSlash = path.replaceAll("/", "");
+
+  // 按分隔符（横杠、斜杠等）拆分成单词数组
+  const words = withoutSlash.split(/[-/_]/);
+
+  // 将每个单词首字母大写并连接
+  return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("");
 };
 
 export const statusOptions = [
