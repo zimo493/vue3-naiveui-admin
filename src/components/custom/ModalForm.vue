@@ -18,7 +18,6 @@
     }"
   >
     <slot name="header" />
-    {{ isAllowClose }}
     <n-spin :show="loading">
       <FormPro
         ref="formPro"
