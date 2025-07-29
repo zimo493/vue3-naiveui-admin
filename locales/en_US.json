@@ -1,1 +1,37 @@
-{}
+{
+  "common": {
+    "notImplemented": "Not implemented yet, under development ...",
+    "input": {
+      "input": "Please enter",
+      "select": "Please select",
+      "others": "Others"
+    }
+  },
+  "login": {
+    "login": "Login",
+    "logIn": "Logging in...",
+    "username": "Username",
+    "password": "Password",
+    "captcha": "Captcha",
+    "forget": "Forgot password?",
+    "rememberMe": "Remember me",
+    "noAccount": "Don't have an account?",
+    "success": "Login successful"
+  },
+  "register": {
+    "register": "Register",
+    "haveAccount": "Already have an account?",
+    "readAndAgree": "I have agree to",
+    "userAgreement": "User Agreement",
+    "noSpecialChars": "Password cannot contain special characters",
+    "passwordNotMatch": "Passwords do not match",
+    "readAndAgreeFirst": "Please read and agree to the User Agreement first"
+  },
+  "resetPwd": {
+    "reset": "Reset Password",
+    "recall": "Remembered your password?"
+  },
+  "rules": {
+    "passwordLength": "Password length cannot be less than 6 characters"
+  }
+}

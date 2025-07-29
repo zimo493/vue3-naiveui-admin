@@ -1,72 +1,37 @@
 {
   "common": {
-    "confirm": "确认",
-    "cancel": "取消",
-    "reload": "刷新",
-    "close": "关闭",
-    "choose": "选择",
-    "navigate": "切换",
-    "enable": "启用",
-    "disable": "禁用",
-    "abnormal": "异常",
-    "sure": "确定要",
-    "restore": "恢复",
-    "more": "更多 ...",
-    "inputPlaceholder": "请输入",
-    "selectPlaceholder": "请选择"
-  },
-  "components": {
-    "backHome": "返回首页",
-    "copy": "复制",
-    "submit": "提交",
-    "dataExport": "数据导出",
-    "small": "小型",
-    "medium": "默认",
-    "large": "大型",
-    "copySuccess": "复制成功",
-    "inAll": "共",
-    "item": "项",
-    "go": "前往",
-    "userDesc": "毫无疑问，你是办公室里最亮的星"
+    "notImplemented": "暂未实现，开发中 ...",
+    "input": {
+      "input": "请输入",
+      "select": "请选择",
+      "others": "其他"
+    }
   },
   "login": {
-    "title": "登录",
-    "codeRuleTip": "请输入验证码",
-    "signIn": "登录",
-    "signUp": "去注册",
+    "login": "登 录",
+    "logIn": "登 录 中...",
+    "username": "用户名",
+    "password": "密码",
+    "captcha": "验证码",
+    "forget": "忘记密码？",
     "rememberMe": "记住我",
-    "forgotPassword": "忘记密码？",
-    "noAccountText": "您没有账户？",
-    "quickFill": "快速填写",
-    "generalUser": "普通用户",
-    "administrator": "管理员",
-    "loginSucceed": "登录成功"
+    "noAccount": "您没有账号？",
+    "success": "登录成功"
   },
-  "search": {
-    "field": {
-      "status": "状态",
-      "createTiem": "创建时间"
-    },
-    "controls": {
-      "search": "搜索",
-      "reset": "重置",
-      "unfold": "展开",
-      "fold": "收起"
-    }
+  "register": {
+    "register": "注 册",
+    "haveAccount": "已有账户？",
+    "readAndAgree": "我已同意并阅读",
+    "userAgreement": "用户协议",
+    "noSpecialChars": "密码不能包含特殊字符",
+    "passwordNotMatch": "两次密码输入不一致",
+    "readAndAgreeFirst": "请先阅读并同意用户协议"
   },
-  "errorMsg": {
-    "file": {
-      "size": "上传文件大小不能超过",
-      "type": "文件格式不正确, 请上传",
-      "formatFile": "格式文件!"
-    },
-    "copy": {
-      "nonsupport": "您的浏览器不支持剪贴板API",
-      "notAllow": "目前不允许使用剪贴板API"
-    },
-    "perm": {
-      "setControls": "请设置操作权限标签值",
-      "setRole": "请设置角色权限标签值"
-    }
+  "resetPwd": {
+    "reset": "重置密码",
+    "recall": "想起密码？"
+  },
+  "rules": {
+    "passwordLength": "密码长度不能小于6位"
   }
 }

@@ -1,9 +1,13 @@
 <template>
   <div>
-    <n-h2 depth="3" class="text-center">注 册</n-h2>
+    <n-h2 depth="3" class="text-center">{{ t("register.register") }}</n-h2>
     <n-form ref="form" :rules="rules" :model="model" :show-label="false" size="large">
       <n-form-item path="username">
-        <n-input v-model:value="model.username" clearable placeholder="请输入用户名">
+        <n-input
+          v-model:value="model.username"
+          clearable
+          :placeholder="t('common.input.input') + t('login.username')"
+        >
           <template #prefix>
             <Icones icon="ant-design:user-outlined" />
           </template>
@@ -13,7 +17,7 @@
         <n-input
           v-model:value="model.password"
           type="password"
-          placeholder="请输入密码"
+          :placeholder="t('common.input.input') + t('login.password')"
           clearable
           show-password-on="click"
         >
@@ -32,7 +36,7 @@
         <n-input
           v-model:value="model.confirmPassword"
           type="password"
-          placeholder="请再次输入密码"
+          :placeholder="t('common.input.input') + t('login.password')"
           clearable
           show-password-on="click"
         >
@@ -52,7 +56,7 @@
           ref="captcha"
           v-model:value="model.captchaCode"
           clearable
-          placeholder="请输入验证码"
+          :placeholder="t('common.input.input') + t('login.captcha')"
           @keyup.enter="handleRegister"
         >
           <template #prefix>
@@ -75,8 +79,8 @@
       <n-form-item>
         <n-flex vertical :size="20" class="w-full">
           <div>
-            <n-checkbox v-model:checked="isRead">我已同意并阅读</n-checkbox>
-            <n-button type="primary" text>用户协议</n-button>
+            <n-checkbox v-model:checked="isRead">{{ t("register.readAndAgree") }}</n-checkbox>
+            <n-button type="primary" text>{{ t("register.userAgreement") }}</n-button>
           </div>
           <n-button
             block
@@ -85,11 +89,11 @@
             :disabled="isLoading"
             @click="handleRegister"
           >
-            注 册
+            {{ t("register.register") }}
           </n-button>
           <n-flex justify="center">
-            <n-text>已有账号？</n-text>
-            <n-button text type="primary" @click="toLogin">登录</n-button>
+            <n-text>{{ t("register.haveAccount") }}</n-text>
+            <n-button text type="primary" @click="toLogin">{{ t("login.login") }}</n-button>
           </n-flex>
         </n-flex>
       </n-form-item>
@@ -100,6 +104,9 @@
 <script setup lang="ts">
 import type { FormInst, FormItemRule, FormRules } from "naive-ui";
 import AuthAPI from "@/api/auth";
+import { useI18n } from "vue-i18n";
+
+const t = useI18n().t;
 
 onMounted(() => getCaptcha());
 
@@ -116,18 +123,20 @@ const validatePassword = (_rule: FormItemRule, value: string): boolean =>
   value === model.value.password;
 
 const rules: FormRules = {
-  username: [{ required: true, trigger: "blur", message: "用户名不能为空" }],
+  username: [
+    { required: true, trigger: "blur", message: t("common.input.input") + t("login.username") },
+  ],
   password: [
-    { required: true, trigger: "blur", message: "密码不能为空" },
+    { required: true, trigger: "blur", message: t("common.input.input") + t("login.password") },
     {
       min: 5,
       max: 20,
-      message: "密码长度在5到20个字符之间",
+      message: t("rules.passwordLength"),
       trigger: "blur",
     },
     {
       pattern: /^[^<>"'|\\]+$/,
-      message: "密码不能包含特殊字符",
+      message: t("register.noSpecialChars"),
       trigger: "blur",
     },
   ],
@@ -135,11 +144,13 @@ const rules: FormRules = {
     {
       required: true,
       validator: validatePassword,
-      message: "两次密码输入不一致",
+      message: t("register.passwordNotMatch"),
       trigger: ["blur", "password-input"],
     },
   ],
-  captchaCode: [{ required: true, trigger: "blur", message: "验证码不能为空" }],
+  captchaCode: [
+    { required: true, trigger: "blur", message: t("common.input.input") + t("login.captcha") },
+  ],
 };
 
 interface Model extends Auth.LoginFormData {
@@ -180,9 +191,9 @@ const isLoading = ref<boolean>(false);
 const handleRegister = async () => {
   await formRef.value?.validate();
   if (!isRead.value) {
-    return window.$message.error("请先阅读并同意用户协议");
+    return window.$message.error(t("register.readAndAgreeFirst"));
   }
 
-  window.$message.warning("暂未实现，开发中 ...");
+  window.$message.warning(t("common.notImplemented"));
 };
 </script>

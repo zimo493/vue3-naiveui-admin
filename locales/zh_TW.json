@@ -1,1 +1,37 @@
-{}
+{
+  "common": {
+    "notImplemented": "暫未實現，開發中 ...",
+    "input": {
+      "input": "請輸入",
+      "select": "請選擇",
+      "others": "其他"
+    }
+  },
+  "login": {
+    "login": "登 錄",
+    "logIn": "登 錄 中...",
+    "username": "用戶名",
+    "password": "密碼",
+    "captcha": "驗證碼",
+    "forget": "忘記密碼？",
+    "rememberMe": "記住我",
+    "noAccount": "您沒有賬號？",
+    "success": "登錄成功"
+  },
+  "register": {
+    "register": "註 冊",
+    "haveAccount": "已有賬戶？",
+    "readAndAgree": "我已同意並閱讀",
+    "userAgreement": "用戶協議",
+    "noSpecialChars": "密碼不能包含特殊字符",
+    "passwordNotMatch": "兩次密碼輸入不一致",
+    "readAndAgreeFirst": "請先閱讀並同意用戶協議"
+  },
+  "resetPwd": {
+    "reset": "重置密碼",
+    "recall": "想起密碼？"
+  },
+  "rules": {
+    "passwordLength": "密碼長度不能小於6位"
+  }
+}

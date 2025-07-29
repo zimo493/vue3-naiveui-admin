@@ -1,12 +1,12 @@
 <template>
   <div>
-    <n-h3 mt-0 depth="3" text-center>登 录</n-h3>
+    <n-h3 mt-0 depth="3" text-center>{{ t("login.login") }}</n-h3>
     <n-form ref="form" :rules="rules" :model="model" :show-label="false" size="large">
       <n-form-item path="username">
         <n-input
           v-model:value="model.username"
           clearable
-          placeholder="请输入用户名"
+          :placeholder="t('common.input.input') + t('login.username')"
           @keyup.enter="handleLoginSubmit"
         >
           <template #prefix>
@@ -17,7 +17,7 @@
       <n-form-item path="password">
         <n-input
           v-model:value="model.password"
-          placeholder="请输入密码"
+          :placeholder="t('common.input.input') + t('login.password')"
           type="password"
           clearable
           show-password-on="mousedown"
@@ -38,7 +38,7 @@
         <n-input
           ref="captcha"
           v-model:value="model.captchaCode"
-          placeholder="请输入验证码"
+          :placeholder="t('common.input.input') + t('login.captcha')"
           clearable
           @keyup.enter="handleLoginSubmit"
         >
@@ -61,8 +61,10 @@
       </n-form-item>
       <n-flex vertical :size="20">
         <div class="flex-y-center justify-between">
-          <n-checkbox v-model:checked="model.rememberMe">记住我</n-checkbox>
-          <n-button type="primary" text @click="toOtherForm('resetPwd')">忘记密码？</n-button>
+          <n-checkbox v-model:checked="model.rememberMe">{{ t("login.rememberMe") }}</n-checkbox>
+          <n-button type="primary" text @click="toOtherForm('resetPwd')">
+            {{ t("login.forget") }}
+          </n-button>
         </div>
         <n-button
           block
@@ -72,17 +74,19 @@
           :disabled="loading"
           @click="handleLoginSubmit"
         >
-          {{ loading ? "登 录 中..." : "登 录" }}
+          {{ loading ? t("login.logIn") : t("login.login") }}
         </n-button>
         <n-flex align="center" justify="center">
-          <n-text>您没有账号？</n-text>
-          <n-button type="primary" text @click="toOtherForm('register')">注册</n-button>
+          <n-text>{{ t("login.noAccount") }}</n-text>
+          <n-button type="primary" text @click="toOtherForm('register')">
+            {{ t("register.register") }}
+          </n-button>
         </n-flex>
       </n-flex>
     </n-form>
 
     <n-divider>
-      <span op-80>其他</span>
+      <span op-80>{{ t("common.input.others") }}</span>
     </n-divider>
     <n-flex justify="center">
       <CommonWrapper>
@@ -110,6 +114,7 @@ import Cookies from "js-cookie";
 import { decrypt, encrypt } from "@/utils";
 
 const route = useRoute();
+const t = useI18n().t;
 const authStore = useAuthStoreHook();
 
 const emit = defineEmits(["update:modelValue"]);
@@ -135,12 +140,16 @@ const model = ref<Auth.LoginFormData>({
 });
 
 const rules = ref<FormRules>({
-  username: [{ required: true, trigger: "blur", message: "请输入用户名" }],
-  password: [
-    { required: true, trigger: "blur", message: "请输入密码" },
-    { min: 6, message: "密码长度不能小于6位", trigger: "blur" },
+  username: [
+    { required: true, trigger: "blur", message: t("common.input.input") + t("login.username") },
   ],
-  captchaCode: [{ required: true, trigger: "blur", message: "请输入验证码" }],
+  password: [
+    { required: true, trigger: "blur", message: t("common.input.input") + t("login.password") },
+    { min: 6, message: t("rules.passwordLength"), trigger: "blur" },
+  ],
+  captchaCode: [
+    { required: true, trigger: "blur", message: t("common.input.input") + t("login.captcha") },
+  ],
 });
 
 // 获取验证码
@@ -200,7 +209,7 @@ const handleLoginSubmit = async () => {
 
     await router.push(redirect);
 
-    window.$message.success("登录成功");
+    window.$message.success(t("login.success"));
   } catch (e) {
     console.log(e);
     getCaptcha();
