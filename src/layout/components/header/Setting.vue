@@ -218,7 +218,7 @@
             底部版权
             <n-switch v-model:value="appStore.showFooter" />
           </n-flex>
-          <n-flex justify="space-between">
+          <n-flex justify="space-between" align="center">
             <n-flex align="center">
               <n-text>水印</n-text>
               <div>
