@@ -12,43 +12,19 @@
             <!-- <CollapseButton /> -->
             <Breadcrumb />
           </div>
-          <div class="flex-y-center gap-1 h-full p-x-10px">
-            <Search />
-            <FullScreen />
-            <DarkModeSwitch />
-            <Setting />
-            <UserCenter />
-          </div>
+
+          <!-- 右侧导航 -->
+          <RightNavigation />
         </div>
         <TabBar v-if="appStore.showTabs" class="h-40px" />
       </n-layout-header>
-      <div v-if="appStore.fixed">
-        <div class="h-50px" />
-        <div v-if="appStore.showTabs && !appStore.contentFullScreen" class="h-40px" />
-      </div>
-      <div class="flex-1 p-10px flex flex-col" :class="{ 'p-t-0px': appStore.contentFullScreen }">
-        <router-view v-slot="{ Component, route }" class="flex-1">
-          <transition :name="appStore.transitionAnimation" mode="out-in">
-            <keep-alive :include="routeStore.cacheRoutes">
-              <component :is="Component" v-if="appStore.loadFlag" :key="route.fullPath" />
-              <ContentLoading v-else />
-            </keep-alive>
-          </transition>
-        </router-view>
-      </div>
-      <div
-        v-if="appStore.showFooter && appStore.fixed && !appStore.contentFullScreen"
-        class="h-30px"
-      />
 
+      <!-- 页面主体 -->
+      <MainBody />
+      <!-- 底部版权 -->
+      <LayoutFooter />
+      <!-- 返回顶部 -->
       <BackTop />
-      <n-layout-footer
-        v-if="appStore.showFooter && !appStore.contentFullScreen"
-        :position="appStore.fixed ? 'absolute' : 'static'"
-        class="h-30px flex-center"
-      >
-        <span class="copyright">{{ appStore.footerText }}</span>
-      </n-layout-footer>
     </n-layout-content>
     <n-layout-sider
       v-if="!appStore.contentFullScreen"
@@ -73,9 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useAppStore, useRouteStore } from "@/store";
-import UserCenter from "@/layout/components/header/UserCenter";
+import { useAppStore } from "@/store";
 
-const routeStore = useRouteStore();
 const appStore = useAppStore();
 </script>

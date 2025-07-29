@@ -32,47 +32,25 @@
             <!-- <CollapseButton /> -->
             <Breadcrumb />
           </div>
-          <div class="flex-y-center gap-1 h-full p-x-10px">
-            <!-- <LastLoginTime /> -->
-            <Search />
-            <!-- <Notices /> -->
-            <FullScreen />
-            <DarkModeSwitch />
-            <!-- <LangsSwitch /> -->
-            <Setting />
-            <UserCenter />
-          </div>
+
+          <!-- 右侧导航 -->
+          <RightNavigation />
         </div>
         <TabBar v-if="appStore.showTabs" class="h-40px" />
       </n-layout-header>
-      <div v-if="appStore.fixed">
-        <div class="h-50px" />
-        <div v-if="appStore.showTabs && !appStore.contentFullScreen" class="h-40px" />
-      </div>
-      <div class="flex-1 p-10px flex flex-col" :class="{ 'p-t-0px': appStore.contentFullScreen }">
-        <KeepCache />
-      </div>
-      <div
-        v-if="appStore.showFooter && appStore.fixed && !appStore.contentFullScreen"
-        class="h-30px"
-      />
 
+      <!-- 页面主体 -->
+      <MainBody />
+      <!-- 底部版权 -->
+      <LayoutFooter />
+      <!-- 返回顶部 -->
       <BackTop />
-      <n-layout-footer
-        v-if="appStore.showFooter && !appStore.contentFullScreen"
-        :position="appStore.fixed ? 'absolute' : 'static'"
-        class="h-30px flex-center"
-      >
-        <span class="copyright">{{ appStore.footerText }}</span>
-      </n-layout-footer>
     </n-layout-content>
   </n-layout>
 </template>
 
 <script lang="ts" setup>
 import { useAppStoreHook } from "@/store";
-
-import UserCenter from "@/layout/components/header/UserCenter";
 
 const appStore = useAppStoreHook();
 </script>
