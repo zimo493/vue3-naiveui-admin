@@ -60,7 +60,7 @@
     "radash": "^12.1.1",
     "vue": "^3.5.17",
     "vue-cropper": "^1.1.4",
-    "vue-i18n": "^11.1.10",
+    "vue-i18n": "^11.1.11",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
