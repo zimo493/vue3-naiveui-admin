@@ -1,6 +1,6 @@
 import { RouterLink, type RouteRecordRaw } from "vue-router";
 import { type MenuOption, NEllipsis } from "naive-ui";
-import { isHttpUrl, renderIcon } from ".";
+import { $t, isHttpUrl, pathToHump, renderIcon } from ".";
 import { defaultIcon } from "@/modules/assets";
 
 const MAX_DEPTH = 5; // 最大递归深度
@@ -62,6 +62,10 @@ export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRa
 
 // 核心递归处理路由函数
 export const processRoute = (route: AppRoute.RouteVO, parentPath = "", depth = 0): MenuOption[] => {
+  if (route.component === "Layout") {
+    route.name = pathToHump(route.path);
+  }
+
   if (depth > MAX_DEPTH) {
     console.warn(`菜单层级超过${MAX_DEPTH}层，路径：${route.path}`);
 
@@ -69,8 +73,10 @@ export const processRoute = (route: AppRoute.RouteVO, parentPath = "", depth = 0
   }
 
   const currentPath = resolvePath(parentPath, route.path || "");
-  const { meta = {}, children = [] } = route;
+  const { meta = {}, children = [], name = "" } = route;
   const { alwaysShow, title, icon, params, hidden } = meta;
+
+  // console.log(name, 111);
 
   // 如果菜单项被标记为隐藏，则不显示在菜单中
   if (hidden) {
@@ -93,7 +99,7 @@ export const processRoute = (route: AppRoute.RouteVO, parentPath = "", depth = 0
 
   // 构造菜单项
   const menuItem: MenuOption = {
-    label: generateLabel(currentPath, title, params, children.length > 0),
+    label: generateLabel(currentPath, name, title, params, children.length > 0),
     key: currentPath,
     icon: getMenuIcon(icon),
     children: [],
@@ -128,19 +134,27 @@ const getMenuIcon = (icon?: string) => (icon ? renderIcon(icon) : renderIcon(def
 // 标签生成函数
 const generateLabel = (
   fullPath: string,
-  title = "未命名菜单",
+  name: string,
+  title = "???",
   params?: Recordable,
   hasChildren?: boolean
 ) => {
   if (isHttpUrl(fullPath)) {
-    return () => renderEllipsis(h("a", { href: fullPath, target: "_blank" }, title));
+    return () =>
+      renderEllipsis(
+        h("a", { href: fullPath, target: "_blank" }, $t(`route.${String(name)}`, title))
+      );
   }
 
   return hasChildren
-    ? () => renderEllipsis(h("span", null, title))
+    ? () => renderEllipsis(h("span", {}, $t(`route.${String(name)}`, title)))
     : () =>
         renderEllipsis(
-          h(RouterLink, { to: { path: fullPath, query: params } }, { default: () => title })
+          h(
+            RouterLink,
+            { to: { path: fullPath, query: params } },
+            { default: () => $t(`route.${String(name)}`, title) }
+          )
         );
 };
 

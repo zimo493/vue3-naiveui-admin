@@ -7,6 +7,55 @@
       "others": "其他"
     }
   },
+  "route": {
+    "Index": "首頁",
+    "System": "系統管理",
+    "Codegen": "代碼生成",
+    "Api": "接口文檔",
+    "Doc": "平台文檔",
+    "MultiLevel": "多級選單",
+    "Component": "元件封裝",
+    "RouteParam": "路由參數",
+    "Function": "功能演示",
+
+    "User": "用戶管理",
+    "Role": "角色管理",
+    "SysMenu": "選單管理",
+    "Dept": "部門管理",
+    "Dict": "字典管理",
+    "Log": "系統日誌",
+    "Config": "參數配置",
+    "Notice": "通知公告",
+    "Multilevel1": "一級選單",
+    "Multilevel2": "二級選單",
+    "Multilevel31": "三級選單-1",
+    "Multilevel32": "三級選單-2",
+    "Apifox": "Apifox",
+    "InternalDoc": "文檔",
+
+    "Https://juejin": {
+      "cn/post/7228990409909108793": "平台文檔(外鏈)"
+    },
+    "Https://youlai": {
+      "blog": {
+        "csdn": {
+          "net/article/details/145178880": "後端文檔",
+          "net/article/details/143222890": "移動端文檔"
+        }
+      }
+    },
+
+    "Curd": "增刪改查",
+    "Cron": "Cron表達式生成器",
+    "WangEditor": "富文本編輯器",
+    "Upload": "文件上傳",
+    "IconSelector": "圖標選擇器",
+    "Dictionary": "字典元件",
+    "RouteParamType1": "參數(type=1)",
+    "RouteParamType2": "參數(type=2)",
+    "Icon": "圖標",
+    "Websocket": "WebSocket"
+  },
   "login": {
     "login": "登 錄",
     "logIn": "登 錄 中...",

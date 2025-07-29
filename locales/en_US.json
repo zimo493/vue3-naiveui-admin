@@ -7,6 +7,55 @@
       "others": "Others"
     }
   },
+  "route": {
+    "Index": "Home",
+    "System": "System",
+    "Codegen": "CodeGen",
+    "Api": "API Docs",
+    "Doc": "Docs",
+    "MultiLevel": "Multi-Menu",
+    "Component": "Components",
+    "RouteParam": "Params",
+    "Function": "Demo",
+
+    "User": "Users",
+    "Role": "Roles",
+    "SysMenu": "Menus",
+    "Dept": "Departments",
+    "Dict": "Dictionaries",
+    "Log": "Logs",
+    "Config": "Config",
+    "Notice": "Notice",
+    "Multilevel1": "L1 Menu",
+    "Multilevel2": "L2 Menu",
+    "Multilevel31": "L3-1 Menu",
+    "Multilevel32": "L3-2 Menu",
+    "Apifox": "Apifox",
+    "InternalDoc": "Docs",
+
+    "Https://juejin": {
+      "cn/post/7228990409909108793": "External Docs"
+    },
+    "Https://youlai": {
+      "blog": {
+        "csdn": {
+          "net/article/details/145178880": "Backend",
+          "net/article/details/143222890": "Mobile"
+        }
+      }
+    },
+
+    "Curd": "CRUD",
+    "Cron": "Cron Gen",
+    "WangEditor": "Editor",
+    "Upload": "Upload",
+    "IconSelector": "Icons",
+    "Dictionary": "Dict",
+    "RouteParamType1": "Param (1)",
+    "RouteParamType2": "Param (2)",
+    "Icon": "Icon",
+    "Websocket": "WebSocket"
+  },
   "login": {
     "login": "Login",
     "logIn": "Logging in...",

@@ -64,7 +64,7 @@
 import type { MenuInst, MenuOption } from "naive-ui";
 
 import { useAppStoreHook, useRouteStoreHook } from "@/store";
-import { isHttpUrl, renderIcon } from "@/utils";
+import { $t, isHttpUrl, renderIcon } from "@/utils";
 
 import { RouterLink } from "vue-router";
 
@@ -125,7 +125,7 @@ const handleSideMenu = (key: string) => {
     sideMenu.value = [
       {
         key: "/",
-        label: () => h(RouterLink, { to: "/" }, { default: () => "首页" }),
+        label: () => h(RouterLink, { to: "/" }, { default: () => $t("route.Index") }),
         icon: renderIcon("fluent-emoji-flat:house"),
       },
     ];

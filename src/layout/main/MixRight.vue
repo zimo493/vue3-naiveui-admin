@@ -63,7 +63,7 @@
 <script lang="ts" setup>
 import type { MenuInst, MenuOption } from "naive-ui";
 import { useAppStore, useRouteStore } from "@/store";
-import { renderIcon, isHttpUrl } from "@/utils";
+import { renderIcon, isHttpUrl, $t } from "@/utils";
 import { RouterLink } from "vue-router";
 
 const routeStore = useRouteStore();
@@ -113,7 +113,7 @@ const handleSideMenu = (key: string) => {
     sideMenu.value = [
       {
         key: "/",
-        label: () => h(RouterLink, { to: "/" }, { default: () => "首页" }),
+        label: () => h(RouterLink, { to: "/" }, { default: () => $t("route.Index") }),
         icon: renderIcon("fluent-emoji-flat:house"),
       },
     ];
