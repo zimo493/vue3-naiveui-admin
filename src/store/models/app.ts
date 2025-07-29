@@ -10,6 +10,7 @@ import theme, {
   warningColor,
   errorColor,
 } from "@/utils/theme";
+import { local, setLocale } from "@/utils";
 
 const docEle = ref(document.documentElement);
 
@@ -102,6 +103,14 @@ export const useAppStore = defineStore("app-store", {
       this.setWarningColor();
       this.setErrorColor();
       this.setBorderRadius("4px");
+    },
+
+    /* 设置语言 */
+    setAppLang(lang: App.lang) {
+      setLocale(lang);
+      local.set("lang", lang);
+      this.lang = lang;
+      this.reloadPage();
     },
     /* 设置题色 */
     setColor(type: Status.ThemeColorType, color: string) {

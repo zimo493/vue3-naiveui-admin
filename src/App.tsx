@@ -1,8 +1,9 @@
-import { zhCN, dateZhCN, darkTheme, NConfigProvider } from "naive-ui";
+import { darkTheme, NConfigProvider } from "naive-ui";
 
 import { ThemeMode } from "./enums";
 import { RouterView } from "vue-router";
 import { useAppStoreHook } from "@/store";
+import { naiveI18nOptions } from "@/utils";
 
 import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
@@ -29,13 +30,20 @@ export default defineComponent({
   render: () => {
     const appStore = useAppStoreHook();
 
+    /**
+     * naive-ui语言包
+     */
+    const naiveLocale = computed(() =>
+      naiveI18nOptions[appStore.lang] ? naiveI18nOptions[appStore.lang] : naiveI18nOptions.enUS
+    );
+
     return (
       <NConfigProvider
         class="wh-full"
         inlineThemeDisabled
         theme={appStore.colorMode === ThemeMode.DARK ? darkTheme : null}
-        locale={zhCN}
-        date-locale={dateZhCN}
+        locale={naiveLocale.value.locale}
+        date-locale={naiveLocale.value.dateLocale}
         themeOverrides={appStore.theme}
         hljs={hljs}
       >
