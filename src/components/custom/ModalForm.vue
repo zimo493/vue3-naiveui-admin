@@ -1,14 +1,24 @@
 <template>
   <n-modal
     v-model:show="modal.visible"
-    :title="modal.title"
-    :on-mask-click="cancel"
     :style="{ width: `${width}px` }"
-    :segmented="{ content: true, action: true }"
-    v-bind="{ draggable: true, ...props.props, preset: 'card' }"
-    @close="cancel"
+    v-bind="{
+      title: modal.title,
+      draggable: true,
+      preset: 'card',
+      segmented: {
+        content: true,
+        action: true,
+      },
+      ...props.props,
+      closeOnEsc: !isAllowClose,
+      maskClosable: !isAllowClose,
+      onAfterLeave: cancel,
+      onClose: handleClose,
+    }"
   >
     <slot name="header" />
+    {{ isAllowClose }}
     <n-spin :show="loading">
       <FormPro
         ref="formPro"
@@ -37,7 +47,7 @@
           </template>
           {{ form?.positiveText ?? "提交" }}
         </n-button>
-        <n-button strong secondary @click="cancel">
+        <n-button strong secondary :disabled="isAllowClose" @click="cancel">
           <template #icon>
             <Icones icon="ant-design:close-outlined" />
           </template>
@@ -77,6 +87,9 @@ const modal = ref<FormModal>({
   visible: false,
 });
 
+// 是否允许关闭
+const isAllowClose = computed(() => props.loading);
+
 /**
  * 展示的表单配置
  * 优先使用直接传入的 formConfig，如果没有则使用 form.config
@@ -100,6 +113,8 @@ const handleSubmit = async () => {
   emit("submit", modelValue.value);
 };
 
+/** 关闭按钮 */
+const handleClose = () => !props.loading;
 /** 取消 */
 const cancel = () => {
   formProRef.value?.reset();

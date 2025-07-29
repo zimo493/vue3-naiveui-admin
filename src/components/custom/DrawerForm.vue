@@ -1,10 +1,16 @@
 <template>
   <n-drawer
     v-model:show="modal.visible"
-    v-bind="{ width: 502, placement: 'right', ...props.props }"
-    :on-after-leave="cancel"
+    v-bind="{
+      width: 502,
+      placement: 'right',
+      ...props.props,
+      closeOnEsc: !isAllowClose,
+      maskClosable: !isAllowClose,
+      onAfterLeave: cancel,
+    }"
   >
-    <n-drawer-content :title="modal.title" closable>
+    <n-drawer-content :title="modal.title">
       <slot name="header" />
       <n-spin :show="loading">
         <FormPro
@@ -34,7 +40,7 @@
             </template>
             {{ form?.positiveText ?? "提交" }}
           </n-button>
-          <n-button strong secondary @click="cancel">
+          <n-button strong secondary :disabled="isAllowClose" @click="cancel">
             <template #icon>
               <Icones icon="ant-design:close-outlined" />
             </template>
@@ -83,6 +89,9 @@ const emit = defineEmits<{
   (e: "submit", v: T): void;
   (e: "cancel"): void;
 }>();
+
+// 是否允许关闭
+const isAllowClose = computed(() => props.loading);
 
 const formProRef = useTemplateRef("formPro");
 const modal = ref<FormModal>({
