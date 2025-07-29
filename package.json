@@ -48,7 +48,7 @@
     "@vueuse/core": "^13.5.0",
     "@wangeditor-next/editor": "^5.6.38",
     "@wangeditor-next/editor-for-vue": "^5.1.14",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "colord": "^2.9.3",
     "echarts": "^5.6.0",
     "highlight.js": "^11.11.1",
