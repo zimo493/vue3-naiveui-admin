@@ -217,11 +217,11 @@ const getPlaceholder = (type: FormPro.ComponentType, label: string) => {
   if (typeof type !== "string") return undefined;
 
   if (["select", "date", "treeSelect"].includes(type)) {
-    return `${t("common.input.input")}${label}`;
+    return `${t("common.input.input")} ${label}`;
   }
 
   if (["input", "textarea", "number", "password"].includes(type)) {
-    return `${t("common.input.select")}${label}`;
+    return `${t("common.input.select")} ${label}`;
   }
 
   return undefined;

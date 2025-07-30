@@ -52,16 +52,16 @@
       "exportSvg": "Export SVG",
       "tableSize": "Table Size"
     },
+    "search": {
+      "placeholder": "Search pages or paths",
+      "history": "Search History"
+    },
     "layout": {
       "left": "Left Menu",
       "top": "Top Menu",
       "mixLeft": "Mixed Left Menu",
       "right": "Right Menu",
       "mixRight": "Mixed Right Menu"
-    },
-    "search": {
-      "placeholder": "Search pages or paths",
-      "history": "Search History"
     },
     "theme": {
       "mode": {
@@ -142,10 +142,6 @@
       "content": {
         "resetSettings": "Are you sure to reset all settings?"
       }
-    },
-    "message": {
-      "resetSuccess": "Reset successful",
-      "placement": "I will show here 😊"
     }
   },
   "route": {
@@ -241,6 +237,16 @@
   "pagination": {
     "total": "Total {total} items",
     "goto": "Go to"
+  },
+  "message": {
+    "resetSuccess": "Reset successful",
+    "placement": "I will show here 😊",
+    "deleteSuccess": "Delete successful",
+    "uploadSuccess": "Upload successful",
+    "uploadError": "Upload failed:  {message}"
+  },
+  "confirm": {
+    "delete": "Are you sure to delete {name}?"
   },
   "login": {
     "login": "Login",

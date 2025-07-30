@@ -327,7 +327,7 @@ const resetSetting = () => {
     negativeText: t("common.btn.cancel"),
     onPositiveClick: () => {
       appStore.resetAllTheme();
-      window.$message.success(t("system.message.resetSuccess"));
+      window.$message.success(t("message.resetSuccess"));
     },
   });
 };

@@ -40,7 +40,6 @@
     }
   },
   "system": {
-    "settings": "系統設置",
     "tooltip": {
       "fullSwitch": "全屏切換",
       "themeSwitch": "主題切換",
@@ -143,10 +142,6 @@
       "content": {
         "resetSettings": "確認重置所有設置？"
       }
-    },
-    "message": {
-      "resetSuccess": "重置成功",
-      "placement": "我會顯示在這裡哦😊"
     }
   },
   "route": {
@@ -242,6 +237,16 @@
   "pagination": {
     "total": "共 {total} 條",
     "goto": "前往"
+  },
+  "message": {
+    "resetSuccess": "重置成功",
+    "placement": "我會顯示在這裡哦😊",
+    "deleteSuccess": "刪除成功",
+    "uploadSuccess": "上傳成功",
+    "uploadError": "上傳失敗:  {message}"
+  },
+  "confirm": {
+    "delete": "確定要刪除 {name} 嗎？"
   },
   "login": {
     "login": "登 錄",

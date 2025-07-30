@@ -193,7 +193,7 @@ export const useAppStore = defineStore("app-store", {
     /* 修改消息提示位置 */
     setPlacement(position: MessageProviderProps["placement"]) {
       this.placement = position;
-      window.$message.info($t("system.message.placement"));
+      window.$message.info($t("message.placement"));
     },
   },
   persist: true, // 持久化存储，默认存储在 localStorage

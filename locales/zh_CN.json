@@ -142,10 +142,6 @@
       "content": {
         "resetSettings": "确认重置所有设置？"
       }
-    },
-    "message": {
-      "resetSuccess": "重置成功",
-      "placement": "我会显示在这里哦😊"
     }
   },
   "route": {
@@ -241,6 +237,16 @@
   "pagination": {
     "total": "共 {total} 条",
     "goto": "前往"
+  },
+  "message": {
+    "resetSuccess": "重置成功",
+    "placement": "我会显示在这里哦😊",
+    "deleteSuccess": "删除成功",
+    "uploadSuccess": "上传成功",
+    "uploadError": "上传失败:  {message}"
+  },
+  "confirm": {
+    "delete": "确定要删除 {name} 吗？"
   },
   "login": {
     "login": "登 录",

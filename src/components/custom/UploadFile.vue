@@ -46,6 +46,8 @@ interface RemoveFile extends FileInfo {
   idx: number;
 }
 
+const { t } = useI18n();
+
 /** 自定义事件 */
 const emit = defineEmits({
   upload: (val: FileInfo) => val,
@@ -216,14 +218,14 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
   });
 
   if (!isValidType) {
-    window.$message.error(`上传文件的格式不正确，请上传格式为 ${accept} 的文件`);
+    window.$message.error(t("components.imageCut.incorrectFormat", { type: accept }));
 
     return false;
   }
 
   // 限制文件大小
   if (file.size > maxFileSize * 1024 * 1024) {
-    window.$message.error("上传文件大小不能大于" + maxFileSize + "M");
+    window.$message.error(t("components.imageCut.incorrectSize", { size: maxFileSize }));
 
     return false;
   }
@@ -236,12 +238,12 @@ const handleFinish = ({ file }: { file: UploadFileInfo }) => {
   if (file?.url) {
     emit("upload", { url: file.url, name: file.name });
   }
-  window.$message.success("上传成功");
+  window.$message.success(t("message.uploadSuccess"));
 };
 
 /** 上传失败回调 */
 const handleError = ({ file }: { file: UploadFileInfo }) => {
-  console.log("上传失败: " + file.name);
+  console.log(t("message.uploadError", { message: file.name }));
 };
 
 /** 删除文件 */
@@ -253,7 +255,7 @@ const handleRemove = async ({
   index: number;
 }): Promise<boolean> => {
   try {
-    const confirmResult = await InquiryBox(`确定删除 ${file.name} 吗？`);
+    const confirmResult = await InquiryBox(t("confirm.delete", { name: file.name }));
 
     if (confirmResult) {
       if (file.status === "error") return true;
@@ -261,7 +263,7 @@ const handleRemove = async ({
 
       await FileAPI.delete(url);
       emit("remove", { url, name: file.name, idx: index });
-      window.$message.success("删除成功");
+      window.$message.success(t(t("message.deleteSuccess")));
 
       return true;
     }
