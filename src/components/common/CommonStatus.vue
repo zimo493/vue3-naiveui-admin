@@ -11,13 +11,15 @@ export default defineComponent({
   setup(props) {
     const { value, round, bordered } = toRefs(props);
 
+    const { t } = useI18n();
+
     return () => (
       <NTag
         bordered={bordered.value}
         round={round.value}
         type={value.value === 1 ? "success" : "error"}
       >
-        {value.value === 1 ? "正常" : "禁用"}
+        {value.value === 1 ? t("statusTag.normal") : t("statusTag.disable")}
       </NTag>
     );
   },

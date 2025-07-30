@@ -1,5 +1,6 @@
 import type { MIMETYPE } from "@/enums";
 import Icones from "@/components/common/Icones.vue";
+import { $t } from "./i18n";
 
 /**
  * 参数处理
@@ -150,7 +151,7 @@ export const pathToHump = (path?: string): string => {
   return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("");
 };
 
-export const statusOptions = [
-  { label: "正常", value: 1, type: "success" },
-  { label: "禁用", value: 0, type: "error" },
-];
+export const statusOptions = computed(() => [
+  { label: $t("statusTag.normal"), value: 1, type: "success" },
+  { label: $t("statusTag.disable"), value: 0, type: "error" },
+]);

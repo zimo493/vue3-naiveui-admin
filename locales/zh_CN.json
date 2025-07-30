@@ -195,6 +195,10 @@
     "errorPermission": "需要提供权限标识！例如：v-has-perm=\"'sys:user:add'\" 或 v-has-perm=\"['sys:user:add', 'sys:user:edit']\"",
     "errorRole": "需要提供角色标识！例如：v-has-role=\"'ADMIN'\" 或 v-has-role=\"['ADMIN', 'TEST']\""
   },
+  "statusTag": {
+    "normal": "正常",
+    "disable": "禁用"
+  },
   "login": {
     "login": "登 录",
     "logIn": "登 录 中...",

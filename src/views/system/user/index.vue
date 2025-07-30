@@ -192,7 +192,7 @@ const formConfig = ref<FormPro.FormItemConfig[]>([
     label: "状态",
     component: "select",
     props: {
-      options: statusOptions,
+      options: statusOptions.value,
       // 自定义渲染标签
       renderTag: ({ option }) => (
         <NTag type={option.type} bordered={false}>
@@ -348,7 +348,7 @@ const editFormConfig = computed(
         name: "status",
         label: "状态",
         component: "radio",
-        props: { options: statusOptions },
+        props: { options: statusOptions.value },
       },
     ],
     // NForm属性

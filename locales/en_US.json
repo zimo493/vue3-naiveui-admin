@@ -195,6 +195,10 @@
     "errorPermission": "Permission identifier required! Example: v-has-perm=\"'sys:user:add'\" or v-has-perm=\"['sys:user:add', 'sys:user:edit']\"",
     "errorRole": "Role identifier required! Example: v-has-role=\"'ADMIN'\" or v-has-role=\"['ADMIN', 'TEST']\""
   },
+  "statusTag": {
+    "normal": "Normal",
+    "disable": "Disabled"
+  },
   "login": {
     "login": "Login",
     "logIn": "Logging in...",

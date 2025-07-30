@@ -207,7 +207,7 @@ const editFormConfig: DialogForm.Form = {
       name: "status",
       label: "状态",
       component: "radio",
-      props: { options: statusOptions },
+      props: { options: statusOptions.value },
     },
   ],
   props: {
