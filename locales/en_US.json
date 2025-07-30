@@ -9,6 +9,9 @@
     "btn": {
       "refresh": "Refresh",
       "search": "Search",
+      "clear": "Clear",
+      "select": "Select",
+      "switch": "Switch",
       "copy": "Copy",
       "cancel": "Cancel",
       "confirm": "Confirm",
@@ -48,6 +51,10 @@
       "mixLeft": "Mixed Left Menu",
       "right": "Right Menu",
       "mixRight": "Mixed Right Menu"
+    },
+    "search": {
+      "placeholder": "Search pages or paths",
+      "history": "Search History"
     },
     "theme": {
       "mode": {

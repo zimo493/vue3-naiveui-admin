@@ -9,6 +9,9 @@
     "btn": {
       "refresh": "刷新",
       "search": "搜索",
+      "clear": "清空",
+      "select": "选择",
+      "switch": "切换",
       "copy": "复制",
       "cancel": "取消",
       "confirm": "确定",
@@ -41,6 +44,10 @@
       "settings": "系统设置",
       "fullScreen": "内容区全屏",
       "cancelFullScreen": "取消内容区全屏"
+    },
+    "search": {
+      "placeholder": "搜索页面或者路径",
+      "history": "搜索历史"
     },
     "layout": {
       "left": "左侧菜单",

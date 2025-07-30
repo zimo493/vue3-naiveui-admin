@@ -272,7 +272,7 @@ const highlightStyle = {
     <template #header>
       <n-input
         v-model:value="searchValue"
-        placeholder="搜索页面或者路径"
+        :placeholder="t('system.search.placeholder')"
         clearable
         size="large"
         @input="handleInputChange"
@@ -284,8 +284,10 @@ const highlightStyle = {
       <!-- 搜索历史区域 -->
       <n-flex v-if="searchHistory.length && !searchValue" :size="[0, 4]" vertical mt-6px>
         <n-flex justify="space-between" align="center">
-          <n-text :depth="2" size="small">搜索历史</n-text>
-          <n-button text type="primary" size="tiny" @click="clearSearchHistory">清空</n-button>
+          <n-text :depth="2" size="small">{{ t("system.search.history") }}</n-text>
+          <n-button text type="primary" size="tiny" @click="clearSearchHistory">
+            {{ t("common.btn.clear") }}
+          </n-button>
         </n-flex>
         <n-flex>
           <n-tag
@@ -356,7 +358,7 @@ const highlightStyle = {
               <path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3" />
             </g>
           </svg>
-          <span>选择</span>
+          <span>{{ t("common.btn.select") }}</span>
         </div>
         <div class="flex-y-center gap-1">
           <svg width="1em" height="1em" aria-label="Arrow down" role="img">
@@ -381,7 +383,7 @@ const highlightStyle = {
               <path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3" />
             </g>
           </svg>
-          <span>切换</span>
+          <span>{{ t("common.btn.switch") }}</span>
         </div>
         <div class="flex-y-center gap-1">
           <svg width="1em" height="1em" aria-label="Escape key" role="img">
@@ -397,7 +399,7 @@ const highlightStyle = {
               />
             </g>
           </svg>
-          <span>取消</span>
+          <span>{{ t("common.btn.cancel") }}</span>
         </div>
       </n-flex>
     </template>
