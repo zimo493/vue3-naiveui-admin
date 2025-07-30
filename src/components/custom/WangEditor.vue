@@ -22,9 +22,11 @@
 
 <script setup lang="ts">
 import type { IDomEditor, IEditorConfig, SlateElement } from "@wangeditor-next/editor";
+import { i18nChangeLanguage } from "@wangeditor-next/editor";
 
 // 文件上传 API
 import FileAPI from "@/api/file";
+import { useAppStoreHook } from "@/store";
 
 import { Editor, Toolbar } from "@wangeditor-next/editor-for-vue";
 import "@wangeditor-next/editor/dist/css/style.css";
@@ -44,6 +46,16 @@ type VideoElement = SlateElement & {
 defineOptions({ name: "WangEditor" });
 
 const { t } = useI18n();
+const appStore = useAppStoreHook();
+
+watch(
+  () => appStore.lang,
+  (v) =>
+    nextTick(() => {
+      i18nChangeLanguage(v === "enUS" ? "en" : "zh-CN");
+    }),
+  { immediate: true }
+);
 
 const props = defineProps({
   modelValue: {
