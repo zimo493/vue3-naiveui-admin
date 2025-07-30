@@ -12,10 +12,10 @@ type Option = { label: string; value: string; icon: Component };
 const { t } = useI18n();
 const appStore = useAppStoreHook();
 
-const options = ref<Option[]>([
-  { label: "跟随系统", value: ThemeMode.AUTO, icon: IconAuto },
-  { label: "明亮", value: ThemeMode.LIGHT, icon: IconSun },
-  { label: "暗黑", value: ThemeMode.DARK, icon: IconMoon },
+const options = computed<Option[]>(() => [
+  { label: t("system.theme.mode.auto"), value: ThemeMode.AUTO, icon: IconAuto },
+  { label: t("system.theme.mode.light"), value: ThemeMode.LIGHT, icon: IconSun },
+  { label: t("system.theme.mode.dark"), value: ThemeMode.DARK, icon: IconMoon },
 ]);
 
 const renderLabel = (option: Option) =>
