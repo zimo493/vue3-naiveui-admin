@@ -188,6 +188,13 @@
     "Icon": "Icon",
     "Websocket": "WebSocket"
   },
+  "directive": {
+    "nonsupportCopy": "Your browser does not support clipboard API",
+    "notAllowedCopy": "Clipboard API is not currently allowed",
+    "copySuccess": "Copy successful",
+    "errorPermission": "Permission identifier required! Example: v-has-perm=\"'sys:user:add'\" or v-has-perm=\"['sys:user:add', 'sys:user:edit']\"",
+    "errorRole": "Role identifier required! Example: v-has-role=\"'ADMIN'\" or v-has-role=\"['ADMIN', 'TEST']\""
+  },
   "login": {
     "login": "Login",
     "logIn": "Logging in...",

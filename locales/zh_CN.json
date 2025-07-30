@@ -188,6 +188,13 @@
     "Icon": "Icon",
     "Websocket": "WebSocket"
   },
+  "directive": {
+    "nonsupportCopy": "您的浏览器不支持剪贴板API",
+    "notAllowedCopy": "目前不允许使用剪贴板API",
+    "copySuccess": "复制成功",
+    "errorPermission": "需要提供权限标识！例如：v-has-perm=\"'sys:user:add'\" 或 v-has-perm=\"['sys:user:add', 'sys:user:edit']\"",
+    "errorRole": "需要提供角色标识！例如：v-has-role=\"'ADMIN'\" 或 v-has-role=\"['ADMIN', 'TEST']\""
+  },
   "login": {
     "login": "登 录",
     "logIn": "登 录 中...",

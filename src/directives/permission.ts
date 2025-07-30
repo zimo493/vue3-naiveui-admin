@@ -1,6 +1,7 @@
 import type { App, Directive } from "vue";
 
 import { useAuthStoreHook } from "@/store";
+import { $t } from "@/utils";
 
 export function install(app: App) {
   /**
@@ -9,9 +10,7 @@ export function install(app: App) {
   const updatePerm = (el: HTMLElement, permission: string[]) => {
     // 校验传入的权限值是否合法
     if (!permission || (typeof permission !== "string" && !Array.isArray(permission))) {
-      throw new Error(
-        "需要提供权限标识！例如：v-has-perm=\"'sys:user:add'\" 或 v-has-perm=\"['sys:user:add', 'sys:user:edit']\""
-      );
+      throw new Error($t("directive.errorPermission"));
     }
     const { roles, perms } = useAuthStoreHook().userInfo;
 
@@ -45,9 +44,7 @@ export function install(app: App) {
   const updateRole = (el: HTMLElement, value: string[]) => {
     // 校验传入的角色值是否合法
     if (!value || (typeof value !== "string" && !Array.isArray(value))) {
-      throw new Error(
-        "需要提供角色标识！例如：v-has-role=\"'ADMIN'\" 或 v-has-role=\"['ADMIN', 'TEST']\""
-      );
+      throw new Error($t("directive.errorRole"));
     }
 
     const { roles } = useAuthStoreHook().userInfo;

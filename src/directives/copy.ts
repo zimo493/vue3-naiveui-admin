@@ -1,3 +1,4 @@
+import { $t } from "@/utils";
 import type { App, Directive } from "vue";
 
 interface CopyHTMLElement extends HTMLElement {
@@ -25,13 +26,13 @@ export function install(app: App) {
 
   function clipboardEnable() {
     if (!isSupported.value) {
-      window.$message.error("您的浏览器不支持剪贴板API");
+      window.$message.error($t("directive.nonsupportCopy"));
 
       return false;
     }
 
     if (permissionWrite.value !== "granted") {
-      window.$message.error("目前不允许使用剪贴板API");
+      window.$message.error($t("directive.notAllowedCopy"));
 
       return false;
     }
@@ -46,7 +47,7 @@ export function install(app: App) {
 
   function updateClipboard(el: CopyHTMLElement, text: string | { text: string; msg: string }) {
     el._copyText = typeof text === "string" ? text : text.text;
-    el._msg = typeof text === "string" ? "复制成功" : text.msg;
+    el._msg = typeof text === "string" ? $t("directive.copySuccess") : text.msg;
     el.addEventListener("click", handlerCopy);
   }
 
