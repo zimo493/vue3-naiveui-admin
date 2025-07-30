@@ -223,7 +223,7 @@
       "placeholder": "请选择或者输入图标名称",
       "localhost": "本地图标"
     },
-    "imageCut": {
+    "upload": {
       "cut": "图片裁剪",
       "select": "选择图片",
       "promptStart": "请上传",

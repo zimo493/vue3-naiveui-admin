@@ -43,6 +43,8 @@ type VideoElement = SlateElement & {
 
 defineOptions({ name: "WangEditor" });
 
+const { t } = useI18n();
+
 const props = defineProps({
   modelValue: {
     type: String,
@@ -72,7 +74,7 @@ const fileType = ref<string[]>([".jpg", ".jpeg", ".png", ".gif", ".bpm", ".webp"
 const fileSize = ref<number>(5);
 // 编辑器配置
 const editorConfig = ref<Partial<IEditorConfig>>({
-  placeholder: "请输入内容",
+  placeholder: t("common.input.input"),
   MENU_CONF: {
     uploadImage: {
       base64LimitSize: 5 * 1024, // 5kb
@@ -99,7 +101,9 @@ const editorConfig = ref<Partial<IEditorConfig>>({
         }
 
         if (!fileType.value.includes(fileExtension)) {
-          window.$message.error(`文件格式不正确, 请上传 ${fileType.value.join(" / ")} 格式文件!`);
+          window.$message.error(
+            t("components.upload.incorrectFormat", { type: fileType.value.join(" / ") })
+          );
 
           return false;
         }
@@ -108,7 +112,7 @@ const editorConfig = ref<Partial<IEditorConfig>>({
         const isLt = file.size / 1024 / 1024 < fileSize.value;
 
         if (!isLt) {
-          window.$message.error(`上传文件大小不能超过 ${fileSize.value} MB!`);
+          window.$message.error(t("components.upload.incorrectSize", { size: fileSize.value }));
 
           return false;
         }

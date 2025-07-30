@@ -218,14 +218,14 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
   });
 
   if (!isValidType) {
-    window.$message.error(t("components.imageCut.incorrectFormat", { type: accept }));
+    window.$message.error(t("components.upload.incorrectFormat", { type: accept }));
 
     return false;
   }
 
   // 限制文件大小
   if (file.size > maxFileSize * 1024 * 1024) {
-    window.$message.error(t("components.imageCut.incorrectSize", { size: maxFileSize }));
+    window.$message.error(t("components.upload.incorrectSize", { size: maxFileSize }));
 
     return false;
   }

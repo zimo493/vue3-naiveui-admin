@@ -2,7 +2,7 @@
   <n-modal
     v-model:show="visible"
     preset="card"
-    :title="t('components.imageCut.cut')"
+    :title="t('components.upload.cut')"
     :on-mask-click="cancel"
     :style="{ width: width + 'px' }"
     :segmented="{ content: true, action: true }"
@@ -31,7 +31,7 @@
                   <template #icon>
                     <Icones icon="ant-design:cloud-upload-outlined" />
                   </template>
-                  {{ t("components.imageCut.select") }}
+                  {{ t("components.upload.select") }}
                 </n-button>
               </n-upload>
             </div>
@@ -59,16 +59,16 @@
             </n-flex>
           </n-flex>
           <n-text>
-            {{ t("components.imageCut.promptStart") }}
+            {{ t("components.upload.promptStart") }}
             <template v-if="fileSize">
-              {{ t("components.imageCut.sizeLimit") }}
+              {{ t("components.upload.sizeLimit") }}
               <n-text type="error">{{ fileSize }}MB</n-text>
             </template>
             <template v-if="fileType">
-              {{ t("components.imageCut.fileTypes") }}
+              {{ t("components.upload.fileTypes") }}
               <n-text type="error">{{ fileType.join(" / ") }}</n-text>
             </template>
-            {{ t("components.imageCut.promptEnd") }}
+            {{ t("components.upload.promptEnd") }}
           </n-text>
         </n-gi>
         <n-gi :span="10">
@@ -181,7 +181,7 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
 
     if (!isTypeOk) {
       window.$message.error(
-        t("components.imageCut.incorrectFormat", { type: fileType.value.join(" / ") })
+        t("components.upload.incorrectFormat", { type: fileType.value.join(" / ") })
       );
 
       return false;
@@ -193,7 +193,7 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
     const isLt = file.size / 1024 / 1024 < fileSize.value;
 
     if (!isLt) {
-      window.$message.error(t("components.imageCut.incorrectSize", { size: fileSize.value }));
+      window.$message.error(t("components.upload.incorrectSize", { size: fileSize.value }));
 
       return false;
     }

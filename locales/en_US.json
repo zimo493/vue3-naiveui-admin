@@ -223,7 +223,7 @@
       "placeholder": "Please select or enter icon name",
       "localhost": "Local Icons"
     },
-    "imageCut": {
+    "upload": {
       "cut": "Image Crop",
       "select": "Select Image",
       "promptStart": "Please upload",
