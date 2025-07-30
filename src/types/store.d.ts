@@ -1,6 +1,16 @@
 /* Store仓库状态类型 */
 declare namespace Status {
   /** app-store */
+  type TransitionAnimation =
+    | ""
+    | "fade-slide"
+    | "fade-bottom"
+    | "fade-scale"
+    | "zoom-fade"
+    | "zoom-out"
+    | "fade"
+    | "fade-gradient";
+
   interface App {
     footerText: string;
     primaryColor: string;
@@ -35,18 +45,9 @@ declare namespace Status {
     placement: import("naive-ui").MessageProviderProps["placement"];
     inverted: boolean;
   }
-  type TransitionAnimation =
-    | ""
-    | "fade-slide"
-    | "fade-bottom"
-    | "fade-scale"
-    | "zoom-fade"
-    | "zoom-out"
-    | "fade"
-    | "fade-gradient";
 
-  interface TransitionSelectorOptions {
-    label: string;
+  type TransitionSelect = import("naive-ui").SelectOption;
+  interface TransitionSelectorOptions extends TransitionSelect {
     value: TransitionAnimation;
   }
 

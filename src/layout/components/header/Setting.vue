@@ -263,7 +263,7 @@ const drawerActive = ref(false);
 const openSetting = () => (drawerActive.value = !drawerActive.value);
 
 // 页面过度动画
-const transitionSelectorOptions = ref<Status.TransitionSelectorOptions[]>([
+const transitionSelectorOptions = computed<Status.TransitionSelectorOptions[]>(() => [
   { label: t("system.transitionList.none"), value: "" },
   { label: t("system.transitionList.slideFade"), value: "fade-slide" },
   { label: t("system.transitionList.bottomFade"), value: "fade-bottom" },
@@ -275,7 +275,7 @@ const transitionSelectorOptions = ref<Status.TransitionSelectorOptions[]>([
 ]);
 
 // 边框圆角大小
-const borderRadiusOptions = ref([
+const borderRadiusOptions = computed<SelectOption[]>(() => [
   { label: t("system.borderRadius.none"), value: "0px" },
   { label: t("system.borderRadius.small"), value: "2px" },
   { label: t("system.borderRadius.default"), value: "4px" },
@@ -284,7 +284,7 @@ const borderRadiusOptions = ref([
 ]);
 
 // 消息提示位置
-const messagePositions = ref([
+const messagePositions = computed<SelectOption[]>(() => [
   { label: t("system.messagePositions.top"), value: "top" },
   { label: t("system.messagePositions.bottom"), value: "bottom" },
   { label: t("system.messagePositions.top-left"), value: "top-left" },
@@ -293,7 +293,7 @@ const messagePositions = ref([
   { label: t("system.messagePositions.bottom-right"), value: "bottom-right" },
 ]);
 
-const sideBarShowTrigger = ref<Status.SideBarTriggerOptions[]>([
+const sideBarShowTrigger = computed<SelectOption[]>(() => [
   { label: t("system.sideBarShowTrigger.bar"), value: "bar" },
   { label: t("system.sideBarShowTrigger.arrow-circle"), value: "arrow-circle" },
 ]);
