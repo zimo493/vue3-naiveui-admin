@@ -83,5 +83,13 @@
   },
   "rules": {
     "passwordLength": "密碼長度不能小於6位"
+  },
+  "tabbar": {
+    "refresh": "重新整理",
+    "close": "關閉",
+    "closeOthers": "關閉其他",
+    "closeLeft": "關閉左側",
+    "closeRight": "關閉右側",
+    "closeAll": "關閉全部"
   }
 }

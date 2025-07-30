@@ -83,5 +83,13 @@
   },
   "rules": {
     "passwordLength": "Password length cannot be less than 6 characters"
+  },
+  "tabbar": {
+    "refresh": "Refresh",
+    "close": "Close",
+    "closeOthers": "Close Others",
+    "closeLeft": "Close Left",
+    "closeRight": "Close Right",
+    "closeAll": "Close All"
   }
 }

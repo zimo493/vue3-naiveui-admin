@@ -16,11 +16,12 @@ import DropTabs from "./DropTabs.vue";
 
 import { defaultIcon } from "@/modules/assets";
 
+const router = useRouter();
+const { t } = useI18n();
+
 const tabStore = useTabStoreHook();
 const routeStore = useRouteStoreHook();
 const appStore = useAppStoreHook();
-
-const router = useRouter();
 
 // 动态页签
 const dynamicTab = ref<RouteLocationNormalized[]>([]);
@@ -34,6 +35,12 @@ watchEffect(() => {
 
 watch(
   () => appStore.showTabsIcon,
+  () => nextTick(() => updateBar())
+);
+
+// 语言切换后刷新以下指示条
+watch(
+  () => appStore.lang,
   () => nextTick(() => updateBar())
 );
 
@@ -52,12 +59,12 @@ const updateBar = () => tabsInstRef.value?.syncBarPosition();
 
 const options = computed(() => {
   return [
-    { label: "刷新", key: "reload", icon: () => h(IconRedo) },
-    { label: "关闭", key: "closeCurrent", icon: () => h(IconClose) },
-    { label: "关闭其他", key: "closeOther", icon: () => h(IconDelete) },
-    { label: "关闭左侧", key: "closeLeft", icon: () => h(IconLeft) },
-    { label: "关闭右侧", key: "closeRight", icon: () => h(IconRight) },
-    { label: "关闭所有", key: "closeAll", icon: () => h(IconFullwith) },
+    { label: t("tabbar.refresh"), key: "reload", icon: () => h(IconRedo) },
+    { label: t("tabbar.close"), key: "closeCurrent", icon: () => h(IconClose) },
+    { label: t("tabbar.closeOthers"), key: "closeOther", icon: () => h(IconDelete) },
+    { label: t("tabbar.closeLeft"), key: "closeLeft", icon: () => h(IconLeft) },
+    { label: t("tabbar.closeRight"), key: "closeRight", icon: () => h(IconRight) },
+    { label: t("tabbar.closeAll"), key: "closeAll", icon: () => h(IconFullwith) },
   ];
 });
 const showDropdown = ref(false);
@@ -125,7 +132,8 @@ const onClickOutSide = () => (showDropdown.value = false);
       >
         <div class="flex-x-center gap-2 items-center">
           <Icones v-if="appStore.showTabsIcon" :icon="item.meta.icon" />
-          {{ item.meta.title }}
+          <!-- {{ item.meta.title }} -->
+          {{ t(`route.${String(item.name)}`, item.meta?.title ?? "") }}
         </div>
       </n-tab>
       <n-tab
@@ -141,7 +149,7 @@ const onClickOutSide = () => (showDropdown.value = false);
             v-if="appStore.showTabsIcon"
             :icon="item.meta?.icon ? item.meta.icon : defaultIcon"
           />
-          {{ item.meta.title }}
+          {{ t(`route.${String(item.name)}`, item.meta?.title ?? "") }}
           <Icones
             class="close"
             :size="14"
