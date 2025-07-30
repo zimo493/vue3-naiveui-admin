@@ -84,7 +84,7 @@
   "rules": {
     "passwordLength": "密碼長度不能小於6位"
   },
-  "tabbar": {
+  "tabBar": {
     "refresh": "重新整理",
     "close": "關閉",
     "closeOthers": "關閉其他",

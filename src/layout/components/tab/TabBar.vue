@@ -59,12 +59,12 @@ const updateBar = () => tabsInstRef.value?.syncBarPosition();
 
 const options = computed(() => {
   return [
-    { label: t("tabbar.refresh"), key: "reload", icon: () => h(IconRedo) },
-    { label: t("tabbar.close"), key: "closeCurrent", icon: () => h(IconClose) },
-    { label: t("tabbar.closeOthers"), key: "closeOther", icon: () => h(IconDelete) },
-    { label: t("tabbar.closeLeft"), key: "closeLeft", icon: () => h(IconLeft) },
-    { label: t("tabbar.closeRight"), key: "closeRight", icon: () => h(IconRight) },
-    { label: t("tabbar.closeAll"), key: "closeAll", icon: () => h(IconFullwith) },
+    { label: t("tabBar.refresh"), key: "reload", icon: () => h(IconRedo) },
+    { label: t("tabBar.close"), key: "closeCurrent", icon: () => h(IconClose) },
+    { label: t("tabBar.closeOthers"), key: "closeOther", icon: () => h(IconDelete) },
+    { label: t("tabBar.closeLeft"), key: "closeLeft", icon: () => h(IconLeft) },
+    { label: t("tabBar.closeRight"), key: "closeRight", icon: () => h(IconRight) },
+    { label: t("tabBar.closeAll"), key: "closeAll", icon: () => h(IconFullwith) },
   ];
 });
 const showDropdown = ref(false);

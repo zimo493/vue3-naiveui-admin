@@ -84,7 +84,7 @@
   "rules": {
     "passwordLength": "Password length cannot be less than 6 characters"
   },
-  "tabbar": {
+  "tabBar": {
     "refresh": "Refresh",
     "close": "Close",
     "closeOthers": "Close Others",
