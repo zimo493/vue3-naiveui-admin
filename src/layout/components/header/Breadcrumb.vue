@@ -12,6 +12,8 @@ const router = useRouter();
 const route = useRoute();
 const routes = computed(() => route.matched.filter((item) => item.name !== "Root"));
 
+const { t } = useI18n();
+
 const appStore = useAppStoreHook();
 
 const options = (item: RouteRecordRaw[]) => transformTree(item);
@@ -30,7 +32,7 @@ const transformTree = (node: RouteRecordRaw[]): Options[] => {
         ? renderIcon(item.meta.icon)
         : renderIcon(defaultIcon)
       : undefined,
-    label: item.meta?.title || "",
+    label: t(`route.${String(item.name)}`, item.meta?.title ?? ""),
     children: item.children && transformTree(item.children),
   }));
 };
@@ -65,7 +67,7 @@ const handleSelect = (path: string) => {
                 :icon="item.meta?.icon ? item.meta.icon : defaultIcon"
               />
               <div class="whitespace-nowrap lh-[1]">
-                {{ item.meta.title }}
+                {{ t(`route.${String(item.name)}`, item.meta.title ?? "") }}
               </div>
             </n-flex>
           </n-dropdown>

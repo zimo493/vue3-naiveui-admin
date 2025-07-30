@@ -31,6 +31,8 @@ export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRa
         if (compStr === "Layout") {
           // 明确设置Layout组件标识
           record.component = undefined;
+
+          record.name = pathToHump(route.path);
         } else {
           // 标准化组件路径：移除首尾斜杠，确保路径一致性
           const normalizedPath = compStr.replace(/^\/+|\/+$/g, "");

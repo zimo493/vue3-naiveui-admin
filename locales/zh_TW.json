@@ -10,7 +10,7 @@
   "route": {
     "Index": "首頁",
     "System": "系統管理",
-    "Codegen": "代碼生成",
+    "Utils": "系統工具",
     "Api": "接口文檔",
     "Doc": "平台文檔",
     "MultiLevel": "多級選單",
@@ -26,6 +26,7 @@
     "Log": "系統日誌",
     "Config": "參數配置",
     "Notice": "通知公告",
+    "Codegen": "代碼生成",
     "Multilevel1": "一級選單",
     "Multilevel2": "二級選單",
     "Multilevel31": "三級選單-1",

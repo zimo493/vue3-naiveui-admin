@@ -10,7 +10,7 @@
   "route": {
     "Index": "首页",
     "System": "系统管理",
-    "Codegen": "代码生成",
+    "Utils": "系统工具",
     "Api": "接口文档",
     "Doc": "平台文档",
     "MultiLevel": "多级菜单",
@@ -26,6 +26,7 @@
     "Log": "系统管理",
     "Config": "参数配置",
     "Notice": "通知公告",
+    "Codegen": "代码生成",
     "Multilevel1": "菜单一级",
     "Multilevel2": "菜单二级",
     "Multilevel31": "菜单三级-1",

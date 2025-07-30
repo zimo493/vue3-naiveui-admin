@@ -10,7 +10,7 @@
   "route": {
     "Index": "Home",
     "System": "System",
-    "Codegen": "CodeGen",
+    "Utils": "System Utils",
     "Api": "API Docs",
     "Doc": "Docs",
     "MultiLevel": "Multi-Menu",
@@ -26,6 +26,7 @@
     "Log": "Logs",
     "Config": "Config",
     "Notice": "Notice",
+    "Codegen": "CodeGen",
     "Multilevel1": "L1 Menu",
     "Multilevel2": "L2 Menu",
     "Multilevel31": "L3-1 Menu",
