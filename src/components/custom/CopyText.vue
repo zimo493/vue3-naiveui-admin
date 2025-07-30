@@ -9,7 +9,7 @@
           <icon-park-outline-copy />
         </span>
       </template>
-      复制
+      {{ t("common.btn.copy") }}
     </n-tooltip>
   </div>
 </template>
@@ -20,6 +20,7 @@ defineOptions({
   inheritAttrs: false,
 });
 
+const { t } = useI18n();
 const { maxWidth = "12em" } = defineProps({
   maxWidth: { type: Number },
 });

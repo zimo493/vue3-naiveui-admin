@@ -22,13 +22,13 @@
                 <template #icon>
                   <icon-park-outline-search />
                 </template>
-                {{ form?.positiveText ?? "搜索" }}
+                {{ form?.positiveText ?? t("common.btn.search") }}
               </n-button>
               <n-button strong secondary :loading="loading" @click="resetQuery">
                 <template #icon>
                   <icon-park-outline-redo />
                 </template>
-                {{ form?.negativeText ?? "重置" }}
+                {{ form?.negativeText ?? t("common.btn.reset") }}
               </n-button>
               <n-button v-show="showFoldBtn" type="primary" text @click="toggleCollapse">
                 <template #icon>
@@ -37,7 +37,7 @@
                     :size="24"
                   />
                 </template>
-                {{ isCollapse ? "展开" : "收起" }}
+                {{ isCollapse ? t("common.btn.expand") : t("common.btn.collapse") }}
               </n-button>
               <slot name="after" />
             </n-flex>
@@ -59,7 +59,9 @@
                   <Icones icon="ant-design:search-outlined" />
                 </CommonWrapper>
               </template>
-              <span>{{ show ? "隐藏搜索" : "展开搜索" }}</span>
+              <span>
+                {{ show ? t("system.tooltip.hideSearch") : t("system.tooltip.expandSearch") }}
+              </span>
             </n-tooltip>
             <n-tooltip trigger="hover">
               <template #trigger>
@@ -67,7 +69,7 @@
                   <Icones icon="ant-design:reload-outlined" :class="{ 'animate-spin': loading }" />
                 </CommonWrapper>
               </template>
-              <span>刷新</span>
+              <span>{{ t("common.btn.refresh") }}</span>
             </n-tooltip>
             <n-tooltip trigger="hover">
               <template #trigger>
@@ -75,7 +77,7 @@
                   <Icones icon="ant-design:download-outlined" />
                 </CommonWrapper>
               </template>
-              <span>导出SVG</span>
+              <span>{{ t("system.tooltip.exportSvg") }}</span>
             </n-tooltip>
             <n-tooltip trigger="hover">
               <template #trigger>
@@ -92,7 +94,7 @@
                   </CommonWrapper>
                 </n-popselect>
               </template>
-              <span>表格尺寸</span>
+              <span>{{ t("system.tooltip.tableSize") }}</span>
             </n-tooltip>
           </n-flex>
         </n-flex>
@@ -150,6 +152,8 @@ interface Expose {
 
 defineOptions({ name: "TablePro" });
 
+const { t } = useI18n();
+
 const emit = defineEmits<Emits>();
 
 const props = withDefaults(defineProps<Props<T>>(), {
@@ -187,11 +191,11 @@ const download = () =>
 // 尺寸
 type Size = "small" | "medium" | "large";
 const size = useStorage<Size>("size", "medium", localStorage, { listenToStorageChanges: true });
-const options = [
-  { label: "小型", value: "small" },
-  { label: "默认", value: "medium" },
-  { label: "大型", value: "large" },
-];
+const options = computed(() => [
+  { label: t("system.borderRadius.small"), value: "small" },
+  { label: t("system.borderRadius.default"), value: "medium" },
+  { label: t("system.borderRadius.large"), value: "large" },
+]);
 
 const ruleFormRef = useTemplateRef("ruleForm"); // 获取表单实例
 

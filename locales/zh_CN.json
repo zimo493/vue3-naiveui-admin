@@ -32,6 +32,8 @@
       "operation": "操作",
       "more": "更多",
       "detail": "详情",
+      "expand": "展开",
+      "collapse": "收起",
       "backHomepage": "返回首页",
       "confirmDelete": "确定删除吗？",
       "confirmReset": "确定重置吗？"
@@ -44,7 +46,11 @@
       "languageSwitch": "语言切换",
       "settings": "系统设置",
       "fullScreen": "内容区全屏",
-      "cancelFullScreen": "取消内容区全屏"
+      "cancelFullScreen": "取消内容区全屏",
+      "hideSearch": "隐藏搜索",
+      "expandSearch": "展开搜索",
+      "exportSvg": "导出SVG",
+      "tableSize": "表格尺寸"
     },
     "search": {
       "placeholder": "搜索页面或者路径",
@@ -220,6 +226,16 @@
       "search": "搜索图标",
       "placeholder": "请选择或者输入图标名称",
       "localhost": "本地图标"
+    },
+    "imageCut": {
+      "cut": "图片裁剪",
+      "select": "选择图片",
+      "promptStart": "请上传",
+      "sizeLimit": "大小不超过",
+      "fileTypes": " 格式为",
+      "promptEnd": "的文件",
+      "incorrectFormat": "文件格式不正确, 请上传 {type} 的格式文件!",
+      "incorrectSize": "上传文件大小不能超过 {size} MB!"
     }
   },
   "pagination": {

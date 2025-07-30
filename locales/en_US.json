@@ -32,6 +32,8 @@
       "operation": "Operation",
       "more": "More",
       "detail": "Detail",
+      "expand": "Expand",
+      "collapse": "Collapse",
       "backHomepage": "Back to Homepage",
       "confirmDelete": "Are you sure to delete?",
       "confirmReset": "Are you sure to reset?"
@@ -44,7 +46,11 @@
       "languageSwitch": "Language Toggle",
       "settings": "System Settings",
       "fullScreen": "Content Full Screen",
-      "cancelFullScreen": "Cancel Content Full Screen"
+      "cancelFullScreen": "Cancel Content Full Screen",
+      "hideSearch": "Hide Search",
+      "expandSearch": "Expand Search",
+      "exportSvg": "Export SVG",
+      "tableSize": "Table Size"
     },
     "layout": {
       "left": "Left Menu",
@@ -220,6 +226,16 @@
       "search": "Search Icons",
       "placeholder": "Please select or enter icon name",
       "localhost": "Local Icons"
+    },
+    "imageCut": {
+      "cut": "Image Crop",
+      "select": "Select Image",
+      "promptStart": "Please upload",
+      "sizeLimit": "Size no more than",
+      "fileTypes": " Format:",
+      "promptEnd": "file(s)",
+      "incorrectFormat": "Incorrect file format, please upload {type} format file!",
+      "incorrectSize": "Upload file size cannot exceed {size} MB!"
     }
   },
   "pagination": {

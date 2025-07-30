@@ -44,13 +44,13 @@
           <template #icon>
             <Icones icon="ant-design:check-outlined" />
           </template>
-          {{ form?.positiveText ?? "提交" }}
+          {{ form?.positiveText ?? t("common.btn.submit") }}
         </n-button>
         <n-button strong secondary :disabled="isAllowClose" @click="cancel">
           <template #icon>
             <Icones icon="ant-design:close-outlined" />
           </template>
-          {{ form?.negativeText ?? "取消" }}
+          {{ form?.negativeText ?? t("common.btn.cancel") }}
         </n-button>
       </n-flex>
     </template>
@@ -68,6 +68,8 @@ interface Props {
 }
 
 defineOptions({ name: "ModalForm" });
+
+const { t } = useI18n();
 
 const props = withDefaults(defineProps<Props>(), {
   loading: false,

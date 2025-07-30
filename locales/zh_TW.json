@@ -32,6 +32,8 @@
       "operation": "操作",
       "more": "更多",
       "detail": "詳情",
+      "expand": "展開",
+      "collapse": "收起",
       "backHomepage": "返回首頁",
       "confirmDelete": "確定刪除嗎？",
       "confirmReset": "確定重置嗎？"
@@ -45,7 +47,11 @@
       "languageSwitch": "語言切換",
       "settings": "系統設置",
       "fullScreen": "內容區全屏",
-      "cancelFullScreen": "取消內容區全屏"
+      "cancelFullScreen": "取消內容區全屏",
+      "hideSearch": "隱藏搜索",
+      "expandSearch": "展開搜索",
+      "exportSvg": "導出SVG",
+      "tableSize": "表格尺寸"
     },
     "search": {
       "placeholder": "搜索頁面或者路徑",
@@ -221,6 +227,16 @@
       "search": "搜索圖標",
       "placeholder": "請選擇或者輸入圖標名稱",
       "localhost": "本地圖標"
+    },
+    "imageCut": {
+      "cut": "圖片裁剪",
+      "select": "選擇圖片",
+      "promptStart": "請上傳",
+      "sizeLimit": "大小不超過",
+      "fileTypes": " 格式為",
+      "promptEnd": "的文件",
+      "incorrectFormat": "文件格式不正確, 請上傳 {type} 的格式文件!",
+      "incorrectSize": "上傳文件大小不能超過 {size} MB!"
     }
   },
   "pagination": {

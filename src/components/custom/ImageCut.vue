@@ -2,7 +2,7 @@
   <n-modal
     v-model:show="visible"
     preset="card"
-    title="图片裁剪"
+    :title="t('components.imageCut.cut')"
     :on-mask-click="cancel"
     :style="{ width: width + 'px' }"
     :segmented="{ content: true, action: true }"
@@ -31,7 +31,7 @@
                   <template #icon>
                     <Icones icon="ant-design:cloud-upload-outlined" />
                   </template>
-                  选择图片
+                  {{ t("components.imageCut.select") }}
                 </n-button>
               </n-upload>
             </div>
@@ -59,16 +59,16 @@
             </n-flex>
           </n-flex>
           <n-text>
-            请上传
+            {{ t("components.imageCut.promptStart") }}
             <template v-if="fileSize">
-              大小不超过
+              {{ t("components.imageCut.sizeLimit") }}
               <n-text type="error">{{ fileSize }}MB</n-text>
             </template>
             <template v-if="fileType">
-              格式为
+              {{ t("components.imageCut.fileTypes") }}
               <n-text type="error">{{ fileType.join(" / ") }}</n-text>
             </template>
-            的文件
+            {{ t("components.imageCut.promptEnd") }}
           </n-text>
         </n-gi>
         <n-gi :span="10">
@@ -77,7 +77,7 @@
               <template #icon>
                 <Icones icon="ant-design:check-outlined" />
               </template>
-              提交
+              {{ t("common.btn.submit") }}
             </n-button>
           </n-flex>
         </n-gi>
@@ -103,6 +103,8 @@ const { image = "", width = 800 } = defineProps({
   image: { type: String },
   width: { type: Number },
 });
+
+const { t } = useI18n();
 
 const { loading, startLoading, endLoading } = useLoading();
 
@@ -178,7 +180,9 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
     });
 
     if (!isTypeOk) {
-      window.$message.error(`文件格式不正确, 请上传${fileType.value.join(" / ")}的格式文件!`);
+      window.$message.error(
+        t("components.imageCut.incorrectFormat", { type: fileType.value.join(" / ") })
+      );
 
       return false;
     }
@@ -189,7 +193,7 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
     const isLt = file.size / 1024 / 1024 < fileSize.value;
 
     if (!isLt) {
-      window.$message.error(`上传文件大小不能超过 ${fileSize.value} MB!`);
+      window.$message.error(t("components.imageCut.incorrectSize", { size: fileSize.value }));
 
       return false;
     }
