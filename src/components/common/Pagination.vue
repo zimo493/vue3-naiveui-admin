@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { PropType } from "vue";
 
+const { t } = useI18n();
+
 const props = defineProps({
   count: {
     required: true,
@@ -61,8 +63,9 @@ const handlePageSize = (val: number) => {
       @update-page="handlePage"
       @update-page-size="handlePageSize"
     >
-      <template #prefix="{ itemCount }">共 {{ itemCount }} 项</template>
-      <template #goto>前往</template>
+      <
+      <template #prefix="{ itemCount }">{{ t("pagination.total", { total: itemCount }) }}</template>
+      <template #goto>{{ t("pagination.goto") }}</template>
     </n-pagination>
   </div>
 </template>
