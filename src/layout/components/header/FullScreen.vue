@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAppStoreHook } from "@/store";
 
+const { t } = useI18n();
 const appStore = useAppStoreHook();
 
 useMagicKeys({
@@ -22,6 +23,6 @@ useMagicKeys({
         <icon-park-outline-full-screen-two v-else />
       </CommonWrapper>
     </template>
-    <span>全屏切换</span>
+    <span>{{ t("system.tooltip.fullSwitch") }}</span>
   </n-tooltip>
 </template>

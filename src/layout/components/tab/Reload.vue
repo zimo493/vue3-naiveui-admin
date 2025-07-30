@@ -2,6 +2,7 @@
 import { useLoading } from "@/hooks";
 import { useAppStoreHook } from "@/store";
 
+const { t } = useI18n();
 const appStore = useAppStoreHook();
 
 const { loading, startLoading, endLoading } = useLoading();
@@ -19,6 +20,6 @@ const handleReload = () => {
         <icon-park-outline-refresh :class="{ 'animate-spin': loading }" />
       </CommonWrapper>
     </template>
-    <span>刷新</span>
+    <span>{{ t("common.btn.refresh") }}</span>
   </n-tooltip>
 </template>

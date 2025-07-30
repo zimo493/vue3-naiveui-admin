@@ -7,6 +7,8 @@
       "others": "其他"
     },
     "btn": {
+      "refresh": "刷新",
+      "search": "搜索",
       "copy": "複製",
       "cancel": "取消",
       "confirm": "確定",
@@ -33,6 +35,14 @@
   },
   "system": {
     "settings": "系統設置",
+    "tooltip": {
+      "fullSwitch": "全屏切換",
+      "theneSwitch": "主題切換",
+      "languageSwitch": "語言切換",
+      "settings": "系統設置",
+      "fullScreen": "內容區全屏",
+      "cancelFullScreen": "取消內容區全屏"
+    },
     "layout": {
       "left": "左側菜單",
       "top": "頂部菜單",
@@ -134,7 +144,6 @@
     "Component": "組件封裝",
     "RouteParam": "路由參數",
     "Function": "功能演示",
-
     "User": "用戶管理",
     "Role": "角色管理",
     "SysMenu": "菜單管理",

@@ -3,6 +3,8 @@ import { useAppStore } from "@/store";
 
 defineOptions({ name: "LangsSwitch" });
 
+const { t } = useI18n();
+
 const appStore = useAppStore();
 const options = [
   { label: "English", value: "enUS" },
@@ -24,7 +26,7 @@ const options = [
           <icon-park-outline-translate />
         </CommonWrapper>
       </template>
-      <span>语言切换</span>
+      <span>{{ t("system.tooltip.languageSwitch") }}</span>
     </n-tooltip>
   </n-popselect>
 </template>

@@ -7,6 +7,8 @@ import { defaultIcon } from "@/modules/assets";
 
 const routeStore = useRouteStore();
 
+const { t } = useI18n();
+
 // 搜索值
 const searchValue = ref("");
 
@@ -241,7 +243,7 @@ const highlightStyle = {
   <n-tag cursor-pointer :bordered="false" round size="large" @click="openModal">
     <n-flex :wrap="false" size="small" align="center">
       <icon-park-outline-search />
-      搜索
+      {{ t("common.btn.search") }}
       <n-el
         tag="div"
         style="

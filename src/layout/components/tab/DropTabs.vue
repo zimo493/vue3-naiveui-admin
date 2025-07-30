@@ -18,6 +18,7 @@ import { useAppStoreHook, useTabStoreHook } from "@/store";
 
 import { defaultIcon } from "@/modules/assets";
 
+const { t } = useI18n();
 const router = useRouter();
 const tabStore = useTabStoreHook();
 const appStore = useAppStoreHook();
@@ -25,7 +26,7 @@ const appStore = useAppStoreHook();
 const options = computed(() =>
   tabStore.allTabs?.map((item) => ({
     key: item.fullPath,
-    label: item.meta.title,
+    label: t(`route.${String(item.name)}`, item.meta?.title ?? ""),
     icon: item.meta?.icon ? renderIcon(item.meta.icon) : renderIcon(defaultIcon),
   }))
 );

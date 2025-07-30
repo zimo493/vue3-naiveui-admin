@@ -9,6 +9,7 @@ import IconAuto from "~icons/icon-park-outline/laptop-computer";
 
 type Option = { label: string; value: string; icon: Component };
 
+const { t } = useI18n();
 const appStore = useAppStoreHook();
 
 const options = ref<Option[]>([
@@ -37,7 +38,7 @@ const renderLabel = (option: Option) =>
           <icon-park-outline-laptop-computer v-if="appStore.storeColorMode === ThemeMode.AUTO" />
         </CommonWrapper>
       </template>
-      <span>主题切换</span>
+      <span>{{ t("system.tooltip.theneSwitch") }}</span>
     </n-tooltip>
   </n-popselect>
 </template>

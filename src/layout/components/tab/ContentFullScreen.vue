@@ -4,6 +4,7 @@ import { useAppStoreHook } from "@/store";
 import fullScreen from "~icons/icon-park-outline/full-screen-one";
 import offScreen from "~icons/icon-park-outline/off-screen-one";
 
+const { t } = useI18n();
 const appStore = useAppStoreHook();
 </script>
 
@@ -15,7 +16,11 @@ const appStore = useAppStoreHook();
       </CommonWrapper>
     </template>
     <span>
-      {{ appStore.contentFullScreen ? "取消内容区全屏" : "内容区全屏" }}
+      {{
+        appStore.contentFullScreen
+          ? t("system.tooltip.cancelFullScreen")
+          : t("system.tooltip.fullScreen")
+      }}
     </span>
   </n-tooltip>
 </template>

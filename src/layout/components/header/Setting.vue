@@ -6,12 +6,12 @@
           <icon-park-outline-setting-two />
         </CommonWrapper>
       </template>
-      <span>{{ t("system.settings") }}</span>
+      <span>{{ t("system.tooltip.settings") }}</span>
     </n-tooltip>
 
     <!-- 设置面板 -->
     <n-drawer v-model:show="drawerActive" :width="380">
-      <n-drawer-content :title="t('system.settings')" closable>
+      <n-drawer-content :title="t('system.tooltip.settings')" closable>
         <n-flex vertical>
           <!-- <n-divider>布局设置</n-divider> -->
           <LayoutSelector v-model:value="appStore.layoutMode" />

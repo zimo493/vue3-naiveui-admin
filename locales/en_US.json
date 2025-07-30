@@ -7,6 +7,8 @@
       "others": "Others"
     },
     "btn": {
+      "refresh": "Refresh",
+      "search": "Search",
       "copy": "Copy",
       "cancel": "Cancel",
       "confirm": "Confirm",
@@ -32,7 +34,14 @@
     }
   },
   "system": {
-    "settings": "System Settings",
+    "tooltip": {
+      "fullSwitch": "Full Screen Toggle",
+      "theneSwitch": "Theme Toggle",
+      "languageSwitch": "Language Toggle",
+      "settings": "System Settings",
+      "fullScreen": "Content Full Screen",
+      "cancelFullScreen": "Cancel Content Full Screen"
+    },
     "layout": {
       "left": "Left Menu",
       "top": "Top Menu",
@@ -134,7 +143,6 @@
     "Component": "Components",
     "RouteParam": "Params",
     "Function": "Demo",
-
     "User": "Users",
     "Role": "Roles",
     "SysMenu": "Menus",
@@ -150,7 +158,6 @@
     "Multilevel32": "L3-2 Menu",
     "Apifox": "Apifox",
     "InternalDoc": "Docs",
-
     "Https://juejin": {
       "cn/post/7228990409909108793": "External Docs"
     },
@@ -162,7 +169,6 @@
         }
       }
     },
-
     "Curd": "CRUD",
     "Cron": "Cron Gen",
     "WangEditor": "Editor",
