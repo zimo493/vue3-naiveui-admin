@@ -5,6 +5,123 @@
       "input": "請輸入",
       "select": "請選擇",
       "others": "其他"
+    },
+    "btn": {
+      "copy": "複製",
+      "cancel": "取消",
+      "confirm": "確定",
+      "reset": "重置",
+      "save": "保存",
+      "edit": "編輯",
+      "delete": "刪除",
+      "add": "添加",
+      "export": "導出",
+      "import": "導入",
+      "query": "查詢",
+      "back": "返回",
+      "submit": "提交",
+      "close": "關閉",
+      "download": "下載",
+      "upload": "上傳",
+      "view": "查看",
+      "operation": "操作",
+      "more": "更多",
+      "detail": "詳情",
+      "confirmDelete": "確定刪除嗎？",
+      "confirmReset": "確定重置嗎？"
+    }
+  },
+  "system": {
+    "settings": "系統設置",
+    "layout": {
+      "left": "左側菜單",
+      "top": "頂部菜單",
+      "mixLeft": "混合左側菜單",
+      "right": "右側菜單",
+      "mixRight": "混合右側菜單"
+    },
+    "theme": {
+      "mode": {
+        "mode": "主題模式",
+        "light": "淺色",
+        "dark": "深色",
+        "auto": "自動",
+        "reverseStyle": "樣式反轉",
+        "reverseStyleTip": "來增強菜單和下拉菜單的視覺效果",
+        "grey": "黑白模式",
+        "colorWeakness": "色弱模式"
+      },
+      "color": {
+        "color": "主題顏色",
+        "colorTip": "主題配色已複製到剪貼板",
+        "copyAndPaste": "複製後可粘貼替換",
+        "content": "中的內容",
+        "primary": "主色",
+        "success": "成功色",
+        "warning": "警告色",
+        "error": "錯誤色",
+        "info": "信息色",
+        "followPrimary": "跟隨主色"
+      }
+    },
+    "interface": {
+      "function": "界面功能",
+      "borderRadius": "圓角大小",
+      "pageTransition": "頁面過渡",
+      "sidebarWidth": "側邊欄寬度",
+      "sidebarCollapseWidth": "側邊欄折疊寬度",
+      "sidebarTriggerStyle": "側邊欄觸發器樣式",
+      "msgPlacement": "Message提示位置",
+      "logo": "logo顯示",
+      "topProgress": "頂部進度",
+      "breadcrumb": "麵包屑顯示",
+      "breadcrumbIcon": "麵包屑圖標",
+      "tabs": "多頁簽顯示",
+      "tabsIcon": "多頁簽圖標",
+      "fixedTopAndBottom": "固定頂部和底部",
+      "copyright": "底部版權",
+      "watermark": "水印",
+      "watermarkTip": "請輸入水印文字"
+    },
+    "transitionList": {
+      "none": "無過度",
+      "slideFade": "側邊淡出",
+      "bottomFade": "底邊淡出",
+      "collapseFade": "收縮淡出",
+      "expandFade": "擴大淡出",
+      "collapse": "收縮",
+      "soft": "柔和",
+      "gradual": "漸變"
+    },
+    "borderRadius": {
+      "none": "無圓角",
+      "small": "小型",
+      "default": "默認",
+      "large": "大型",
+      "round": "圓潤"
+    },
+    "messagePositions": {
+      "top": "頂部",
+      "bottom": "底部",
+      "top-left": "左上",
+      "top-right": "右上",
+      "bottom-left": "左下",
+      "bottom-right": "右下"
+    },
+    "sideBarShowTrigger": {
+      "bar": "條形",
+      "arrow-circle": "原型箭頭"
+    },
+    "dialog": {
+      "title": {
+        "resetSettings": "重置設置"
+      },
+      "content": {
+        "resetSettings": "確認重置所有設置？"
+      }
+    },
+    "message": {
+      "resetSuccess": "重置成功"
     }
   },
   "route": {
@@ -13,27 +130,26 @@
     "Utils": "系統工具",
     "Api": "接口文檔",
     "Doc": "平台文檔",
-    "MultiLevel": "多級選單",
-    "Component": "元件封裝",
+    "MultiLevel": "多級菜單",
+    "Component": "組件封裝",
     "RouteParam": "路由參數",
     "Function": "功能演示",
 
     "User": "用戶管理",
     "Role": "角色管理",
-    "SysMenu": "選單管理",
+    "SysMenu": "菜單管理",
     "Dept": "部門管理",
     "Dict": "字典管理",
-    "Log": "系統日誌",
+    "Log": "系統管理",
     "Config": "參數配置",
     "Notice": "通知公告",
     "Codegen": "代碼生成",
-    "Multilevel1": "一級選單",
-    "Multilevel2": "二級選單",
-    "Multilevel31": "三級選單-1",
-    "Multilevel32": "三級選單-2",
+    "Multilevel1": "菜單一級",
+    "Multilevel2": "菜單二級",
+    "Multilevel31": "菜單三級-1",
+    "Multilevel32": "菜單三級-2",
     "Apifox": "Apifox",
-    "InternalDoc": "文檔",
-
+    "InternalDoc": "Document",
     "Https://juejin": {
       "cn/post/7228990409909108793": "平台文檔(外鏈)"
     },
@@ -45,16 +161,15 @@
         }
       }
     },
-
     "Curd": "增刪改查",
     "Cron": "Cron表達式生成器",
     "WangEditor": "富文本編輯器",
     "Upload": "文件上傳",
     "IconSelector": "圖標選擇器",
-    "Dictionary": "字典元件",
+    "Dictionary": "字典組件",
     "RouteParamType1": "參數(type=1)",
     "RouteParamType2": "參數(type=2)",
-    "Icon": "圖標",
+    "Icon": "Icon",
     "Websocket": "WebSocket"
   },
   "login": {
@@ -85,11 +200,11 @@
     "passwordLength": "密碼長度不能小於6位"
   },
   "tabBar": {
-    "refresh": "重新整理",
+    "refresh": "刷新",
     "close": "關閉",
     "closeOthers": "關閉其他",
     "closeLeft": "關閉左側",
     "closeRight": "關閉右側",
-    "closeAll": "關閉全部"
+    "closeAll": "關閉所有"
   }
 }

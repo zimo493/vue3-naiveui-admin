@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { LayoutMode } from "@/enums";
 
+const { t } = useI18n();
+
 const value = defineModel<LayoutMode>("value", { required: true });
 </script>
 
@@ -17,7 +19,7 @@ const value = defineModel<LayoutMode>("value", { required: true });
           <div class="bg-[var(--divider-color)]" />
         </n-el>
       </template>
-      <span>左侧菜单</span>
+      <span>{{ t("system.layout.left") }}</span>
     </n-tooltip>
 
     <n-tooltip trigger="hover">
@@ -31,7 +33,7 @@ const value = defineModel<LayoutMode>("value", { required: true });
           <div class="bg-[var(--divider-color)]" />
         </n-el>
       </template>
-      <span>顶部菜单</span>
+      <span>{{ t("system.layout.top") }}</span>
     </n-tooltip>
 
     <n-tooltip trigger="hover">
@@ -46,7 +48,7 @@ const value = defineModel<LayoutMode>("value", { required: true });
           <div class="bg-[var(--divider-color)]" />
         </n-el>
       </template>
-      <span>混合左侧菜单</span>
+      <span>{{ t("system.layout.mixLeft") }}</span>
     </n-tooltip>
 
     <n-tooltip trigger="hover">
@@ -60,7 +62,7 @@ const value = defineModel<LayoutMode>("value", { required: true });
           <div class="bg-[var(--primary-color)]" />
         </n-el>
       </template>
-      <span>右侧菜单</span>
+      <span>{{ t("system.layout.right") }}</span>
     </n-tooltip>
 
     <n-tooltip trigger="hover">
@@ -75,7 +77,7 @@ const value = defineModel<LayoutMode>("value", { required: true });
           <div class="bg-[var(--divider-color)]" />
         </n-el>
       </template>
-      <span>混合右侧菜单</span>
+      <span>{{ t("system.layout.mixRight") }}</span>
     </n-tooltip>
   </div>
 </template>

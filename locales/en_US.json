@@ -5,6 +5,123 @@
       "input": "Please enter",
       "select": "Please select",
       "others": "Others"
+    },
+    "btn": {
+      "copy": "Copy",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "reset": "Reset",
+      "save": "Save",
+      "edit": "Edit",
+      "delete": "Delete",
+      "add": "Add",
+      "export": "Export",
+      "import": "Import",
+      "query": "Query",
+      "back": "Back",
+      "submit": "Submit",
+      "close": "Close",
+      "download": "Download",
+      "upload": "Upload",
+      "view": "View",
+      "operation": "Operation",
+      "more": "More",
+      "detail": "Detail",
+      "confirmDelete": "Are you sure to delete?",
+      "confirmReset": "Are you sure to reset?"
+    }
+  },
+  "system": {
+    "settings": "System Settings",
+    "layout": {
+      "left": "Left Menu",
+      "top": "Top Menu",
+      "mixLeft": "Mixed Left Menu",
+      "right": "Right Menu",
+      "mixRight": "Mixed Right Menu"
+    },
+    "theme": {
+      "mode": {
+        "mode": "Theme Mode",
+        "light": "Light",
+        "dark": "Dark",
+        "auto": "Auto",
+        "reverseStyle": "Style Inversion",
+        "reverseStyleTip": "To enhance the visual effect of menus and dropdowns",
+        "grey": "Grayscale Mode",
+        "colorWeakness": "Color Weakness Mode"
+      },
+      "color": {
+        "color": "Theme Color",
+        "colorTip": "Theme color scheme copied to clipboard",
+        "copyAndPaste": "Copy and paste to replace",
+        "content": "content in",
+        "primary": "Primary",
+        "success": "Success",
+        "warning": "Warning",
+        "error": "Error",
+        "info": "Info",
+        "followPrimary": "Follow Primary"
+      }
+    },
+    "interface": {
+      "function": "Interface Functions",
+      "borderRadius": "Border Radius",
+      "pageTransition": "Page Transition",
+      "sidebarWidth": "Sidebar Width",
+      "sidebarCollapseWidth": "Sidebar Collapse Width",
+      "sidebarTriggerStyle": "Sidebar Trigger Style",
+      "msgPlacement": "Message Placement",
+      "logo": "Logo Display",
+      "topProgress": "Top Progress",
+      "breadcrumb": "Breadcrumb Display",
+      "breadcrumbIcon": "Breadcrumb Icon",
+      "tabs": "Tabs Display",
+      "tabsIcon": "Tabs Icon",
+      "fixedTopAndBottom": "Fixed Top and Bottom",
+      "copyright": "Bottom Copyright",
+      "watermark": "Watermark",
+      "watermarkTip": "Please enter watermark text"
+    },
+    "transitionList": {
+      "none": "No Transition",
+      "slideFade": "Slide Fade",
+      "bottomFade": "Bottom Fade",
+      "collapseFade": "Collapse Fade",
+      "expandFade": "Expand Fade",
+      "collapse": "Collapse",
+      "soft": "Soft",
+      "gradual": "Gradual"
+    },
+    "borderRadius": {
+      "none": "No Radius",
+      "small": "Small",
+      "default": "Default",
+      "large": "Large",
+      "round": "Round"
+    },
+    "messagePositions": {
+      "top": "Top",
+      "bottom": "Bottom",
+      "top-left": "Top Left",
+      "top-right": "Top Right",
+      "bottom-left": "Bottom Left",
+      "bottom-right": "Bottom Right"
+    },
+    "sideBarShowTrigger": {
+      "bar": "Bar",
+      "arrow-circle": "Arrow Circle"
+    },
+    "dialog": {
+      "title": {
+        "resetSettings": "Reset Settings"
+      },
+      "content": {
+        "resetSettings": "Are you sure to reset all settings?"
+      }
+    },
+    "message": {
+      "resetSuccess": "Reset successful"
     }
   },
   "route": {
@@ -23,7 +140,7 @@
     "SysMenu": "Menus",
     "Dept": "Departments",
     "Dict": "Dictionaries",
-    "Log": "Logs",
+    "Log": "System Management",
     "Config": "Config",
     "Notice": "Notice",
     "Codegen": "CodeGen",

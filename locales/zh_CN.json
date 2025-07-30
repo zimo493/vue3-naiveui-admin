@@ -5,6 +5,123 @@
       "input": "请输入",
       "select": "请选择",
       "others": "其他"
+    },
+    "btn": {
+      "copy": "复制",
+      "cancel": "取消",
+      "confirm": "确定",
+      "reset": "重置",
+      "save": "保存",
+      "edit": "编辑",
+      "delete": "删除",
+      "add": "添加",
+      "export": "导出",
+      "import": "导入",
+      "query": "查询",
+      "back": "返回",
+      "submit": "提交",
+      "close": "关闭",
+      "download": "下载",
+      "upload": "上传",
+      "view": "查看",
+      "operation": "操作",
+      "more": "更多",
+      "detail": "详情",
+      "confirmDelete": "确定删除吗？",
+      "confirmReset": "确定重置吗？"
+    }
+  },
+  "system": {
+    "settings": "系统设置",
+    "layout": {
+      "left": "左侧菜单",
+      "top": "顶部菜单",
+      "mixLeft": "混合左侧菜单",
+      "right": "右侧菜单",
+      "mixRight": "混合右侧菜单"
+    },
+    "theme": {
+      "mode": {
+        "mode": "主题模式",
+        "light": "浅色",
+        "dark": "深色",
+        "auto": "自动",
+        "reverseStyle": "样式反转",
+        "reverseStyleTip": "来增强菜单和下拉菜单的视觉效果",
+        "grey": "黑白模式",
+        "colorWeakness": "色弱模式"
+      },
+      "color": {
+        "color": "主题颜色",
+        "colorTip": "主题配色已复制到剪贴板",
+        "copyAndPaste": "复制后可粘贴替换",
+        "content": "中的内容",
+        "primary": "主色",
+        "success": "成功色",
+        "warning": "警告色",
+        "error": "错误色",
+        "info": "信息色",
+        "followPrimary": "跟随主色"
+      }
+    },
+    "interface": {
+      "function": "界面功能",
+      "borderRadius": "圆角大小",
+      "pageTransition": "页面过渡",
+      "sidebarWidth": "侧边栏宽度",
+      "sidebarCollapseWidth": "侧边栏折叠宽度",
+      "sidebarTriggerStyle": "侧边栏触发器样式",
+      "msgPlacement": "Message提示位置",
+      "logo": "logo显示",
+      "topProgress": "顶部进度",
+      "breadcrumb": "面包屑显示",
+      "breadcrumbIcon": "面包屑图标",
+      "tabs": "多页签显示",
+      "tabsIcon": "多页签图标",
+      "fixedTopAndBottom": "固定顶部和底部",
+      "copyright": "底部版权",
+      "watermark": "水印",
+      "watermarkTip": "请输入水印文字"
+    },
+    "transitionList": {
+      "none": "无过度",
+      "slideFade": "侧边淡出",
+      "bottomFade": "底边淡出",
+      "collapseFade": "收缩淡出",
+      "expandFade": "扩大淡出",
+      "collapse": "收缩",
+      "soft": "柔和",
+      "gradual": "渐变"
+    },
+    "borderRadius": {
+      "none": "无圆角",
+      "small": "小型",
+      "default": "默认",
+      "large": "大型",
+      "round": "圆润"
+    },
+    "messagePositions": {
+      "top": "顶部",
+      "bottom": "底部",
+      "top-left": "左上",
+      "top-right": "右上",
+      "bottom-left": "左下",
+      "bottom-right": "右下"
+    },
+    "sideBarShowTrigger": {
+      "bar": "条形",
+      "arrow-circle": "原型箭头"
+    },
+    "dialog": {
+      "title": {
+        "resetSettings": "重置设置"
+      },
+      "content": {
+        "resetSettings": "确认重置所有设置？"
+      }
+    },
+    "message": {
+      "resetSuccess": "重置成功"
     }
   },
   "route": {

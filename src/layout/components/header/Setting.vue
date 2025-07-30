@@ -6,17 +6,17 @@
           <icon-park-outline-setting-two />
         </CommonWrapper>
       </template>
-      <span>系统设置</span>
+      <span>{{ t("system.settings") }}</span>
     </n-tooltip>
 
     <!-- 设置面板 -->
-    <n-drawer v-model:show="drawerActive" :width="360">
-      <n-drawer-content title="系统设置" closable>
+    <n-drawer v-model:show="drawerActive" :width="380">
+      <n-drawer-content :title="t('system.settings')" closable>
         <n-flex vertical>
           <!-- <n-divider>布局设置</n-divider> -->
           <LayoutSelector v-model:value="appStore.layoutMode" />
 
-          <n-divider>主题模式</n-divider>
+          <n-divider>{{ t("system.theme.mode.mode") }}</n-divider>
           <n-flex vertical :size="16">
             <n-flex align="center" justify="center">
               <n-tabs
@@ -38,43 +38,43 @@
             </n-flex>
             <n-flex justify="space-between">
               <n-flex align="center" justify="center" :size="[4, 0]">
-                反转样式
-                <HelpInfo message="来增强菜单和下拉菜单的视觉效果" />
+                {{ t("system.theme.mode.reverseStyle") }}
+                <HelpInfo :message="t('system.theme.mode.reverseStyleTip')" />
               </n-flex>
               <n-switch v-model:value="appStore.inverted" />
             </n-flex>
             <n-flex justify="space-between">
-              色弱模式
+              {{ t("system.theme.mode.colorWeakness") }}
               <n-switch :value="appStore.colorWeak" @update:value="appStore.toggleColorWeak" />
             </n-flex>
             <n-flex justify="space-between">
-              黑白模式
+              {{ t("system.theme.mode.grey") }}
               <n-switch :value="appStore.grayMode" @update:value="appStore.toggleGrayMode" />
             </n-flex>
           </n-flex>
 
           <n-divider>
-            <span mr-10px>主题颜色</span>
+            <span mr-10px>{{ t("system.theme.color.color") }}</span>
             <n-tooltip trigger="hover" placement="left">
               <template #trigger>
                 <n-button
-                  v-copy="{ text: themeConfig, msg: '主题配色已复制到剪贴板' }"
+                  v-copy="{ text: themeConfig, msg: t('system.theme.color.colorTip') }"
                   type="primary"
                   size="small"
                   quaternary
                 >
-                  复制
+                  {{ t("common.btn.copy") }}
                 </n-button>
               </template>
               <span>
-                复制后可粘贴替换
+                {{ t("system.theme.color.copyAndPaste") }}
                 <n-tag type="info" :bordered="false">src/utils/theme.ts</n-tag>
-                中的内容
+                {{ t("system.theme.color.content") }}
               </span>
             </n-tooltip>
           </n-divider>
           <n-flex align="center" justify="space-between">
-            主色
+            {{ t("system.theme.color.primary") }}
             <n-color-picker
               v-model:value="appStore.primaryColor"
               w-100px
@@ -85,12 +85,12 @@
           </n-flex>
           <n-flex align="center" justify="space-between">
             <n-flex>
-              信息色
+              {{ t("system.theme.color.info") }}
               <n-checkbox
                 v-model:checked="appStore.followPrimary"
                 @update:checked="appStore.handleFollowPrimary"
               >
-                跟随主色
+                {{ t("system.theme.color.followPrimary") }}
               </n-checkbox>
             </n-flex>
             <n-color-picker
@@ -102,7 +102,7 @@
             />
           </n-flex>
           <n-flex align="center" justify="space-between">
-            成功色
+            {{ t("system.theme.color.success") }}
             <n-color-picker
               v-model:value="appStore.successColor"
               w-100px
@@ -112,7 +112,7 @@
             />
           </n-flex>
           <n-flex align="center" justify="space-between">
-            警告色
+            {{ t("system.theme.color.warning") }}
             <n-color-picker
               v-model:value="appStore.warningColor"
               w-100px
@@ -122,7 +122,7 @@
             />
           </n-flex>
           <n-flex align="center" justify="space-between">
-            错误色
+            {{ t("system.theme.color.error") }}
             <n-color-picker
               v-model:value="appStore.errorColor"
               w-100px
@@ -132,9 +132,9 @@
             />
           </n-flex>
 
-          <n-divider>界面功能</n-divider>
+          <n-divider>{{ t("system.interface.function") }}</n-divider>
           <n-flex align="center" justify="space-between">
-            圆角大小
+            {{ t("system.interface.borderRadius") }}
             <n-select
               v-model:value="appStore.borderRadius"
               class="w-10em"
@@ -146,7 +146,7 @@
             />
           </n-flex>
           <n-flex align="center" justify="space-between">
-            页面过渡
+            {{ t("system.interface.pageTransition") }}
             <n-select
               v-model:value="appStore.transitionAnimation"
               class="w-10em"
@@ -156,11 +156,11 @@
           </n-flex>
           <template v-if="setSideBar">
             <n-flex align="center" justify="space-between">
-              侧边栏宽度
+              {{ t("system.interface.sidebarWidth") }}
               <n-input-number v-model:value="appStore.sideWidth" class="w-10em" :min="180" />
             </n-flex>
             <n-flex align="center" justify="space-between">
-              侧边栏折叠宽度
+              {{ t("system.interface.sidebarCollapseWidth") }}
               <n-input-number
                 v-model:value="appStore.sideCollapsedWidth"
                 class="w-10em"
@@ -168,7 +168,7 @@
               />
             </n-flex>
             <n-flex align="center" justify="space-between">
-              侧边栏触发样式
+              {{ t("system.interface.sidebarTriggerStyle") }}
               <n-select
                 v-model:value="appStore.sideTrigger"
                 class="w-10em"
@@ -177,7 +177,7 @@
             </n-flex>
           </template>
           <n-flex align="center" justify="space-between">
-            Message提示位置
+            {{ t("system.interface.msgPlacement") }}
             <n-select
               v-model:value="appStore.placement"
               class="w-10em"
@@ -187,45 +187,45 @@
           </n-flex>
 
           <n-flex justify="space-between">
-            logo显示
+            {{ t("system.interface.logo") }}
             <n-switch v-model:value="appStore.showLogo" />
           </n-flex>
           <n-flex justify="space-between">
-            顶部进度
+            {{ t("system.interface.topProgress") }}
             <n-switch v-model:value="appStore.showProgress" />
           </n-flex>
           <n-flex justify="space-between">
-            面包屑
+            {{ t("system.interface.breadcrumb") }}
             <n-switch v-model:value="appStore.showBreadcrumb" />
           </n-flex>
           <n-flex justify="space-between">
-            面包屑图标
+            {{ t("system.interface.breadcrumbIcon") }}
             <n-switch v-model:value="appStore.showBreadcrumbIcon" />
           </n-flex>
           <n-flex justify="space-between">
-            多页签显示
+            {{ t("system.interface.tabs") }}
             <n-switch v-model:value="appStore.showTabs" />
           </n-flex>
           <n-flex justify="space-between">
-            多页签图标
+            {{ t("system.interface.tabsIcon") }}
             <n-switch v-model:value="appStore.showTabsIcon" />
           </n-flex>
           <n-flex justify="space-between">
-            固定顶部和底部
+            {{ t("system.interface.fixedTopAndBottom") }}
             <n-switch v-model:value="appStore.fixed" />
           </n-flex>
           <n-flex justify="space-between">
-            底部版权
+            {{ t("system.interface.copyright") }}
             <n-switch v-model:value="appStore.showFooter" />
           </n-flex>
           <n-flex justify="space-between" align="center">
             <n-flex align="center">
-              <n-text>水印</n-text>
+              <n-text>{{ t("system.interface.watermark") }}</n-text>
               <div>
                 <n-input
                   v-model:value="appStore.watermarkText"
                   type="text"
-                  placeholder="请输入水印文字"
+                  :placeholder="t('system.interface.watermarkTip')"
                 />
               </div>
             </n-flex>
@@ -237,7 +237,7 @@
             <template #icon>
               <icon-park-outline-redo />
             </template>
-            重置
+            {{ t("common.btn.reset") }}
           </n-button>
         </template>
       </n-drawer-content>
@@ -255,6 +255,8 @@ import { type SelectOption, NFlex, NText } from "naive-ui";
 
 const appStore = useAppStoreHook();
 
+const { t } = useI18n();
+
 const colorMode = ref(appStore.storeColorMode);
 
 const drawerActive = ref(false);
@@ -262,38 +264,38 @@ const openSetting = () => (drawerActive.value = !drawerActive.value);
 
 // 页面过度动画
 const transitionSelectorOptions = ref<Status.TransitionSelectorOptions[]>([
-  { label: "无过渡", value: "" },
-  { label: "侧边淡出", value: "fade-slide" },
-  { label: "底边淡出", value: "fade-bottom" },
-  { label: "收缩淡出", value: "fade-scale" },
-  { label: "扩大淡出", value: "zoom-fade" },
-  { label: "收缩", value: "zoom-out" },
-  { label: "柔和", value: "fade" },
-  { label: "渐变", value: "fade-gradient" },
+  { label: t("system.transitionList.none"), value: "" },
+  { label: t("system.transitionList.slideFade"), value: "fade-slide" },
+  { label: t("system.transitionList.bottomFade"), value: "fade-bottom" },
+  { label: t("system.transitionList.collapseFade"), value: "fade-scale" },
+  { label: t("system.transitionList.expandFade"), value: "zoom-fade" },
+  { label: t("system.transitionList.collapse"), value: "zoom-out" },
+  { label: t("system.transitionList.soft"), value: "fade" },
+  { label: t("system.transitionList.gradual"), value: "fade-gradient" },
 ]);
 
 // 边框圆角大小
 const borderRadiusOptions = ref([
-  { label: "无圆角", value: "0px" },
-  { label: "小型", value: "2px" },
-  { label: "默认", value: "4px" },
-  { label: "大型", value: "6px" },
-  { label: "圆润", value: "8px" },
+  { label: t("system.borderRadius.none"), value: "0px" },
+  { label: t("system.borderRadius.small"), value: "2px" },
+  { label: t("system.borderRadius.default"), value: "4px" },
+  { label: t("system.borderRadius.large"), value: "6px" },
+  { label: t("system.borderRadius.round"), value: "8px" },
 ]);
 
 // 消息提示位置
 const messagePositions = ref([
-  { label: "顶部", value: "top" },
-  { label: "底部", value: "bottom" },
-  { label: "左上", value: "top-left" },
-  { label: "右上", value: "top-right" },
-  { label: "左下", value: "bottom-left" },
-  { label: "右下", value: "bottom-right" },
+  { label: t("system.messagePositions.top"), value: "top" },
+  { label: t("system.messagePositions.bottom"), value: "bottom" },
+  { label: t("system.messagePositions.top-left"), value: "top-left" },
+  { label: t("system.messagePositions.top-right"), value: "top-right" },
+  { label: t("system.messagePositions.bottom-left"), value: "bottom-left" },
+  { label: t("system.messagePositions.bottom-right"), value: "bottom-right" },
 ]);
 
 const sideBarShowTrigger = ref<Status.SideBarTriggerOptions[]>([
-  { label: "条状", value: "bar" },
-  { label: "圆形箭头", value: "arrow-circle" },
+  { label: t("system.sideBarShowTrigger.bar"), value: "bar" },
+  { label: t("system.sideBarShowTrigger.arrow-circle"), value: "arrow-circle" },
 ]);
 
 const palette = [
@@ -319,13 +321,13 @@ const palette = [
 
 const resetSetting = () => {
   window.$dialog.warning({
-    title: "重置设置",
-    content: "确认重置所有设置？",
-    positiveText: "确认",
-    negativeText: "取消",
+    title: t("system.dialog.title.resetSettings"),
+    content: t("system.dialog.content.resetSettings"),
+    positiveText: t("common.btn.confirm"),
+    negativeText: t("common.btn.cancel"),
     onPositiveClick: () => {
       appStore.resetAllTheme();
-      window.$message.success("重置成功");
+      window.$message.success(t("system.message.resetSuccess"));
     },
   });
 };
