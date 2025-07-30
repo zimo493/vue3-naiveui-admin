@@ -26,7 +26,7 @@ const router = useRouter();
     <n-result :status="type" :title="map[type].title" :description="map[type].desc">
       <template #footer>
         <n-button type="primary" @click="router.push('/')">
-          {{ t("common.btn.backHomepage") }}
+          {{ t("button.backHomepage") }}
         </n-button>
       </template>
     </n-result>

@@ -22,13 +22,13 @@
                 <template #icon>
                   <icon-park-outline-search />
                 </template>
-                {{ form?.positiveText ?? t("common.btn.search") }}
+                {{ form?.positiveText ?? t("button.search") }}
               </n-button>
               <n-button strong secondary :loading="loading" @click="resetQuery">
                 <template #icon>
                   <icon-park-outline-redo />
                 </template>
-                {{ form?.negativeText ?? t("common.btn.reset") }}
+                {{ form?.negativeText ?? t("button.reset") }}
               </n-button>
               <n-button v-show="showFoldBtn" type="primary" text @click="toggleCollapse">
                 <template #icon>
@@ -37,7 +37,7 @@
                     :size="24"
                   />
                 </template>
-                {{ isCollapse ? t("common.btn.expand") : t("common.btn.collapse") }}
+                {{ isCollapse ? t("button.expand") : t("button.collapse") }}
               </n-button>
               <slot name="after" />
             </n-flex>
@@ -69,7 +69,7 @@
                   <Icones icon="ant-design:reload-outlined" :class="{ 'animate-spin': loading }" />
                 </CommonWrapper>
               </template>
-              <span>{{ t("common.btn.refresh") }}</span>
+              <span>{{ t("button.refresh") }}</span>
             </n-tooltip>
             <n-tooltip trigger="hover">
               <template #trigger>

@@ -77,7 +77,7 @@
               <template #icon>
                 <Icones icon="ant-design:check-outlined" />
               </template>
-              {{ t("common.btn.submit") }}
+              {{ t("button.submit") }}
             </n-button>
           </n-flex>
         </n-gi>

@@ -243,7 +243,7 @@ const highlightStyle = {
   <n-tag cursor-pointer :bordered="false" round size="large" @click="openModal">
     <n-flex :wrap="false" size="small" align="center">
       <icon-park-outline-search />
-      {{ t("common.btn.search") }}
+      {{ t("button.search") }}
       <n-el
         tag="div"
         style="
@@ -286,7 +286,7 @@ const highlightStyle = {
         <n-flex justify="space-between" align="center">
           <n-text :depth="2" size="small">{{ t("system.search.history") }}</n-text>
           <n-button text type="primary" size="tiny" @click="clearSearchHistory">
-            {{ t("common.btn.clear") }}
+            {{ t("button.clear") }}
           </n-button>
         </n-flex>
         <n-flex>
@@ -358,7 +358,7 @@ const highlightStyle = {
               <path d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3" />
             </g>
           </svg>
-          <span>{{ t("common.btn.select") }}</span>
+          <span>{{ t("button.select") }}</span>
         </div>
         <div class="flex-y-center gap-1">
           <svg width="1em" height="1em" aria-label="Arrow down" role="img">
@@ -383,7 +383,7 @@ const highlightStyle = {
               <path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3" />
             </g>
           </svg>
-          <span>{{ t("common.btn.switch") }}</span>
+          <span>{{ t("button.switch") }}</span>
         </div>
         <div class="flex-y-center gap-1">
           <svg width="1em" height="1em" aria-label="Escape key" role="img">
@@ -399,7 +399,7 @@ const highlightStyle = {
               />
             </g>
           </svg>
-          <span>{{ t("common.btn.cancel") }}</span>
+          <span>{{ t("button.cancel") }}</span>
         </div>
       </n-flex>
     </template>

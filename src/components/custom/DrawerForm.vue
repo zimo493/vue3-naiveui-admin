@@ -38,13 +38,13 @@
             <template #icon>
               <Icones icon="ant-design:check-outlined" />
             </template>
-            {{ form?.positiveText ?? t("common.btn.submit") }}
+            {{ form?.positiveText ?? t("button.submit") }}
           </n-button>
           <n-button strong secondary :disabled="isAllowClose" @click="cancel">
             <template #icon>
               <Icones icon="ant-design:close-outlined" />
             </template>
-            {{ form?.negativeText ?? t("common.btn.cancel") }}
+            {{ form?.negativeText ?? t("button.cancel") }}
           </n-button>
         </n-flex>
       </template>

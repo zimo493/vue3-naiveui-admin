@@ -63,7 +63,7 @@
                   size="small"
                   quaternary
                 >
-                  {{ t("common.btn.copy") }}
+                  {{ t("button.copy") }}
                 </n-button>
               </template>
               <span>
@@ -237,7 +237,7 @@
             <template #icon>
               <icon-park-outline-redo />
             </template>
-            {{ t("common.btn.reset") }}
+            {{ t("button.reset") }}
           </n-button>
         </template>
       </n-drawer-content>
@@ -323,8 +323,8 @@ const resetSetting = () => {
   window.$dialog.warning({
     title: t("system.dialog.title.resetSettings"),
     content: t("system.dialog.content.resetSettings"),
-    positiveText: t("common.btn.confirm"),
-    negativeText: t("common.btn.cancel"),
+    positiveText: t("button.confirm"),
+    negativeText: t("button.cancel"),
     onPositiveClick: () => {
       appStore.resetAllTheme();
       window.$message.success(t("message.resetSuccess"));

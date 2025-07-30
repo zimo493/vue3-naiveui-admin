@@ -20,6 +20,6 @@ const handleReload = () => {
         <icon-park-outline-refresh :class="{ 'animate-spin': loading }" />
       </CommonWrapper>
     </template>
-    <span>{{ t("common.btn.refresh") }}</span>
+    <span>{{ t("button.refresh") }}</span>
   </n-tooltip>
 </template>

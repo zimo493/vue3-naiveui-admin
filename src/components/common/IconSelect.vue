@@ -20,7 +20,7 @@
       <template #icon>
         <Icones icon="ant-design:select-outlined" />
       </template>
-      {{ t("common.btn.select") }}
+      {{ t("button.select") }}
     </n-button>
   </n-input-group>
   <n-modal

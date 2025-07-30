@@ -9,7 +9,7 @@
           <icon-park-outline-copy />
         </span>
       </template>
-      {{ t("common.btn.copy") }}
+      {{ t("button.copy") }}
     </n-tooltip>
   </div>
 </template>
