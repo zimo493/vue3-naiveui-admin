@@ -32,6 +32,7 @@
       "operation": "操作",
       "more": "更多",
       "detail": "详情",
+      "backHomepage": "返回首页",
       "confirmDelete": "确定删除吗？",
       "confirmReset": "确定重置吗？"
     }
@@ -198,6 +199,20 @@
   "statusTag": {
     "normal": "正常",
     "disable": "禁用"
+  },
+  "errorPage": {
+    "403": {
+      "title": "403 禁止访问",
+      "desc": "总有些门是对你关闭的"
+    },
+    "404": {
+      "title": "404 资源不存在",
+      "desc": "生活总归带点荒谬"
+    },
+    "500": {
+      "title": "500 服务器错误",
+      "desc": "服务器出错可能说明该雇更多程序员了"
+    }
   },
   "login": {
     "login": "登 录",

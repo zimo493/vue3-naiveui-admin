@@ -32,6 +32,7 @@
       "operation": "Operation",
       "more": "More",
       "detail": "Detail",
+      "backHomepage": "Back to Homepage",
       "confirmDelete": "Are you sure to delete?",
       "confirmReset": "Are you sure to reset?"
     }
@@ -198,6 +199,20 @@
   "statusTag": {
     "normal": "Normal",
     "disable": "Disabled"
+  },
+  "errorPage": {
+    "403": {
+      "title": "403 Forbidden",
+      "desc": "Some doors are always closed to you"
+    },
+    "404": {
+      "title": "404 Resource Not Found",
+      "desc": "Life always has some absurdity"
+    },
+    "500": {
+      "title": "500 Server Error",
+      "desc": "Server error might mean it's time to hire more programmers"
+    }
   },
   "login": {
     "login": "Login",
