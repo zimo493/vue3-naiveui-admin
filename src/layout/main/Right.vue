@@ -6,7 +6,7 @@
       embedded
       :native-scrollbar="false"
     >
-      <n-layout-header :position="appStore.fixed ? 'absolute' : 'static'" class="z-1">
+      <n-layout-header :position="appStore.fixed ? 'absolute' : 'static'" class="z-10">
         <div v-if="!appStore.contentFullScreen" class="h-50px flex-y-center justify-between">
           <div class="flex-y-center h-full p-x-10px">
             <!-- <CollapseButton /> -->

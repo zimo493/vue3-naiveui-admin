@@ -6,7 +6,7 @@
       embedded
       :native-scrollbar="false"
     >
-      <n-layout-header :position="appStore.fixed ? 'absolute' : 'static'" class="z-1">
+      <n-layout-header :position="appStore.fixed ? 'absolute' : 'static'" class="z-10">
         <n-layout has-sider>
           <n-layout-sider
             v-if="!appStore.contentFullScreen"
