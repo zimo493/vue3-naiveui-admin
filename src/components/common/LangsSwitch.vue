@@ -6,8 +6,8 @@ defineOptions({ name: "LangsSwitch" });
 const appStore = useAppStore();
 const options = [
   { label: "English", value: "enUS" },
-  { label: "中文（简体）", value: "zhCN" },
-  { label: "中文（繁體）", value: "zhTW" },
+  { label: "简体中文", value: "zhCN" },
+  { label: "繁體中文", value: "zhTW" },
 ];
 </script>
 
