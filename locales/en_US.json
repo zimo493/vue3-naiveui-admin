@@ -36,7 +36,7 @@
   "system": {
     "tooltip": {
       "fullSwitch": "Full Screen Toggle",
-      "theneSwitch": "Theme Toggle",
+      "themeSwitch": "Theme Toggle",
       "languageSwitch": "Language Toggle",
       "settings": "System Settings",
       "fullScreen": "Content Full Screen",

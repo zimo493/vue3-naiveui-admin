@@ -38,7 +38,7 @@ const renderLabel = (option: Option) =>
           <icon-park-outline-laptop-computer v-if="appStore.storeColorMode === ThemeMode.AUTO" />
         </CommonWrapper>
       </template>
-      <span>{{ t("system.tooltip.theneSwitch") }}</span>
+      <span>{{ t("system.tooltip.themeSwitch") }}</span>
     </n-tooltip>
   </n-popselect>
 </template>

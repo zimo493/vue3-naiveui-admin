@@ -36,7 +36,7 @@
   "system": {
     "tooltip": {
       "fullSwitch": "全屏切换",
-      "theneSwitch": "主题切换",
+      "themeSwitch": "主题切换",
       "languageSwitch": "语言切换",
       "settings": "系统设置",
       "fullScreen": "内容区全屏",
