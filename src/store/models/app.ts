@@ -10,7 +10,7 @@ import theme, {
   warningColor,
   errorColor,
 } from "@/utils/theme";
-import { local, setLocale } from "@/utils";
+import { $t, local, setLocale } from "@/utils";
 
 const docEle = ref(document.documentElement);
 
@@ -193,7 +193,7 @@ export const useAppStore = defineStore("app-store", {
     /* 修改消息提示位置 */
     setPlacement(position: MessageProviderProps["placement"]) {
       this.placement = position;
-      window.$message.info("我会显示在这里哦😊");
+      window.$message.info($t("system.message.placement"));
     },
   },
   persist: true, // 持久化存储，默认存储在 localStorage

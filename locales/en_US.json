@@ -137,7 +137,8 @@
       }
     },
     "message": {
-      "resetSuccess": "Reset successful"
+      "resetSuccess": "Reset successful",
+      "placement": "I will show here 😊"
     }
   },
   "route": {

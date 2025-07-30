@@ -137,7 +137,8 @@
       }
     },
     "message": {
-      "resetSuccess": "重置成功"
+      "resetSuccess": "重置成功",
+      "placement": "我会显示在这里哦😊"
     }
   },
   "route": {
