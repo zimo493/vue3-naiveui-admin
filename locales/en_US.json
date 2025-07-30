@@ -214,6 +214,18 @@
       "desc": "Server error might mean it's time to hire more programmers"
     }
   },
+  "components": {
+    "iconSelect": {
+      "title": "Icon Selection",
+      "search": "Search Icons",
+      "placeholder": "Please select or enter icon name",
+      "localhost": "Local Icons"
+    }
+  },
+  "pagination": {
+    "total": "Total {total} items",
+    "goto": "Go to"
+  },
   "login": {
     "login": "Login",
     "logIn": "Logging in...",

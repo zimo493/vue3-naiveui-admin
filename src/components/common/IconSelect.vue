@@ -9,7 +9,7 @@
       v-model:value="value"
       clearable
       :readonly="props.disabled"
-      placeholder="请选择/输入图标"
+      :placeholder="t('components.iconSelect.placeholder')"
       :onClear="clearIcon"
     >
       <template #clear-icon>
@@ -20,10 +20,15 @@
       <template #icon>
         <Icones icon="ant-design:select-outlined" />
       </template>
-      选择
+      {{ t("common.btn.select") }}
     </n-button>
   </n-input-group>
-  <n-modal v-model:show="showModal" preset="card" title="图标选择" class="w-1010px">
+  <n-modal
+    v-model:show="showModal"
+    preset="card"
+    :title="t('components.iconSelect.title')"
+    class="w-1010px"
+  >
     <n-tabs
       :value="currentTab"
       type="line"
@@ -31,7 +36,7 @@
       placement="left"
       @update:value="handleChangeTab"
     >
-      <n-tab-pane name="local" tab="本地">
+      <n-tab-pane name="local" :tab="t('components.iconSelect.localhost')">
         <n-flex :size="4">
           <n-el
             v-for="(_icon, key) in LocalIconList"
@@ -66,7 +71,12 @@
           <n-spin :show="loading">
             <n-card :segmented="{ content: true }">
               <template #header>
-                <n-input v-model:value="searchValue" type="text" clearable placeholder="搜索图标">
+                <n-input
+                  v-model:value="searchValue"
+                  type="text"
+                  clearable
+                  :placeholder="t('components.iconSelect.search')"
+                >
                   <template #prefix>
                     <Icones icon="ant-design:search-outlined" :size="24" />
                   </template>
@@ -94,8 +104,10 @@
                     :page-slot="7"
                     show-quick-jumper
                   >
-                    <template #prefix="{ itemCount }">共 {{ itemCount }} 项</template>
-                    <template #goto>前往</template>
+                    <template #prefix="{ itemCount }">
+                      {{ t("pagination.total", { total: itemCount }) }}
+                    </template>
+                    <template #goto>{{ t("pagination.goto") }}</template>
                   </n-pagination>
                 </n-flex>
               </template>
@@ -127,6 +139,9 @@ interface IconList {
   categories: Record<string, string[]>;
   uncategorized?: Record<string, string[]>;
 }
+
+const { t } = useI18n();
+
 const { loading, startLoading, endLoading } = useLoading(false);
 
 const value = defineModel("modelValue", { type: String });

@@ -214,6 +214,18 @@
       "desc": "服务器出错可能说明该雇更多程序员了"
     }
   },
+  "components": {
+    "iconSelect": {
+      "title": "图标选择",
+      "search": "搜索图标",
+      "placeholder": "请选择或者输入图标名称",
+      "localhost": "本地图标"
+    }
+  },
+  "pagination": {
+    "total": "共 {total} 条",
+    "goto": "前往"
+  },
   "login": {
     "login": "登 录",
     "logIn": "登 录 中...",

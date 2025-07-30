@@ -215,6 +215,18 @@
       "desc": "服務器出錯可能說明該雇更多程序員了"
     }
   },
+  "components": {
+    "iconSelect": {
+      "title": "圖標選擇",
+      "search": "搜索圖標",
+      "placeholder": "請選擇或者輸入圖標名稱",
+      "localhost": "本地圖標"
+    }
+  },
+  "pagination": {
+    "total": "共 {total} 條",
+    "goto": "前往"
+  },
   "login": {
     "login": "登 錄",
     "logIn": "登 錄 中...",
