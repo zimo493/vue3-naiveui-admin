@@ -13,6 +13,14 @@
       "input": "Please enter ",
       "select": "Please select ",
       "others": "Others"
+    },
+    "messageType": {
+      "info": "Info",
+      "notice": "Notice",
+      "activity": "Activity",
+      "announcement": "Announcement",
+      "remind": "Reminder",
+      "message": "Message"
     }
   },
   "button": {
@@ -40,7 +48,7 @@
     "upload": "Upload",
     "view": "View",
     "operation": "Operation",
-    "more": "More",
+    "more": "More...",
     "detail": "Detail",
     "expand": "Expand",
     "collapse": "Collapse",
@@ -318,6 +326,50 @@
     "roleName": "Role Name",
     "roleCode": "Role Code",
     "sort": "Sort"
+  },
+  "home": {
+    "about": {
+      "vite": "A new generation frontend build tool based on native ESM modules with extremely fast build speed",
+      "vue": "A progressive JavaScript framework for building user interfaces",
+      "pinia": "A lightweight state management library based on Vue's Composition API",
+      "ts": "A superset of JavaScript for writing type-safe code in development",
+      "naive": "An open-source Vue3 component library by TuSimple, comprehensive with adjustable themes, using TypeScript",
+      "unocss": "A high-performance atomic CSS engine that lets you control element styles with short class names"
+    },
+    "card": {
+      "online": "Online Users",
+      "realTime": "Real-time",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "updateTime": "Update Time",
+      "day": "Day",
+      "totalVisits": "Total Visitors",
+      "totalView": "Total Views",
+      "visitTrend": "Visit Trend"
+    },
+    "list": {
+      "0": "We are all moving forward with burdens.",
+      "1": "Are you afraid that this life is the next life you mentioned in your previous life?",
+      "2": "The most important thing here is to keep faith, unless you have the power not to.",
+      "3": "The best way to be lazy is to do it right the first time.",
+      "4": "Some people rise because of sin, some fall because of virtue.",
+      "5": "We must move towards the future, not dwell on the past!",
+      "6": "The wise set long-term goals, the aimless constantly set new goals.",
+      "7": "Friendship is like a lighthouse, illuminating each other's direction in confusion.",
+      "8": "If you always care about what others think, you will achieve nothing!",
+      "9": "With hope in your heart, you will be invincible.",
+      "10": "Do everything with love."
+    },
+    "chart": {
+      "pv": "Page Views(PV)",
+      "uv": "Unique Visitors(UV)"
+    },
+    "time": {
+      "week": "Last Week",
+      "month": "Last Month",
+      "year": "Last Year",
+      "threeYear": "Last Three Years"
+    }
   },
   "user": {
     "selectedUser": "Selected User",
