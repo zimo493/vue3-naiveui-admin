@@ -1,5 +1,5 @@
 import { store, useDictStoreHook, useRouteStoreHook, useTabStoreHook } from "@/store";
-import { local, session } from "@/utils";
+import { $t, local, session } from "@/utils";
 
 import AuthAPI from "@/api/auth";
 import UserAPI from "@/api/system/user";
@@ -61,7 +61,7 @@ export const useAuthStore = defineStore("auth-store", {
         AuthAPI.logout()
           .then(() => {
             this.resetAuthStore()
-              .then(() => window.$message.success("退出成功"))
+              .then(() => window.$message.success($t("message.logoutSuccess")))
               .then(async () => await router.replace("/login"));
             resolve();
           })

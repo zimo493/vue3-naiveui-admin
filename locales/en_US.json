@@ -255,7 +255,9 @@
     "placement": "I will show here 😊",
     "deleteSuccess": "Delete successful",
     "uploadSuccess": "Upload successful",
-    "uploadError": "Upload failed:  {message}"
+    "uploadError": "Upload failed:  {message}",
+    "logoutSuccess": "Logout successful",
+    "initRouteError": "Init route error!"
   },
   "confirm": {
     "delete": "Are you sure to delete {name}?"

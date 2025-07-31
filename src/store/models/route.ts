@@ -9,6 +9,7 @@ import {
   parseDynamicRoutes,
   processRoute,
   findAndMergeRouteArrays,
+  $t,
 } from "@/utils";
 
 export const useRouteStore = defineStore("route-store", {
@@ -57,7 +58,7 @@ export const useRouteStore = defineStore("route-store", {
         return true;
       } catch (error) {
         console.error("初始化路由失败:", error);
-        window.$message?.error("初始化路由失败!");
+        window.$message?.error($t("message.initRouteError"));
 
         return false;
       }

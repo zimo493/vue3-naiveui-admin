@@ -255,7 +255,9 @@
     "placement": "我会显示在这里哦😊",
     "deleteSuccess": "删除成功",
     "uploadSuccess": "上传成功",
-    "uploadError": "上传失败:  {message}"
+    "uploadError": "上传失败:  {message}",
+    "logoutSuccess": "退出成功",
+    "initRouteError": "初始化路由失败!"
   },
   "confirm": {
     "delete": "确定要删除 {name} 吗？"
