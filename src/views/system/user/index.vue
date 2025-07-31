@@ -4,7 +4,11 @@
       <n-gi :span="4">
         <n-card h="[100%]">
           <n-flex vertical>
-            <n-input v-model:value="pattern" placeholder="搜索部门名称" clearable>
+            <n-input
+              v-model:value="pattern"
+              :placeholder="t('common.input.select') + t('tableHeader.dept')"
+              clearable
+            >
               <template #prefix>
                 <Icones icon="icon-park-outline:search" />
               </template>
@@ -44,7 +48,7 @@
               <template #icon>
                 <icon-park-outline-plus />
               </template>
-              新增
+              {{ t("button.add") }}
             </n-button>
             <n-button
               v-has-perm="['sys:user:delete']"
@@ -55,11 +59,11 @@
               <template #icon>
                 <icon-park-outline-delete-themes />
               </template>
-              删除
+              {{ t("button.delete") }}
             </n-button>
             <n-button v-has-perm="'sys:user:import'" type="success" @click="handleImport">
               <template #icon><icon-park-outline-upload-one /></template>
-              导入
+              {{ t("button.import") }}
             </n-button>
 
             <n-button
@@ -71,7 +75,7 @@
               <template #icon>
                 <icon-park-outline-download-one />
               </template>
-              导出
+              {{ t("button.export") }}
             </n-button>
           </template>
         </TablePro>
@@ -126,6 +130,8 @@ import DictTag from "@/components/custom/DictTag.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
 
 defineOptions({ name: "User" });
+
+const { t } = useI18n();
 
 const { loading, startLoading, endLoading } = useLoading();
 const { gender } = useDict("gender");
@@ -183,13 +189,16 @@ const handleQuery = () => {
 const formConfig = ref<FormPro.FormItemConfig[]>([
   {
     name: "keywords",
-    label: "关键字",
-    props: { placeholder: "请输入用户名/昵称/手机号" },
+    label: t("tableHeader.keywords"),
+    // "请输入用户名/昵称/手机号"
+    props: {
+      placeholder: `${t("common.input.input")}${t("tableHeader.username")}/${t("tableHeader.nickname")}/${t("tableHeader.phone")}`,
+    },
     span: 5,
   },
   {
     name: "status",
-    label: "状态",
+    label: t("tableHeader.status"),
     component: "select",
     props: {
       options: statusOptions.value,
@@ -203,7 +212,7 @@ const formConfig = ref<FormPro.FormItemConfig[]>([
   },
   {
     name: "createTime",
-    label: "创建时间",
+    label: t("tableHeader.createTime"),
     component: "date",
     span: 6,
     props: {
@@ -213,10 +222,14 @@ const formConfig = ref<FormPro.FormItemConfig[]>([
     },
     slots: {
       confirm: ({ onConfirm }) => [
-        h(NButton, { type: "primary", size: "small", onClick: () => onConfirm() }, () => "确定😎"),
+        h(
+          NButton,
+          { type: "primary", size: "small", onClick: () => onConfirm() },
+          () => `${t("button.ok")}😎`
+        ),
       ],
       clear: ({ onClear }) => [
-        h(NButton, { size: "small", onClick: () => onClear() }, () => "取消🙄"),
+        h(NButton, { size: "small", onClick: () => onClear() }, () => `${t("button.cancel")}🙄`),
       ],
     },
   },
@@ -261,26 +274,26 @@ const columns = ref<DataTableColumns<User.VO>>([
       );
     },
   },
-  { title: "用户名", key: "username", align: "center" },
-  { title: "昵称", key: "nickname", align: "center" },
+  { title: t("tableHeader.username"), key: "username", align: "center" },
+  { title: t("tableHeader.nickname"), key: "nickname", align: "center" },
   {
-    title: "性别",
+    title: t("tableHeader.sex"),
     key: "gender",
     align: "center",
     render: (row) => <DictTag options={gender.value} value={row.gender} />,
   },
-  { title: "部门", key: "deptName", align: "center" },
-  { title: "手机号码", key: "mobile", align: "center" },
-  { title: "邮箱", key: "email", align: "center" },
+  { title: t("tableHeader.dept"), key: "deptName", align: "center" },
+  { title: t("tableHeader.phone"), key: "mobile", align: "center" },
+  { title: t("tableHeader.email"), key: "email", align: "center" },
   {
-    title: "状态",
+    title: t("tableHeader.status"),
     key: "status",
     align: "center",
     render: ({ status }) => <CommonStatus value={status} />,
   },
-  { title: "创建时间", key: "createTime", align: "center" },
+  { title: t("tableHeader.createTime"), key: "createTime", align: "center" },
   {
-    title: "操作",
+    title: t("tableHeader.action"),
     key: "action",
     align: "center",
     render: (row) => (
@@ -292,7 +305,7 @@ const columns = ref<DataTableColumns<User.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >
-          编辑
+          {t("button.edit")}
         </NButton>
         <NButton
           v-has-perm={["sys:user:reset-password"]}
@@ -301,7 +314,7 @@ const columns = ref<DataTableColumns<User.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:redo-outlined" /> }}
           onClick={() => handleResetPassword(row)}
         >
-          重置密码
+          {t("button.resetPassword")}
         </NButton>
         <NButton
           v-has-perm={["sys:user:delete"]}
@@ -310,7 +323,7 @@ const columns = ref<DataTableColumns<User.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
           onClick={() => handleDelete(row.id)}
         >
-          删除
+          {t("button.delete")}
         </NButton>
       </NFlex>
     ),
@@ -322,11 +335,11 @@ const editFormConfig = computed(
   (): DialogForm.Form => ({
     // 表单项配置
     config: [
-      { name: "username", label: "用户名" },
-      { name: "nickname", label: "用户昵称" },
+      { name: "username", label: t("tableHeader.username") },
+      { name: "nickname", label: t("tableHeader.nickname") },
       {
         name: "deptId",
-        label: "所属部门",
+        label: t("tableHeader.dept"),
         component: "treeSelect",
         props: {
           options: deptOptions.value,
@@ -335,18 +348,18 @@ const editFormConfig = computed(
           indent: 12,
         },
       },
-      { name: "gender", label: "性别", component: "select", dict: "gender" },
+      { name: "gender", label: t("tableHeader.sex"), component: "select", dict: "gender" },
       {
         name: "roleIds",
-        label: "角色",
+        label: t("tableHeader.role"),
         component: "select",
         props: { multiple: true, options: roleOptions.value },
       },
-      { name: "mobile", label: "手机号码" },
-      { name: "email", label: "邮箱" },
+      { name: "mobile", label: t("tableHeader.phone") },
+      { name: "email", label: t("tableHeader.email") },
       {
         name: "status",
-        label: "状态",
+        label: t("tableHeader.status"),
         component: "radio",
         props: { options: statusOptions.value },
       },
@@ -354,23 +367,46 @@ const editFormConfig = computed(
     // NForm属性
     props: {
       rules: {
-        username: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
-        nickname: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
-        deptId: [{ required: true, message: "所属部门不能为空", trigger: "change" }],
+        username: [
+          {
+            required: true,
+            message: t("common.input.input") + t("tableHeader.username"),
+            trigger: "blur",
+          },
+        ],
+        nickname: [
+          {
+            required: true,
+            message: t("common.input.input") + t("tableHeader.nickname"),
+            trigger: "blur",
+          },
+        ],
+        deptId: [
+          {
+            required: true,
+            message: t("common.input.select") + t("tableHeader.dept"),
+            trigger: "change",
+          },
+        ],
         roleIds: [
-          { required: true, type: "array", message: "用户角色不能为空", trigger: "change" },
+          {
+            required: true,
+            type: "array",
+            message: t("common.input.select") + t("tableHeader.role"),
+            trigger: "change",
+          },
         ],
         email: [
           {
             pattern: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/,
-            message: "请输入正确的邮箱地址",
+            message: t("rules.email"),
             trigger: "blur",
           },
         ],
         mobile: [
           {
             pattern: /^1[3-9]\d{9}$/,
-            message: "请输入正确的手机号码",
+            message: t("rules.phone"),
             trigger: "blur",
           },
         ],
@@ -419,9 +455,9 @@ const newPassword = ref<{
 });
 const handleResetPassword = (row: User.VO) => {
   window.$dialog.warning({
-    title: "系统提示",
-    positiveText: "确定",
-    negativeText: "取消",
+    title: t("common.sysTip"),
+    positiveText: t("button.ok"),
+    negativeText: t("button.cancel"),
     positiveButtonProps: {
       secondary: true,
       strong: true,
@@ -433,12 +469,12 @@ const handleResetPassword = (row: User.VO) => {
     },
     content: () => (
       <NFlex vertical>
-        <NText>请输入 "{row.username}" 的新密码</NText>
+        <NText>{t("user.enterNewPassword", { name: row.username })}</NText>
         <NInput
           v-model:value={newPassword.value.pwd}
           type={"password"}
           show-password-on={"mousedown"}
-          placeholder="请输入密码"
+          placeholder={t("common.input.input")}
           status={newPassword.value.status}
         />
         {newPassword.value.status !== "success" && (
@@ -453,17 +489,17 @@ const handleResetPassword = (row: User.VO) => {
 
         if (pwd.length < 6 || pwd.length > 20) {
           newPassword.value.status = "warning";
-          newPassword.value.msg = "密码长度必须介于 6 和 20 之间";
+          newPassword.value.msg = t("rules.passwordLength");
         } else if (/[<>"'|\\]/.test(pwd)) {
           newPassword.value.status = "error";
-          newPassword.value.msg = "不能包含非法字符 < > \" ' | \\";
+          newPassword.value.msg = t("rules.illegalChar");
         } else {
           newPassword.value.status = "success";
           newPassword.value.msg = "";
           const { pwd } = newPassword.value;
 
           UserAPI.resetPassword(row.id, pwd)
-            .then(() => window.$message.success("密码重置成功，请牢记新密码：" + pwd))
+            .then(() => window.$message.success(t("user.rememberNewPassword", { value: pwd })))
             .then(() => resolve());
         }
       });
@@ -489,9 +525,9 @@ const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys a
 const handleDelete = (id?: string) => {
   const userIds = [id || selectedRowKeys.value].join(",");
 
-  InquiryBox(`确定要删除选中的用户吗？`).then(() => {
+  InquiryBox(t("confirm.delete", { name: t("user.selectedUser") })).then(() => {
     UserAPI.deleteByIds(userIds).then(() => {
-      window.$message.success("删除成功");
+      window.$message.success(t("message.deleteSuccess"));
       handleQuery();
     });
   });
@@ -509,7 +545,7 @@ const handleExport = () => {
   exportLoading.value = true;
   UserAPI.export(queryParams.value)
     .then((response) => {
-      window.$message.loading("正在下载数据，请稍候...");
+      window.$message.loading(t("common.downloading"));
       const fileName = decodeURI(
         response.headers["content-disposition"].split(";")[1].split("=")[1]
       );

@@ -1,15 +1,18 @@
 {
   "common": {
+    "sysTip": "System Tip",
+    "downloading": "Downloading data, please wait...",
     "notImplemented": "Not implemented yet, under development ...",
     "input": {
-      "input": "Please enter",
-      "select": "Please select",
+      "input": "Please enter ",
+      "select": "Please select ",
       "others": "Others"
     }
   },
   "button": {
     "refresh": "Refresh",
     "search": "Search",
+    "ok": "OK",
     "clear": "Clear",
     "select": "Select",
     "switch": "Switch",
@@ -35,6 +38,7 @@
     "detail": "Detail",
     "expand": "Expand",
     "collapse": "Collapse",
+    "resetPassword": "Reset Password",
     "backHomepage": "Back to Homepage",
     "confirmDelete": "Are you sure to delete?",
     "confirmReset": "Are you sure to reset?"
@@ -273,7 +277,10 @@
     "recall": "Remembered your password?"
   },
   "rules": {
-    "passwordLength": "Password length cannot be less than 6 characters"
+    "passwordLength": "Password length cannot be less than 6 characters",
+    "email": "Please enter a valid email address",
+    "phone": "Please enter a valid phone number",
+    "illegalChar": "Cannot contain illegal characters < > \" ' | \\"
   },
   "tabBar": {
     "refresh": "Refresh",
@@ -282,5 +289,24 @@
     "closeLeft": "Close Left",
     "closeRight": "Close Right",
     "closeAll": "Close All"
+  },
+  "tableHeader": {
+    "keywords": "Keywords",
+    "username": "Username",
+    "nickname": "Nickname",
+    "sex": "Gender",
+    "role": "Role",
+    "phone": "Phone",
+    "dept": "Department",
+    "email": "Email",
+    "status": "Status",
+    "createTime": "Create Time",
+    "updateTime": "Update Time",
+    "action": "Action"
+  },
+  "user": {
+    "selectedUser": "Selected User",
+    "enterNewPassword": "Please enter {name}'s new password",
+    "rememberNewPassword": "Password reset successful. Please remember the new password: {value}"
   }
 }

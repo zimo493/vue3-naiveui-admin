@@ -1,67 +1,71 @@
 {
   "common": {
+    "sysTip": "系統提示",
+    "downloading": "正在下載資料，請稍候...",
     "notImplemented": "暫未實現，開發中 ...",
     "input": {
-      "input": "請輸入",
-      "select": "請選擇",
+      "input": "請輸入 ",
+      "select": "請選擇 ",
       "others": "其他"
     }
   },
   "button": {
-    "refresh": "刷新",
-    "search": "搜索",
+    "refresh": "重新整理",
+    "search": "搜尋",
+    "ok": "確定",
     "clear": "清空",
     "select": "選擇",
     "switch": "切換",
     "copy": "複製",
     "cancel": "取消",
     "confirm": "確定",
-    "reset": "重置",
-    "save": "保存",
+    "reset": "重設",
+    "save": "儲存",
     "edit": "編輯",
     "delete": "刪除",
-    "add": "添加",
-    "export": "導出",
-    "import": "導入",
+    "add": "新增",
+    "export": "匯出",
+    "import": "匯入",
     "query": "查詢",
     "back": "返回",
     "submit": "提交",
     "close": "關閉",
     "download": "下載",
     "upload": "上傳",
-    "view": "查看",
+    "view": "檢視",
     "operation": "操作",
     "more": "更多",
     "detail": "詳情",
     "expand": "展開",
     "collapse": "收起",
+    "resetPassword": "重設密碼",
     "backHomepage": "返回首頁",
     "confirmDelete": "確定刪除嗎？",
-    "confirmReset": "確定重置嗎？"
+    "confirmReset": "確定重設嗎？"
   },
   "system": {
     "tooltip": {
-      "fullSwitch": "全屏切換",
+      "fullSwitch": "全螢幕切換",
       "themeSwitch": "主題切換",
       "languageSwitch": "語言切換",
-      "settings": "系統設置",
-      "fullScreen": "內容區全屏",
-      "cancelFullScreen": "取消內容區全屏",
-      "hideSearch": "隱藏搜索",
-      "expandSearch": "展開搜索",
-      "exportSvg": "導出SVG",
+      "settings": "系統設定",
+      "fullScreen": "內容區全螢幕",
+      "cancelFullScreen": "取消內容區全螢幕",
+      "hideSearch": "隱藏搜尋",
+      "expandSearch": "展開搜尋",
+      "exportSvg": "匯出SVG",
       "tableSize": "表格尺寸"
     },
     "search": {
-      "placeholder": "搜索頁面或者路徑",
-      "history": "搜索歷史"
+      "placeholder": "搜尋頁面或者路徑",
+      "history": "搜尋歷史"
     },
     "layout": {
-      "left": "左側菜單",
-      "top": "頂部菜單",
-      "mixLeft": "混合左側菜單",
-      "right": "右側菜單",
-      "mixRight": "混合右側菜單"
+      "left": "左側選單",
+      "top": "頂部選單",
+      "mixLeft": "混合左側選單",
+      "right": "右側選單",
+      "mixRight": "混合右側選單"
     },
     "theme": {
       "mode": {
@@ -70,44 +74,44 @@
         "dark": "深色",
         "auto": "自動",
         "reverseStyle": "樣式反轉",
-        "reverseStyleTip": "來增強菜單和下拉菜單的視覺效果",
+        "reverseStyleTip": "來增強選單和下拉選單的視覺效果",
         "grey": "黑白模式",
         "colorWeakness": "色弱模式"
       },
       "color": {
         "color": "主題顏色",
-        "colorTip": "主題配色已複製到剪貼板",
-        "copyAndPaste": "複製後可粘貼替換",
+        "colorTip": "主題配色已複製到剪貼簿",
+        "copyAndPaste": "複製後可貼上替換",
         "content": "中的內容",
         "primary": "主色",
         "success": "成功色",
         "warning": "警告色",
         "error": "錯誤色",
-        "info": "信息色",
+        "info": "資訊色",
         "followPrimary": "跟隨主色"
       }
     },
     "interface": {
-      "function": "界面功能",
+      "function": "介面功能",
       "borderRadius": "圓角大小",
       "pageTransition": "頁面過渡",
       "sidebarWidth": "側邊欄寬度",
-      "sidebarCollapseWidth": "側邊欄折疊寬度",
+      "sidebarCollapseWidth": "側邊欄摺疊寬度",
       "sidebarTriggerStyle": "側邊欄觸發器樣式",
       "msgPlacement": "Message提示位置",
       "logo": "logo顯示",
       "topProgress": "頂部進度",
       "breadcrumb": "麵包屑顯示",
-      "breadcrumbIcon": "麵包屑圖標",
-      "tabs": "多頁簽顯示",
-      "tabsIcon": "多頁簽圖標",
+      "breadcrumbIcon": "麵包屑圖示",
+      "tabs": "多頁籤顯示",
+      "tabsIcon": "多頁籤圖示",
       "fixedTopAndBottom": "固定頂部和底部",
       "copyright": "底部版權",
-      "watermark": "水印",
-      "watermarkTip": "請輸入水印文字"
+      "watermark": "浮水印",
+      "watermarkTip": "請輸入浮水印文字"
     },
     "transitionList": {
-      "none": "無過度",
+      "none": "無過渡",
       "slideFade": "側邊淡出",
       "bottomFade": "底邊淡出",
       "collapseFade": "收縮淡出",
@@ -119,7 +123,7 @@
     "borderRadius": {
       "none": "無圓角",
       "small": "小型",
-      "default": "默認",
+      "default": "預設",
       "large": "大型",
       "round": "圓潤"
     },
@@ -137,10 +141,10 @@
     },
     "dialog": {
       "title": {
-        "resetSettings": "重置設置"
+        "resetSettings": "重設設定"
       },
       "content": {
-        "resetSettings": "確認重置所有設置？"
+        "resetSettings": "確認重設所有設定？"
       }
     }
   },
@@ -148,52 +152,52 @@
     "Index": "首頁",
     "System": "系統管理",
     "Utils": "系統工具",
-    "Api": "接口文檔",
-    "Doc": "平台文檔",
-    "MultiLevel": "多級菜單",
-    "Component": "組件封裝",
+    "Api": "介面文件",
+    "Doc": "平台文件",
+    "MultiLevel": "多級選單",
+    "Component": "元件封裝",
     "RouteParam": "路由參數",
     "Function": "功能演示",
     "User": "用戶管理",
     "Role": "角色管理",
-    "SysMenu": "菜單管理",
+    "SysMenu": "選單管理",
     "Dept": "部門管理",
     "Dict": "字典管理",
     "Log": "系統日誌",
     "Config": "參數配置",
     "Notice": "通知公告",
-    "Codegen": "代碼生成",
-    "Multilevel1": "菜單一級",
-    "Multilevel2": "菜單二級",
-    "Multilevel31": "菜單三級-1",
-    "Multilevel32": "菜單三級-2",
+    "Codegen": "程式碼產生",
+    "Multilevel1": "選單一級",
+    "Multilevel2": "選單二級",
+    "Multilevel31": "選單三級-1",
+    "Multilevel32": "選單三級-2",
     "Apifox": "Apifox",
     "InternalDoc": "Document",
     "Https://juejin": {
-      "cn/post/7228990409909108793": "平台文檔(外鏈)"
+      "cn/post/7228990409909108793": "平台文件(外鏈)"
     },
     "Https://youlai": {
       "blog": {
         "csdn": {
-          "net/article/details/145178880": "後端文檔",
-          "net/article/details/143222890": "移動端文檔"
+          "net/article/details/145178880": "後端文件",
+          "net/article/details/143222890": "移動端文件"
         }
       }
     },
     "Curd": "增刪改查",
-    "Cron": "Cron表達式生成器",
-    "WangEditor": "富文本編輯器",
+    "Cron": "Cron表達式產生器",
+    "WangEditor": "富文字編輯器",
     "Upload": "文件上傳",
-    "IconSelector": "圖標選擇器",
-    "Dictionary": "字典組件",
+    "IconSelector": "圖示選擇器",
+    "Dictionary": "字典元件",
     "RouteParamType1": "參數(type=1)",
     "RouteParamType2": "參數(type=2)",
     "Icon": "Icon",
     "Websocket": "WebSocket"
   },
   "directive": {
-    "nonsupportCopy": "您的瀏覽器不支持剪貼板API",
-    "notAllowedCopy": "目前不允許使用剪貼板API",
+    "nonsupportCopy": "您的瀏覽器不支持剪貼簿API",
+    "notAllowedCopy": "目前不允許使用剪貼簿API",
     "copySuccess": "複製成功",
     "errorPermission": "需要提供權限標識！例如：v-has-perm=\"'sys:user:add'\" 或 v-has-perm=\"['sys:user:add', 'sys:user:edit']\"",
     "errorRole": "需要提供角色標識！例如：v-has-role=\"'ADMIN'\" 或 v-has-role=\"['ADMIN', 'TEST']\""
@@ -212,16 +216,16 @@
       "desc": "生活總歸帶點荒謬"
     },
     "500": {
-      "title": "500 服務器錯誤",
-      "desc": "服務器出錯可能說明該雇更多程序員了"
+      "title": "500 伺服器錯誤",
+      "desc": "伺服器出錯可能說明該雇更多程式員了"
     }
   },
   "components": {
     "iconSelect": {
-      "title": "圖標選擇",
-      "search": "搜索圖標",
-      "placeholder": "請選擇或者輸入圖標名稱",
-      "localhost": "本地圖標"
+      "title": "圖示選擇",
+      "search": "搜尋圖示",
+      "placeholder": "請選擇或者輸入圖示名稱",
+      "localhost": "本地圖示"
     },
     "upload": {
       "cut": "圖片裁剪",
@@ -239,7 +243,7 @@
     "goto": "前往"
   },
   "message": {
-    "resetSuccess": "重置成功",
+    "resetSuccess": "重設成功",
     "placement": "我會顯示在這裡哦😊",
     "deleteSuccess": "刪除成功",
     "uploadSuccess": "上傳成功",
@@ -249,15 +253,15 @@
     "delete": "確定要刪除 {name} 嗎？"
   },
   "login": {
-    "login": "登 錄",
-    "logIn": "登 錄 中...",
+    "login": "登 入",
+    "logIn": "登 入 中...",
     "username": "用戶名",
     "password": "密碼",
     "captcha": "驗證碼",
     "forget": "忘記密碼？",
     "rememberMe": "記住我",
     "noAccount": "您沒有賬號？",
-    "success": "登錄成功"
+    "success": "登入成功"
   },
   "register": {
     "register": "註 冊",
@@ -269,18 +273,40 @@
     "readAndAgreeFirst": "請先閱讀並同意用戶協議"
   },
   "resetPwd": {
-    "reset": "重置密碼",
+    "reset": "重設密碼",
     "recall": "想起密碼？"
   },
   "rules": {
-    "passwordLength": "密碼長度不能小於6位"
+    "passwordLength": "密碼長度必須介於 6 和 20 之間",
+    "email": "請輸入正確的郵箱地址",
+    "phone": "請輸入正確的手機號碼",
+    "illegalChar": "不能包含非法字符 < > \" ' | \\"
   },
   "tabBar": {
-    "refresh": "刷新",
+    "refresh": "重新整理",
     "close": "關閉",
     "closeOthers": "關閉其他",
     "closeLeft": "關閉左側",
     "closeRight": "關閉右側",
     "closeAll": "關閉所有"
+  },
+  "tableHeader": {
+    "keywords": "關鍵字",
+    "username": "用戶名",
+    "nickname": "暱稱",
+    "sex": "性別",
+    "role": "角色",
+    "phone": "手機號",
+    "dept": "部門",
+    "email": "郵箱",
+    "status": "狀態",
+    "createTime": "創建時間",
+    "updateTime": "更新時間",
+    "action": "操作"
+  },
+  "user": {
+    "selectedUser": "已選用戶",
+    "enterNewPassword": "請輸入 {name} 的新密碼",
+    "rememberNewPassword": "密碼重設成功，請牢記新密碼：{value}"
   }
 }

@@ -1,15 +1,18 @@
 {
   "common": {
+    "sysTip": "系统提示",
+    "downloading": "正在下载数据，请稍候...",
     "notImplemented": "暂未实现，开发中 ...",
     "input": {
-      "input": "请输入",
-      "select": "请选择",
+      "input": "请输入 ",
+      "select": "请选择 ",
       "others": "其他"
     }
   },
   "button": {
     "refresh": "刷新",
     "search": "搜索",
+    "ok": "确定",
     "clear": "清空",
     "select": "选择",
     "switch": "切换",
@@ -35,6 +38,7 @@
     "detail": "详情",
     "expand": "展开",
     "collapse": "收起",
+    "resetPassword": "重置密码",
     "backHomepage": "返回首页",
     "confirmDelete": "确定删除吗？",
     "confirmReset": "确定重置吗？"
@@ -273,7 +277,10 @@
     "recall": "想起密码？"
   },
   "rules": {
-    "passwordLength": "密码长度不能小于6位"
+    "passwordLength": "密码长度必须介于 6 和 20 之间",
+    "email": "请输入正确的邮箱地址",
+    "phone": "请输入正确的手机号码",
+    "illegalChar": "不能包含非法字符 < > \" ' | \\"
   },
   "tabBar": {
     "refresh": "刷新",
@@ -282,5 +289,24 @@
     "closeLeft": "关闭左侧",
     "closeRight": "关闭右侧",
     "closeAll": "关闭所有"
+  },
+  "tableHeader": {
+    "keywords": "关键字",
+    "username": "用户名",
+    "nickname": "昵称",
+    "sex": "性别",
+    "role": "角色",
+    "phone": "手机号",
+    "dept": "部门",
+    "email": "邮箱",
+    "status": "状态",
+    "createTime": "创建时间",
+    "updateTime": "更新时间",
+    "action": "操作"
+  },
+  "user": {
+    "selectedUser": "已选用户",
+    "enterNewPassword": "请输入 {name} 的新密码",
+    "rememberNewPassword": "密码重置成功，请牢记新密码：{value}"
   }
 }
