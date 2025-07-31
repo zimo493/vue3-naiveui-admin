@@ -366,6 +366,7 @@ const editFormConfig = computed(
     ],
     // NForm属性
     props: {
+      labelWidth: "auto",
       rules: {
         username: [
           {
