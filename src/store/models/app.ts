@@ -107,6 +107,7 @@ export const useAppStore = defineStore("app-store", {
 
     /* 设置语言 */
     setAppLang(lang: App.lang) {
+      if (lang === this.lang) return;
       setLocale(lang);
       local.set("lang", lang);
       this.lang = lang;
