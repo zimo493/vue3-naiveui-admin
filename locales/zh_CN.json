@@ -3,6 +3,12 @@
     "sysTip": "系统提示",
     "downloading": "正在下载数据，请稍候...",
     "notImplemented": "暂未实现，开发中 ...",
+    "processing": "数据正在处理，请勿重复提交",
+    "sysError": "系统出错",
+    "backendError": "后端接口连接异常",
+    "backendTimeout": "系统接口请求超时",
+    "backendException": "系统接口 {code} 异常",
+    "sessionTimeout": "您的会话已过期，请重新登录",
     "input": {
       "input": "请输入",
       "select": "请选择",

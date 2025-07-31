@@ -3,6 +3,12 @@
     "sysTip": "System Tip",
     "downloading": "Downloading data, please wait...",
     "notImplemented": "Not implemented yet, under development ...",
+    "processing": "Data is being processed, please do not submit repeatedly",
+    "sysError": "System error",
+    "backendError": "Backend interface connection exception",
+    "backendTimeout": "System interface request timeout",
+    "backendException": "System interface {code} exception",
+    "sessionTimeout": "Your session has expired, please log in again",
     "input": {
       "input": "Please enter ",
       "select": "Please select ",

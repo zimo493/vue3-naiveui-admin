@@ -3,6 +3,12 @@
     "sysTip": "系統提示",
     "downloading": "正在下載資料，請稍候...",
     "notImplemented": "暫未實現，開發中 ...",
+    "processing": "資料正在處理中，請勿重複提交",
+    "sysError": "系統出錯",
+    "backendError": "後端介面連線異常",
+    "backendTimeout": "系統介面請求超時",
+    "backendException": "系統介面 {code} 異常",
+    "sessionTimeout": "您的會話已過期，請重新登入",
     "input": {
       "input": "請輸入",
       "select": "請選擇",

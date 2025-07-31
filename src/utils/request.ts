@@ -6,6 +6,7 @@ import { ResultEnum } from "@/enums";
 import { local, session } from "./storage";
 import { InquiryBox, tansParams } from "./comm";
 import { router } from "@/router";
+import { $t } from "./i18n";
 
 // 创建 axios 实例
 const service = axios.create({
@@ -68,7 +69,7 @@ const reqOnFulfilled = (config: InternalAxiosRequestConfig) => {
         requestObj.time - s_time < interval &&
         s_url === requestObj.url
       ) {
-        const message = "数据正在处理，请勿重复提交";
+        const message = $t("common.processing");
 
         console.warn(`[${s_url}]: ` + message);
 
@@ -93,7 +94,7 @@ const resOnFulfilled = (response: AxiosResponse) => {
   if (code === ResultEnum.SUCCESS) {
     return data;
   }
-  window.$message.error(msg || "系统出错");
+  window.$message.error(msg || $t("common.sysError"));
 
   return Promise.reject(new Error(msg || "Error"));
 };
@@ -120,16 +121,16 @@ service.interceptors.response.use(resOnFulfilled, async (error) => {
 
       return Promise.reject(new Error(msg || "Error"));
     }
-    window.$message.error(msg || "系统出错");
+    window.$message.error(msg || $t("common.sysError"));
   } else {
     let { message } = error;
 
     if (message === "Network Error") {
-      message = "后端接口连接异常";
+      message = $t("common.backendError");
     } else if (message.includes("timeout")) {
-      message = "系统接口请求超时";
+      message = $t("common.backendTimeout");
     } else if (message.includes("Request failed with status code")) {
-      message = "系统接口" + message.substring(message.length - 3) + "异常";
+      message = $t("common.backendException", { code: message.substring(message.length - 3) });
     }
     window.$message.error(message, { duration: 5 * 1000 });
 
@@ -202,7 +203,7 @@ async function handleTokenRefresh(config: InternalAxiosRequestConfig) {
 }
 // 处理会话过期
 async function handleSessionExpired() {
-  InquiryBox("您的会话已过期，请重新登录").then(async () => {
+  InquiryBox($t("common.sessionTimeout")).then(async () => {
     await useAuthStoreHook().resetAuthStore();
     await router.replace("/login");
   });
