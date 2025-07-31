@@ -518,7 +518,7 @@ const { onlineUserCount, lastUpdateTime, isConnected } = useOnlineCount();
 const previousCount = ref(0);
 
 // 监听用户数量变化，计算趋势
-watch(onlineUserCount, (newCount, oldCount) => {
+watch(onlineUserCount, (_newCount, oldCount) => {
   if (oldCount > 0) {
     previousCount.value = oldCount;
   }
@@ -598,7 +598,7 @@ function formatGrowthRate(growthRate: number) {
  *
  * @param growthRate - 增长率数值
  */
-const getType = (growthRate?: number): string => {
+const getType = (growthRate?: number) => {
   if (!growthRate) {
     return "info";
   }
