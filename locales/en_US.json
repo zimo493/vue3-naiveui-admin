@@ -9,6 +9,7 @@
     "backendTimeout": "System interface request timeout",
     "backendException": "System interface {code} exception",
     "sessionTimeout": "Your session has expired, please log in again",
+    "message": "No doubt, you're the brightest star in the office!",
     "input": {
       "input": "Please enter ",
       "select": "Please select ",
@@ -56,6 +57,7 @@
     "resetPassword": "Reset Password",
     "downloadTemplate": "Download Template",
     "backHomepage": "Back to Homepage",
+    "logout": "Logout",
     "confirmDelete": "Are you sure to delete?",
     "confirmReset": "Are you sure to reset?"
   },
@@ -174,6 +176,7 @@
     "Component": "Components",
     "RouteParam": "Params",
     "Function": "Demo",
+    "Profile": "Personal Center",
     "User": "Users",
     "Role": "Roles",
     "SysMenu": "Menus",
@@ -269,7 +272,8 @@
     "initRouteError": "Init route error!"
   },
   "confirm": {
-    "delete": "Are you sure to delete {name}?"
+    "delete": "Are you sure to delete {name}?",
+    "logout": "Are you sure you want to exit the system?"
   },
   "login": {
     "login": "Login",

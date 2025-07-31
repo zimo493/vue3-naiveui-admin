@@ -10,6 +10,8 @@ import IconLogout from "~icons/icon-park-outline/logout";
 export default defineComponent({
   name: "UserDropdown",
   setup() {
+    const { t } = useI18n();
+
     const authStore = useAuthStoreHook();
     const AppStore = useAppStoreHook();
     const router = useRouter();
@@ -38,18 +40,18 @@ export default defineComponent({
           <NText depth={2}>{userInfo.nickname}</NText>
           <NEllipsis style="max-width: 140px">
             <NText depth={3} class="text-12px">
-              毫无疑问，你就是办公室最亮的星！
+              {t("common.message")}
             </NText>
           </NEllipsis>
         </NEl>
       </NEl>
     );
 
-    const options: DropdownOption[] = [
+    const options = computed((): DropdownOption[] => [
       { key: "userInfo", type: "render", render: renderUserHeader },
       { type: "divider", key: "d1" },
       {
-        label: "个人中心",
+        label: t("route.Profile"),
         key: "userCenter",
         icon: () => <IconUser />,
       },
@@ -62,17 +64,17 @@ export default defineComponent({
       { label: "Github", key: "github", icon: () => <IconGithub /> },
       { type: "divider", key: "d3" },
       {
-        label: "退出登录",
+        label: t("button.logout"),
         key: "loginOut",
         icon: () => <IconLogout />,
       },
-    ];
+    ]);
 
     // 选择事件
     const handleSelect = async (key: string | number) => {
       switch (key) {
         case "loginOut":
-          InquiryBox("确定要退出系统吗？").then(() => authStore.logout());
+          InquiryBox(t("confirm.logout")).then(() => authStore.logout());
           break;
 
         case "userCenter":
@@ -90,7 +92,7 @@ export default defineComponent({
     };
 
     return () => (
-      <NDropdown trigger="click" options={options} onSelect={handleSelect}>
+      <NDropdown trigger="click" options={options.value} onSelect={handleSelect}>
         <NAvatar
           class="cursor-pointer"
           src={authStore.userInfo.avatar}

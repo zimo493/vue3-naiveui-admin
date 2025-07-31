@@ -9,6 +9,7 @@
     "backendTimeout": "系统接口请求超时",
     "backendException": "系统接口 {code} 异常",
     "sessionTimeout": "您的会话已过期，请重新登录",
+    "message": "毫无疑问，你就是办公室最亮的星！",
     "input": {
       "input": "请输入",
       "select": "请选择",
@@ -56,6 +57,7 @@
     "resetPassword": "重置密码",
     "downloadTemplate": "下载模板",
     "backHomepage": "返回首页",
+    "logout": "退出登录",
     "confirmDelete": "确定删除吗？",
     "confirmReset": "确定重置吗？"
   },
@@ -174,6 +176,7 @@
     "Component": "组件封装",
     "RouteParam": "路由参数",
     "Function": "功能演示",
+    "Profile": "个人中心",
     "User": "用户管理",
     "Role": "角色管理",
     "SysMenu": "菜单管理",
@@ -269,7 +272,8 @@
     "initRouteError": "初始化路由失败!"
   },
   "confirm": {
-    "delete": "确定要删除 {name} 吗？"
+    "delete": "确定要删除 {name} 吗？",
+    "logout": "确定要退出系统吗？"
   },
   "login": {
     "login": "登 录",

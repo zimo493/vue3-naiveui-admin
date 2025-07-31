@@ -9,6 +9,7 @@
     "backendTimeout": "系統介面請求超時",
     "backendException": "系統介面 {code} 異常",
     "sessionTimeout": "您的會話已過期，請重新登入",
+    "message": "毫無疑問，你就是辦公室最亮的星！",
     "input": {
       "input": "請輸入",
       "select": "請選擇",
@@ -56,6 +57,7 @@
     "resetPassword": "重設密碼",
     "downloadTemplate": "下載模板",
     "backHomepage": "返回首頁",
+    "logout": "登出",
     "confirmDelete": "確定刪除嗎？",
     "confirmReset": "確定重設嗎？"
   },
@@ -174,6 +176,7 @@
     "Component": "元件封裝",
     "RouteParam": "路由參數",
     "Function": "功能演示",
+    "Profile": "個人中心",
     "User": "用戶管理",
     "Role": "角色管理",
     "SysMenu": "選單管理",
@@ -269,7 +272,8 @@
     "initRouteFailed": "初始化路由失敗!"
   },
   "confirm": {
-    "delete": "確定要刪除 {name} 嗎？"
+    "delete": "確定要刪除 {name} 嗎？",
+    "logout": "確定要退出系統嗎？"
   },
   "login": {
     "login": "登 入",
