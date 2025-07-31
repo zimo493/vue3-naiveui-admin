@@ -20,6 +20,13 @@ const options = computed<Option[]>(() => [
 
 const renderLabel = (option: Option) =>
   h(NFlex, { align: "center" }, { default: () => [h(option.icon), option.label] });
+
+/** 组件映射 */
+const componentMap = {
+  [ThemeMode.AUTO]: h(IconAuto),
+  [ThemeMode.LIGHT]: h(IconSun),
+  [ThemeMode.DARK]: h(IconMoon),
+};
 </script>
 
 <template>
@@ -33,9 +40,7 @@ const renderLabel = (option: Option) =>
     <n-tooltip placement="bottom" trigger="hover">
       <template #trigger>
         <CommonWrapper>
-          <icon-park-outline-sun-one v-if="appStore.storeColorMode === ThemeMode.LIGHT" />
-          <icon-park-outline-moon v-if="appStore.storeColorMode === ThemeMode.DARK" />
-          <icon-park-outline-laptop-computer v-if="appStore.storeColorMode === ThemeMode.AUTO" />
+          <component :is="componentMap[appStore.storeColorMode]" />
         </CommonWrapper>
       </template>
       <span>{{ t("system.tooltip.themeSwitch") }}</span>
