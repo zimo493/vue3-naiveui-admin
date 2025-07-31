@@ -250,6 +250,7 @@
     "goto": "前往"
   },
   "message": {
+    "operateSuccess": "操作成功",
     "resetSuccess": "重置成功",
     "placement": "我会显示在这里哦😊",
     "deleteSuccess": "删除成功",

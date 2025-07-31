@@ -1,4 +1,5 @@
 import { useLoading } from "@/hooks";
+import { $t } from "./i18n";
 
 const { loading: spin, startLoading: startSpin, endLoading: endSpin } = useLoading();
 
@@ -11,7 +12,7 @@ const { loading: spin, startLoading: startSpin, endLoading: endSpin } = useLoadi
 const executeAsync = async <T>(
   apiCall: () => Promise<T>,
   onSuccess?: (data: T) => void | Promise<void>,
-  message: string | null = "操作成功"
+  message: string | null = $t("message.operateSuccess")
 ) => {
   try {
     startSpin();

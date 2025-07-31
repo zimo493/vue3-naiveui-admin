@@ -250,6 +250,7 @@
     "goto": "Go to"
   },
   "message": {
+    "operateSuccess": "Operate successful",
     "resetSuccess": "Reset successful",
     "placement": "I will show here 😊",
     "deleteSuccess": "Delete successful",
