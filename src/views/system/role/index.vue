@@ -19,13 +19,13 @@
           <template #icon>
             <icon-park-outline-plus />
           </template>
-          新增
+          {{ t("button.add") }}
         </n-button>
         <n-button type="error" :disabled="!selectedRowKeys.length" @click="handleDelete()">
           <template #icon>
             <icon-park-outline-delete-themes />
           </template>
-          删除
+          {{ t("button.delete") }}
         </n-button>
       </template>
     </TablePro>
@@ -56,6 +56,8 @@ import CommonStatus from "@/components/common/CommonStatus.vue";
 
 defineOptions({ name: "Role" });
 
+const { t } = useI18n();
+
 // 定义表单的初始值
 const queryParams = ref<Role.Query>({
   pageNum: 1,
@@ -79,25 +81,27 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-const formConfig = ref<FormPro.FormItemConfig[]>([{ name: "keywords", label: "角色名称" }]);
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  { name: "keywords", label: t("tableHeader.roleName") },
+]);
 
 const columns = ref<DataTableColumns<Role.VO>>([
   { type: "selection", options: ["all", "none"] },
-  { title: "角色名称", key: "name", align: "center" },
-  { title: "角色编码", key: "code", align: "center" },
+  { title: t("tableHeader.roleName"), key: "name", align: "center" },
+  { title: t("tableHeader.roleCode"), key: "code", align: "center" },
   {
-    title: "状态",
+    title: t("tableHeader.status"),
     key: "status",
     align: "center",
     render: ({ status }) => <CommonStatus value={status} />,
   },
-  { title: "排序", key: "sort", align: "center", sorter: "default" },
-  { title: "创建时间", key: "createTime", align: "center", width: 180 },
+  { title: t("tableHeader.sort"), key: "sort", align: "center", sorter: "default" },
+  { title: t("tableHeader.createTime"), key: "createTime", align: "center", width: 180 },
   {
-    title: "操作",
+    title: t("tableHeader.action"),
     key: "action",
     align: "center",
-    width: 240,
+    width: 320,
     render: (row) => (
       <NFlex justify="center">
         <NButton
@@ -106,7 +110,7 @@ const columns = ref<DataTableColumns<Role.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:node-index-outlined" /> }}
           onClick={() => handleOpenAssignPermDialog(row)}
         >
-          数据权限
+          {t("role.dataPermission")}
         </NButton>
         <NButton
           text
@@ -114,7 +118,7 @@ const columns = ref<DataTableColumns<Role.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >
-          编辑
+          {t("button.edit")}
         </NButton>
         <NButton
           text
@@ -122,7 +126,7 @@ const columns = ref<DataTableColumns<Role.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
           onClick={() => handleDelete(row.id)}
         >
-          删除
+          {t("button.delete")}
         </NButton>
       </NFlex>
     ),
@@ -131,35 +135,62 @@ const columns = ref<DataTableColumns<Role.VO>>([
 
 const editFormConfig: DialogForm.Form = {
   config: [
-    { name: "name", label: "角色名称" },
-    { name: "code", label: "角色编码" },
+    { name: "name", label: t("tableHeader.roleName") },
+    { name: "code", label: t("tableHeader.roleCode") },
     {
       name: "dataScope",
-      label: "数据权限",
+      label: t("role.dataPermission"),
       component: "select",
       props: {
         options: [
-          { label: "全部数据", value: 1 },
-          { label: "部门及子部门数据", value: 2 },
-          { label: "本部门数据", value: 3 },
-          { label: "本人数据", value: 4 },
+          { label: t("role.allData"), value: 1 },
+          { label: t("role.departmentData"), value: 2 },
+          { label: t("role.currentDepartmentData"), value: 3 },
+          { label: t("role.selfData"), value: 4 },
         ],
       },
     },
     {
       name: "status",
-      label: "状态",
+      label: t("tableHeader.status"),
       component: "radio",
       props: { options: statusOptions.value },
     },
-    { name: "sort", label: "排序", component: "number" },
+    { name: "sort", label: t("tableHeader.sort"), component: "number" },
   ],
   props: {
+    labelWidth: "auto",
     rules: {
-      name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
-      code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
-      dataScope: [{ required: true, type: "number", message: "请选择数据权限", trigger: "change" }],
-      status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+      name: [
+        {
+          required: true,
+          message: t("common.input.input") + t("tableHeader.roleName"),
+          trigger: "blur",
+        },
+      ],
+      code: [
+        {
+          required: true,
+          message: t("common.input.input") + t("tableHeader.roleCode"),
+          trigger: "blur",
+        },
+      ],
+      dataScope: [
+        {
+          required: true,
+          type: "number",
+          message: t("common.input.select") + t("role.dataPermission"),
+          trigger: "change",
+        },
+      ],
+      status: [
+        {
+          required: true,
+          type: "number",
+          message: t("common.input.select") + t("tableHeader.status"),
+          trigger: "change",
+        },
+      ],
     },
   },
 };
@@ -172,7 +203,7 @@ const modelValue = ref<Role.Form>({
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: Role.VO) => {
-  drawerFormRef.value?.open(row ? "编辑角色" : "新增角色", modelValue.value);
+  drawerFormRef.value?.open(row ? t("role.edit") : t("role.add"), modelValue.value);
 
   if (row) {
     startSpin();
@@ -202,9 +233,9 @@ const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys a
 const handleDelete = (roleId?: string) => {
   const roleIds = [roleId || selectedRowKeys.value].join(",");
 
-  InquiryBox("确认删除已选中的数据项?").then(() => {
+  InquiryBox(t("confirm.delete", { name: t("role.selectedData") })).then(() => {
     RoleAPI.deleteByIds(roleIds).then(() => {
-      window.$message.success("删除成功");
+      window.$message.success(t("message.deleteSuccess"));
       handleQuery();
     });
   });
@@ -213,5 +244,5 @@ const handleDelete = (roleId?: string) => {
 /** 分配角色数据权限 */
 const dataScopeRef = useTemplateRef("dataScope");
 const handleOpenAssignPermDialog = (row: Role.VO) =>
-  dataScopeRef.value?.open(row, `【${row.name}】权限分配`);
+  dataScopeRef.value?.open(row, `【${row.name}】${t("role.permission")}`);
 </script>

@@ -44,6 +44,7 @@
     "detail": "Detail",
     "expand": "Expand",
     "collapse": "Collapse",
+    "linkage": "Parent-Child Linkage",
     "resetPassword": "Reset Password",
     "downloadTemplate": "Download Template",
     "backHomepage": "Back to Homepage",
@@ -312,7 +313,11 @@
     "status": "Status",
     "createTime": "Create Time",
     "updateTime": "Update Time",
-    "action": "Action"
+    "action": "Action",
+
+    "roleName": "Role Name",
+    "roleCode": "Role Code",
+    "sort": "Sort"
   },
   "user": {
     "selectedUser": "Selected User",
@@ -333,5 +338,16 @@
       "success": "Import successful, imported data: {value} items",
       "result": "Import result: {invalid} invalid data items, {valid} valid data items"
     }
+  },
+  "role": {
+    "add": "Add Role",
+    "edit": "Edit Role",
+    "dataPermission": "Data Permission",
+    "allData": "All Data",
+    "departmentData": "Department and Sub-department Data",
+    "currentDepartmentData": "Current Department Data",
+    "selfData": "Self Data",
+    "selectedData": "Selected Data Items",
+    "permission": "Permission Assignment"
   }
 }

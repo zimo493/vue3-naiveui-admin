@@ -44,6 +44,7 @@
     "detail": "詳情",
     "expand": "展開",
     "collapse": "收起",
+    "linkage": "父子連動",
     "resetPassword": "重設密碼",
     "downloadTemplate": "下載模板",
     "backHomepage": "返回首頁",
@@ -312,7 +313,11 @@
     "status": "狀態",
     "createTime": "創建時間",
     "updateTime": "更新時間",
-    "action": "操作"
+    "action": "操作",
+
+    "roleName": "角色名稱",
+    "roleCode": "角色編碼",
+    "sort": "排序"
   },
   "user": {
     "selectedUser": "已選用戶",
@@ -333,5 +338,16 @@
       "success": "匯入成功，匯入數據：{value} 條",
       "result": "匯入結果：{invalid} 條無效數據，{valid} 條有效數據"
     }
+  },
+  "role": {
+    "add": "新增角色",
+    "edit": "編輯角色",
+    "dataPermission": "數據權限",
+    "allData": "全部數據",
+    "departmentData": "部門及子部門數據",
+    "currentDepartmentData": "本部門數據",
+    "selfData": "本人數據",
+    "selectedData": "已選中的數據項",
+    "permission": "權限分配"
   }
 }

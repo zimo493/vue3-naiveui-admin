@@ -6,13 +6,17 @@
           <n-flex vertical class="w-full" :size="[0, 20]">
             {{ title }}
             <n-flex align="center">
-              <n-input v-model:value="pattern" placeholder="搜索" clearable>
+              <n-input v-model:value="pattern" :placeholder="t('button.search')" clearable>
                 <template #prefix>
                   <Icones icon="icon-park-outline:search" />
                 </template>
               </n-input>
-              <n-checkbox v-model:checked="expandAll">展开/收起</n-checkbox>
-              <n-checkbox v-model:checked="cascade">父子联动</n-checkbox>
+              <n-checkbox v-model:checked="expandAll">
+                {{ t("button.expand") }}/{{ t("button.collapse") }}
+              </n-checkbox>
+              <n-checkbox v-model:checked="cascade">
+                {{ t("button.linkage") }}
+              </n-checkbox>
             </n-flex>
           </n-flex>
         </n-spin>
@@ -40,13 +44,13 @@
             <template #icon>
               <Icones icon="ant-design:check-outlined" />
             </template>
-            提交
+            {{ t("button.submit") }}
           </n-button>
           <n-button strong secondary @click="handleClose">
             <template #icon>
               <Icones icon="ant-design:close-outlined" />
             </template>
-            取消
+            {{ t("button.cancel") }}
           </n-button>
         </n-flex>
       </template>
@@ -61,6 +65,8 @@ import MenuAPI from "@/api/system/menu";
 import RoleAPI from "@/api/system/role";
 
 defineOptions({ name: "DataScope" });
+
+const { t } = useI18n();
 
 const emit = defineEmits<{
   (e: "success"): void;

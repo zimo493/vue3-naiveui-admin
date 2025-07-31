@@ -44,6 +44,7 @@
     "detail": "详情",
     "expand": "展开",
     "collapse": "收起",
+    "linkage": "父子联动",
     "resetPassword": "重置密码",
     "downloadTemplate": "下载模板",
     "backHomepage": "返回首页",
@@ -312,7 +313,11 @@
     "status": "状态",
     "createTime": "创建时间",
     "updateTime": "更新时间",
-    "action": "操作"
+    "action": "操作",
+
+    "roleName": "角色名称",
+    "roleCode": "角色编码",
+    "sort": "排序"
   },
   "user": {
     "selectedUser": "已选用户",
@@ -333,5 +338,16 @@
       "success": "导入成功，导入数据：{value} 条",
       "result": "导入结果：{invalid} 条无效数据，{valid} 条有效数据"
     }
+  },
+  "role": {
+    "add": "新增角色",
+    "edit": "编辑角色",
+    "dataPermission": "数据权限",
+    "allData": "全部数据",
+    "departmentData": "部门及子部门数据",
+    "currentDepartmentData": "本部门数据",
+    "selfData": "本人数据",
+    "selectedData": "已选中的数据项",
+    "permission": "权限分配"
   }
 }
