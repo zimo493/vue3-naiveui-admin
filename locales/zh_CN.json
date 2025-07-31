@@ -4,8 +4,8 @@
     "downloading": "正在下载数据，请稍候...",
     "notImplemented": "暂未实现，开发中 ...",
     "input": {
-      "input": "请输入 ",
-      "select": "请选择 ",
+      "input": "请输入",
+      "select": "请选择",
       "others": "其他"
     }
   },
@@ -39,6 +39,7 @@
     "expand": "展开",
     "collapse": "收起",
     "resetPassword": "重置密码",
+    "downloadTemplate": "下载模板",
     "backHomepage": "返回首页",
     "confirmDelete": "确定删除吗？",
     "confirmReset": "确定重置吗？"
@@ -307,6 +308,21 @@
   "user": {
     "selectedUser": "已选用户",
     "enterNewPassword": "请输入 {name} 的新密码",
-    "rememberNewPassword": "密码重置成功，请牢记新密码：{value}"
+    "rememberNewPassword": "密码重置成功，请牢记新密码：{value}",
+    "add": "新增用户",
+    "edit": "编辑用户",
+    "import": {
+      "user": "导入用户",
+      "table": {
+        "no": "序号",
+        "title": "错误信息"
+      },
+      "upload": "点击此处或者拖动文件到该区域上传",
+      "uploadTip": "请不要上传敏感数据，以免造成不必要的损失。",
+      "uploadTip2": "仅允许导入",
+      "uploadTip3": "的格式文件",
+      "success": "导入成功，导入数据：{value} 条",
+      "result": "导入结果：{invalid} 条无效数据，{valid} 条有效数据"
+    }
   }
 }

@@ -4,8 +4,8 @@
     "downloading": "正在下載資料，請稍候...",
     "notImplemented": "暫未實現，開發中 ...",
     "input": {
-      "input": "請輸入 ",
-      "select": "請選擇 ",
+      "input": "請輸入",
+      "select": "請選擇",
       "others": "其他"
     }
   },
@@ -39,6 +39,7 @@
     "expand": "展開",
     "collapse": "收起",
     "resetPassword": "重設密碼",
+    "downloadTemplate": "下載模板",
     "backHomepage": "返回首頁",
     "confirmDelete": "確定刪除嗎？",
     "confirmReset": "確定重設嗎？"
@@ -307,6 +308,21 @@
   "user": {
     "selectedUser": "已選用戶",
     "enterNewPassword": "請輸入 {name} 的新密碼",
-    "rememberNewPassword": "密碼重設成功，請牢記新密碼：{value}"
+    "rememberNewPassword": "密碼重設成功，請牢記新密碼：{value}",
+    "add": "添加用戶",
+    "edit": "編輯用戶",
+    "import": {
+      "user": "匯入用戶",
+      "table": {
+        "no": "序號",
+        "title": "錯誤訊息"
+      },
+      "upload": "點擊此處或拖動文件到此區域上傳",
+      "uploadTip": "請不要上傳敏感數據，以免造成不必要的損失。",
+      "uploadTip2": "僅允許匯入",
+      "uploadTip3": "的格式文件",
+      "success": "匯入成功，匯入數據：{value} 條",
+      "result": "匯入結果：{invalid} 條無效數據，{valid} 條有效數據"
+    }
   }
 }

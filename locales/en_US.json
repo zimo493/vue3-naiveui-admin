@@ -39,6 +39,7 @@
     "expand": "Expand",
     "collapse": "Collapse",
     "resetPassword": "Reset Password",
+    "downloadTemplate": "Download Template",
     "backHomepage": "Back to Homepage",
     "confirmDelete": "Are you sure to delete?",
     "confirmReset": "Are you sure to reset?"
@@ -307,6 +308,21 @@
   "user": {
     "selectedUser": "Selected User",
     "enterNewPassword": "Please enter {name}'s new password",
-    "rememberNewPassword": "Password reset successful. Please remember the new password: {value}"
+    "rememberNewPassword": "Password reset successful. Please remember the new password: {value}",
+    "add": "Add User",
+    "edit": "Edit User",
+    "import": {
+      "user": "Import Users",
+      "table": {
+        "no": "No.",
+        "title": "Error Message"
+      },
+      "upload": "Click here or drag files to this area to upload",
+      "uploadTip": "Please do not upload sensitive data to avoid unnecessary losses.",
+      "uploadTip2": "Only import",
+      "uploadTip3": "format files allowed",
+      "success": "Import successful, imported data: {value} items",
+      "result": "Import result: {invalid} invalid data items, {valid} valid data items"
+    }
   }
 }

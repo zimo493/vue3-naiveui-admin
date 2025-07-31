@@ -3,7 +3,7 @@
     v-model:show="visible"
     w-500px
     preset="card"
-    title="用户导入"
+    :title="t('user.import.user')"
     :on-mask-click="cancel"
     :segmented="{ content: true, action: true }"
     @close="cancel"
@@ -12,8 +12,8 @@
       <n-table :bordered="false" :single-line="false">
         <n-data-table
           :columns="[
-            { title: '序号', key: 'no' },
-            { title: '错误信息', key: 'title' },
+            { title: t('user.import.table.no'), key: 'no' },
+            { title: t('user.import.table.title'), key: 'title' },
           ]"
           :data="resultData"
           :bordered="false"
@@ -37,21 +37,23 @@
         <div style="margin-bottom: 12px">
           <Icones icon="ep:upload-filled" :size="56" />
         </div>
-        <n-text style="font-size: 16px">点击此处或者拖动文件到该区域上传</n-text>
-        <n-p depth="3" style="margin: 8px 0 0">请不要上传敏感数据，以免造成不必要的损失。</n-p>
+        <n-text style="font-size: 16px">{{ t("user.import.upload") }}</n-text>
+        <n-p depth="3" style="margin: 8px 0 0">{{ t("user.import.uploadTip") }}</n-p>
       </n-upload-dragger>
     </n-upload>
     <n-flex vertical align="center">
-      <div>
+      <n-flex>
         <span>
-          仅允许导入
+          {{ t("user.import.uploadTip2") }}
           <n-text type="error">.xlsx</n-text>
           /
           <n-text type="error">.xls</n-text>
-          格式文件。
+          {{ t("user.import.uploadTip3") }}
         </span>
-        <n-button text type="primary" @click="importTemplate">下载模板</n-button>
-      </div>
+        <n-button text type="primary" @click="importTemplate">
+          {{ t("button.downloadTemplate") }}
+        </n-button>
+      </n-flex>
       <!-- <div v-html="error"></div> -->
     </n-flex>
     <template #action>
@@ -60,13 +62,13 @@
           <template #icon>
             <Icones icon="ant-design:check-outlined" />
           </template>
-          提交
+          {{ t("button.submit") }}
         </n-button>
         <n-button strong secondary @click="cancel">
           <template #icon>
             <Icones icon="ant-design:close-outlined" />
           </template>
-          取消
+          {{ t("button.cancel") }}
         </n-button>
       </n-flex>
     </template>
@@ -81,6 +83,7 @@ import { MIMETYPE, ResultEnum } from "@/enums";
 
 import UserAPI from "@/api/system/user";
 
+const { t } = useI18n();
 const { loading, startLoading, endLoading } = useLoading();
 
 defineOptions({ name: "ImportUser" });
@@ -104,7 +107,7 @@ const resultData = ref<{ no: number; title: string }[]>([]);
 /** 下载模板操作 */
 const importTemplate = () => {
   UserAPI.downloadTemplate().then((response) => {
-    window.$message.loading("正在下载数据，请稍候...");
+    window.$message.loading(t("common.downloading"));
     const fileName = decodeURI(response.headers["content-disposition"].split(";")[1].split("=")[1]);
 
     exportFile(response.data, MIMETYPE.xlsx, fileName);
@@ -115,7 +118,7 @@ const importTemplate = () => {
 const beforeUpload = async (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
   // 文件类型判断
   if (!data.file.name.endsWith(".xls") && !data.file.name.endsWith(".xlsx")) {
-    window.$message.error("文件格式不正确，请上传格式为 .xlsx 或 .xls 的文件");
+    window.$message.error(t("components.upload.incorrectFormat", { type: ".xlsx / .xls" }));
 
     return false;
   }
@@ -136,11 +139,15 @@ const customRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequ
       console.log(result);
       onFinish();
       if (result.code === ResultEnum.SUCCESS && result.invalidCount === 0) {
-        window.$message.success("导入成功，导入数据：" + result.validCount + "条");
+        window.$message.success(t("user.import.success", { value: result.validCount }));
         emit("success");
         cancel();
       } else {
-        error.value = `导入结果：${result.invalidCount}条无效数据，${result.validCount}条有效数据`;
+        // error.value = `导入结果：${result.invalidCount}条无效数据，${result.validCount}条有效数据`;
+        error.value = t("user.import.result", {
+          invalid: result.invalidCount,
+          valid: result.validCount,
+        });
         resultData.value = result.messageList.map((item, idx) => ({
           no: idx + 1,
           title: item,

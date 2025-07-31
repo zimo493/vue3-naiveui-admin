@@ -42,14 +42,14 @@ export function tansParams(params: { [key: string]: any }) {
 export const InquiryBox = (
   content: string,
   type: "success" | "warning" | "error" = "warning",
-  title = "系统提示"
+  title = $t("common.sysTip")
 ): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     window.$dialog[type]({
       title,
       content,
-      positiveText: "确定",
-      negativeText: "取消",
+      positiveText: $t("button.ok"),
+      negativeText: $t("button.cancel"),
       positiveButtonProps: {
         secondary: true,
         strong: true,

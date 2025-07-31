@@ -422,7 +422,7 @@ const modelValue = ref<User.Form>({
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: User.VO) => {
-  drawerFormRef.value?.open(row ? "编辑用户" : "新增用户", modelValue.value);
+  drawerFormRef.value?.open(row ? t("user.edit") : t("user.add"), modelValue.value);
 
   if (row) {
     startSpin();
