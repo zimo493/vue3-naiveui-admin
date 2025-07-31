@@ -212,7 +212,7 @@
             <n-list>
               <n-list-item v-for="item of list" :key="item.key">
                 <template #prefix>
-                  <n-tag :bordered="false" round :type="item.type" size="small">
+                  <n-tag :bordered="false" :type="item.type" size="small">
                     {{ item.title }}
                   </n-tag>
                 </template>
