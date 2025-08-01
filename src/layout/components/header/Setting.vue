@@ -252,6 +252,7 @@ import { useAppStoreHook } from "@/store";
 import { LayoutMode, ThemeMode } from "@/enums";
 
 import { type SelectOption, NFlex, NText } from "naive-ui";
+import { InquiryBox } from "@/utils";
 
 const appStore = useAppStoreHook();
 
@@ -319,18 +320,15 @@ const palette = [
 
 // const { sideBarWidth,side } = storeToRefs(appStore);
 
-const resetSetting = () => {
-  window.$dialog.warning({
-    title: t("system.dialog.title.resetSettings"),
-    content: t("system.dialog.content.resetSettings"),
-    positiveText: t("button.confirm"),
-    negativeText: t("button.cancel"),
-    onPositiveClick: () => {
-      appStore.resetAllTheme();
-      window.$message.success(t("message.resetSuccess"));
-    },
+const resetSetting = () =>
+  InquiryBox(
+    t("system.dialog.content.resetSettings"),
+    "warning",
+    t("system.dialog.title.resetSettings")
+  ).then(() => {
+    appStore.resetAllTheme();
+    window.$message.success(t("message.resetSuccess"));
   });
-};
 
 const setSideBar = computed(() => appStore.layoutMode !== LayoutMode.TOP);
 

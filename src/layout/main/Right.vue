@@ -9,7 +9,7 @@
       <n-layout-header :position="appStore.fixed ? 'absolute' : 'static'" class="z-10">
         <div v-if="!appStore.contentFullScreen" class="h-50px flex-y-center justify-between">
           <div class="flex-y-center h-full p-x-10px">
-            <!-- <CollapseButton /> -->
+            <!-- <CollButton /> -->
             <Breadcrumb />
           </div>
 
@@ -43,7 +43,7 @@
       <n-scrollbar class="flex-1">
         <Menu />
       </n-scrollbar>
-      <!-- <CollapseButton /> -->
+      <!-- <CollButton /> -->
     </n-layout-sider>
   </n-layout>
 </template>

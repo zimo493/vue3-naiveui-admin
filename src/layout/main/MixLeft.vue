@@ -25,7 +25,7 @@
           :value="routeStore.activeMenu"
         />
       </n-scrollbar>
-      <!-- <CollapseButton /> -->
+      <!-- <CollButton /> -->
     </n-layout-sider>
     <n-layout-content
       class="h-full flex flex-col"
@@ -35,7 +35,7 @@
     >
       <n-layout-header bordered :position="appStore.fixed ? 'absolute' : 'static'" class="z-999">
         <div v-if="!appStore.contentFullScreen" class="h-50px flex-y-center justify-between">
-          <!-- <CollapseButton /> -->
+          <!-- <CollButton /> -->
           <n-menu
             ref="menu"
             mode="horizontal"
