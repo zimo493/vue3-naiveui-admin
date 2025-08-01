@@ -20,19 +20,19 @@
           <template #icon>
             <icon-park-outline-plus />
           </template>
-          新增
+          {{ t("button.add") }}
         </n-button>
         <n-button type="error" :disabled="!selectedRowKeys.length" @click="handleDelete()">
           <template #icon>
             <icon-park-outline-delete-themes />
           </template>
-          删除
+          {{ t("button.delete") }}
         </n-button>
         <n-button type="info" @click="handleExpandAll()">
           <template #icon>
             <Icones :icon="expandAll.isExpandAll ? up : down" />
           </template>
-          {{ expandAll.isExpandAll ? "收起" : "展开" }}
+          {{ expandAll.isExpandAll ? t("button.collapse") : t("button.expand") }}
         </n-button>
       </template>
     </TablePro>
@@ -60,6 +60,8 @@ import CommonStatus from "@/components/common/CommonStatus.vue";
 
 defineOptions({ name: "Dept" });
 
+const { t } = useI18n();
+
 const up = "ant-design:caret-up-filled";
 const down = "ant-design:caret-down-filled";
 
@@ -76,7 +78,7 @@ onMounted(async () => {
   // 加载部门下拉数据
   const data = await DeptAPI.getOptions();
 
-  deptOptions.value = [{ value: "0", label: "顶级部门", children: data }];
+  deptOptions.value = [{ value: "0", label: t("dept.top"), children: data }];
 });
 /** 查询方法 */
 const handleQuery = () => {
@@ -100,22 +102,24 @@ const handleExpandAll = async (bool?: boolean) => {
   expandAll.value.show = true;
 };
 
-const formConfig = ref<FormPro.FormItemConfig[]>([{ name: "keywords", label: "角色名称" }]);
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  { name: "keywords", label: t("tableHeader.deptName") },
+]);
 
 const columns = ref<DataTableColumns<Dept.VO>>([
   { type: "selection", options: ["all", "none"] },
-  { title: "部门名称", key: "name" },
-  { title: "部门编号", key: "code", align: "center" },
+  { title: t("tableHeader.deptName"), key: "name" },
+  { title: t("tableHeader.deptCode"), key: "code", align: "center" },
   {
-    title: "状态",
+    title: t("tableHeader.status"),
     key: "status",
     align: "center",
     render: ({ status }) => <CommonStatus value={status} />,
   },
-  { title: "排序", key: "sort", align: "center", sorter: "default" },
-  { title: "创建时间", key: "createTime", align: "center", width: 180 },
+  { title: t("tableHeader.sort"), key: "sort", align: "center", sorter: "default" },
+  { title: t("tableHeader.createTime"), key: "createTime", align: "center", width: 180 },
   {
-    title: "操作",
+    title: t("tableHeader.action"),
     key: "action",
     align: "center",
     width: 220,
@@ -127,7 +131,7 @@ const columns = ref<DataTableColumns<Dept.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:plus-outlined" /> }}
           onClick={() => openDrawer(row.id)}
         >
-          新增
+          {t("button.add")}
         </NButton>
         <NButton
           text
@@ -135,7 +139,7 @@ const columns = ref<DataTableColumns<Dept.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => handleEdit(row)}
         >
-          编辑
+          {t("button.edit")}
         </NButton>
         <NButton
           text
@@ -143,7 +147,7 @@ const columns = ref<DataTableColumns<Dept.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
           onClick={() => handleDelete(row.id)}
         >
-          删除
+          {t("button.delete")}
         </NButton>
       </NFlex>
     ),
@@ -155,28 +159,52 @@ const editFormConfig = computed(
     config: [
       {
         name: "parentId",
-        label: "上级部门",
+        label: t("dept.top"),
         component: "treeSelect",
         props: { keyField: "value", labelField: "label", options: deptOptions.value },
       },
-      { name: "name", label: "部门名称" },
-      { name: "code", label: "部门编号" },
+      { name: "name", label: t("tableHeader.deptName") },
+      { name: "code", label: t("tableHeader.deptCode") },
       {
         name: "status",
-        label: "状态",
+        label: t("tableHeader.status"),
         component: "radio",
         props: { options: statusOptions.value },
       },
-      { name: "sort", label: "排序", component: "number" },
+      { name: "sort", label: t("tableHeader.sort"), component: "number" },
     ],
     props: {
       rules: {
-        name: [{ required: true, message: "请输入角色名称", trigger: "blur" }],
-        code: [{ required: true, message: "请输入角色编码", trigger: "blur" }],
-        dataScope: [
-          { required: true, type: "number", message: "请选择数据权限", trigger: "change" },
+        name: [
+          {
+            required: true,
+            message: t("common.input.input") + t("tableHeader.deptName"),
+            trigger: "blur",
+          },
         ],
-        status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
+        code: [
+          {
+            required: true,
+            message: t("common.input.input") + t("tableHeader.deptCode"),
+            trigger: "blur",
+          },
+        ],
+        dataScope: [
+          {
+            required: true,
+            type: "number",
+            message: t("common.input.select") + t("role.dataPermission"),
+            trigger: "change",
+          },
+        ],
+        status: [
+          {
+            required: true,
+            type: "number",
+            message: t("common.input.select") + t("tableHeader.status"),
+            trigger: "change",
+          },
+        ],
       },
     },
   })
@@ -192,7 +220,7 @@ const modelValue = ref<Dept.Form>({
 const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (deptId?: string) => {
   modelValue.value.parentId = deptId ? deptId : "0";
-  drawerFormRef.value?.open("新增部门", modelValue.value);
+  drawerFormRef.value?.open(t("dept.add"), modelValue.value);
 };
 
 const handleEdit = ({ id }: Dept.VO) => {
@@ -201,7 +229,7 @@ const handleEdit = ({ id }: Dept.VO) => {
     Object.assign(modelValue.value, data);
     endSpin();
   });
-  drawerFormRef.value?.open("编辑部门", modelValue.value);
+  drawerFormRef.value?.open(t("dept.edit"), modelValue.value);
 };
 
 /** 表单提交 */
@@ -222,9 +250,9 @@ const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys a
 const handleDelete = (deptId?: string) => {
   const deptIds = [deptId || selectedRowKeys.value].join(",");
 
-  InquiryBox("确认删除已选中的数据项?").then(() => {
+  InquiryBox(t("confirm.deleteSelect")).then(() => {
     DeptAPI.deleteByIds(deptIds).then(() => {
-      window.$message.success("删除成功");
+      window.$message.success(t("message.deleteSuccess"));
       handleQuery();
     });
   });

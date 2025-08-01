@@ -522,7 +522,7 @@ const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys a
 const handleDelete = (id?: string) => {
   const userIds = [id || selectedRowKeys.value].join(",");
 
-  InquiryBox(t("confirm.delete", { name: t("user.selectedUser") })).then(() => {
+  InquiryBox(t("confirm.deleteSelect")).then(() => {
     UserAPI.deleteByIds(userIds).then(() => {
       window.$message.success(t("message.deleteSuccess"));
       handleQuery();

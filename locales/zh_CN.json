@@ -279,6 +279,7 @@
   },
   "confirm": {
     "delete": "确定要删除 {name} 吗？",
+    "deleteSelect": "确认删除已选中的数据项吗？",
     "logout": "确定要退出系统吗？"
   },
   "login": {
@@ -342,7 +343,10 @@
     "routeName": "路由名称",
     "routePath": "路由路径",
     "componentPath": "组件路径",
-    "permission": "权限标识"
+    "permission": "权限标识",
+
+    "deptName": "部门名称",
+    "deptCode": "部门编号"
   },
   "home": {
     "about": {
@@ -389,7 +393,6 @@
     }
   },
   "user": {
-    "selectedUser": "已选用户",
     "enterNewPassword": "请输入 {name} 的新密码",
     "rememberNewPassword": "密码重置成功，请牢记新密码：{value}",
     "add": "新增用户",
@@ -416,7 +419,6 @@
     "departmentData": "部门及子部门数据",
     "currentDepartmentData": "本部门数据",
     "selfData": "本人数据",
-    "selectedData": "已选中的数据项",
     "permission": "权限分配"
   },
   "menu": {
@@ -452,5 +454,10 @@
       "routeParam": "组件页面使用 `useRoute().query.参数名` 获取路由参数值",
       "alwaysShow": "选择“是”，即使目录或菜单下只有一个子节点，也会显示父节点<br/>选择“否”，如果目录或菜单下只有一个子节点，则只显示该子节点，隐藏父节点<br/>如果是叶子节点，请选择“否”"
     }
+  },
+  "dept": {
+    "top": "顶级部门",
+    "add": "新增部门",
+    "edit": "编辑部门"
   }
 }

@@ -279,6 +279,7 @@
   },
   "confirm": {
     "delete": "確定要刪除 {name} 嗎？",
+    "deleteSelect": "確定要刪除所選項目嗎？",
     "logout": "確定要退出系統嗎？"
   },
   "login": {
@@ -342,7 +343,10 @@
     "routeName": "路由名稱",
     "routePath": "路由路徑",
     "componentPath": "組件路徑",
-    "permission": "權限標識"
+    "permission": "權限標識",
+
+    "deptName": "部門名稱",
+    "deptCode": "部門編碼"
   },
   "home": {
     "about": {
@@ -389,7 +393,6 @@
     }
   },
   "user": {
-    "selectedUser": "已選用戶",
     "enterNewPassword": "請輸入 {name} 的新密碼",
     "rememberNewPassword": "密碼重設成功，請牢記新密碼：{value}",
     "add": "添加用戶",
@@ -416,7 +419,6 @@
     "departmentData": "部門及子部門數據",
     "currentDepartmentData": "本部門數據",
     "selfData": "本人數據",
-    "selectedData": "已選中的數據項",
     "permission": "權限分配"
   },
   "menu": {
@@ -452,5 +454,10 @@
       "routeParam": "組件頁面使用 `useRoute().query.參數名` 獲取路由參數值",
       "alwaysShow": "選擇「是」，即使目錄或菜單下只有一個子節點，也會顯示父節點<br/>選擇「否」，如果目錄或菜單下只有一個子節點，則只顯示該子節點，隱藏父節點<br/>如果是葉子節點，請選擇「否」"
     }
+  },
+  "dept": {
+    "top": "頂部部門",
+    "add": "新增部門",
+    "edit": "編輯部門"
   }
 }

@@ -232,7 +232,7 @@ const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys a
 const handleDelete = (roleId?: string) => {
   const roleIds = [roleId || selectedRowKeys.value].join(",");
 
-  InquiryBox(t("confirm.delete", { name: t("role.selectedData") })).then(() => {
+  InquiryBox(t("confirm.deleteSelect")).then(() => {
     RoleAPI.deleteByIds(roleIds).then(() => {
       window.$message.success(t("message.deleteSuccess"));
       handleQuery();

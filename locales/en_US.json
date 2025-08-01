@@ -279,6 +279,7 @@
   },
   "confirm": {
     "delete": "Are you sure to delete {name}?",
+    "deleteSelect": "Are you sure to delete the selected data items?",
     "logout": "Are you sure you want to exit the system?"
   },
   "login": {
@@ -342,7 +343,10 @@
     "routeName": "Route Name",
     "routePath": "Route Path",
     "componentPath": "Component Path",
-    "permission": "Permission"
+    "permission": "Permission",
+
+    "deptName": "Department Name",
+    "deptCode": "Department Code"
   },
   "home": {
     "about": {
@@ -389,7 +393,6 @@
     }
   },
   "user": {
-    "selectedUser": "Selected User",
     "enterNewPassword": "Please enter {name}'s new password",
     "rememberNewPassword": "Password reset successful. Please remember the new password: {value}",
     "add": "Add User",
@@ -416,7 +419,6 @@
     "departmentData": "Department and Sub-department Data",
     "currentDepartmentData": "Current Department Data",
     "selfData": "Self Data",
-    "selectedData": "Selected Data Items",
     "permission": "Permission Assignment"
   },
   "menu": {
@@ -452,5 +454,10 @@
       "routeParam": "Component page uses `useRoute().query.parameterName` to get route parameter values",
       "alwaysShow": "Select 'Yes', even if there is only one child node under the directory or menu, the parent node will be displayed.<br/>Select 'No', if there is only one child node under the directory or menu, only that child node will be displayed, and the parent node will be hidden.<br/>If it is a leaf node, please select 'No'"
     }
+  },
+  "dept": {
+    "top": "Top Department",
+    "add": "Add Department",
+    "edit": "Edit Department"
   }
 }
