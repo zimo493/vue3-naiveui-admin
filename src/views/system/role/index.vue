@@ -159,7 +159,6 @@ const editFormConfig: DialogForm.Form = {
     { name: "sort", label: t("tableHeader.sort"), component: "number" },
   ],
   props: {
-    labelWidth: "auto",
     rules: {
       name: [
         {

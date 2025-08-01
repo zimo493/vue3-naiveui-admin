@@ -23,7 +23,7 @@
         ref="formPro"
         v-model:model-value="modelValue"
         :form-config="showFormConfig"
-        :form-props="{ ...(form?.props || {}) }"
+        :form-props="{ labelWidth: 'auto', ...(form?.props || {}) }"
         :grid-props="{ ...(form?.gridProps || {}) }"
       >
         <!-- 转发所有具名插槽 -->

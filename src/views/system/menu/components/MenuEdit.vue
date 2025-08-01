@@ -2,14 +2,7 @@
   <n-drawer v-model:show="modal.visible" :width="502" :on-after-leave="cancel">
     <n-drawer-content :title="modal.title">
       <n-spin :show="loading">
-        <n-form
-          ref="ruleForm"
-          :rules="rules"
-          :model="modelValue"
-          label-align="right"
-          label-placement="left"
-          label-width="auto"
-        >
+        <n-form ref="ruleForm" :rules="rules" :model="modelValue" label-placement="top">
           <n-grid :x-gap="0" :y-gap="0">
             <n-form-item-grid-item :span="24" :label="t('menu.form.parentMenu')" path="parentId">
               <n-tree-select
