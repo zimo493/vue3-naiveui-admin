@@ -11,6 +11,7 @@
     "sessionTimeout": "您的会话已过期，请重新登录",
     "message": "毫无疑问，你就是办公室最亮的星！",
     "backToTop": "返回顶部",
+    "defaultExpandOne": "默认展开第一项",
     "input": {
       "input": "请输入",
       "select": "请选择",
@@ -332,7 +333,14 @@
 
     "roleName": "角色名称",
     "roleCode": "角色编码",
-    "sort": "排序"
+    "sort": "排序",
+
+    "menuName": "菜单名称",
+    "menuType": "菜单类型",
+    "routeName": "路由名称",
+    "routePath": "路由路径",
+    "componentPath": "组件路径",
+    "permission": "权限标识"
   },
   "home": {
     "about": {
@@ -408,5 +416,13 @@
     "selfData": "本人数据",
     "selectedData": "已选中的数据项",
     "permission": "权限分配"
+  },
+  "menu": {
+    "type": {
+      "catalog": "目录",
+      "menu": "菜单",
+      "button": "按钮",
+      "extlink": "外链"
+    }
   }
 }

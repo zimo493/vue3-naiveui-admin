@@ -11,6 +11,7 @@
     "sessionTimeout": "Your session has expired, please log in again",
     "message": "No doubt, you're the brightest star in the office!",
     "backToTop": "Back to Top",
+    "defaultExpandOne": "Default expand the first item",
     "input": {
       "input": "Please enter ",
       "select": "Please select ",
@@ -332,7 +333,14 @@
 
     "roleName": "Role Name",
     "roleCode": "Role Code",
-    "sort": "Sort"
+    "sort": "Sort",
+
+    "menuName": "Menu Name",
+    "menuType": "Menu Type",
+    "routeName": "Route Name",
+    "routePath": "Route Path",
+    "componentPath": "Component Path",
+    "permission": "Permission"
   },
   "home": {
     "about": {
@@ -408,5 +416,13 @@
     "selfData": "Self Data",
     "selectedData": "Selected Data Items",
     "permission": "Permission Assignment"
+  },
+  "menu": {
+    "type": {
+      "catalog": "Catalog",
+      "menu": "Menu",
+      "button": "Button",
+      "extlink": "External Link"
+    }
   }
 }

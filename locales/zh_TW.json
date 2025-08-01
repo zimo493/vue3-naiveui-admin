@@ -11,6 +11,7 @@
     "sessionTimeout": "您的會話已過期，請重新登入",
     "message": "毫無疑問，你就是辦公室最亮的星！",
     "backToTop": "返回頂部",
+    "defaultExpandOne": "默認展開第一項",
     "input": {
       "input": "請輸入",
       "select": "請選擇",
@@ -332,7 +333,14 @@
 
     "roleName": "角色名稱",
     "roleCode": "角色編碼",
-    "sort": "排序"
+    "sort": "排序",
+
+    "menuName": "菜單名稱",
+    "menuType": "菜單類型",
+    "routeName": "路由名稱",
+    "routePath": "路由路徑",
+    "componentPath": "組件路徑",
+    "permission": "權限標識"
   },
   "home": {
     "about": {
@@ -408,5 +416,13 @@
     "selfData": "本人數據",
     "selectedData": "已選中的數據項",
     "permission": "權限分配"
+  },
+  "menu": {
+    "type": {
+      "catalog": "目錄",
+      "menu": "菜單",
+      "button": "按鈕",
+      "extlink": "外鏈"
+    }
   }
 }

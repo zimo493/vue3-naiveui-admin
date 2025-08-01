@@ -20,17 +20,17 @@
           <template #icon>
             <icon-park-outline-plus />
           </template>
-          新增
+          {{ t("button.add") }}
         </n-button>
         <n-button type="info" @click="handleExpandAll()">
           <template #icon>
             <Icones :icon="expandAll.isExpandAll ? up : down" />
           </template>
-          {{ expandAll.isExpandAll ? "收起" : "展开" }}
+          {{ expandAll.isExpandAll ? t("button.collapse") : t("button.expand") }}
         </n-button>
         <div class="h-full flex items-center">
           <n-checkbox v-model:checked="isExpandFirstMenu" @update:checked="handleCheckedChange">
-            默认展开第一项
+            {{ t("common.defaultExpandOne") }}
           </n-checkbox>
         </div>
       </template>
@@ -55,6 +55,8 @@ import { defaultIcon } from "@/modules/assets";
 
 defineOptions({ name: "SysMenu" });
 
+const { t } = useI18n();
+
 const { loading, startLoading, endLoading } = useLoading();
 
 const up = "ant-design:caret-up-filled";
@@ -69,7 +71,9 @@ const handleCheckedChange = async (checked: boolean) => {
   handleQuery();
 };
 
-const formConfig = ref<FormPro.FormItemConfig[]>([{ name: "keywords", label: "菜单名称" }]);
+const formConfig = ref<FormPro.FormItemConfig[]>([
+  { name: "keywords", label: t("tableHeader.menuName") },
+]);
 
 // 展开\收起
 const expandAll = ref<TableExpand>({
@@ -110,7 +114,7 @@ const handleQuery = () => {
 
 const columns: DataTableColumns<Menu.VO> = [
   {
-    title: "菜单名称",
+    title: t("tableHeader.menuName"),
     key: "name",
     width: 240,
     render: ({ icon, name }) => (
@@ -121,31 +125,37 @@ const columns: DataTableColumns<Menu.VO> = [
     ),
   },
   {
-    title: "菜单类型",
+    title: t("tableHeader.menuType"),
     key: "type",
     align: "center",
     render: ({ type }) => createMenuTypeTag(type),
   },
-  { title: "路由名称", align: "center", key: "routeName" },
+  { title: t("tableHeader.routeName"), align: "center", key: "routeName" },
   {
-    title: "路由路径",
+    title: t("tableHeader.routePath"),
     align: "center",
     key: "routePath",
     width: 200,
     ellipsis: { tooltip: true },
   },
-  { title: "组件路径", align: "center", key: "component", width: 200, ellipsis: { tooltip: true } },
-  { title: "权限标识", align: "center", key: "perm" },
   {
-    title: "状态",
+    title: t("tableHeader.componentPath"),
+    align: "center",
+    key: "component",
+    width: 200,
+    ellipsis: { tooltip: true },
+  },
+  { title: t("tableHeader.permission"), align: "center", key: "perm" },
+  {
+    title: t("tableHeader.status"),
     key: "status",
     align: "center",
     render: ({ visible }) => <CommonStatus value={visible} />,
   },
-  { title: "排序", key: "sort", align: "center", sorter: "default" },
+  { title: t("tableHeader.sort"), key: "sort", align: "center", sorter: "default" },
   // { title: "创建时间", key: "createTime", align: "center", sorter: "default" },
   {
-    title: "操作",
+    title: t("tableHeader.action"),
     key: "action",
     width: 220,
     align: "center",
@@ -158,7 +168,7 @@ const columns: DataTableColumns<Menu.VO> = [
             v-slots={{ icon: () => <Icones icon="ant-design:plus-outlined" /> }}
             onClick={() => openDialog(row.id)}
           >
-            新增
+            {t("button.add")}
           </NButton>
         )}
         <NButton
@@ -167,7 +177,7 @@ const columns: DataTableColumns<Menu.VO> = [
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDialog(row)}
         >
-          编辑
+          {t("button.edit")}
         </NButton>
         <NButton
           text
@@ -175,7 +185,7 @@ const columns: DataTableColumns<Menu.VO> = [
           v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
           onClick={() => handleDelete(row)}
         >
-          删除
+          {t("button.delete")}
         </NButton>
       </NFlex>
     ),
@@ -192,33 +202,40 @@ const openDialog = (row?: Menu.VO | string) => editRef.value?.open(row);
 
 // 删除
 const handleDelete = (row: Menu.VO) => {
-  InquiryBox(`是否确认删除名称为 "${row.name}" 的数据项？`)
+  InquiryBox(t("confirm.delete", { name: row.name }))
     .then(async () => {
       await MenuAPI.deleteById(row.id);
 
-      window.$message.success("删除成功");
+      window.$message.success(t("message.deleteSuccess"));
     })
     .then(() => handleQuery())
     .catch(() => {});
 };
 
+// 定义类型与标签的映射关系
+// const typeMap: Record<MenuTypeEnum, { type: string; label: string }> = {
+//   [MenuTypeEnum.CATALOG]: { type: "warning", label: "目录" },
+//   [MenuTypeEnum.MENU]: { type: "success", label: "菜单" },
+//   [MenuTypeEnum.BUTTON]: { type: "info", label: "按钮" },
+//   [MenuTypeEnum.EXTLINK]: { type: "error", label: "外链" },
+// };
+
+const typeMap = computed(() => ({
+  [MenuTypeEnum.CATALOG]: { type: "warning", label: t("menu.type.catalog") },
+  [MenuTypeEnum.MENU]: { type: "success", label: t("menu.type.menu") },
+  [MenuTypeEnum.BUTTON]: { type: "info", label: t("menu.type.button") },
+  [MenuTypeEnum.EXTLINK]: { type: "error", label: t("menu.type.extlink") },
+}));
+
 // 创建菜单类型tag
 const createMenuTypeTag = (type?: MenuTypeEnum): VNode => {
-  // 定义类型与标签的映射关系
-  const typeMap: Record<MenuTypeEnum, { type: string; label: string }> = {
-    [MenuTypeEnum.CATALOG]: { type: "warning", label: "目录" },
-    [MenuTypeEnum.MENU]: { type: "success", label: "菜单" },
-    [MenuTypeEnum.BUTTON]: { type: "info", label: "按钮" },
-    [MenuTypeEnum.EXTLINK]: { type: "error", label: "外链" },
-  };
-
   // 如果类型不存在或未匹配到，返回默认值
-  if (!type || !(type in typeMap)) {
-    return h("div", null, "未知"); // 默认值处理
+  if (!type || !(type in typeMap.value)) {
+    return h("div", null, "--"); // 默认值处理
   }
 
   // 根据映射关系生成标签
-  const { type: tagType, label } = typeMap[type];
+  const { type: tagType, label } = typeMap.value[type];
 
   return <NTag type={tagType}>{label}</NTag>;
 };
