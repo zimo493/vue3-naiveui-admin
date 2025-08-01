@@ -471,7 +471,7 @@
   "dict": {
     "add": "Add Dictionary",
     "edit": "Edit Dictionary",
-    "clear": "Clear Dictionary Item {dict} Successfully",
+    "clear": "Clear Dictionary Item '{dict}' Successfully",
     "tag": {
       "type": "Tag Type",
       "default": "Default",

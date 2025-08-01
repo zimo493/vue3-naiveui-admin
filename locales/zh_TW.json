@@ -471,7 +471,7 @@
   "dict": {
     "add": "新增字典",
     "edit": "編輯字典",
-    "clear": "清除字典項 {dict} 成功",
+    "clear": "清除字典項 '{dict}' 成功",
     "tag": {
       "type": "字典類型",
       "default": "默認",
