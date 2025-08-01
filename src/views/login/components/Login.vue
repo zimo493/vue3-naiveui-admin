@@ -6,7 +6,7 @@
         <n-input
           v-model:value="model.username"
           clearable
-          :placeholder="t('common.input.input') + t('login.username')"
+          :placeholder="t('input') + t('login.username')"
           @keyup.enter="handleLoginSubmit"
         >
           <template #prefix>
@@ -17,7 +17,7 @@
       <n-form-item path="password">
         <n-input
           v-model:value="model.password"
-          :placeholder="t('common.input.input') + t('login.password')"
+          :placeholder="t('input') + t('login.password')"
           type="password"
           clearable
           show-password-on="mousedown"
@@ -38,7 +38,7 @@
         <n-input
           ref="captcha"
           v-model:value="model.captchaCode"
-          :placeholder="t('common.input.input') + t('login.captcha')"
+          :placeholder="t('input') + t('login.captcha')"
           clearable
           @keyup.enter="handleLoginSubmit"
         >
@@ -140,16 +140,12 @@ const model = ref<Auth.LoginFormData>({
 });
 
 const rules = ref<FormRules>({
-  username: [
-    { required: true, trigger: "blur", message: t("common.input.input") + t("login.username") },
-  ],
+  username: [{ required: true, trigger: "blur", message: t("input") + t("login.username") }],
   password: [
-    { required: true, trigger: "blur", message: t("common.input.input") + t("login.password") },
+    { required: true, trigger: "blur", message: t("input") + t("login.password") },
     { min: 6, message: t("rules.passwordLength"), trigger: "blur" },
   ],
-  captchaCode: [
-    { required: true, trigger: "blur", message: t("common.input.input") + t("login.captcha") },
-  ],
+  captchaCode: [{ required: true, trigger: "blur", message: t("input") + t("login.captcha") }],
 });
 
 // 获取验证码

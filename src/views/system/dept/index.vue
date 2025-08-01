@@ -178,14 +178,14 @@ const editFormConfig = computed(
         name: [
           {
             required: true,
-            message: t("common.input.input") + t("tableHeader.deptName"),
+            message: t("input") + t("tableHeader.deptName"),
             trigger: "blur",
           },
         ],
         code: [
           {
             required: true,
-            message: t("common.input.input") + t("tableHeader.deptCode"),
+            message: t("input") + t("tableHeader.deptCode"),
             trigger: "blur",
           },
         ],
@@ -193,7 +193,7 @@ const editFormConfig = computed(
           {
             required: true,
             type: "number",
-            message: t("common.input.select") + t("role.dataPermission"),
+            message: t("select") + t("role.dataPermission"),
             trigger: "change",
           },
         ],
@@ -201,7 +201,7 @@ const editFormConfig = computed(
           {
             required: true,
             type: "number",
-            message: t("common.input.select") + t("tableHeader.status"),
+            message: t("select") + t("tableHeader.status"),
             trigger: "change",
           },
         ],

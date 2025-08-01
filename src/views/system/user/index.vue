@@ -6,7 +6,7 @@
           <n-flex vertical>
             <n-input
               v-model:value="pattern"
-              :placeholder="t('common.input.select') + t('tableHeader.dept')"
+              :placeholder="t('select') + t('tableHeader.dept')"
               clearable
             >
               <template #prefix>
@@ -192,7 +192,7 @@ const formConfig = ref<FormPro.FormItemConfig[]>([
     label: t("tableHeader.keywords"),
     // "请输入用户名/昵称/手机号"
     props: {
-      placeholder: `${t("common.input.input")}${t("tableHeader.username")}/${t("tableHeader.nickname")}/${t("tableHeader.phone")}`,
+      placeholder: `${t("input")}${t("tableHeader.username")}/${t("tableHeader.nickname")}/${t("tableHeader.phone")}`,
     },
     span: 5,
   },
@@ -370,21 +370,21 @@ const editFormConfig = computed(
         username: [
           {
             required: true,
-            message: t("common.input.input") + t("tableHeader.username"),
+            message: t("input") + t("tableHeader.username"),
             trigger: "blur",
           },
         ],
         nickname: [
           {
             required: true,
-            message: t("common.input.input") + t("tableHeader.nickname"),
+            message: t("input") + t("tableHeader.nickname"),
             trigger: "blur",
           },
         ],
         deptId: [
           {
             required: true,
-            message: t("common.input.select") + t("tableHeader.dept"),
+            message: t("select") + t("tableHeader.dept"),
             trigger: "change",
           },
         ],
@@ -392,7 +392,7 @@ const editFormConfig = computed(
           {
             required: true,
             type: "array",
-            message: t("common.input.select") + t("tableHeader.role"),
+            message: t("select") + t("tableHeader.role"),
             trigger: "change",
           },
         ],
@@ -471,7 +471,7 @@ const handleResetPassword = (row: User.VO) => {
           v-model:value={newPassword.value.pwd}
           type={"password"}
           show-password-on={"mousedown"}
-          placeholder={t("common.input.input")}
+          placeholder={t("input")}
           status={newPassword.value.status}
         />
         {newPassword.value.status !== "success" && (

@@ -9,7 +9,7 @@ const rules = {
   account: {
     required: true,
     trigger: "blur",
-    message: t("common.input.input") + t("login.username"),
+    message: t("input") + t("login.username"),
   },
 };
 const model = ref({

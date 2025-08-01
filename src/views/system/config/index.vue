@@ -132,21 +132,21 @@ const editFormConfig: DialogForm.Form = {
       configName: [
         {
           required: true,
-          message: t("common.input.input") + t("tableHeader.configName"),
+          message: t("input") + t("tableHeader.configName"),
           trigger: "blur",
         },
       ],
       configKey: [
         {
           required: true,
-          message: t("common.input.input") + t("tableHeader.configKey"),
+          message: t("input") + t("tableHeader.configKey"),
           trigger: "blur",
         },
       ],
       configValue: [
         {
           required: true,
-          message: t("common.input.input") + t("tableHeader.configValue"),
+          message: t("input") + t("tableHeader.configValue"),
           trigger: "blur",
         },
       ],

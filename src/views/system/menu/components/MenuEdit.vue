@@ -8,7 +8,7 @@
               <n-tree-select
                 v-model:value="modelValue.parentId"
                 filterable
-                :placeholder="t('common.input.select') + t('menu.form.parentMenu')"
+                :placeholder="t('select') + t('menu.form.parentMenu')"
                 :options="menuOptions"
                 key-field="value"
                 label-field="label"
@@ -20,7 +20,7 @@
                 v-model:value="modelValue.name"
                 type="text"
                 clearable
-                :placeholder="`${t('common.input.input')}${type}${t('menu.form.name')}`"
+                :placeholder="`${t('input')}${type}${t('menu.form.name')}`"
               />
             </n-form-item-grid-item>
 
@@ -45,7 +45,7 @@
                 v-model:value="modelValue.routePath"
                 type="text"
                 clearable
-                :placeholder="t('common.input.input') + t('menu.form.externalLink')"
+                :placeholder="t('input') + t('menu.form.externalLink')"
               />
             </n-form-item-grid-item>
 
@@ -61,7 +61,7 @@
                 v-model:value="modelValue.routeName"
                 type="text"
                 clearable
-                :placeholder="t('common.input.input') + t('tableHeader.routeName')"
+                :placeholder="t('input') + t('tableHeader.routeName')"
               />
             </n-form-item-grid-item>
 
@@ -161,7 +161,7 @@
             >
               <n-input
                 v-model:value="modelValue.redirect"
-                :placeholder="t('common.input.input') + t('menu.form.route')"
+                :placeholder="t('input') + t('menu.form.route')"
               />
             </n-form-item-grid-item>
 
@@ -323,14 +323,14 @@ const rules = ref<FormRules>({
   parentId: [
     {
       required: true,
-      message: t("common.input.select") + t("menu.form.parentMenu"),
+      message: t("select") + t("menu.form.parentMenu"),
       trigger: "blur",
     },
   ],
   name: [
     {
       required: true,
-      message: t("common.input.input") + t("tableHeader.menuName"),
+      message: t("input") + t("tableHeader.menuName"),
       trigger: "blur",
     },
   ],
@@ -338,35 +338,35 @@ const rules = ref<FormRules>({
     {
       required: true,
       type: "number",
-      message: t("common.input.select") + t("tableHeader.menuType"),
+      message: t("select") + t("tableHeader.menuType"),
       trigger: "blur",
     },
   ],
   routeName: [
     {
       required: true,
-      message: t("common.input.input") + t("tableHeader.routeName"),
+      message: t("input") + t("tableHeader.routeName"),
       trigger: "blur",
     },
   ],
   routePath: [
     {
       required: true,
-      message: t("common.input.input") + t("tableHeader.routePath"),
+      message: t("input") + t("tableHeader.routePath"),
       trigger: "blur",
     },
   ],
   component: [
     {
       required: true,
-      message: t("common.input.input") + t("tableHeader.componentPath"),
+      message: t("input") + t("tableHeader.componentPath"),
       trigger: "blur",
     },
   ],
   visible: [
     {
       required: true,
-      message: t("common.input.select") + t("tableHeader.status"),
+      message: t("select") + t("tableHeader.status"),
       trigger: "change",
     },
   ],

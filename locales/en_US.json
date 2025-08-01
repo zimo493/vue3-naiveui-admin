@@ -1,4 +1,6 @@
 {
+  "input": "Please enter ",
+  "select": "Please select ",
   "common": {
     "sysTip": "System Tip",
     "downloading": "Downloading data, please wait...",
@@ -15,10 +17,6 @@
     "yes": "Yes",
     "no": "No",
     "others": "Others",
-    "input": {
-      "input": "Please enter ",
-      "select": "Please select "
-    },
     "messageType": {
       "info": "Info",
       "notice": "Notice",

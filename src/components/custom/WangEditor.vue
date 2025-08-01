@@ -86,7 +86,7 @@ const fileType = ref<string[]>([".jpg", ".jpeg", ".png", ".gif", ".bpm", ".webp"
 const fileSize = ref<number>(5);
 // 编辑器配置
 const editorConfig = ref<Partial<IEditorConfig>>({
-  placeholder: t("common.input.input"),
+  placeholder: t("input"),
   MENU_CONF: {
     uploadImage: {
       base64LimitSize: 5 * 1024, // 5kb

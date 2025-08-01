@@ -163,14 +163,14 @@ const editFormConfig: DialogForm.Form = {
       name: [
         {
           required: true,
-          message: t("common.input.input") + t("tableHeader.roleName"),
+          message: t("input") + t("tableHeader.roleName"),
           trigger: "blur",
         },
       ],
       code: [
         {
           required: true,
-          message: t("common.input.input") + t("tableHeader.roleCode"),
+          message: t("input") + t("tableHeader.roleCode"),
           trigger: "blur",
         },
       ],
@@ -178,7 +178,7 @@ const editFormConfig: DialogForm.Form = {
         {
           required: true,
           type: "number",
-          message: t("common.input.select") + t("role.dataPermission"),
+          message: t("select") + t("role.dataPermission"),
           trigger: "change",
         },
       ],
@@ -186,7 +186,7 @@ const editFormConfig: DialogForm.Form = {
         {
           required: true,
           type: "number",
-          message: t("common.input.select") + t("tableHeader.status"),
+          message: t("select") + t("tableHeader.status"),
           trigger: "change",
         },
       ],

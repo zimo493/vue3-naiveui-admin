@@ -132,7 +132,7 @@ const formConfig = computed<FormPro.FormItemConfig[]>(() => [
   {
     name: "keywords",
     label: t("tableHeader.keywords"),
-    props: { placeholder: t("common.input.input") + t("tableHeader.dictLabel") },
+    props: { placeholder: t("input") + t("tableHeader.dictLabel") },
   },
 ]);
 
@@ -218,14 +218,14 @@ const editFormConfig = computed(
         label: [
           {
             required: true,
-            message: t("common.input.input") + t("tableHeader.dictLabel"),
+            message: t("input") + t("tableHeader.dictLabel"),
             trigger: "blur",
           },
         ],
         value: [
           {
             required: true,
-            message: t("common.input.input") + t("tableHeader.dictValue"),
+            message: t("input") + t("tableHeader.dictValue"),
             trigger: "blur",
           },
         ],
@@ -233,7 +233,7 @@ const editFormConfig = computed(
           {
             required: true,
             type: "number",
-            message: t("common.input.select") + t("tableHeader.status"),
+            message: t("select") + t("tableHeader.status"),
             trigger: "change",
           },
         ],

@@ -1,4 +1,6 @@
 {
+  "input": "请输入",
+  "select": "请选择",
   "common": {
     "sysTip": "系统提示",
     "downloading": "正在下载数据，请稍候...",
@@ -15,10 +17,6 @@
     "yes": "是",
     "no": "否",
     "others": "其他",
-    "input": {
-      "input": "请输入",
-      "select": "请选择"
-    },
     "messageType": {
       "info": "信息",
       "notice": "通知",

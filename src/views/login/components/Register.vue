@@ -6,7 +6,7 @@
         <n-input
           v-model:value="model.username"
           clearable
-          :placeholder="t('common.input.input') + t('login.username')"
+          :placeholder="t('input') + t('login.username')"
         >
           <template #prefix>
             <Icones icon="ant-design:user-outlined" />
@@ -17,7 +17,7 @@
         <n-input
           v-model:value="model.password"
           type="password"
-          :placeholder="t('common.input.input') + t('login.password')"
+          :placeholder="t('input') + t('login.password')"
           clearable
           show-password-on="click"
         >
@@ -36,7 +36,7 @@
         <n-input
           v-model:value="model.confirmPassword"
           type="password"
-          :placeholder="t('common.input.input') + t('login.password')"
+          :placeholder="t('input') + t('login.password')"
           clearable
           show-password-on="click"
         >
@@ -56,7 +56,7 @@
           ref="captcha"
           v-model:value="model.captchaCode"
           clearable
-          :placeholder="t('common.input.input') + t('login.captcha')"
+          :placeholder="t('input') + t('login.captcha')"
           @keyup.enter="handleRegister"
         >
           <template #prefix>
@@ -123,11 +123,9 @@ const validatePassword = (_rule: FormItemRule, value: string): boolean =>
   value === model.value.password;
 
 const rules: FormRules = {
-  username: [
-    { required: true, trigger: "blur", message: t("common.input.input") + t("login.username") },
-  ],
+  username: [{ required: true, trigger: "blur", message: t("input") + t("login.username") }],
   password: [
-    { required: true, trigger: "blur", message: t("common.input.input") + t("login.password") },
+    { required: true, trigger: "blur", message: t("input") + t("login.password") },
     {
       min: 5,
       max: 20,
@@ -148,9 +146,7 @@ const rules: FormRules = {
       trigger: ["blur", "password-input"],
     },
   ],
-  captchaCode: [
-    { required: true, trigger: "blur", message: t("common.input.input") + t("login.captcha") },
-  ],
+  captchaCode: [{ required: true, trigger: "blur", message: t("input") + t("login.captcha") }],
 };
 
 interface Model extends Auth.LoginFormData {
