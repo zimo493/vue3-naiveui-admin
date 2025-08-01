@@ -14,10 +14,10 @@
     "defaultExpandOne": "Default expand the first item",
     "yes": "Yes",
     "no": "No",
+    "others": "Others",
     "input": {
       "input": "Please enter ",
-      "select": "Please select ",
-      "others": "Others"
+      "select": "Please select "
     },
     "messageType": {
       "info": "Info",

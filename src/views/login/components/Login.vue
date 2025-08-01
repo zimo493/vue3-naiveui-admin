@@ -86,7 +86,7 @@
     </n-form>
 
     <n-divider>
-      <span op-80>{{ t("common.input.others") }}</span>
+      <span op-80>{{ t("common.others") }}</span>
     </n-divider>
     <n-flex justify="center">
       <CommonWrapper>

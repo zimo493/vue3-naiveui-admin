@@ -14,10 +14,10 @@
     "defaultExpandOne": "默认展开第一项",
     "yes": "是",
     "no": "否",
+    "others": "其他",
     "input": {
       "input": "请输入",
-      "select": "请选择",
-      "others": "其他"
+      "select": "请选择"
     },
     "messageType": {
       "info": "信息",
