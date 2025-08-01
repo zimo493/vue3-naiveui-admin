@@ -460,12 +460,9 @@ const handleResetPassword = (row: User.VO) => {
     positiveText: t("button.ok"),
     negativeText: t("button.cancel"),
     positiveButtonProps: {
-      secondary: true,
-      strong: true,
       renderIcon: () => h(Icones, { icon: "ant-design:check-outlined", size: 16 }),
     },
     negativeButtonProps: {
-      text: true,
       renderIcon: () => h(Icones, { icon: "ant-design:close-outlined", size: 16 }),
     },
     content: () => (
