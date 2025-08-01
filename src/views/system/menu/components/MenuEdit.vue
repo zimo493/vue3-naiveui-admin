@@ -8,36 +8,36 @@
           :model="modelValue"
           label-align="right"
           label-placement="left"
-          :label-width="100"
+          label-width="auto"
         >
           <n-grid :x-gap="0" :y-gap="0">
-            <n-form-item-grid-item :span="24" label="上级菜单" path="parentId">
+            <n-form-item-grid-item :span="24" :label="t('menu.form.parentMenu')" path="parentId">
               <n-tree-select
                 v-model:value="modelValue.parentId"
                 filterable
-                placeholder="选择上级菜单"
+                :placeholder="t('common.input.select') + t('menu.form.parentMenu')"
                 :options="menuOptions"
                 key-field="value"
                 label-field="label"
               />
             </n-form-item-grid-item>
 
-            <n-form-item-grid-item :span="24" :label="`${type}名称`" path="name">
+            <n-form-item-grid-item :span="24" :label="`${type}${t('menu.form.name')}`" path="name">
               <n-input
                 v-model:value="modelValue.name"
                 type="text"
                 clearable
-                :placeholder="`请输入${type}名称`"
+                :placeholder="`${t('common.input.input')}${type}${t('menu.form.name')}`"
               />
             </n-form-item-grid-item>
 
-            <n-form-item-grid-item :span="24" label="菜单类型" path="type">
+            <n-form-item-grid-item :span="24" :label="t('tableHeader.menuType')" path="type">
               <n-radio-group v-model:value="modelValue.type" @change="handleMenuTypeChange">
                 <n-flex>
-                  <n-radio :value="MenuTypeEnum.CATALOG" label="目录" />
-                  <n-radio :value="MenuTypeEnum.MENU" label="菜单" />
-                  <n-radio :value="MenuTypeEnum.BUTTON" label="按钮" />
-                  <n-radio :value="MenuTypeEnum.EXTLINK" label="外链" />
+                  <n-radio :value="MenuTypeEnum.CATALOG" :label="t('menu.type.catalog')" />
+                  <n-radio :value="MenuTypeEnum.MENU" :label="t('menu.type.menu')" />
+                  <n-radio :value="MenuTypeEnum.BUTTON" :label="t('menu.type.button')" />
+                  <n-radio :value="MenuTypeEnum.EXTLINK" :label="t('menu.type.extlink')" />
                 </n-flex>
               </n-radio-group>
             </n-form-item-grid-item>
@@ -45,14 +45,14 @@
             <n-form-item-grid-item
               v-if="modelValue.type === MenuTypeEnum.EXTLINK"
               :span="24"
-              label="外链地址"
+              :label="t('menu.form.externalLink')"
               path="path"
             >
               <n-input
                 v-model:value="modelValue.routePath"
                 type="text"
                 clearable
-                placeholder="请输入外链完整路径"
+                :placeholder="t('common.input.input') + t('menu.form.externalLink')"
               />
             </n-form-item-grid-item>
 
@@ -62,16 +62,13 @@
               path="routeName"
             >
               <template #label>
-                <FormTipLabel
-                  label="路由名称"
-                  msg="如果需要开启缓存，需保证页面 defineOptions 中的 name 与此处一致，建议使用驼峰<br/>例如: User"
-                />
+                <FormTipLabel :label="t('tableHeader.routeName')" :msg="t('menu.tip.routeName')" />
               </template>
               <n-input
                 v-model:value="modelValue.routeName"
                 type="text"
                 clearable
-                placeholder="请输入路由名称"
+                :placeholder="t('common.input.input') + t('tableHeader.routeName')"
               />
             </n-form-item-grid-item>
 
@@ -83,10 +80,7 @@
               path="routePath"
             >
               <template #label>
-                <FormTipLabel
-                  label="路由路径"
-                  msg="定义应用中不同页面对应的 URL 路径，目录需以 / 开头，菜单项不用<br/>例如：系统管理目录/system, 系统管理下的用户管理菜单 user"
-                />
+                <FormTipLabel :label="t('tableHeader.routePath')" :msg="t('menu.tip.routePath')" />
               </template>
               <n-input
                 v-if="modelValue.type === MenuTypeEnum.CATALOG"
@@ -103,8 +97,8 @@
             >
               <template #label>
                 <FormTipLabel
-                  label="组件路径"
-                  msg="组件页面完整路径，相对于 src/views/<br/>如 system/user/index, 缺省后缀 .vue"
+                  :label="t('tableHeader.componentPath')"
+                  :msg="t('menu.tip.componentPath')"
                 />
               </template>
               <n-input
@@ -120,16 +114,13 @@
 
             <n-form-item-grid-item v-if="modelValue.type === MenuTypeEnum.MENU" :span="24">
               <template #label>
-                <FormTipLabel
-                  label="路由参数"
-                  msg="组件页面使用 `useRoute().query.参数名` 获取路由参数值"
-                />
+                <FormTipLabel :label="t('menu.form.routeParam')" :msg="t('menu.tip.routeParam')" />
               </template>
               <n-dynamic-input
                 v-model:value="modelValue.params"
                 preset="pair"
-                key-placeholder="参数名"
-                value-placeholder="参数值"
+                :key-placeholder="t('menu.form.params.key')"
+                :value-placeholder="t('menu.form.params.value')"
               >
                 <template #action="{ index, create, remove }">
                   <n-flex style="margin-left: 20px">
@@ -150,20 +141,20 @@
 
             <n-form-item-grid-item
               v-if="modelValue.type !== MenuTypeEnum.BUTTON"
-              label="图标"
+              :label="t('menu.form.icon')"
               prop="icon"
               :span="24"
             >
               <IconSelect v-model="modelValue.icon" />
             </n-form-item-grid-item>
 
-            <n-form-item-grid-item label="排序" prop="sort" :span="24">
+            <n-form-item-grid-item :label="t('tableHeader.sort')" prop="sort" :span="24">
               <n-input-number v-model:value="modelValue.sort" w-full :min="0" />
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
               v-if="modelValue.type === MenuTypeEnum.BUTTON"
-              label="权限标识"
+              :label="t('tableHeader.permission')"
               prop="perm"
               :span="24"
             >
@@ -172,16 +163,19 @@
 
             <n-form-item-grid-item
               v-if="modelValue.type === MenuTypeEnum.CATALOG"
-              label="跳转路由"
+              :label="t('menu.form.route')"
               :span="24"
             >
-              <n-input v-model:value="modelValue.redirect" placeholder="跳转路由" />
+              <n-input
+                v-model:value="modelValue.redirect"
+                :placeholder="t('common.input.input') + t('menu.form.route')"
+              />
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
               v-if="modelValue.type !== MenuTypeEnum.BUTTON"
               prop="visible"
-              label="禁用状态"
+              :label="t('tableHeader.status')"
               :span="24"
             >
               <n-radio-group v-model:value="modelValue.visible">
@@ -197,25 +191,22 @@
               :span="24"
             >
               <template #label>
-                <FormTipLabel
-                  label="始终显示"
-                  msg="选择“是”，即使目录或菜单下只有一个子节点，也会显示父节点<br/>选择“否”，如果目录或菜单下只有一个子节点，则只显示该子节点，隐藏父节点<br/>如果是叶子节点，请选择“否”"
-                />
+                <FormTipLabel :label="t('menu.form.alwaysShow')" :msg="t('menu.tip.alwaysShow')" />
               </template>
               <n-radio-group v-model:value="modelValue.alwaysShow">
-                <n-radio :value="1" label="是" />
-                <n-radio :value="0" label="否" />
+                <n-radio :value="1" :label="t('common.yes')" />
+                <n-radio :value="0" :label="t('common.no')" />
               </n-radio-group>
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
               v-if="modelValue.type === MenuTypeEnum.MENU"
-              label="页面缓存"
+              :label="t('menu.form.cache')"
               :span="24"
             >
               <n-radio-group v-model:value="modelValue.keepAlive">
-                <n-radio :value="1" label="开启" />
-                <n-radio :value="0" label="关闭" />
+                <n-radio :value="1" :label="t('common.yes')" />
+                <n-radio :value="0" :label="t('common.no')" />
               </n-radio-group>
             </n-form-item-grid-item>
           </n-grid>
@@ -227,13 +218,13 @@
             <template #icon>
               <Icones icon="ant-design:check-outlined" />
             </template>
-            提交
+            {{ t("button.submit") }}
           </n-button>
           <n-button strong secondary @click="cancel">
             <template #icon>
               <Icones icon="ant-design:close-outlined" />
             </template>
-            取消
+            {{ t("button.cancel") }}
           </n-button>
         </n-flex>
       </template>
@@ -249,6 +240,7 @@ import { spin, executeAsync, statusOptions } from "@/utils";
 
 import MenuAPI from "@/api/system/menu";
 
+const { t } = useI18n();
 const { loading, startLoading, endLoading } = useLoading();
 
 // const props = defineProps({
@@ -281,7 +273,11 @@ defineExpose({
     }
     modal.value = {
       visible: true,
-      title: value ? (typeof value === "string" ? "新增下级" : "编辑菜单") : "新增菜单",
+      title: value
+        ? typeof value === "string"
+          ? t("menu.form.addSub")
+          : t("menu.form.edit")
+        : t("menu.form.add"),
     };
     getMenuOptions();
   },
@@ -331,13 +327,56 @@ const initialMenuFormData = ref<Menu.Form>({
 const modelValue = ref<Menu.Form>({ ...initialMenuFormData.value });
 // 表单验证规则
 const rules = ref<FormRules>({
-  parentId: [{ required: true, message: "请选择父级菜单", trigger: "blur" }],
-  name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }],
-  type: [{ required: true, type: "number", message: "请选择菜单类型", trigger: "blur" }],
-  routeName: [{ required: true, message: "请输入路由名称", trigger: "blur" }],
-  routePath: [{ required: true, message: "请输入路由路径", trigger: "blur" }],
-  component: [{ required: true, message: "请输入组件路径", trigger: "blur" }],
-  visible: [{ required: true, message: "请选择显示状态", trigger: "change" }],
+  parentId: [
+    {
+      required: true,
+      message: t("common.input.select") + t("menu.form.parentMenu"),
+      trigger: "blur",
+    },
+  ],
+  name: [
+    {
+      required: true,
+      message: t("common.input.input") + t("tableHeader.menuName"),
+      trigger: "blur",
+    },
+  ],
+  type: [
+    {
+      required: true,
+      type: "number",
+      message: t("common.input.select") + t("tableHeader.menuType"),
+      trigger: "blur",
+    },
+  ],
+  routeName: [
+    {
+      required: true,
+      message: t("common.input.input") + t("tableHeader.routeName"),
+      trigger: "blur",
+    },
+  ],
+  routePath: [
+    {
+      required: true,
+      message: t("common.input.input") + t("tableHeader.routePath"),
+      trigger: "blur",
+    },
+  ],
+  component: [
+    {
+      required: true,
+      message: t("common.input.input") + t("tableHeader.componentPath"),
+      trigger: "blur",
+    },
+  ],
+  visible: [
+    {
+      required: true,
+      message: t("common.input.select") + t("tableHeader.status"),
+      trigger: "change",
+    },
+  ],
 });
 
 // 顶级菜单下拉选项
@@ -345,19 +384,19 @@ const menuOptions = ref<OptionType[]>([]);
 
 const getMenuOptions = () => {
   MenuAPI.getOptions(true).then((data) => {
-    menuOptions.value = [{ value: "0", label: "顶级菜单", children: data }];
+    menuOptions.value = [{ value: "0", label: t("menu.form.topMenu"), children: data }];
   });
 };
 
 // 获取类型
 const type = computed(() => {
-  if (!modelValue.value.type) return "未知";
+  if (!modelValue.value.type) return "--";
 
   return {
-    [MenuTypeEnum.CATALOG]: "目录",
-    [MenuTypeEnum.MENU]: "菜单",
-    [MenuTypeEnum.BUTTON]: "按钮",
-    [MenuTypeEnum.EXTLINK]: "外链",
+    [MenuTypeEnum.CATALOG]: t("menu.type.catalog"),
+    [MenuTypeEnum.MENU]: t("menu.type.menu"),
+    [MenuTypeEnum.BUTTON]: t("menu.type.button"),
+    [MenuTypeEnum.EXTLINK]: t("menu.type.extlink"),
   }[modelValue.value.type];
 });
 
@@ -385,7 +424,7 @@ const handleSubmit = async () => {
 
   // 修改时父级菜单不能为当前菜单
   if (modelValue.value.parentId === menuId) {
-    return window.$message.error("父级菜单不能为当前菜单");
+    return window.$message.error(t("menu.form.parentMenuTip"));
   }
 
   executeAsync(

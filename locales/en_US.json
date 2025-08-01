@@ -12,6 +12,8 @@
     "message": "No doubt, you're the brightest star in the office!",
     "backToTop": "Back to Top",
     "defaultExpandOne": "Default expand the first item",
+    "yes": "Yes",
+    "no": "No",
     "input": {
       "input": "Please enter ",
       "select": "Please select ",
@@ -423,6 +425,32 @@
       "menu": "Menu",
       "button": "Button",
       "extlink": "External Link"
+    },
+    "form": {
+      "add": "Add Menu",
+      "edit": "Edit Menu",
+      "addSub": "Add Submenu",
+      "topMenu": "Top-level Menu",
+      "icon": "Icon",
+      "name": "Name",
+      "parentMenu": "Parent Menu",
+      "externalLink": "External Link",
+      "routeParam": "Route Parameter",
+      "params": {
+        "key": "Parameter Name",
+        "value": "Parameter Value"
+      },
+      "route": "Jump Route",
+      "alwaysShow": "Always Show",
+      "cache": "Page Cache",
+      "parentMenuTip": "Parent menu cannot be the current menu"
+    },
+    "tip": {
+      "routeName": "If you need to enable caching, ensure that the name in defineOptions on the page matches this field. It is recommended to use camelCase.<br/>Example: User",
+      "routePath": "Define the URL path corresponding to different pages in the application. Directories must start with /, menu items do not.<br/>Example: System management directory /system, user management menu under system management: user",
+      "componentPath": "Complete component page path, relative to src/views/<br/>Such as system/user/index, default suffix .vue is omitted",
+      "routeParam": "Component page uses `useRoute().query.parameterName` to get route parameter values",
+      "alwaysShow": "Select 'Yes', even if there is only one child node under the directory or menu, the parent node will be displayed.<br/>Select 'No', if there is only one child node under the directory or menu, only that child node will be displayed, and the parent node will be hidden.<br/>If it is a leaf node, please select 'No'"
     }
   }
 }

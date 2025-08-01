@@ -12,6 +12,8 @@
     "message": "毫無疑問，你就是辦公室最亮的星！",
     "backToTop": "返回頂部",
     "defaultExpandOne": "默認展開第一項",
+    "yes": "是",
+    "no": "否",
     "input": {
       "input": "請輸入",
       "select": "請選擇",
@@ -423,6 +425,32 @@
       "menu": "菜單",
       "button": "按鈕",
       "extlink": "外鏈"
+    },
+    "form": {
+      "add": "新增菜單",
+      "edit": "編輯菜單",
+      "addSub": "新增下級",
+      "topMenu": "頂級菜單",
+      "icon": "圖標",
+      "name": "名稱",
+      "parentMenu": "上級菜單",
+      "externalLink": "外鏈地址",
+      "routeParam": "路由參數",
+      "params": {
+        "key": "參數名",
+        "value": "參數值"
+      },
+      "route": "跳轉路由",
+      "alwaysShow": "始終顯示",
+      "cache": "頁面緩存",
+      "parentMenuTip": "父級菜單不能為當前菜單"
+    },
+    "tip": {
+      "routeName": "如果需要開啟緩存，需保證頁面 defineOptions 中的 name 與此處一致，建議使用駝峰<br/>例如: User",
+      "routePath": "定義應用中不同頁面對應的 URL 路徑，目錄需以 / 開頭，菜單項不用<br/>例如：系統管理目錄/system, 系統管理下的用戶管理菜單 user",
+      "componentPath": "組件頁面完整路徑，相對於 src/views/<br/>如 system/user/index, 缺省後綴 .vue",
+      "routeParam": "組件頁面使用 `useRoute().query.參數名` 獲取路由參數值",
+      "alwaysShow": "選擇「是」，即使目錄或菜單下只有一個子節點，也會顯示父節點<br/>選擇「否」，如果目錄或菜單下只有一個子節點，則只顯示該子節點，隱藏父節點<br/>如果是葉子節點，請選擇「否」"
     }
   }
 }
