@@ -73,7 +73,9 @@
       "hideSearch": "隱藏搜尋",
       "expandSearch": "展開搜尋",
       "exportSvg": "匯出SVG",
-      "tableSize": "表格尺寸"
+      "tableSize": "表格尺寸",
+      "expandMenu": "展開選單",
+      "collapseMenu": "收起選單"
     },
     "search": {
       "placeholder": "搜尋頁面或者路徑",

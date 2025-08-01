@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useAppStoreHook } from "@/store";
 
+const t = useI18n().t;
+
 const appStore = useAppStoreHook();
 const icon = computed(() =>
   appStore.collapsed ? "icon-park-solid:menu-fold-one" : "icon-park-solid:menu-unfold-one"
@@ -15,7 +17,9 @@ const icon = computed(() =>
           <Icones :icon="icon" :size="22" />
         </CommonWrapper>
       </template>
-      <span>{{ appStore.collapsed ? "展开菜单" : "收起菜单" }}</span>
+      <span>
+        {{ appStore.collapsed ? t("system.tooltip.expandMenu") : t("system.tooltip.collapseMenu") }}
+      </span>
     </n-tooltip>
   </div>
 </template>

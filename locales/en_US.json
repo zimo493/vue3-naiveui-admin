@@ -73,7 +73,9 @@
       "hideSearch": "Hide Search",
       "expandSearch": "Expand Search",
       "exportSvg": "Export SVG",
-      "tableSize": "Table Size"
+      "tableSize": "Table Size",
+      "expandMenu": "Expand Menu",
+      "collapseMenu": "Collapse Menu"
     },
     "search": {
       "placeholder": "Search pages or paths",

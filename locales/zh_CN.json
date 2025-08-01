@@ -73,7 +73,9 @@
       "hideSearch": "隐藏搜索",
       "expandSearch": "展开搜索",
       "exportSvg": "导出SVG",
-      "tableSize": "表格尺寸"
+      "tableSize": "表格尺寸",
+      "expandMenu": "展开菜单",
+      "collapseMenu": "收起菜单"
     },
     "search": {
       "placeholder": "搜索页面或者路径",
