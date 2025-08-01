@@ -19,19 +19,19 @@
           <template #icon>
             <icon-park-outline-plus />
           </template>
-          新增
+          {{ t("button.add") }}
         </n-button>
         <n-button type="error" :disabled="!selectedRowKeys.length" @click="handleDelete()">
           <template #icon>
             <icon-park-outline-delete-themes />
           </template>
-          删除
+          {{ t("button.delete") }}
         </n-button>
         <n-button @click="handleClose">
           <template #icon>
             <icon-park-outline-close-small />
           </template>
-          关闭
+          {{ t("button.close") }}
         </n-button>
       </template>
     </TablePro>
@@ -71,6 +71,8 @@ defineOptions({
   name: "DictItem",
   inheritAttrs: false,
 });
+
+const { t } = useI18n();
 
 const route = useRoute();
 
@@ -119,7 +121,7 @@ const handleQuery = () => {
 const formConfig = computed<FormPro.FormItemConfig[]>(() => [
   {
     name: "dictCode",
-    label: "字典编码",
+    label: t("tableHeader.dictCode"),
     component: "select",
     props: {
       clearable: false,
@@ -129,27 +131,27 @@ const formConfig = computed<FormPro.FormItemConfig[]>(() => [
   },
   {
     name: "keywords",
-    label: "关键字",
-    props: { placeholder: "请输入字典数据值 / 标签" },
+    label: t("tableHeader.keywords"),
+    props: { placeholder: t("common.input.input") + t("tableHeader.dictLabel") },
   },
 ]);
 
 const columns = ref<DataTableColumns<DictData.VO>>([
   { type: "selection", options: ["all", "none"] },
-  { title: "字典标签", key: "label", align: "center" },
-  { title: "字典值", key: "value", align: "center" },
-  { title: "排序", key: "sort", align: "center" },
+  { title: t("tableHeader.dictLabel"), key: "label", align: "center" },
+  { title: t("tableHeader.dictValue"), key: "value", align: "center" },
+  { title: t("tableHeader.sort"), key: "sort", align: "center" },
   {
-    title: "状态",
+    title: t("tableHeader.status"),
     key: "status",
     align: "center",
     render: ({ status }) => <CommonStatus value={status} />,
   },
   {
-    title: "操作",
+    title: t("tableHeader.action"),
     key: "action",
     align: "center",
-    width: 150,
+    width: 300,
     render: (row) => (
       <NFlex justify="center">
         <NButton
@@ -158,7 +160,7 @@ const columns = ref<DataTableColumns<DictData.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >
-          编辑
+          {t("button.edit")}
         </NButton>
         <NButton
           text
@@ -166,7 +168,7 @@ const columns = ref<DataTableColumns<DictData.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
           onClick={() => handleDelete(row.id)}
         >
-          删除
+          {t("button.delete")}
         </NButton>
       </NFlex>
     ),
@@ -174,50 +176,71 @@ const columns = ref<DataTableColumns<DictData.VO>>([
 ]);
 
 /** 修改表单配置 */
-const editFormConfig: DialogForm.Form = {
-  config: [
-    { name: "label", label: "字典标签" },
-    { name: "value", label: "字典值" },
-    { name: "sort", label: "排序", component: "number" },
-    {
-      name: "tagType",
-      label: "标签类型",
-      component: "select",
-      props: {
-        options: [
-          { label: "默认", value: "default" },
-          { label: "主要", value: "primary" },
-          { label: "成功", value: "success" },
-          { label: "信息", value: "info" },
-          { label: "警告", value: "warning" },
-          { label: "错误", value: "error" },
+const editFormConfig = computed(
+  (): DialogForm.Form => ({
+    config: [
+      { name: "label", label: t("tableHeader.dictLabel") },
+      { name: "value", label: t("tableHeader.dictValue") },
+      { name: "sort", label: t("tableHeader.sort"), component: "number" },
+      {
+        name: "tagType",
+        label: t("dict.tag.type"),
+        component: "select",
+        props: {
+          options: [
+            { label: t("dict.tag.default"), value: "default" },
+            { label: t("dict.tag.primary"), value: "primary" },
+            { label: t("dict.tag.success"), value: "success" },
+            { label: t("dict.tag.info"), value: "info" },
+            { label: t("dict.tag.warning"), value: "warning" },
+            { label: t("dict.tag.error"), value: "error" },
+          ],
+          /** 自定义渲染 */
+          renderLabel: ({ label, value }: SelectOption): VNode => (
+            <NFlex align="center">
+              {value && <NText type={value}>{`${label} (${value})`}</NText>}
+              <NTag type={value ? value : "default"} bordered={false} size="small">
+                {modelValue.value.label ?? t("tableHeader.dictLabel")}
+              </NTag>
+            </NFlex>
+          ),
+        },
+      },
+      {
+        name: "status",
+        label: t("tableHeader.status"),
+        component: "radio",
+        props: { options: statusOptions.value },
+      },
+    ],
+    props: {
+      rules: {
+        label: [
+          {
+            required: true,
+            message: t("common.input.input") + t("tableHeader.dictLabel"),
+            trigger: "blur",
+          },
         ],
-        /** 自定义渲染 */
-        renderLabel: ({ label, value }: SelectOption): VNode => (
-          <NFlex align="center">
-            {value && <NText type={value}>{`${label} (${value})`}</NText>}
-            <NTag type={value ? value : "default"} bordered={false} size="small">
-              {modelValue.value.label ?? "字典标签"}
-            </NTag>
-          </NFlex>
-        ),
+        value: [
+          {
+            required: true,
+            message: t("common.input.input") + t("tableHeader.dictValue"),
+            trigger: "blur",
+          },
+        ],
+        status: [
+          {
+            required: true,
+            type: "number",
+            message: t("common.input.select") + t("tableHeader.status"),
+            trigger: "change",
+          },
+        ],
       },
     },
-    {
-      name: "status",
-      label: "状态",
-      component: "radio",
-      props: { options: statusOptions.value },
-    },
-  ],
-  props: {
-    rules: {
-      label: [{ required: true, message: "请输入字典标签", trigger: "blur" }],
-      value: [{ required: true, message: "请输入字典值", trigger: "blur" }],
-      status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
-    },
-  },
-};
+  })
+);
 
 /** 初始化表单 */
 const modelValue = ref<DictData.Form>({
@@ -230,7 +253,7 @@ const modelValue = ref<DictData.Form>({
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: DictData.VO) => {
-  drawerFormRef.value?.open(row ? "编辑字典项" : "新增字典项", modelValue.value);
+  drawerFormRef.value?.open(row ? t("dict.editItem") : t("dict.addItem"), modelValue.value);
 
   if (row) {
     startSpin();
@@ -275,9 +298,9 @@ const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys a
 const handleDelete = (id?: string) => {
   const ids = id || selectedRowKeys.value.join(",");
 
-  InquiryBox("确认删除已选中的数据项?").then(() => {
+  InquiryBox(t("confirm.deleteSelect")).then(() => {
     DictDataAPI.deleteDictItems(dictCode.value, ids).then(() => {
-      window.$message.success("删除成功");
+      window.$message.success(t("message.deleteSuccess"));
       handleQuery();
     });
   });

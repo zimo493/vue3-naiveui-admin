@@ -19,19 +19,19 @@
           <template #icon>
             <icon-park-outline-plus />
           </template>
-          新增
+          {{ t("button.add") }}
         </n-button>
         <n-button type="error" :disabled="!selectedRowKeys.length" @click="handleDelete()">
           <template #icon>
             <icon-park-outline-delete-themes />
           </template>
-          删除
+          {{ t("button.delete") }}
         </n-button>
         <n-button type="warning" :loading="clear" :disabled="clearDisabled" @click="clearDictCache">
           <template #icon>
             <icon-park-outline-delete />
           </template>
-          清除缓存
+          {{ t("button.clearCache") }}
         </n-button>
       </template>
     </TablePro>
@@ -64,6 +64,8 @@ defineOptions({
   inheritAttrs: false,
 });
 
+const { t } = useI18n();
+
 // 定义表单的初始值
 const query = ref<DictType.Query>({
   pageNum: 1,
@@ -91,16 +93,18 @@ const handleQuery = () => {
 const formConfig = ref<FormPro.FormItemConfig[]>([
   {
     name: "keywords",
-    label: "关键字",
-    props: { placeholder: "请输入字典名称 / 字典编码" },
+    label: t("tableHeader.keywords"),
+    props: {
+      placeholder: `${t("common.input.input")}${t("tableHeader.dictName")} / ${t("tableHeader.dictCode")}`,
+    },
   },
 ]);
 
 const columns = ref<DataTableColumns<DictType.VO>>([
   { type: "selection", options: ["all", "none"] },
-  { title: "字典名称", key: "name", align: "center" },
+  { title: t("tableHeader.dictName"), key: "name", align: "center" },
   {
-    title: "字典编码",
+    title: t("tableHeader.dictCode"),
     key: "dictCode",
     align: "center",
     render: (row) => (
@@ -110,13 +114,13 @@ const columns = ref<DataTableColumns<DictType.VO>>([
     ),
   },
   {
-    title: "状态",
+    title: t("tableHeader.status"),
     key: "status",
     align: "center",
     render: ({ status }) => <CommonStatus value={status} />,
   },
   {
-    title: "操作",
+    title: t("tableHeader.action"),
     key: "action",
     align: "center",
     width: 200,
@@ -128,7 +132,7 @@ const columns = ref<DataTableColumns<DictType.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >
-          编辑
+          {t("button.edit")}
         </NButton>
         <NButton
           text
@@ -136,33 +140,54 @@ const columns = ref<DataTableColumns<DictType.VO>>([
           v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
           onClick={() => handleDelete(row.id)}
         >
-          删除
+          {t("button.delete")}
         </NButton>
       </NFlex>
     ),
   },
 ]);
 
-const editFormConfig: DialogForm.Form = {
-  config: [
-    { name: "name", label: "字典名称" },
-    { name: "dictCode", label: "字典编码" },
-    {
-      name: "status",
-      label: "状态",
-      component: "radio",
-      props: { options: statusOptions.value },
+const editFormConfig = computed(
+  (): DialogForm.Form => ({
+    config: [
+      { name: "name", label: t("tableHeader.dictName") },
+      { name: "dictCode", label: t("tableHeader.dictCode") },
+      {
+        name: "status",
+        label: t("tableHeader.status"),
+        component: "radio",
+        props: { options: statusOptions.value },
+      },
+      { name: "remark", label: t("tableHeader.remark"), component: "textarea" },
+    ],
+    props: {
+      rules: {
+        name: [
+          {
+            required: true,
+            message: t("common.input.input") + t("tableHeader.dictName"),
+            trigger: "blur",
+          },
+        ],
+        dictCode: [
+          {
+            required: true,
+            message: t("common.input.input") + t("tableHeader.dictCode"),
+            trigger: "blur",
+          },
+        ],
+        status: [
+          {
+            required: true,
+            type: "number",
+            message: t("common.input.select") + t("tableHeader.status"),
+            trigger: "change",
+          },
+        ],
+      },
     },
-    { name: "remark", label: "备注", component: "textarea" },
-  ],
-  props: {
-    rules: {
-      name: [{ required: true, message: "请输入字典名称", trigger: "blur" }],
-      dictCode: [{ required: true, message: "请输入字典编码", trigger: "blur" }],
-      status: [{ required: true, type: "number", message: "请选择状态", trigger: "change" }],
-    },
-  },
-};
+  })
+);
 
 /** 初始化表单 */
 const modelValue = ref<DictType.Form>({
@@ -172,7 +197,7 @@ const modelValue = ref<DictType.Form>({
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: DictType.VO) => {
-  drawerFormRef.value?.open(row ? "编辑字典" : "新增字典", modelValue.value);
+  drawerFormRef.value?.open(row ? t("dict.edit") : t("dict.add"), modelValue.value);
 
   if (row) {
     startSpin();
@@ -202,9 +227,9 @@ const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys a
 const handleDelete = (dictId?: string) => {
   const dictIds = dictId || selectedRowKeys.value.join(",");
 
-  InquiryBox("确认删除已选中的数据项?").then(() => {
+  InquiryBox(t("confirm.deleteSelect")).then(() => {
     DictTypeAPI.deleteByIds(dictIds).then(() => {
-      window.$message.success("删除成功");
+      window.$message.success(t("message.deleteSuccess"));
       handleQuery();
     });
   });
@@ -223,7 +248,7 @@ const handleViewItems = ({ dictCode }: DictType.VO) => {
     // 添加标签页
     useTabStoreHook().addTab({
       ...route, // 解构路由对象，确保包含所有必要属性
-      name: `dict-item`,
+      name: `DictItem`,
       meta: {
         title: `字典数据项`, // 自定义标题
         icon: "icon-park-outline:book-one", // 自定义图标
@@ -242,7 +267,7 @@ const clearDictCache = () => {
   dictStore.cleanDict();
   setTimeout(() => {
     clearEnd();
-    window.$message.success(`清除字典项 ${dictList.join(", ")} 成功`);
+    window.$message.success(t("dict.clear", { dict: dictList.join(", ") }));
   }, 1000);
 };
 </script>

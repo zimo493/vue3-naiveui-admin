@@ -57,6 +57,7 @@
     "detail": "詳情",
     "expand": "展開",
     "collapse": "收起",
+    "clearCache": "清除暫存",
     "linkage": "父子連動",
     "resetPassword": "重設密碼",
     "downloadTemplate": "下載模板",
@@ -188,6 +189,7 @@
     "SysMenu": "選單管理",
     "Dept": "部門管理",
     "Dict": "字典管理",
+    "DictItem": "字典數據項",
     "Log": "系統日誌",
     "Config": "參數配置",
     "Notice": "通知公告",
@@ -346,7 +348,13 @@
     "permission": "權限標識",
 
     "deptName": "部門名稱",
-    "deptCode": "部門編碼"
+    "deptCode": "部門編碼",
+
+    "dictName": "字典名稱",
+    "dictCode": "字典編碼",
+    "remark": "備註",
+    "dictLabel": "字典標籤",
+    "dictValue": "字典值"
   },
   "home": {
     "about": {
@@ -459,5 +467,21 @@
     "top": "頂部部門",
     "add": "新增部門",
     "edit": "編輯部門"
+  },
+  "dict": {
+    "add": "新增字典",
+    "edit": "編輯字典",
+    "clear": "清除字典項 {dict} 成功",
+    "tag": {
+      "type": "字典類型",
+      "default": "默認",
+      "primary": "主要",
+      "success": "成功",
+      "info": "信息",
+      "warning": "警告",
+      "error": "錯誤"
+    },
+    "addItem": "新增字典項",
+    "editItem": "編輯字典項"
   }
 }

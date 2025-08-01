@@ -57,6 +57,7 @@
     "detail": "Detail",
     "expand": "Expand",
     "collapse": "Collapse",
+    "clearCache": "Clear Cache",
     "linkage": "Parent-Child Linkage",
     "resetPassword": "Reset Password",
     "downloadTemplate": "Download Template",
@@ -188,6 +189,7 @@
     "SysMenu": "Menus",
     "Dept": "Departments",
     "Dict": "Dictionaries",
+    "DictItem": "Dictionary Items",
     "Log": "Logs",
     "Config": "Config",
     "Notice": "Notice",
@@ -346,7 +348,13 @@
     "permission": "Permission",
 
     "deptName": "Department Name",
-    "deptCode": "Department Code"
+    "deptCode": "Department Code",
+
+    "dictName": "Dictionary Name",
+    "dictCode": "Dictionary Code",
+    "remark": "Remark",
+    "dictLabel": "Dictionary Label",
+    "dictValue": "Dictionary Value"
   },
   "home": {
     "about": {
@@ -459,5 +467,21 @@
     "top": "Top Department",
     "add": "Add Department",
     "edit": "Edit Department"
+  },
+  "dict": {
+    "add": "Add Dictionary",
+    "edit": "Edit Dictionary",
+    "clear": "Clear Dictionary Item {dict} Successfully",
+    "tag": {
+      "type": "Tag Type",
+      "default": "Default",
+      "primary": "Primary",
+      "success": "Success",
+      "info": "Info",
+      "warning": "Warning",
+      "error": "Error"
+    },
+    "addItem": "Add Dictionary Item",
+    "editItem": "Edit Dictionary Item"
   }
 }

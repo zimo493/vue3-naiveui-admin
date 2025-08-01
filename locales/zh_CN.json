@@ -57,6 +57,7 @@
     "detail": "详情",
     "expand": "展开",
     "collapse": "收起",
+    "clearCache": "清除缓存",
     "linkage": "父子联动",
     "resetPassword": "重置密码",
     "downloadTemplate": "下载模板",
@@ -188,6 +189,7 @@
     "SysMenu": "菜单管理",
     "Dept": "部门管理",
     "Dict": "字典管理",
+    "DictItem": "字典数据项",
     "Log": "系统日志",
     "Config": "参数配置",
     "Notice": "通知公告",
@@ -346,7 +348,13 @@
     "permission": "权限标识",
 
     "deptName": "部门名称",
-    "deptCode": "部门编号"
+    "deptCode": "部门编号",
+
+    "dictName": "字典名称",
+    "dictCode": "字典编码",
+    "remark": "备注",
+    "dictLabel": "字典标签",
+    "dictValue": "字典值"
   },
   "home": {
     "about": {
@@ -459,5 +467,21 @@
     "top": "顶级部门",
     "add": "新增部门",
     "edit": "编辑部门"
+  },
+  "dict": {
+    "add": "新增字典",
+    "edit": "编辑字典",
+    "clear": "清除字典项 {dict} 成功",
+    "tag": {
+      "type": "标签类型",
+      "default": "默认",
+      "primary": "主要",
+      "success": "成功",
+      "info": "信息",
+      "warning": "警告",
+      "error": "错误"
+    },
+    "addItem": "新增字典项",
+    "editItem": "编辑字典项"
   }
 }
