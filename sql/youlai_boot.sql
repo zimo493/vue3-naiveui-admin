@@ -291,7 +291,7 @@ INSERT INTO `sys_menu` VALUES (36, 0, '0', '组件封装', 2, NULL, '/component'
 INSERT INTO `sys_menu` VALUES (40, 0, '0', '接口文档', 2, NULL, '/api', 'Layout', NULL, 1, NULL, 1, 7, 'simple-icons:apifox', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (89, 0, '0', '功能演示', 2, NULL, '/function', 'Layout', NULL, NULL, NULL, 1, 12, 'mdi:laptop', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (110, 0, '0', '路由参数', 2, NULL, '/route-param', 'Layout', NULL, 1, 1, 1, 11, 'icon-park-outline:router', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (118, 0, '0', '系统工具', 2, NULL, '/codegen', 'Layout', NULL, 0, 1, 1, 2, 'ep:menu', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (118, 0, '0', '系统工具', 2, NULL, '/utils', 'Layout', NULL, 0, 1, 1, 2, 'ep:menu', NULL, now(), now(), NULL);
 
 -- 二级菜单
 INSERT INTO `sys_menu` VALUES (2, 1, '0,1', '用户管理', 1, 'User', 'user', 'system/user/index', NULL, NULL, 1, 1, 1, 'ep:user-filled', NULL, now(), now(), NULL);
