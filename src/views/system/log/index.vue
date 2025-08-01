@@ -26,6 +26,8 @@ defineOptions({
   inheritAttrs: false,
 });
 
+const { t } = useI18n();
+
 const { loading, startLoading, endLoading } = useLoading(true);
 
 onMounted(() => handleQuery());
@@ -38,10 +40,10 @@ const query = ref<Log.Query>({
 
 /** 查询表单配置 */
 const formConfig = ref<FormPro.FormItemConfig[]>([
-  { name: "keywords", label: "关键字" },
+  { name: "keywords", label: t("tableHeader.keywords") },
   {
     name: "createTime",
-    label: "操作时间",
+    label: t("tableHeader.operateTime"),
     span: 5,
     component: "date",
     props: {
@@ -56,26 +58,26 @@ const tableData = ref<Log.VO[]>([]);
 const total = ref<number>(0);
 
 const columns: DataTableColumns<Log.VO> = [
-  { title: "请求路径", key: "requestUri" },
-  { title: "日志模块", key: "module" },
-  { title: "日志内容", key: "content" },
-  { title: "IP 地址", key: "ip", sorter: "default" },
+  { title: t("tableHeader.apiPath"), key: "requestUri" },
+  { title: t("tableHeader.logModule"), key: "module" },
+  { title: t("tableHeader.logContent"), key: "content" },
+  { title: t("tableHeader.ip"), key: "ip", sorter: "default" },
   {
-    title: "地区",
+    title: t("tableHeader.region"),
     key: "region",
     sorter: "default",
     render: ({ region }) => region.replaceAll("0", "").trim(),
   },
-  { title: "浏览器", key: "browser", sorter: "default" },
-  { title: "终端系统", key: "os", sorter: "default" },
+  { title: t("tableHeader.browser"), key: "browser", sorter: "default" },
+  { title: t("tableHeader.os"), key: "os", sorter: "default" },
   {
-    title: "执行时间",
+    title: t("tableHeader.executeTime"),
     key: "executionTime",
     sorter: "default",
     render: ({ executionTime }) => `${executionTime} ms`,
   },
-  { title: "操作人", key: "operator", sorter: "default" },
-  { title: "操作时间", key: "createTime", sorter: "default" },
+  { title: t("tableHeader.operator"), key: "operator", sorter: "default" },
+  { title: t("tableHeader.operateTime"), key: "createTime", sorter: "default" },
 ];
 
 const handleQuery = () => {

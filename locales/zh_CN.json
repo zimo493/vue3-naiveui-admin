@@ -354,7 +354,18 @@
     "dictCode": "字典编码",
     "remark": "备注",
     "dictLabel": "字典标签",
-    "dictValue": "字典值"
+    "dictValue": "字典值",
+
+    "apiPath": "请求路径",
+    "logModule": "日志模块",
+    "logContent": "日志内容",
+    "ip": "IP 地址",
+    "region": "地区",
+    "browser": "浏览器",
+    "os": "终端系统",
+    "executeTime": "执行时间",
+    "operator": "操作人",
+    "operateTime": "操作时间"
   },
   "home": {
     "about": {

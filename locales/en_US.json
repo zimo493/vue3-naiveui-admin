@@ -354,7 +354,18 @@
     "dictCode": "Dictionary Code",
     "remark": "Remark",
     "dictLabel": "Dictionary Label",
-    "dictValue": "Dictionary Value"
+    "dictValue": "Dictionary Value",
+
+    "apiPath": "API Path",
+    "logModule": "Log Module",
+    "logContent": "Log Content",
+    "ip": "IP Address",
+    "region": "Region",
+    "browser": "Browser",
+    "os": "OS",
+    "executeTime": "Execute Time",
+    "operator": "Operator",
+    "operateTime": "Operate Time"
   },
   "home": {
     "about": {
