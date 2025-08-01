@@ -58,6 +58,7 @@
     "expand": "展開",
     "collapse": "收起",
     "clearCache": "清除暫存",
+    "refreshCache": "刷新暫存",
     "linkage": "父子連動",
     "resetPassword": "重設密碼",
     "downloadTemplate": "下載模板",
@@ -365,7 +366,11 @@
     "os": "操作系統",
     "executeTime": "執行時間",
     "operator": "操作人",
-    "operateTime": "操作時間"
+    "operateTime": "操作時間",
+
+    "configName": "配置名稱",
+    "configKey": "配置鍵",
+    "configValue": "配置值"
   },
   "home": {
     "about": {
@@ -494,5 +499,11 @@
     },
     "addItem": "新增字典項",
     "editItem": "編輯字典項"
+  },
+  "config": {
+    "add": "新增配置",
+    "edit": "編輯配置",
+    "delete": "確定要刪除 {name} 配置嗎？",
+    "refreshCache": "緩存刷新成功"
   }
 }

@@ -16,13 +16,13 @@
           <template #icon>
             <icon-park-outline-plus />
           </template>
-          新增
+          {{ t("button.add") }}
         </n-button>
         <n-button type="warning" :loading="spin" @click="handleRefreshCache()">
           <template #icon>
             <icon-park-outline-refresh />
           </template>
-          刷新缓存
+          {{ t("button.refreshCache") }}
         </n-button>
       </template>
     </TablePro>
@@ -52,6 +52,8 @@ defineOptions({
   inheritAttrs: false,
 });
 
+const { t } = useI18n();
+
 // 定义表单的初始值
 const query = ref<Config.Query>({
   pageNum: 1,
@@ -79,18 +81,18 @@ const handleQuery = () => {
 const formConfig = ref<FormPro.FormItemConfig[]>([
   {
     name: "keywords",
-    label: "关键字",
-    props: { placeholder: "请输入配置名称 / 配置键" },
+    label: t("tableHeader.keywords"),
+    props: { placeholder: t("tableHeader.configName") + " / " + t("tableHeader.configKey") },
   },
 ]);
 
 const columns = ref<DataTableColumns<Config.VO>>([
-  { title: "配置名称", key: "configName", align: "center" },
-  { title: "配置键", key: "configKey", align: "center" },
-  { title: "配置值", key: "configValue", align: "center" },
-  { title: "备注", key: "remark", align: "center" },
+  { title: t("tableHeader.configName"), key: "configName", align: "center" },
+  { title: t("tableHeader.configKey"), key: "configKey", align: "center" },
+  { title: t("tableHeader.configValue"), key: "configValue", align: "center" },
+  { title: t("tableHeader.remark"), key: "remark", align: "center" },
   {
-    title: "操作",
+    title: t("tableHeader.action"),
     key: "action",
     align: "center",
     render: (row) => {
@@ -102,15 +104,15 @@ const columns = ref<DataTableColumns<Config.VO>>([
             v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
             onClick={() => openDrawer(row)}
           >
-            编辑
+            {t("button.edit")}
           </NButton>
           <NButton
             text
             type="error"
             v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
-            onClick={() => handleDelete(row.id)}
+            onClick={() => handleDelete(row)}
           >
-            删除
+            {t("button.delete")}
           </NButton>
         </NFlex>
       );
@@ -120,16 +122,34 @@ const columns = ref<DataTableColumns<Config.VO>>([
 
 const editFormConfig: DialogForm.Form = {
   config: [
-    { name: "configName", label: "配置名称" },
-    { name: "configKey", label: "配置键" },
-    { name: "configValue", label: "配置值" },
-    { name: "remark", label: "备注", component: "textarea" },
+    { name: "configName", label: t("tableHeader.configName") },
+    { name: "configKey", label: t("tableHeader.configKey") },
+    { name: "configValue", label: t("tableHeader.configValue") },
+    { name: "remark", label: t("tableHeader.remark"), component: "textarea" },
   ],
   props: {
     rules: {
-      configName: [{ required: true, message: "请输入配置名称", trigger: "blur" }],
-      configKey: [{ required: true, message: "请输入配置键", trigger: "blur" }],
-      configValue: [{ required: true, message: "请输入配置值", trigger: "blur" }],
+      configName: [
+        {
+          required: true,
+          message: t("common.input.input") + t("tableHeader.configName"),
+          trigger: "blur",
+        },
+      ],
+      configKey: [
+        {
+          required: true,
+          message: t("common.input.input") + t("tableHeader.configKey"),
+          trigger: "blur",
+        },
+      ],
+      configValue: [
+        {
+          required: true,
+          message: t("common.input.input") + t("tableHeader.configValue"),
+          trigger: "blur",
+        },
+      ],
     },
   },
 };
@@ -140,7 +160,7 @@ const modelValue = ref<Config.Form>({});
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: Config.VO) => {
-  drawerFormRef.value?.open(row ? "编辑配置" : "新增配置", modelValue.value);
+  drawerFormRef.value?.open(row ? t("config.edit") : t("config.add"), modelValue.value);
 
   if (row) {
     startSpin();
@@ -163,10 +183,10 @@ const submitForm = async (val: Config.Form) =>
   );
 
 // 删除配置
-const handleDelete = (id: string) => {
-  InquiryBox("确认删除该配置项?").then(() => {
+const handleDelete = ({ configName: name, id }: Config.VO) => {
+  InquiryBox(t("config.delete", { name })).then(() => {
     ConfigAPI.deleteById(id).then(() => {
-      window.$message.success("删除成功");
+      window.$message.success(t("message.deleteSuccess"));
       handleQuery();
     });
   });
@@ -176,7 +196,7 @@ const handleDelete = (id: string) => {
 const handleRefreshCache = () => {
   startSpin();
   ConfigAPI.refreshCache()
-    .then(() => window.$message.success("缓存刷新成功"))
+    .then(() => window.$message.success(t("config.refreshCache")))
     .finally(() => endSpin());
 };
 </script>

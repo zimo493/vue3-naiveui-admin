@@ -58,6 +58,7 @@
     "expand": "展开",
     "collapse": "收起",
     "clearCache": "清除缓存",
+    "refreshCache": "刷新缓存",
     "linkage": "父子联动",
     "resetPassword": "重置密码",
     "downloadTemplate": "下载模板",
@@ -365,7 +366,11 @@
     "os": "终端系统",
     "executeTime": "执行时间",
     "operator": "操作人",
-    "operateTime": "操作时间"
+    "operateTime": "操作时间",
+
+    "configName": "配置名称",
+    "configKey": "配置键",
+    "configValue": "配置值"
   },
   "home": {
     "about": {
@@ -494,5 +499,11 @@
     },
     "addItem": "新增字典项",
     "editItem": "编辑字典项"
+  },
+  "config": {
+    "add": "新增配置",
+    "edit": "编辑配置",
+    "delete": "确定要删除 {name} 配置吗？",
+    "refreshCache": "缓存刷新成功"
   }
 }
