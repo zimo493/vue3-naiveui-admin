@@ -1,3 +1,4 @@
+import { homeIcon } from "@/modules/assets";
 import type { RouteRecordRaw } from "vue-router";
 
 export default <RouteRecordRaw>{
@@ -13,7 +14,7 @@ export default <RouteRecordRaw>{
       // https://cn.vuejs.org/guide/built-ins/keep-alive.html#include-exclude
       meta: {
         title: "首页",
-        icon: "fluent-emoji-flat:house",
+        icon: homeIcon,
         affix: true,
         keepAlive: true,
       },

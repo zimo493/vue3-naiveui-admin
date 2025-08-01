@@ -67,6 +67,7 @@ import { useAppStoreHook, useRouteStoreHook } from "@/store";
 import { $t, isHttpUrl, renderIcon } from "@/utils";
 
 import { RouterLink } from "vue-router";
+import { homeIcon } from "@/modules/assets";
 
 const routeStore = useRouteStoreHook();
 const appStore = useAppStoreHook();
@@ -126,7 +127,7 @@ const handleSideMenu = (key: string) => {
       {
         key: "/",
         label: () => h(RouterLink, { to: "/" }, { default: () => $t("route.Index") }),
-        icon: renderIcon("fluent-emoji-flat:house"),
+        icon: renderIcon(homeIcon),
       },
     ];
   }
