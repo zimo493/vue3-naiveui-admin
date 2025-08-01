@@ -10,6 +10,7 @@
     "backendException": "系統介面 {code} 異常",
     "sessionTimeout": "您的會話已過期，請重新登入",
     "message": "毫無疑問，你就是辦公室最亮的星！",
+    "backToTop": "返回頂部",
     "input": {
       "input": "請輸入",
       "select": "請選擇",

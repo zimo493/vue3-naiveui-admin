@@ -10,6 +10,7 @@
     "backendException": "System interface {code} exception",
     "sessionTimeout": "Your session has expired, please log in again",
     "message": "No doubt, you're the brightest star in the office!",
+    "backToTop": "Back to Top",
     "input": {
       "input": "Please enter ",
       "select": "Please select ",

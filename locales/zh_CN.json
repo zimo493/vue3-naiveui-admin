@@ -10,6 +10,7 @@
     "backendException": "系统接口 {code} 异常",
     "sessionTimeout": "您的会话已过期，请重新登录",
     "message": "毫无疑问，你就是办公室最亮的星！",
+    "backToTop": "返回顶部",
     "input": {
       "input": "请输入",
       "select": "请选择",

@@ -6,7 +6,10 @@
           <icon-park-outline-to-top />
         </div>
       </template>
-      <span>返回顶部</span>
+      <span>{{ t("common.backToTop") }}</span>
     </n-tooltip>
   </n-back-top>
 </template>
+<script lang="ts" setup>
+const { t } = useI18n();
+</script>
