@@ -98,7 +98,8 @@ import DictAPI from "@/api/system/dict/type";
 
 import { spin, startSpin, endSpin, exportFile } from "@/utils";
 import { useLoading } from "@/hooks";
-import { FormTypeEnum, MIMETYPE, QueryTypeEnum } from "@/enums";
+import { MIMETYPE } from "@/enums";
+import { FormType, QueryType } from "./config";
 
 import Selection from "./Selection";
 import EditableCheckbox from "./EditableCheckbox";
@@ -194,9 +195,9 @@ const isCheckAllList = ref(false);
 const isCheckAllForm = ref(false);
 
 // 表单类型
-const formTypeOptions: OptionType[] = Object.values(FormTypeEnum);
+const formTypeOptions: OptionType[] = Object.values(FormType);
 // 查询方式
-const queryTypeOptions: OptionType[] = Object.values(QueryTypeEnum);
+const queryTypeOptions: OptionType[] = Object.values(QueryType);
 // 字段信息表格配置
 const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
   {
@@ -307,7 +308,7 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
     align: "center",
     width: 120,
     render: (row) => {
-      if (row.formType === FormTypeEnum.SELECT.value) {
+      if (row.formType === FormType.SELECT.value) {
         return <Selection v-model={row.dictType} options={dictOptions.value} clearable={true} />;
       }
     },

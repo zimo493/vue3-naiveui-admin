@@ -1,7 +1,7 @@
 /**
- * 表单类型枚举
+ * 表单类型
  */
-export const FormTypeEnum: Record<string, OptionType> = {
+export const FormType: Record<string, OptionType> = {
   INPUT: { value: 1, label: "输入框" },
   SELECT: { value: 2, label: "下拉框" },
   RADIO: { value: 3, label: "单选框" },
@@ -15,9 +15,9 @@ export const FormTypeEnum: Record<string, OptionType> = {
 };
 
 /**
- * 查询类型枚举
+ * 查询类型
  */
-export const QueryTypeEnum: Record<string, OptionType> = {
+export const QueryType: Record<string, OptionType> = {
   /** 等于 */
   EQ: { value: 1, label: "=" },
 
