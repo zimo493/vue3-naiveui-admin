@@ -1,20 +1,20 @@
 <template>
   <n-drawer v-model:show="visible" width="80%" :on-after-leave="cancel">
-    <n-drawer-content :title="`生成代码 - ${tableCode}`" closable>
+    <n-drawer-content :title="`${t('codeGen.generate')}- ${tableCode}`" closable>
       <n-spin :show="loading">
         <template v-if="active === 'basic'">
           <FormPro
             ref="formPro"
             v-model="modelValue"
             :form-config="formConfig"
-            :form-props="{ rules, labelWidth: 90 }"
+            :form-props="{ rules, labelWidth: 'auto' }"
           >
             <template #parentMenuId>
               <n-tree-select
                 v-model:value="modelValue.parentMenuId"
                 filterable
                 clearable
-                placeholder="选择上级菜单"
+                :placeholder="t('select') + t('codeGen.tableHeader.parentMenu')"
                 :options="menuOptions"
                 key-field="value"
                 label-field="label"
@@ -26,7 +26,7 @@
         </template>
         <template v-else>
           <n-flex vertical>
-            <n-alert title="index.vue 中的代码在此不适用，仅用于演示！" type="warning" />
+            <n-alert :title="t('codeGen.drawer.alert')" type="warning" />
             <n-grid x-gap="12">
               <n-gi :span="6">
                 <n-scrollbar style="height: calc(100vh - 205px)">
@@ -46,7 +46,7 @@
                 <n-scrollbar style="height: calc(100vh - 205px)">
                   <n-float-button v-copy="code" :right="30" :top="120" shape="square">
                     <Icones icon="ep:document-copy" />
-                    <template #description>复制</template>
+                    <template #description>{{ t("button.copy") }}</template>
                   </n-float-button>
                   <n-code :code="code" :language="language" show-line-numbers />
                 </n-scrollbar>
@@ -61,20 +61,22 @@
             <template #icon>
               <Icones icon="ant-design:arrow-right-outlined" />
             </template>
-            生成代码
+            {{ t("codeGen.generate") }}
           </n-button>
           <n-flex v-else>
             <n-button type="success" @click="active = 'basic'">
               <template #icon>
                 <Icones icon="ant-design:arrow-left-outlined" />
               </template>
-              配置预览
+              {{ t("codeGen.drawer.configPreview") }}
             </n-button>
             <n-button type="primary" :loading="downloadLoading" @click="handleExportCode">
               <template #icon>
                 <Icones icon="ant-design:download-outlined" />
               </template>
-              {{ downloadLoading ? "下载中..." : "下载代码" }}
+              {{
+                downloadLoading ? t("codeGen.drawer.downloading") : t("codeGen.drawer.downloadCode")
+              }}
             </n-button>
           </n-flex>
 
@@ -82,7 +84,7 @@
             <template #icon>
               <Icones icon="ant-design:close-outlined" />
             </template>
-            取消
+            {{ t("button.cancel") }}
           </n-button>
         </n-flex>
       </template>
@@ -117,6 +119,8 @@ interface TreeNode {
   children?: TreeNode[];
 }
 
+const { t } = useI18n();
+
 const { loading, startLoading, endLoading } = useLoading();
 
 defineExpose({
@@ -135,28 +139,36 @@ const active = ref<Active>("basic");
 
 // 表单配置
 const formConfig = ref<FormPro.FormItemConfig[]>([
-  { name: "tableName", label: "表名", span: 8 },
-  { name: "businessName", label: "业务名", span: 8 },
-  { name: "packageName", label: "主包名", span: 8 },
-  { name: "moduleName", label: "模块名", span: 6 },
-  { name: "entityName", label: "实体名", span: 6 },
-  { name: "author", label: "作者", span: 6 },
+  { name: "tableName", label: t("codeGen.tableHeader.name"), span: 8 },
+  { name: "businessName", label: t("codeGen.tableHeader.bizName"), span: 8 },
+  { name: "packageName", label: t("codeGen.tableHeader.mainPackage"), span: 8 },
+  { name: "moduleName", label: t("codeGen.tableHeader.moduleName"), span: 6 },
+  { name: "entityName", label: t("codeGen.tableHeader.entityName"), span: 6 },
+  { name: "author", label: t("codeGen.tableHeader.author"), span: 6 },
   {
     name: "parentMenuId",
-    label: "上级菜单",
+    label: t("codeGen.tableHeader.parentMenu"),
     span: 6,
-    labelMessage: `选择上级菜单，生成代码后会自动创建对应菜单。<br />
-        注意1: 生成菜单后需分配权限给角色，否则菜单将无法显示。<br />
-        注意2: 演示环境默认不生成菜单，如需生成，请在本地部署数据库。`,
+    labelMessage: t("codeGen.drawer.parentMenuTip"),
   },
 ]);
 
 const rules = {
-  tableName: [{ required: true, message: "请输入表名", trigger: "blur" }],
-  businessName: [{ required: true, message: "请输入业务名", trigger: "blur" }],
-  packageName: [{ required: true, message: "请输入主包名", trigger: "blur" }],
-  moduleName: [{ required: true, message: "请输入模块名", trigger: "blur" }],
-  entityName: [{ required: true, message: "请输入实体名", trigger: "blur" }],
+  tableName: [
+    { required: true, message: t("input") + t("codeGen.tableHeader.name"), trigger: "blur" },
+  ],
+  businessName: [
+    { required: true, message: t("input") + t("codeGen.tableHeader.bizName"), trigger: "blur" },
+  ],
+  packageName: [
+    { required: true, message: t("input") + t("codeGen.tableHeader.mainPackage"), trigger: "blur" },
+  ],
+  moduleName: [
+    { required: true, message: t("input") + t("codeGen.tableHeader.moduleName"), trigger: "blur" },
+  ],
+  entityName: [
+    { required: true, message: t("input") + t("codeGen.tableHeader.entityName"), trigger: "blur" },
+  ],
 };
 
 const modelValue = ref<CodeGen.ConfigForm>({
@@ -195,7 +207,7 @@ const isCheckAllList = ref(false);
 const isCheckAllForm = ref(false);
 
 // 表单类型
-const formTypeOptions: OptionType[] = Object.values(FormType);
+const formTypeOptions: OptionType[] = Object.values(FormType.value);
 // 查询方式
 const queryTypeOptions: OptionType[] = Object.values(QueryType);
 // 字段信息表格配置
@@ -207,33 +219,45 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
     width: 60,
     render: (_, index) => `${index + 1}`,
   },
-  { title: "列名", key: "columnName", align: "center" },
-  { title: "列类型", key: "columnType", align: "center" },
+  { title: t("codeGen.tableHeader.columnName"), key: "columnName", align: "center" },
+  { title: t("codeGen.tableHeader.columnType"), key: "columnType", align: "center" },
   {
-    title: "字段名",
+    title: t("codeGen.tableHeader.fieldName"),
     key: "fieldName",
     width: 120,
-    render: (row) => <NInput v-model:value={row.fieldName} placeholder="请输入字段名" />,
+    render: (row) => (
+      <NInput v-model:value={row.fieldName} placeholder={t("codeGen.tableHeader.fieldName")} />
+    ),
   },
-  { title: "字段类型", key: "fieldType", align: "center" },
+  { title: t("codeGen.tableHeader.fieldType"), key: "fieldType", align: "center" },
   {
-    title: "字段注释",
+    title: t("codeGen.tableHeader.fieldComment"),
     key: "fieldComment",
     width: 120,
-    render: (row) => <NInput v-model:value={row.fieldComment} placeholder="请输入字段注释" />,
+    render: (row) => (
+      <NInput
+        v-model:value={row.fieldComment}
+        placeholder={t("codeGen.tableHeader.fieldComment")}
+      />
+    ),
   },
   {
-    title: "最大长度",
+    title: t("codeGen.tableHeader.maxLength"),
     key: "maxLength",
     width: 120,
-    render: (row) => <NInputNumber v-model:value={row.maxLength} placeholder="请输入最大长度" />,
+    render: (row) => (
+      <NInputNumber
+        v-model:value={row.maxLength}
+        placeholder={t("codeGen.tableHeader.maxLength")}
+      />
+    ),
   },
   {
     key: "isShowInQuery",
     align: "center",
     title: () => (
       <NFlex align="center" justify="center">
-        <NText>查询</NText>
+        <NText>{t("codeGen.tableHeader.isShowInQuery")}</NText>
         <NCheckbox
           v-model:checked={isCheckAllQuery.value}
           onUpdateChecked={(v: boolean) => toggleCheckAll("isShowInQuery", v)}
@@ -247,7 +271,7 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
     align: "center",
     title: () => (
       <NFlex align="center" justify="center">
-        <NText>列表</NText>
+        <NText>{t("codeGen.tableHeader.isShowInList")}</NText>
         <NCheckbox
           v-model:checked={isCheckAllList.value}
           onUpdateChecked={(v: boolean) => toggleCheckAll("isShowInList", v)}
@@ -261,7 +285,7 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
     align: "center",
     title: () => (
       <NFlex align="center" justify="center">
-        <NText>表单</NText>
+        <NText>{t("codeGen.tableHeader.isShowInForm")}</NText>
         <NCheckbox
           v-model:checked={isCheckAllForm.value}
           onUpdateChecked={(v: boolean) => toggleCheckAll("isShowInForm", v)}
@@ -271,7 +295,7 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
     render: (row) => <EditableCheckbox v-model={row.isShowInForm} />,
   },
   {
-    title: "必填",
+    title: t("codeGen.tableHeader.isRequired"),
     key: "isRequired",
     align: "center",
     render: (row) => {
@@ -281,7 +305,7 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
     },
   },
   {
-    title: "查询方式",
+    title: t("codeGen.tableHeader.queryType"),
     key: "queryType",
     align: "center",
     width: 120,
@@ -292,7 +316,7 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
     },
   },
   {
-    title: "表单类型",
+    title: t("codeGen.tableHeader.formType"),
     key: "formType",
     align: "center",
     width: 120,
@@ -303,12 +327,12 @@ const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
     },
   },
   {
-    title: "字典类型",
+    title: t("codeGen.tableHeader.dictType"),
     key: "dictType",
     align: "center",
     width: 120,
     render: (row) => {
-      if (row.formType === FormType.SELECT.value) {
+      if (row.formType === FormType.value.SELECT.value) {
         return <Selection v-model={row.dictType} options={dictOptions.value} clearable={true} />;
       }
     },
@@ -533,7 +557,7 @@ const handleExportCode = () => {
   downloadLoading.value = true;
   GeneratorAPI.download(tableCode.value)
     .then((response) => {
-      window.$message.loading("正在下载中，请稍候...");
+      window.$message.loading(t("common.downloading"));
       const fileName = decodeURI(
         response.headers["content-disposition"].split(";")[1].split("=")[1]
       );

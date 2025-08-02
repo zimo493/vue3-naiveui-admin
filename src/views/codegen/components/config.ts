@@ -1,18 +1,22 @@
+import { $t } from "@/utils";
+
 /**
  * 表单类型
  */
-export const FormType: Record<string, OptionType> = {
-  INPUT: { value: 1, label: "输入框" },
-  SELECT: { value: 2, label: "下拉框" },
-  RADIO: { value: 3, label: "单选框" },
-  CHECK_BOX: { value: 4, label: "复选框" },
-  INPUT_NUMBER: { value: 5, label: "数字输入框" },
-  SWITCH: { value: 6, label: "开关" },
-  TEXT_AREA: { value: 7, label: "文本域" },
-  DATE: { value: 8, label: "日期框" },
-  DATE_TIME: { value: 9, label: "日期时间框" },
-  HIDDEN: { value: 10, label: "隐藏域" },
-};
+export const FormType = computed(
+  (): Record<string, OptionType> => ({
+    INPUT: { value: 1, label: $t("codeGen.formType.input") },
+    SELECT: { value: 2, label: $t("codeGen.formType.select") },
+    RADIO: { value: 3, label: $t("codeGen.formType.radio") },
+    CHECK_BOX: { value: 4, label: $t("codeGen.formType.checkbox") },
+    INPUT_NUMBER: { value: 5, label: $t("codeGen.formType.number") },
+    SWITCH: { value: 6, label: $t("codeGen.formType.switch") },
+    TEXT_AREA: { value: 7, label: $t("codeGen.formType.textarea") },
+    DATE: { value: 8, label: $t("codeGen.formType.date") },
+    DATE_TIME: { value: 9, label: $t("codeGen.formType.dataTime") },
+    HIDDEN: { value: 10, label: $t("codeGen.formType.hidden") },
+  })
+);
 
 /**
  * 查询类型
