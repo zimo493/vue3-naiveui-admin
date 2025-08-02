@@ -538,5 +538,17 @@
       "publishSuccess": "通知發布成功",
       "revokeSuccess": "通知撤回成功"
     }
+  },
+  "codeGen": {
+    "tableHeader": {
+      "name": "表名稱",
+      "comment": "表描述",
+      "engine": "存儲引擎",
+      "collation": "排序規則"
+    },
+    "generate": "生成代碼",
+    "resetConfig": "重置配置",
+    "resetConfigConfirm": "確定要重置 {tableName} 的配置嗎？",
+    "resetConfigSuccess": "重置成功"
   }
 }

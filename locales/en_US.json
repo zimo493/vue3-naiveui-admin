@@ -538,5 +538,17 @@
       "publishSuccess": "Notice published successfully",
       "revokeSuccess": "Notice revoked successfully"
     }
+  },
+  "codeGen": {
+    "tableHeader": {
+      "name": "Table Name",
+      "comment": "Table Comment",
+      "engine": "Storage Engine",
+      "collation": "Collation"
+    },
+    "generate": "Generate Code",
+    "resetConfig": "Reset Config",
+    "resetConfigConfirm": "Are you sure you want to reset the configuration of {tableName}?",
+    "resetConfigSuccess": "Reset Success"
   }
 }

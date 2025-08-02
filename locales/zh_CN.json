@@ -538,5 +538,17 @@
       "publishSuccess": "发布成功",
       "revokeSuccess": "撤回成功"
     }
+  },
+  "codeGen": {
+    "tableHeader": {
+      "name": "表名",
+      "comment": "描述",
+      "engine": "存储引擎",
+      "collation": "排序规则"
+    },
+    "generate": "生成代码",
+    "resetConfig": "重置配置",
+    "resetConfigConfirm": "确定要重置 {tableName} 的配置吗？",
+    "resetConfigSuccess": "重置成功"
   }
 }
