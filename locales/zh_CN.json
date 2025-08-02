@@ -368,7 +368,13 @@
 
     "configName": "配置名称",
     "configKey": "配置键",
-    "configValue": "配置值"
+    "configValue": "配置值",
+
+    "no": "序号",
+    "title": "标题",
+    "publishAuthor": "发布人",
+    "noticeLevel": "通知等级",
+    "noticeTarget": "公告目标"
   },
   "home": {
     "about": {
@@ -503,5 +509,34 @@
     "edit": "编辑配置",
     "delete": "确定要删除 {name} 配置吗？",
     "refreshCache": "缓存刷新成功"
+  },
+  "notice": {
+    "add": "新增公告",
+    "edit": "编辑公告",
+    "info": "通知公告详情",
+    "type": "通知类型",
+    "content": "通知内容",
+    "publishTime": "发布时间",
+    "status": {
+      "unpublished": "未发布",
+      "published": "已发布",
+      "revoked": "已撤销"
+    },
+    "target": {
+      "users": "指定用户",
+      "all": "全体用户",
+      "placeholder": "请选择用户"
+    },
+    "time": {
+      "create": "创建",
+      "publish": "发布",
+      "revoke": "撤回"
+    },
+    "inquiry": {
+      "publish": "确认发布该通知？",
+      "revoke": "确认撤回该通知？",
+      "publishSuccess": "发布成功",
+      "revokeSuccess": "撤回成功"
+    }
   }
 }

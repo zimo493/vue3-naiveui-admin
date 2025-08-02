@@ -368,7 +368,13 @@
 
     "configName": "配置名稱",
     "configKey": "配置鍵",
-    "configValue": "配置值"
+    "configValue": "配置值",
+
+    "no": "編號",
+    "title": "標題",
+    "publishAuthor": "發布人",
+    "noticeLevel": "通知等級",
+    "noticeTarget": "公告目標"
   },
   "home": {
     "about": {
@@ -503,5 +509,34 @@
     "edit": "編輯配置",
     "delete": "確定要刪除 {name} 配置嗎？",
     "refreshCache": "緩存刷新成功"
+  },
+  "notice": {
+    "add": "新增通知",
+    "edit": "編輯通知",
+    "info": "通知詳情",
+    "type": "通知類型",
+    "content": "通知內容",
+    "publishTime": "發布時間",
+    "status": {
+      "unpublished": "未發布",
+      "published": "已發布",
+      "revoked": "已撤回"
+    },
+    "target": {
+      "users": "通知用戶",
+      "all": "所有用戶",
+      "placeholder": "請選擇用戶"
+    },
+    "time": {
+      "create": "創建",
+      "publish": "發布",
+      "revoke": "撤回"
+    },
+    "inquiry": {
+      "publish": "確認發布該通知？",
+      "revoke": "確認撤回該通知？",
+      "publishSuccess": "通知發布成功",
+      "revokeSuccess": "通知撤回成功"
+    }
   }
 }

@@ -368,7 +368,13 @@
 
     "configName": "Config Name",
     "configKey": "Config Key",
-    "configValue": "Config Value"
+    "configValue": "Config Value",
+
+    "no": "No",
+    "title": "Title",
+    "publishAuthor": "Publish Author",
+    "noticeLevel": "Notice Level",
+    "noticeTarget": "Notice Target"
   },
   "home": {
     "about": {
@@ -503,5 +509,34 @@
     "edit": "Edit Config",
     "delete": "Are you sure you want to delete the {name} config?",
     "refreshCache": "Cache Refreshed Successfully"
+  },
+  "notice": {
+    "add": "Add Notice",
+    "edit": "Edit Notice",
+    "info": "Notice Details",
+    "type": "Notice Type",
+    "content": "Notice Content",
+    "publishTime": "Publish Time",
+    "status": {
+      "unpublished": "Unpublished",
+      "published": "Published",
+      "revoked": "Revoked"
+    },
+    "target": {
+      "users": "Target Users",
+      "all": "All Users",
+      "placeholder": "Select Users"
+    },
+    "time": {
+      "create": "Create",
+      "publish": "Publish",
+      "revoke": "Revoke"
+    },
+    "inquiry": {
+      "publish": "Confirm to publish the notice?",
+      "revoke": "Confirm to revoke the notice?",
+      "publishSuccess": "Notice published successfully",
+      "revokeSuccess": "Notice revoked successfully"
+    }
   }
 }
