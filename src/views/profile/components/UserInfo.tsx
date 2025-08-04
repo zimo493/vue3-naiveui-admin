@@ -74,7 +74,6 @@ export default defineComponent({
                   { required: true, type: "number", message: "请选择性别", trigger: "change" },
                 ],
               },
-              labelWidth: 80,
             },
             config: [
               { name: "nickname", label: "昵称" },

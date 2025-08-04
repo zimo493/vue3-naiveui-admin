@@ -71,7 +71,6 @@ export default defineComponent({
                   },
                 ],
               },
-              labelWidth: 80,
             },
           }}
           model-value={passwordChangeForm.value}

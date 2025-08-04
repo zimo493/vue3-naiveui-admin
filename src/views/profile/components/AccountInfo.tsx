@@ -170,7 +170,6 @@ export default defineComponent({
                 ],
                 code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
               },
-              labelWidth: "auto",
             },
           }}
           model-value={mobileUpdateForm.value}
@@ -220,7 +219,6 @@ export default defineComponent({
                 ],
                 code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
               },
-              labelWidth: "auto",
             },
           }}
           model-value={emailUpdateForm.value}
