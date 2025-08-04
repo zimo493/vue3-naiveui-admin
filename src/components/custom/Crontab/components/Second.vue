@@ -59,18 +59,13 @@
           <n-flex>
             <n-radio :value="4" />
             {{ t("crontab.specify") }}{{ t("crontab.second") }}
-            <div style="flex: 1">
-              <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(4)">
-                <n-flex>
-                  <n-checkbox
-                    v-for="item in 60"
-                    :key="item"
-                    :value="item - 1"
-                    :label="zeroFill(item - 1)"
-                  />
-                </n-flex>
-              </n-checkbox-group>
-            </div>
+            <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(4)">
+              <n-grid cols="10" x-gap="15" y-gap="10">
+                <n-gi v-for="item in 60" :key="item">
+                  <n-checkbox :value="item - 1" :label="zeroFill(item - 1)" />
+                </n-gi>
+              </n-grid>
+            </n-checkbox-group>
           </n-flex>
         </n-gi>
       </n-grid>
