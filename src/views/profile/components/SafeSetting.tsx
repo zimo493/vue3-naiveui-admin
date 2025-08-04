@@ -43,7 +43,7 @@ export default defineComponent({
           </NFlex>
         </NCard>
         {/* 修改密码表单 */}
-        <ModalForm
+        <ModalForm<User.PasswordChangeForm>
           width={500}
           loading={spin.value}
           props={{ draggable: true }}

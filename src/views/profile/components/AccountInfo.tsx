@@ -6,13 +6,12 @@ import {
   NText,
   NTag,
   NButton,
-  NInputGroup,
-  NInput,
+  NInputOtp,
 } from "naive-ui";
 
+import UserAPI from "@/api/system/user";
 import { useDict } from "@/hooks";
 import { executeAsync, spin, local } from "@/utils";
-import UserAPI from "@/api/system/user";
 import { useCountdown } from "../hooks/useCountdown";
 
 import Icones from "@/components/common/Icones.vue";
@@ -61,7 +60,7 @@ export default defineComponent({
       mobileUpdateForm.value = {
         mobile: userProfile.value.mobile,
       };
-      mobileUpdateFormRef.value?.open("绑定手机", mobileUpdateForm.value);
+      mobileUpdateFormRef.value?.open("修改手机号", mobileUpdateForm.value);
     };
 
     /** 绑定手机获取验证码 */
@@ -95,7 +94,7 @@ export default defineComponent({
       emailUpdateForm.value = {
         email: userProfile.value.email,
       };
-      emailUpdateFormRef.value?.open("绑定邮箱", emailUpdateForm.value);
+      emailUpdateFormRef.value?.open("修改邮箱", emailUpdateForm.value);
     };
     /** 绑定邮箱获取验证码 */
     const sendEmailCode = async () =>
@@ -153,7 +152,7 @@ export default defineComponent({
           </NDescriptions>
         </NCard>
         {/* 修改绑定手机表单 */}
-        <ModalForm
+        <ModalForm<User.EmailUpdateForm>
           width={500}
           loading={spin.value}
           ref={mobileUpdateFormRef}
@@ -171,15 +170,19 @@ export default defineComponent({
                 ],
                 code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
               },
-              labelWidth: 80,
+              labelWidth: "auto",
             },
           }}
           model-value={mobileUpdateForm.value}
           onSubmit={submitMobile}
           v-slots={{
             code: () => (
-              <NInputGroup>
-                <NInput v-model:value={mobileUpdateForm.value.code} placeholder="请输入验证码" />
+              <NFlex class="w-full">
+                <NInputOtp
+                  class="flex-1"
+                  block={true}
+                  v-model:value={mobileUpdateForm.value.code}
+                />
                 <NButton
                   type="info"
                   strong
@@ -189,13 +192,13 @@ export default defineComponent({
                 >
                   {mobileCountdown.value > 0 ? `${mobileCountdown.value} 秒后重试` : "发送验证码"}
                 </NButton>
-              </NInputGroup>
+              </NFlex>
             ),
           }}
         />
 
         {/* 绑定邮箱表单 */}
-        <ModalForm
+        <ModalForm<User.EmailUpdateForm>
           width={500}
           loading={spin.value}
           ref={emailUpdateFormRef}
@@ -217,15 +220,19 @@ export default defineComponent({
                 ],
                 code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
               },
-              labelWidth: 80,
+              labelWidth: "auto",
             },
           }}
           model-value={emailUpdateForm.value}
           onSubmit={submitEmail}
           v-slots={{
             code: () => (
-              <NInputGroup>
-                <NInput v-model:value={emailUpdateForm.value.code} placeholder="请输入验证码" />
+              <NFlex class="w-full">
+                <NInputOtp
+                  class="flex-1"
+                  block={true}
+                  v-model:value={mobileUpdateForm.value.code}
+                />
                 <NButton
                   type="info"
                   strong
@@ -235,7 +242,7 @@ export default defineComponent({
                 >
                   {emailCountdown.value > 0 ? `${emailCountdown.value} 秒后重试` : "发送验证码"}
                 </NButton>
-              </NInputGroup>
+              </NFlex>
             ),
           }}
         />
