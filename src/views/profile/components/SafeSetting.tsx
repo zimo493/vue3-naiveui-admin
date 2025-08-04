@@ -35,9 +35,7 @@ export default defineComponent({
             <NButton
               quaternary
               type="primary"
-              v-slots={{
-                icon: () => <Icones icon="ant-design:edit-outlined" />,
-              }}
+              v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
               onClick={updatePassword}
             >
               修改密码

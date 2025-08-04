@@ -43,10 +43,8 @@ export default defineComponent({
           <NAvatar
             size={100}
             src={userProfile.value.avatar}
-            renderFallback={() => ErrorAvatar()}
-            v-slots={{
-              fallback: () => ErrorAvatar(),
-            }}
+            renderFallback={ErrorAvatar}
+            v-slots={{ fallback: ErrorAvatar }}
           />
           {isEdit.value && (
             <NEl
@@ -74,9 +72,7 @@ export default defineComponent({
         authStore.userInfo.avatar = avatar;
         userProfile.value.avatar = avatar;
         // 更新用户信息
-        await UserAPI.updateProfile({
-          avatar,
-        });
+        await UserAPI.updateProfile({ avatar });
         imageCutRef.value?.close();
         window.$message.success("头像更新成功！");
       } catch (error) {
