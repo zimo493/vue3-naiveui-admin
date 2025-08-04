@@ -110,8 +110,7 @@ import { useAuthStoreHook } from "@/store";
 import AuthAPI from "@/api/auth";
 import { router } from "@/router";
 import { LocationQuery, RouteLocationRaw } from "vue-router";
-import Cookies from "js-cookie";
-import { decrypt, encrypt } from "@/utils";
+import { decrypt, encrypt, local } from "@/utils";
 
 const route = useRoute();
 const t = useI18n().t;
@@ -162,14 +161,16 @@ const getCaptcha = () => {
 };
 
 const getCookie = () => {
-  const userName = Cookies.get("username");
-  const pwd = Cookies.get("password");
-  const rememberMe = Cookies.get("rememberMe");
-  const { username, password } = model.value;
+  const loginInfo = local.get("remember");
 
-  model.value.username = userName === undefined ? username : userName;
-  model.value.password = pwd === undefined ? password : decrypt(pwd) || "";
-  model.value.rememberMe = rememberMe === undefined ? false : Boolean(rememberMe);
+  if (loginInfo) {
+    model.value.username =
+      loginInfo.username === undefined ? loginInfo.username : loginInfo.username;
+    model.value.password =
+      loginInfo.password === undefined ? loginInfo.password : decrypt(loginInfo.password) || "";
+    model.value.rememberMe =
+      loginInfo.rememberMe === undefined ? false : Boolean(loginInfo.rememberMe);
+  }
 };
 
 const handleLoginSubmit = async () => {
@@ -184,18 +185,20 @@ const handleLoginSubmit = async () => {
 
     // 3. 勾选了需要记住密码设置在 cookie 中设置记住用户名和密码
     if (model.value.rememberMe) {
-      Cookies.set("rememberMe", model.value.rememberMe.toString(), {
-        expires: 10,
-      });
-      Cookies.set("username", model.value.username, { expires: 10 });
       const pwd = encrypt(model.value.password);
 
-      pwd ? Cookies.set("password", pwd, { expires: 10 }) : null;
+      local.set(
+        "remember",
+        {
+          username: model.value.username,
+          password: typeof pwd === "string" ? pwd : "",
+          rememberMe: model.value.rememberMe,
+        },
+        60 * 60 * 24 * 10
+      );
     } else {
       // 否则移除
-      Cookies.remove("username");
-      Cookies.remove("password");
-      Cookies.remove("rememberMe");
+      local.remove("remember");
     }
 
     // 4. 解析并跳转目标地址

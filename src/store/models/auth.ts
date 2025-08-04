@@ -108,7 +108,10 @@ export const useAuthStore = defineStore("auth-store", {
       dictStore.cleanDict();
 
       // 清除本地缓存
-      local.clear();
+      // local.clear();
+      this.userInfo = { roles: [], perms: [] };
+      local.remove("accessToken");
+      local.remove("refreshToken");
       session.clear();
 
       // 重制当前存储库

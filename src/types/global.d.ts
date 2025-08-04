@@ -43,6 +43,13 @@ interface Local {
   mobileCodeExpireTime: number;
   /** 邮箱验证码倒计时 */
   emailCodeExpireTime: number;
+
+  /** 记住我 */
+  remember: {
+    username: string;
+    password: string;
+    rememberMe: boolean;
+  };
 }
 
 /** SessionStorage */
