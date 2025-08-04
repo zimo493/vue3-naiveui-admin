@@ -5,19 +5,19 @@
         <n-gi>
           <n-flex align="center">
             <n-radio :value="1" />
-            每日，允许的通配符[, - * ? / L W]
+            {{ t("crontab.wildcard.day") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="2" />
-            不指定
+            {{ t("crontab.none") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="3" />
-            周期从
+            {{ t("crontab.cycle") }}
             <n-input-number
               v-model:value="cycle01"
               :min="1"
@@ -26,7 +26,7 @@
               @update:value="radioChange(3)"
               @focus="radioChange(3)"
             />
-            到
+            {{ t("crontab.to") }}
             <n-input-number
               v-model:value="cycle02"
               :min="cycle01 ? cycle01 + 1 : 2"
@@ -35,13 +35,13 @@
               @update:value="radioChange(3)"
               @focus="radioChange(3)"
             />
-            日
+            {{ t("crontab.day") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="4" />
-            周期从
+            {{ t("crontab.cycle") }}
             <n-input-number
               v-model:value="average01"
               :min="1"
@@ -50,7 +50,7 @@
               @update:value="radioChange(4)"
               @focus="radioChange(4)"
             />
-            号开始，每
+            {{ t("crontab.days.title") }}{{ t("crontab.start") }}
             <n-input-number
               v-model:value="average02"
               :min="1"
@@ -59,13 +59,13 @@
               @update:value="radioChange(4)"
               @focus="radioChange(4)"
             />
-            日执行一次
+            {{ t("crontab.day") }}{{ t("crontab.executeOnce") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="5" />
-            每个月
+            {{ t("crontab.days.month") }}
             <n-input-number
               v-model:value="workday"
               :min="1"
@@ -74,19 +74,19 @@
               @update:value="radioChange(5)"
               @focus="radioChange(5)"
             />
-            号最近的那个工作日
+            {{ t("crontab.days.title") }}{{ t("crontab.days.workday") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="6" />
-            本月最后一天
+            {{ t("crontab.days.last") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex>
             <n-radio :value="7" />
-            指定日
+            {{ t("crontab.specify") }}{{ t("crontab.day") }}
             <div style="flex: 1">
               <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(7)">
                 <n-flex>
@@ -109,6 +109,7 @@
 import { checkNumber, zeroFill } from "@/utils";
 
 defineOptions({ name: "CrontabDay" });
+const { t } = useI18n();
 
 const { modelValue } = defineProps({
   modelValue: { required: true, type: String },

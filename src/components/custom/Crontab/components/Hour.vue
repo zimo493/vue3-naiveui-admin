@@ -5,13 +5,13 @@
         <n-gi>
           <n-flex align="center">
             <n-radio :value="1" />
-            每小时，允许的通配符[, - * /]
+            {{ t("crontab.wildcard.hour") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="2" />
-            周期从
+            {{ t("crontab.cycle") }}
             <n-input-number
               v-model:value="cycle01"
               :min="0"
@@ -20,7 +20,7 @@
               @update:value="radioChange(2)"
               @focus="radioChange(2)"
             />
-            到
+            {{ t("crontab.to") }}
             <n-input-number
               v-model:value="cycle02"
               :min="cycle01 ? cycle01 + 1 : 1"
@@ -29,13 +29,13 @@
               @update:value="radioChange(2)"
               @focus="radioChange(2)"
             />
-            小时
+            {{ t("crontab.hour") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="3" />
-            周期从
+            {{ t("crontab.cycle") }}
             <n-input-number
               v-model:value="average01"
               :min="0"
@@ -44,7 +44,7 @@
               @update:value="radioChange(3)"
               @focus="radioChange(3)"
             />
-            小时开始，每
+            {{ t("crontab.hours.title") }}{{ t("crontab.start") }}
             <n-input-number
               v-model:value="average02"
               :min="1"
@@ -53,18 +53,18 @@
               @update:value="radioChange(3)"
               @focus="radioChange(3)"
             />
-            小时执行一次
+            {{ t("crontab.hours.title") }}{{ t("crontab.executeOnce") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex>
             <n-radio :value="4" />
-            指定时
+            {{ t("crontab.specify") }}{{ t("crontab.hour") }}
             <div style="flex: 1">
               <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(4)">
                 <n-flex vertical>
                   <div>
-                    上午：
+                    {{ t("crontab.hours.am") }}
                     <n-flex inline>
                       <n-checkbox
                         v-for="item in 12"
@@ -75,7 +75,7 @@
                     </n-flex>
                   </div>
                   <div>
-                    下午：
+                    {{ t("crontab.hours.pm") }}
                     <n-flex inline>
                       <n-checkbox
                         v-for="item in 12"
@@ -107,6 +107,7 @@
 import { checkNumber, zeroFill } from "@/utils";
 
 defineOptions({ name: "CrontabHour" });
+const { t } = useI18n();
 
 const { modelValue } = defineProps({
   modelValue: { required: true, type: String },

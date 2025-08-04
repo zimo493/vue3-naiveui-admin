@@ -5,19 +5,19 @@
         <n-gi>
           <n-flex align="center">
             <n-radio :value="1" />
-            每周，允许的通配符[, - * ? / L #]
+            {{ t("crontab.wildcard.week") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="2" />
-            不指定
+            {{ t("crontab.none") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="3" />
-            周期从
+            {{ t("crontab.cycle") }}
             <n-radio-group
               v-model:value="cycle01"
               name="radiobuttongroup1"
@@ -32,7 +32,7 @@
                 :label="song.label"
               />
             </n-radio-group>
-            <div>到</div>
+            <div>{{ t("crontab.to") }}</div>
             <n-radio-group
               v-model:value="cycle02"
               name="radiobuttongroup2"
@@ -52,7 +52,7 @@
         <n-gi>
           <n-flex align="center">
             <n-radio :value="4" />
-            周期从第
+            {{ t("crontab.cycle") }}{{ t("crontab.weeks.first") }}
             <n-input-number
               v-model:value="average01"
               :min="1"
@@ -61,7 +61,7 @@
               @update:value="radioChange(4)"
               @focus="radioChange(4)"
             />
-            周的
+            {{ t("crontab.week") }}{{ t("crontab.weeks.of") }}
             <n-radio-group
               v-model:value="average02"
               name="radiobuttongroup3"
@@ -80,7 +80,7 @@
         <n-gi>
           <n-flex align="center">
             <n-radio :value="5" />
-            本月最后一个
+            {{ t("crontab.weeks.last") }}
             <n-radio-group
               v-model:value="weekday"
               name="radiobuttongroup4"
@@ -99,7 +99,7 @@
         <n-gi>
           <n-flex align="center">
             <n-radio :value="6" />
-            指定周
+            {{ t("crontab.specify") }}{{ t("crontab.week") }}
             <div style="flex: 1">
               <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(6)">
                 <n-flex>
@@ -122,6 +122,7 @@
 import { checkNumber } from "@/utils";
 
 defineOptions({ name: "CrontabWeek" });
+const { t } = useI18n();
 
 const { modelValue } = defineProps({
   modelValue: { required: true, type: String },
@@ -138,15 +139,15 @@ const cycle02 = ref<number>(3);
 const average01 = ref<number>(1);
 const average02 = ref<number>(2);
 const checkboxList = ref<number[]>([]);
-const weekList = [
-  { value: 2, label: "周一" },
-  { value: 3, label: "周二" },
-  { value: 4, label: "周三" },
-  { value: 5, label: "周四" },
-  { value: 6, label: "周五" },
-  { value: 7, label: "周六" },
-  { value: 1, label: "周日" },
-];
+const weekList = computed(() => [
+  { value: 2, label: t("crontab.weeks.list.1") },
+  { value: 3, label: t("crontab.weeks.list.2") },
+  { value: 4, label: t("crontab.weeks.list.3") },
+  { value: 5, label: t("crontab.weeks.list.4") },
+  { value: 6, label: t("crontab.weeks.list.5") },
+  { value: 7, label: t("crontab.weeks.list.6") },
+  { value: 1, label: t("crontab.weeks.list.0") },
+]);
 
 const value = computed({
   get: () => modelValue,

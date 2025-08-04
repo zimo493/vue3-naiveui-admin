@@ -5,19 +5,19 @@
         <n-gi>
           <n-flex align="center">
             <n-radio :value="1" />
-            不填，允许的通配符[, - * /]
+            {{ t("crontab.wildcard.year") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="2" />
-            每年
+            {{ t("crontab.everyYear") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="3" />
-            周期从
+            {{ t("crontab.cycle") }}
             <n-input-number
               v-model:value="cycle01"
               :min="fullYear"
@@ -26,7 +26,7 @@
               @update:value="radioChange(3)"
               @focus="radioChange(3)"
             />
-            年到
+            {{ t("crontab.year") }}{{ t("crontab.to") }}
             <n-input-number
               v-model:value="cycle02"
               :min="cycle01 ? cycle01 + 1 : fullYear + 1"
@@ -35,13 +35,13 @@
               @update:value="radioChange(3)"
               @focus="radioChange(3)"
             />
-            年
+            {{ t("crontab.year") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="4" />
-            周期从
+            {{ t("crontab.cycle") }}
             <n-input-number
               v-model:value="average01"
               :min="fullYear"
@@ -50,7 +50,7 @@
               @update:value="radioChange(4)"
               @focus="radioChange(4)"
             />
-            年开始，每
+            {{ t("crontab.year") }}{{ t("crontab.start") }}
             <n-input-number
               v-model:value="average02"
               :min="1"
@@ -59,13 +59,13 @@
               @update:value="radioChange(4)"
               @focus="radioChange(4)"
             />
-            年执行一次
+            {{ t("crontab.year") }}{{ t("crontab.executeOnce") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex>
             <n-radio :value="5" />
-            指定年
+            {{ t("crontab.specify") }}{{ t("crontab.year") }}
             <div style="flex: 1">
               <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(5)">
                 <n-flex>
@@ -89,6 +89,7 @@
 import { checkNumber } from "@/utils";
 
 defineOptions({ name: "CrontabYear" });
+const { t } = useI18n();
 
 const { modelValue } = defineProps({
   modelValue: { required: true, type: String },

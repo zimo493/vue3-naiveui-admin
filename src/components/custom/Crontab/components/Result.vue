@@ -12,12 +12,13 @@
     </template>
     <div v-else class="loading-text">
       <n-spin size="small" />
-      <span class="ml-2">计算结果中...</span>
+      <span class="ml-2">{{ t("crontab.computation") }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
 const { modelValue } = defineProps({
   modelValue: { required: true, type: String },
 });
@@ -56,7 +57,7 @@ const expressionChange = (): void => {
 
   // 如果表达式为空，直接返回
   if (!value.value || value.value.trim() === "") {
-    resultList.value = ["请输入有效的cron表达式"];
+    resultList.value = [t("crontab.invalidCron")];
     isShow.value = true;
 
     return;
@@ -67,7 +68,7 @@ const expressionChange = (): void => {
 
   // 验证表达式格式
   if (ruleArr.length < 6) {
-    resultList.value = ["cron表达式格式不正确"];
+    resultList.value = [t("crontab.invalidFormat")];
     isShow.value = true;
 
     return;
@@ -402,11 +403,11 @@ const expressionChange = (): void => {
   }
   // 判断100年内的结果条数
   if (resultArr.length === 0) {
-    resultList.value = ["没有达到条件的结果！"];
+    resultList.value = [t("crontab.noResult")];
   } else {
     resultList.value = resultArr;
     if (resultArr.length !== 10) {
-      resultList.value.push("最近100年内只有" + resultArr.length + "条结果！");
+      resultList.value.push(t("crontab.recent100Years", { val: resultArr.length }));
     }
   }
   // 计算完成-显示结果

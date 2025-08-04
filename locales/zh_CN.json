@@ -614,5 +614,66 @@
     "updateAvatarSuccess": "头像更新成功！",
     "updateAvatarFailed": "头像上传失败！",
     "seconds": "{val} 秒后重试"
+  },
+  "crontab": {
+    "button": "生成表达式",
+    "title": "Cron表达式生成器",
+    "second": "秒",
+    "min": "分",
+    "hour": "时",
+    "day": "日",
+    "month": "月",
+    "week": "周",
+    "year": "年",
+    "timeExpression": "时间表达式",
+    "cronExpression": "Cron表达式",
+    "last10RunTime": "最近10次运行时间",
+    "wildcard": {
+      "second": "每秒，允许的通配符[, - * /]",
+      "min": "每分钟，允许的通配符[, - * /]",
+      "hour": "每小时，允许的通配符[, - * /]",
+      "day": "每日，允许的通配符[, - * ? / L W]",
+      "month": "每月，允许的通配符[, - * /]",
+      "week": "每周，允许的通配符[, - * ? / L #]",
+      "year": "每年，允许的通配符[, - * /]"
+    },
+    "cycle": "周期从",
+    "to": "到",
+    "start": "开始，每",
+    "executeOnce": "执行一次",
+    "specify": "指定",
+    "none": "不指定",
+    "minutes": "分钟",
+    "hours": {
+      "title": "小时",
+      "am": "上午：",
+      "pm": "下午："
+    },
+    "days": {
+      "title": "号",
+      "month": "每月的",
+      "workday": "最近那个工作日",
+      "last": "本月最后一天"
+    },
+    "weeks": {
+      "first": "第",
+      "of": "的",
+      "last": "本月最后一个",
+      "list": {
+        "0": "周日",
+        "1": "周一",
+        "2": "周二",
+        "3": "周三",
+        "4": "周四",
+        "5": "周五",
+        "6": "周六"
+      }
+    },
+    "everyYear": "每年",
+    "computation": "计算结果中...",
+    "invalidCron": "请输入有效的cron表达式",
+    "invalidFormat": "cron表达式格式不正确",
+    "noResult": "没有达到条件的结果！",
+    "recent100Years": "最近100年内只有 {val} 条结果！"
   }
 }

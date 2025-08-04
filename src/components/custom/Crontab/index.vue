@@ -3,43 +3,45 @@
     v-model:show="visible"
     style="width: 1000px"
     preset="card"
-    title="Cron表达式生成器"
+    :title="t('crontab.title')"
     :segmented="{ content: true, action: true }"
     @after-leave="clearCron"
   >
     <n-grid x-gap="12" y-gap="12" :cols="1">
       <n-gi>
         <n-tabs type="segment" animated>
-          <n-tab-pane name="second" tab="秒">
+          <n-tab-pane name="second" :tab="t('crontab.second')">
             <Second v-model="crontabValue.second" />
           </n-tab-pane>
-          <n-tab-pane name="min" tab="分">
+          <n-tab-pane name="min" :tab="t('crontab.min')">
             <Min v-model="crontabValue.min" />
           </n-tab-pane>
-          <n-tab-pane name="hour" tab="时">
+          <n-tab-pane name="hour" :tab="t('crontab.hour')">
             <Hour v-model="crontabValue.hour" />
           </n-tab-pane>
-          <n-tab-pane name="day" tab="日">
+          <n-tab-pane name="day" :tab="t('crontab.day')">
             <Day v-model="crontabValue.day" />
           </n-tab-pane>
-          <n-tab-pane name="month" tab="月">
+          <n-tab-pane name="month" :tab="t('crontab.month')">
             <Month v-model="crontabValue.month" />
           </n-tab-pane>
-          <n-tab-pane name="week" tab="周">
+          <n-tab-pane name="week" :tab="t('crontab.week')">
             <Week v-model="crontabValue.week" />
           </n-tab-pane>
-          <n-tab-pane name="year" tab="年">
+          <n-tab-pane name="year" :tab="t('crontab.year')">
             <Year v-model="crontabValue.year" />
           </n-tab-pane>
         </n-tabs>
       </n-gi>
       <n-gi>
-        <n-card title="时间表达式" :segmented="{ content: true }">
+        <n-card :title="t('crontab.timeExpression')" :segmented="{ content: true }">
           <template #header-extra>
-            Cron 表达式：
-            <n-tag type="success" :bordered="false">
-              {{ crontabValueString }}
-            </n-tag>
+            <n-flex align="center">
+              {{ t("crontab.cronExpression") }}
+              <n-tag type="success" :bordered="false">
+                {{ crontabValueString }}
+              </n-tag>
+            </n-flex>
           </template>
           <div class="crontabValue">
             <div v-for="(item, key, index) in crontabValue" :key="index">
@@ -52,7 +54,7 @@
         </n-card>
       </n-gi>
       <n-gi>
-        <n-card title="最近10次运行时间" :segmented="{ content: true }">
+        <n-card :title="t('crontab.last10RunTime')" :segmented="{ content: true }">
           <Result v-model="crontabValueString" />
         </n-card>
       </n-gi>
@@ -63,19 +65,19 @@
           <template #icon>
             <Icones icon="ant-design:check-outlined" />
           </template>
-          确定
+          {{ t("button.ok") }}
         </n-button>
         <n-button type="warning" @click="clearCron">
           <template #icon>
             <Icones icon="ant-design:redo-outlined" />
           </template>
-          重置
+          {{ t("button.reset") }}
         </n-button>
         <n-button strong secondary @click="cancel">
           <template #icon>
             <Icones icon="ant-design:close-outlined" />
           </template>
-          取消
+          {{ t("button.cancel") }}
         </n-button>
       </n-flex>
     </template>
@@ -84,6 +86,7 @@
 
 <script lang="ts" setup>
 defineOptions({ name: "Crontab" });
+const { t } = useI18n();
 
 const { modelValue } = defineProps({
   modelValue: { type: String },
@@ -154,15 +157,17 @@ const getValue = () => {
 
 const crontabValue = ref<CrontabValue>(getValue());
 
-const map: CrontabValue = {
-  second: "秒",
-  min: "分钟",
-  hour: "小时",
-  day: "日",
-  month: "月",
-  week: "周",
-  year: "年",
-};
+const map = computed(
+  (): CrontabValue => ({
+    second: t("crontab.second"),
+    min: t("crontab.min"),
+    hour: t("crontab.hour"),
+    day: t("crontab.day"),
+    month: t("crontab.month"),
+    week: t("crontab.week"),
+    year: t("crontab.year"),
+  })
+);
 
 watch(
   () => crontabValue.value.day,

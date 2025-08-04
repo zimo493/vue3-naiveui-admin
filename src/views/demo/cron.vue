@@ -8,7 +8,7 @@
             <template #icon>
               <Icones icon="ant-design:clock-circle-outlined" />
             </template>
-            生成表达式
+            {{ t("crontab.button") }}
           </n-button>
         </n-input-group>
       </n-gi>
@@ -19,6 +19,7 @@
 </template>
 <script lang="ts" setup>
 defineOptions({ name: "Cron" });
+const { t } = useI18n();
 
 const crontabRef = useTemplateRef("crontab");
 

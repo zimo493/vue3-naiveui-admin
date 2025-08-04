@@ -614,5 +614,66 @@
     "updateAvatarSuccess": "Avatar Updated Successfully!",
     "updateAvatarFailed": "Avatar Upload Failed!",
     "seconds": "{val} seconds later"
+  },
+  "crontab": {
+    "button": "Generate Expression",
+    "title": "Cron Generator",
+    "second": "Second",
+    "min": "Minute",
+    "hour": "Hour",
+    "day": "Day",
+    "month": "Month",
+    "week": "Week",
+    "year": "Year",
+    "timeExpression": "Time Expression",
+    "cronExpression": "Cron Expression",
+    "last10RunTime": "Last 10 Run Times",
+    "wildcard": {
+      "second": "Every second, allowed wildcards [, - * /]",
+      "min": "Every minute, allowed wildcards [, - * /]",
+      "hour": "Every hour, allowed wildcards [, - * /]",
+      "day": "Every day, allowed wildcards [, - * ? / L W]",
+      "month": "Every month, allowed wildcards [, - * /]",
+      "week": "Every week, allowed wildcards [, - * ? / L #]",
+      "year": "Every year, allowed wildcards [, - * /]"
+    },
+    "cycle": "Cycle from",
+    "to": "to",
+    "start": "Start, every",
+    "executeOnce": "execute once",
+    "specify": "Specify",
+    "none": "None",
+    "minutes": "minutes",
+    "hours": {
+      "title": "Hours",
+      "am": "AM:",
+      "pm": "PM:"
+    },
+    "days": {
+      "title": "Days",
+      "month": "Monthly",
+      "workday": "Nearest weekday",
+      "last": "Last day of month"
+    },
+    "weeks": {
+      "first": "First",
+      "of": "of",
+      "last": "Last week of month",
+      "list": {
+        "0": "Sunday",
+        "1": "Monday",
+        "2": "Tuesday",
+        "3": "Wednesday",
+        "4": "Thursday",
+        "5": "Friday",
+        "6": "Saturday"
+      }
+    },
+    "everyYear": "Every year",
+    "computation": "Computation Result ...",
+    "invalidCron": "Please input a valid cron expression",
+    "invalidFormat": "cron expression format is incorrect",
+    "noResult": "No result meets the conditions!",
+    "recent100Years": "Only {val} results in the last 100 years!"
   }
 }

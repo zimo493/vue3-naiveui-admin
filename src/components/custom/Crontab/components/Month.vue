@@ -5,13 +5,13 @@
         <n-gi>
           <n-flex align="center">
             <n-radio :value="1" />
-            每月，允许的通配符[, - * /]
+            {{ t("crontab.wildcard.month") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="2" />
-            周期从
+            {{ t("crontab.cycle") }}
             <n-input-number
               v-model:value="cycle01"
               :min="1"
@@ -20,7 +20,7 @@
               @update:value="radioChange(2)"
               @focus="radioChange(2)"
             />
-            到
+            {{ t("crontab.to") }}
             <n-input-number
               v-model:value="cycle02"
               :min="cycle01 ? cycle01 + 1 : 2"
@@ -29,13 +29,13 @@
               @update:value="radioChange(2)"
               @focus="radioChange(2)"
             />
-            月
+            {{ t("crontab.month") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex align="center">
             <n-radio :value="3" />
-            周期从
+            {{ t("crontab.cycle") }}
             <n-input-number
               v-model:value="average01"
               :min="1"
@@ -44,7 +44,7 @@
               @update:value="radioChange(3)"
               @focus="radioChange(3)"
             />
-            月开始，每
+            {{ t("crontab.month") }}{{ t("crontab.start") }}
             <n-input-number
               v-model:value="average02"
               :min="1"
@@ -53,13 +53,13 @@
               @update:value="radioChange(3)"
               @focus="radioChange(3)"
             />
-            月执行一次
+            {{ t("crontab.month") }}{{ t("crontab.executeOnce") }}
           </n-flex>
         </n-gi>
         <n-gi>
           <n-flex>
             <n-radio :value="4" />
-            指定月
+            {{ t("crontab.specify") }}{{ t("crontab.month") }}
             <div style="flex: 1">
               <n-checkbox-group v-model:value="checkboxList" @update:value="radioChange(4)">
                 <n-flex>
@@ -82,6 +82,7 @@
 import { checkNumber, zeroFill } from "@/utils";
 
 defineOptions({ name: "CrontabMonth" });
+const { t } = useI18n();
 
 const { modelValue } = defineProps({
   modelValue: { required: true, type: String },
