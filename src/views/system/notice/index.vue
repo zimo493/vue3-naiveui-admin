@@ -19,13 +19,13 @@
           <template #icon>
             <icon-park-outline-plus />
           </template>
-          新增
+          {{ t("button.add") }}
         </n-button>
         <n-button type="error" :disabled="!selectedRowKeys.length" @click="handleDelete()">
           <template #icon>
             <icon-park-outline-delete-themes />
           </template>
-          删除
+          {{ t("button.delete") }}
         </n-button>
       </template>
     </TablePro>
@@ -45,7 +45,7 @@
           :options="userOptions"
           multiple
           filterable
-          placeholder="请选择用户"
+          :placeholder="t('notice.target.placeholder')"
         />
       </template>
       <template #content>
@@ -54,15 +54,7 @@
     </ModalForm>
 
     <!-- 详情 -->
-    <ModalForm
-      ref="modalView"
-      v-model="viewValue"
-      use-type="view"
-      :form="{
-        config: viewConfig,
-        props: { labelWidth: 100 },
-      }"
-    >
+    <ModalForm ref="modalView" v-model="viewValue" use-type="view" :form-config="viewConfig">
       <template #title>
         <n-flex align="center">
           <DictTag v-if="viewValue.type" :options="notice_type" :value="viewValue.type" />
@@ -104,6 +96,8 @@ defineOptions({
   inheritAttrs: false,
 });
 
+const { t } = useI18n();
+
 // 获取字典数据
 const { notice_type, notice_level } = useDict("notice_type", "notice_level");
 
@@ -141,16 +135,16 @@ const handleQuery = () => {
 
 /** 搜索表单配置 */
 const formConfig = ref<FormPro.FormItemConfig[]>([
-  { name: "title", label: "标题" },
+  { name: "title", label: t("tableHeader.title") },
   {
     name: "publishStatus",
-    label: "发布状态",
+    label: t("tableHeader.status"),
     component: "select",
     props: {
       options: [
-        { label: "未发布", value: 0 },
-        { label: "已发布", value: 1 },
-        { label: "已撤回", value: -1 },
+        { label: t("notice.status.unpublished"), value: 0 },
+        { label: t("notice.status.published"), value: 1 },
+        { label: t("notice.status.revoked"), value: -1 },
       ],
     },
   },
@@ -161,17 +155,17 @@ const getPublishStatusTag = (status?: number) => {
   if (!status?.toString())
     return (
       <NTag bordered={false} type="default">
-        未知
+        -
       </NTag>
     );
 
   const statusMap = {
-    0: { type: "warning", label: "未发布" },
-    1: { type: "success", label: "已发布" },
-    "-1": { type: "error", label: "已撤回" },
+    0: { type: "warning", label: t("notice.status.unpublished") },
+    1: { type: "success", label: t("notice.status.published") },
+    "-1": { type: "error", label: t("notice.status.revoked") },
   };
 
-  const config = statusMap[status as keyof typeof statusMap] || { type: "default", label: "未知" };
+  const config = statusMap[status as keyof typeof statusMap] || { type: "default", label: "-" };
 
   return (
     <NTag bordered={false} type={config.type}>
@@ -187,14 +181,14 @@ const columns = ref<DataTableColumns<Notice.VO>>([
     disabled: ({ publishStatus }) => publishStatus === 1,
   },
   {
-    title: "序号",
+    title: t("tableHeader.no"),
     key: "id",
     align: "center",
     width: 80,
     render: (_, index) => index + 1,
   },
   {
-    title: "通知标题",
+    title: t("tableHeader.title"),
     key: "title",
     render: ({ title, type }) => (
       <NFlex align="center">
@@ -209,70 +203,80 @@ const columns = ref<DataTableColumns<Notice.VO>>([
   //   align: "center",
   //   render: ({ type }) => <DictTag options={notice_type.value} value={type} />,
   // },
-  { title: "发布人", key: "publisherName", align: "center" },
+  { title: t("tableHeader.publishAuthor"), key: "publisherName", align: "center" },
   {
-    title: "通知等级",
+    title: t("tableHeader.noticeLevel"),
     key: "publisherName",
     align: "center",
     render: ({ level }) => <DictTag options={notice_level.value} value={level} />,
   },
   {
-    title: "通告目标类型",
+    title: t("tableHeader.noticeTarget"),
     key: "targetType",
     align: "center",
     render: ({ targetType }) => {
-      if (targetType === 1) return <NTag type="warning">全部</NTag>;
-      if (targetType === 2) return <NTag type="success">指定用户</NTag>;
+      if (targetType === 1) return <NTag type="warning">{t("notice.target.all")}</NTag>;
+      if (targetType === 2) return <NTag type="success">{t("notice.target.users")}</NTag>;
     },
   },
   {
-    title: "发布状态",
+    title: t("tableHeader.status"),
     key: "publishStatus",
     align: "center",
     render: ({ publishStatus }) => getPublishStatusTag(publishStatus),
   },
   {
-    title: "操作时间",
+    title: t("tableHeader.operateTime"),
     key: "createTime",
     align: "center",
     render: ({ createTime, publishTime, revokeTime, publishStatus }) => {
       return (
         <NFlex vertical size={[0, 0]}>
-          <NText>创建：{createTime}</NText>
-          {publishStatus === 1 && <NText>发布：{publishTime}</NText>}
-          {publishStatus === -1 && <NText>撤回：{revokeTime}</NText>}
+          <NText>
+            {t("notice.time.create")}：{createTime}
+          </NText>
+          {publishStatus === 1 && (
+            <NText>
+              {t("notice.time.publish")}：{publishTime}
+            </NText>
+          )}
+          {publishStatus === -1 && (
+            <NText>
+              {t("notice.time.revoke")}：{revokeTime}
+            </NText>
+          )}
         </NFlex>
       );
     },
   },
   {
-    title: "操作",
+    title: t("tableHeader.action"),
     key: "action",
     align: "center",
     render: (row) => {
       return (
         <NFlex justify="center">
           <NButton text type="info" onClick={() => viewDetail(row.id)}>
-            查看
+            {t("button.view")}
           </NButton>
           {row.publishStatus !== 1 && (
             <NButton text type="primary" onClick={() => openDrawer(row)}>
-              编辑
+              {t("button.edit")}
             </NButton>
           )}
           {row.publishStatus !== 1 && (
             <NButton text type="success" onClick={() => handlePublish(row.id)}>
-              发布
+              {t("notice.time.publish")}
             </NButton>
           )}
           {row.publishStatus === 1 && (
             <NButton text type="warning" onClick={() => handleRevoke(row.id)}>
-              撤回
+              {t("notice.time.revoke")}
             </NButton>
           )}
           {row.publishStatus !== 1 && (
             <NButton text type="error" onClick={() => handleDelete(row.id)}>
-              删除
+              {t("button.delete")}
             </NButton>
           )}
         </NFlex>
@@ -285,36 +289,36 @@ const columns = ref<DataTableColumns<Notice.VO>>([
 const editFormConfig = computed(
   (): DialogForm.Form => ({
     config: [
-      { name: "title", label: "标题", span: 12 },
+      { name: "title", label: t("tableHeader.title"), span: 12 },
       {
         name: "type",
-        label: "通知类型",
+        label: t("notice.type"),
         component: "select",
         dict: "notice_type",
         span: 12,
       },
       {
         name: "level",
-        label: "通知等级",
+        label: t("tableHeader.noticeLevel"),
         component: "select",
         dict: "notice_level",
         span: 12,
       },
       {
         name: "targetType",
-        label: "目标类型",
+        label: t("tableHeader.noticeTarget"),
         component: "radio",
         span: 12,
         props: {
           options: [
-            { label: "全体", value: 1 },
-            { label: "指定用户", value: 2 },
+            { label: t("notice.target.all"), value: 1 },
+            { label: t("notice.target.users"), value: 2 },
           ],
         },
       },
       {
         name: "targetUserIds",
-        label: "指定用户",
+        label: t("notice.target.users"),
         component: "select",
         hidden: modelValue.value.targetType === 1,
         props: {
@@ -324,7 +328,7 @@ const editFormConfig = computed(
       },
       {
         name: "content",
-        label: "通知内容",
+        label: t("notice.content"),
         component: () => (
           <WangEditor
             modelValue={modelValue.value.content}
@@ -335,20 +339,32 @@ const editFormConfig = computed(
     ],
     props: {
       rules: {
-        title: [{ required: true, message: "请输入通知标题", trigger: "blur" }],
-        type: [{ required: true, type: "number", message: "请选择通知类型", trigger: "change" }],
+        title: [{ required: true, message: t("input") + t("tableHeader.title"), trigger: "blur" }],
+        type: [
+          {
+            required: true,
+            type: "number",
+            message: t("select") + t("notice.type"),
+            trigger: "change",
+          },
+        ],
         targetUserIds: [
-          { required: true, type: "array", message: "请选择指定用户", trigger: "change" },
+          {
+            required: true,
+            type: "array",
+            message: t("select") + t("notice.target.users"),
+            trigger: "change",
+          },
         ],
         content: [
           {
             required: true,
-            message: "请输入通知内容",
+            message: t("input") + t("notice.content"),
             trigger: "blur",
             validator: (_rule: FormItemRule, value: string) =>
               new Promise((resolve, reject) => {
                 if (!value.replace(/<[^>]+>/g, "").trim()) {
-                  reject(new Error("请输入通知内容"));
+                  reject(new Error(t("input") + t("notice.content")));
                 } else {
                   resolve();
                 }
@@ -369,7 +385,7 @@ const dialogFormRef = useTemplateRef("modalForm");
 /** 新增、编辑 */
 const openDrawer = (row?: Notice.VO) => {
   getUserList(); // 获取用户列表
-  dialogFormRef.value?.open(row ? "编辑公告" : "新增公告", modelValue.value);
+  dialogFormRef.value?.open(row ? t("notice.edit") : t("notice.add"), modelValue.value);
 
   if (row) {
     startSpin();
@@ -394,16 +410,21 @@ const submitForm = async (val: Notice.Form) =>
 const modalViewRef = useTemplateRef("modalView");
 const viewValue = ref<Notice.DetailVO>({});
 const viewConfig = ref<FormPro.FormItemConfig[]>([
-  { name: "title", label: "公告标题：" },
-  { name: "publishStatus", label: "发布状态：", span: 12 },
-  { name: "publisherName", label: "发布人：", component: "text", span: 12 },
-  { name: "publishTime", label: "发布时间：", component: "text", span: 12 },
-  { name: "content", label: "公告内容：" },
+  { name: "title", label: t("tableHeader.title") + ": " },
+  { name: "publishStatus", label: t("tableHeader.status") + ": ", span: 12 },
+  {
+    name: "publisherName",
+    label: t("tableHeader.publishAuthor") + ": ",
+    component: "text",
+    span: 12,
+  },
+  { name: "publishTime", label: t("notice.publishTime") + ": ", component: "text", span: 12 },
+  { name: "content", label: t("notice.content") + ": " },
 ]);
 
 const viewDetail = async (id: string) => {
   startSpin();
-  modalViewRef.value?.open(`通知公告详情`, viewValue.value);
+  modalViewRef.value?.open(t("notice.info"), viewValue.value);
   try {
     viewValue.value = await NoticeAPI.getDetail(id);
   } finally {
@@ -413,9 +434,9 @@ const viewDetail = async (id: string) => {
 
 // 发布通知
 const handlePublish = (id: string) => {
-  InquiryBox("确认发布该通知?").then(() => {
+  InquiryBox(t("notice.inquiry.publish")).then(() => {
     NoticeAPI.publish(id).then(() => {
-      window.$message.success("发布成功");
+      window.$message.success(t("notice.inquiry.publishSuccess"));
       handleQuery();
     });
   });
@@ -423,9 +444,9 @@ const handlePublish = (id: string) => {
 
 // 撤回通知
 const handleRevoke = (id: string) => {
-  InquiryBox("确认撤回该通知?").then(() => {
+  InquiryBox(t("notice.inquiry.revoke")).then(() => {
     NoticeAPI.revoke(id).then(() => {
-      window.$message.success("撤回成功");
+      window.$message.success(t("notice.inquiry.revokeSuccess"));
       handleQuery();
     });
   });
@@ -439,9 +460,9 @@ const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys a
 const handleDelete = (id?: string) => {
   const ids = id || selectedRowKeys.value.join(",");
 
-  InquiryBox("确认删除已选中的数据项?").then(() => {
+  InquiryBox(t("confirm.deleteSelect")).then(() => {
     NoticeAPI.deleteByIds(ids).then(() => {
-      window.$message.success("删除成功");
+      window.$message.success(t("message.deleteSuccess"));
       handleQuery();
     });
   });

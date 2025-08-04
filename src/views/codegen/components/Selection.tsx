@@ -11,6 +11,8 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props, { emit }) {
+    const { t } = useI18n();
+
     const val = computed({
       get: () => props.modelValue,
       set: (v) => emit("update:modelValue", v),
@@ -32,7 +34,7 @@ export default defineComponent({
         render-tag={({ option }: { option: SelectOption }): SelectRenderTag => (
           <NText>{option.label}</NText>
         )}
-        placeholder="请选择字典类型"
+        placeholder={t("codeGen.tableHeader.dictType")}
       />
     );
   },

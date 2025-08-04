@@ -368,7 +368,13 @@
 
     "configName": "Config Name",
     "configKey": "Config Key",
-    "configValue": "Config Value"
+    "configValue": "Config Value",
+
+    "no": "No",
+    "title": "Title",
+    "publishAuthor": "Publish Author",
+    "noticeLevel": "Notice Level",
+    "noticeTarget": "Notice Target"
   },
   "home": {
     "about": {
@@ -503,5 +509,86 @@
     "edit": "Edit Config",
     "delete": "Are you sure you want to delete the {name} config?",
     "refreshCache": "Cache Refreshed Successfully"
+  },
+  "notice": {
+    "add": "Add Notice",
+    "edit": "Edit Notice",
+    "info": "Notice Details",
+    "type": "Notice Type",
+    "content": "Notice Content",
+    "publishTime": "Publish Time",
+    "status": {
+      "unpublished": "Unpublished",
+      "published": "Published",
+      "revoked": "Revoked"
+    },
+    "target": {
+      "users": "Target Users",
+      "all": "All Users",
+      "placeholder": "Select Users"
+    },
+    "time": {
+      "create": "Create",
+      "publish": "Publish",
+      "revoke": "Revoke"
+    },
+    "inquiry": {
+      "publish": "Confirm to publish the notice?",
+      "revoke": "Confirm to revoke the notice?",
+      "publishSuccess": "Notice published successfully",
+      "revokeSuccess": "Notice revoked successfully"
+    }
+  },
+  "codeGen": {
+    "tableHeader": {
+      "name": "Table Name",
+      "comment": "Table Comment",
+      "engine": "Storage Engine",
+      "collation": "Collation",
+
+      "bizName": "Business Name",
+      "mainPackage": "Main Package",
+      "moduleName": "Module Name",
+      "entityName": "Entity Name",
+      "author": "Author",
+      "parentMenu": "Parent Menu",
+
+      "columnName": "Name",
+      "columnType": "Type",
+      "fieldName": "Field Name",
+      "fieldType": "Field Type",
+      "fieldComment": "Comment",
+      "maxLength": "Max Length",
+      "isShowInQuery": "Query",
+      "isShowInList": "List",
+      "isShowInForm": "Form",
+      "isRequired": "Required",
+      "queryType": "Query Type",
+      "formType": "Form Type",
+      "dictType": "Dict Type"
+    },
+    "generate": "Generate Code",
+    "resetConfig": "Reset Config",
+    "resetConfigConfirm": "Are you sure you want to reset the configuration of {tableName}?",
+    "resetConfigSuccess": "Reset Success",
+    "drawer": {
+      "parentMenuTip": "Select the parent menu, and the menu will be automatically created after the code is generated. <br />Note 1: After generating the menu, you need to assign permissions to the role, otherwise the menu will not be displayed. <br />Note 2: The demo environment does not generate menus by default. If you need to generate menus, please deploy the database locally.",
+      "alert": "The code in index.vue is not applicable here, and it is only used for demonstration purposes!",
+      "configPreview": "Configuration Preview",
+      "downloading": "Downloading...",
+      "downloadCode": "Download Code"
+    },
+    "formType": {
+      "input": "Input Box",
+      "select": "Dropdown Box",
+      "radio": "Radio Box",
+      "checkbox": "Checkbox",
+      "number": "Number Input Box",
+      "switch": "Switch",
+      "textarea": "Textarea",
+      "date": "Date Picker",
+      "dataTime": "Date Time Picker",
+      "hidden": "Hidden Field"
+    }
   }
 }

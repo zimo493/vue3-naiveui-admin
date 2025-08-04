@@ -28,6 +28,8 @@ import Icones from "@/components/common/Icones.vue";
 
 defineOptions({ name: "Codegen" });
 
+const { t } = useI18n();
+
 // 定义表单的初始值
 const query = ref<CodeGen.Query>({
   pageNum: 1,
@@ -51,17 +53,21 @@ const handleQuery = () => {
 };
 
 const formConfig = ref<FormPro.FormItemConfig[]>([
-  { name: "keywords", label: "关键字", props: { placeholder: "请输入表名" } },
+  {
+    name: "keywords",
+    label: t("codeGen.tableHeader.name"),
+    props: { placeholder: t("input") + t("codeGen.tableHeader.name") },
+  },
 ]);
 
 const columns = ref<DataTableColumns<CodeGen.VO>>([
-  { title: "表名", key: "tableName", align: "center" },
-  { title: "描述", key: "tableComment", align: "center" },
-  { title: "存储引擎", key: "engine", align: "center" },
-  { title: "排序规则", key: "tableCollation", align: "center" },
-  { title: "创建时间", key: "createTime", align: "center" },
+  { title: t("codeGen.tableHeader.name"), key: "tableName", align: "center" },
+  { title: t("codeGen.tableHeader.comment"), key: "tableComment", align: "center" },
+  { title: t("codeGen.tableHeader.engine"), key: "engine", align: "center" },
+  { title: t("codeGen.tableHeader.collation"), key: "tableCollation", align: "center" },
+  { title: t("tableHeader.createTime"), key: "createTime", align: "center" },
   {
-    title: "操作",
+    title: t("tableHeader.action"),
     key: "action",
     align: "center",
     render: (row) => (
@@ -74,7 +80,7 @@ const columns = ref<DataTableColumns<CodeGen.VO>>([
             icon: () => <Icones icon="ant-design:code-outlined" />,
           }}
         >
-          生成代码
+          {t("codeGen.generate")}
         </NButton>
 
         {row.isConfigured === 1 && (
@@ -86,7 +92,7 @@ const columns = ref<DataTableColumns<CodeGen.VO>>([
               icon: () => <Icones icon="ant-design:reload-outlined" />,
             }}
           >
-            重置配置
+            {t("codeGen.resetConfig")}
           </NButton>
         )}
       </NFlex>
@@ -102,10 +108,10 @@ const openDrawer = (row: CodeGen.VO) => {
 };
 
 const handleResetConfig = (tableName: string) => {
-  InquiryBox(`确定要重置 ${tableName} 的配置吗？`)
+  InquiryBox(t("codeGen.resetConfigConfirm", { tableName }))
     .then(() => {
       GeneratorAPI.resetGenConfig(tableName).then(() => {
-        window.$message.success("重置成功");
+        window.$message.success(t("codeGen.resetConfigSuccess"));
         handleQuery();
       });
     })

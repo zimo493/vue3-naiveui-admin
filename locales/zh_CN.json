@@ -368,7 +368,13 @@
 
     "configName": "配置名称",
     "configKey": "配置键",
-    "configValue": "配置值"
+    "configValue": "配置值",
+
+    "no": "序号",
+    "title": "标题",
+    "publishAuthor": "发布人",
+    "noticeLevel": "通知等级",
+    "noticeTarget": "公告目标"
   },
   "home": {
     "about": {
@@ -503,5 +509,86 @@
     "edit": "编辑配置",
     "delete": "确定要删除 {name} 配置吗？",
     "refreshCache": "缓存刷新成功"
+  },
+  "notice": {
+    "add": "新增公告",
+    "edit": "编辑公告",
+    "info": "通知公告详情",
+    "type": "通知类型",
+    "content": "通知内容",
+    "publishTime": "发布时间",
+    "status": {
+      "unpublished": "未发布",
+      "published": "已发布",
+      "revoked": "已撤销"
+    },
+    "target": {
+      "users": "指定用户",
+      "all": "全体用户",
+      "placeholder": "请选择用户"
+    },
+    "time": {
+      "create": "创建",
+      "publish": "发布",
+      "revoke": "撤回"
+    },
+    "inquiry": {
+      "publish": "确认发布该通知？",
+      "revoke": "确认撤回该通知？",
+      "publishSuccess": "发布成功",
+      "revokeSuccess": "撤回成功"
+    }
+  },
+  "codeGen": {
+    "tableHeader": {
+      "name": "表名",
+      "comment": "描述",
+      "engine": "存储引擎",
+      "collation": "排序规则",
+
+      "bizName": "业务名",
+      "mainPackage": "主包名",
+      "moduleName": "模块名",
+      "entityName": "实体名",
+      "author": "作者",
+      "parentMenu": "上级菜单",
+
+      "columnName": "列名",
+      "columnType": "列类型",
+      "fieldName": "字段名",
+      "fieldType": "字段类型",
+      "fieldComment": "字段注释",
+      "maxLength": "最大长度",
+      "isShowInQuery": "查询",
+      "isShowInList": "列表",
+      "isShowInForm": "表单",
+      "isRequired": "必填",
+      "queryType": "查询方式",
+      "formType": "表单类型",
+      "dictType": "字典类型"
+    },
+    "generate": "生成代码",
+    "resetConfig": "重置配置",
+    "resetConfigConfirm": "确定要重置 {tableName} 的配置吗？",
+    "resetConfigSuccess": "重置成功",
+    "drawer": {
+      "parentMenuTip": "选择上级菜单，生成代码后会自动创建对应菜单。<br />注意1: 生成菜单后需分配权限给角色，否则菜单将无法显示。<br />注意2: 演示环境默认不生成菜单，如需生成，请在本地部署数据库。",
+      "alert": "index.vue 中的代码在此不适用，仅用于演示！",
+      "configPreview": "配置预览",
+      "downloading": "下载中...",
+      "downloadCode": "下载代码"
+    },
+    "formType": {
+      "input": "输入框",
+      "select": "下拉框",
+      "radio": "单选框",
+      "checkbox": "复选框",
+      "number": "数字输入框",
+      "switch": "开关",
+      "textarea": "文本域",
+      "date": "日期选择器",
+      "dataTime": "日期时间选择器",
+      "hidden": "隐藏域"
+    }
   }
 }

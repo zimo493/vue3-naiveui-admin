@@ -12,7 +12,7 @@
         onUpdateCheckedRowKeys: handleCheck,
       }"
       @query="handleQuery"
-      @reset="handleQuery"
+      @reset="handleReset"
     >
       <template #controls>
         <n-button type="primary" @click="openDrawer()">
@@ -105,6 +105,7 @@ onMounted(() => handleQuery());
 
 const handleChange = (v: string) => {
   dictCode.value = v;
+  query.value.dictCode = v;
   handleQuery();
 };
 /** 查询方法 */
@@ -116,6 +117,12 @@ const handleQuery = () => {
       total.value = res.total;
     })
     .finally(() => endLoading());
+};
+
+// 重置
+const handleReset = () => {
+  dictCode.value = route.query.dictCode as string;
+  handleQuery();
 };
 
 const formConfig = computed<FormPro.FormItemConfig[]>(() => [
