@@ -15,6 +15,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { t } = useI18n();
     const authStore = useAuthStoreHook();
     /** 修改头像 */
     const isEdit = ref(false); // 是否显示修改头像的图标
@@ -74,10 +75,10 @@ export default defineComponent({
         // 更新用户信息
         await UserAPI.updateProfile({ avatar });
         imageCutRef.value?.close();
-        window.$message.success("头像更新成功！");
+        window.$message.success(t("profile.updateAvatarSuccess"));
       } catch (error) {
         console.error("头像上传失败：" + error);
-        window.$message.error("头像上传失败！");
+        window.$message.error(t("profile.updateAvatarFailed"));
       } finally {
         imageCutRef.value?.endLoading();
       }

@@ -51,6 +51,7 @@
     "upload": "上传",
     "view": "查看",
     "operation": "操作",
+    "replace": "更换",
     "more": "更多...",
     "detail": "详情",
     "expand": "展开",
@@ -590,5 +591,28 @@
       "dataTime": "日期时间选择器",
       "hidden": "隐藏域"
     }
+  },
+  "profile": {
+    "accountInfo": "账号信息",
+    "changeAccountInfo": "修改账号信息",
+    "securitySetting": "安全设置",
+    "accountPassword": "账户密码",
+    "changePasswordTip": "定期修改密码有助于保护账户安全",
+    "changePassword": {
+      "title": "修改密码",
+      "oldPassword": "旧密码",
+      "newPassword": "新密码",
+      "confirmPassword": "确认密码",
+      "success": "密码修改成功"
+    },
+    "changePhone": "修改手机号",
+    "changeEmail": "修改邮箱",
+    "sendCode": "发送验证码",
+    "sendCodeSuccess": "验证码发送成功！",
+    "bindPhoneSuccess": "手机号绑定成功！",
+    "bindEmailSuccess": "邮箱绑定成功！",
+    "updateAvatarSuccess": "头像更新成功！",
+    "updateAvatarFailed": "头像上传失败！",
+    "seconds": "{val} 秒后重试"
   }
 }

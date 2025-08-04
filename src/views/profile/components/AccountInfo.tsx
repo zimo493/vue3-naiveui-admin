@@ -25,8 +25,11 @@ export default defineComponent({
       default: () => ({}),
     },
   },
-  setup(props) {
+  emits: ["success"],
+  setup(props, { emit }) {
     const { userProfile } = toRefs(props);
+
+    const { t } = useI18n();
     const { gender } = useDict("gender");
     /** 倒计时钩子 */
     const { mobileCountdown, emailCountdown, startMobileCountdown, startEmailCountdown } =
@@ -60,7 +63,7 @@ export default defineComponent({
       mobileUpdateForm.value = {
         mobile: userProfile.value.mobile,
       };
-      mobileUpdateFormRef.value?.open("修改手机号", mobileUpdateForm.value);
+      mobileUpdateFormRef.value?.open(t("profile.changePhone"), mobileUpdateForm.value);
     };
 
     /** 绑定手机获取验证码 */
@@ -75,15 +78,18 @@ export default defineComponent({
           // 开始倒计时
           startMobileCountdown();
         },
-        "验证码发送成功"
+        t("profile.sendCodeSuccess")
       );
 
     /** 绑定手机提交 */
     const submitMobile = async (val: User.MobileUpdateForm) =>
       executeAsync(
         () => UserAPI.bindOrChangeMobile(val),
-        () => mobileUpdateFormRef.value?.close(),
-        "手机绑定成功"
+        () => {
+          mobileUpdateFormRef.value?.close();
+          emit("success");
+        },
+        t("profile.bindPhoneSuccess")
       );
 
     /** 绑定邮箱信息配置 */
@@ -94,7 +100,7 @@ export default defineComponent({
       emailUpdateForm.value = {
         email: userProfile.value.email,
       };
-      emailUpdateFormRef.value?.open("修改邮箱", emailUpdateForm.value);
+      emailUpdateFormRef.value?.open(t("profile.changeEmail"), emailUpdateForm.value);
     };
     /** 绑定邮箱获取验证码 */
     const sendEmailCode = async () =>
@@ -108,22 +114,25 @@ export default defineComponent({
           // 开始倒计时
           startEmailCountdown();
         },
-        "验证码发送成功"
+        t("profile.sendCodeSuccess")
       );
 
     /** 绑定邮箱提交 */
     const submitEmail = async (val: User.EmailUpdateForm) =>
       executeAsync(
         () => UserAPI.bindOrChangeEmail(val),
-        () => emailUpdateFormRef.value?.close(),
-        "邮箱绑定成功"
+        () => {
+          emailUpdateFormRef.value?.close();
+          emit("success");
+        },
+        t("profile.bindEmailSuccess")
       );
 
     return () => (
       <>
-        <NCard title="账号信息" segmented={{ content: true }}>
+        <NCard title={t("profile.accountInfo")} segmented={{ content: true }}>
           <NDescriptions label-placement="left" label-style="width: 20%" column={1} bordered>
-            <NDescriptionsItem label="用户名">
+            <NDescriptionsItem label={t("tableHeader.username")}>
               <NFlex align="center">
                 <NText>{userProfile.value.username}</NText>
                 <NTag bordered={false} type={genderTagType.value}>
@@ -131,24 +140,28 @@ export default defineComponent({
                 </NTag>
               </NFlex>
             </NDescriptionsItem>
-            <NDescriptionsItem label="手机号码">
+            <NDescriptionsItem label={t("tableHeader.phone")}>
               <NFlex align="center">
                 <NText>{userProfile.value.mobile}</NText>
                 <NButton type="primary" quaternary size="small" onClick={updateMobile}>
-                  更换
+                  {t("button.replace")}
                 </NButton>
               </NFlex>
             </NDescriptionsItem>
-            <NDescriptionsItem label="邮箱地址">
+            <NDescriptionsItem label={t("tableHeader.email")}>
               <NFlex align="center">
                 <NText>{userProfile.value.email}</NText>
                 <NButton type="primary" quaternary size="small" onClick={updateEmail}>
-                  更换
+                  {t("button.replace")}
                 </NButton>
               </NFlex>
             </NDescriptionsItem>
-            <NDescriptionsItem label="部门">{userProfile.value.deptName}</NDescriptionsItem>
-            <NDescriptionsItem label="创建时间">{userProfile.value.createTime}</NDescriptionsItem>
+            <NDescriptionsItem label={t("tableHeader.deptName")}>
+              {userProfile.value.deptName}
+            </NDescriptionsItem>
+            <NDescriptionsItem label={t("tableHeader.createTime")}>
+              {userProfile.value.createTime}
+            </NDescriptionsItem>
           </NDescriptions>
         </NCard>
         {/* 修改绑定手机表单 */}
@@ -159,16 +172,22 @@ export default defineComponent({
           props={{ draggable: true }}
           form={{
             config: [
-              { name: "mobile", label: "手机号" },
-              { name: "code", label: "验证码" },
+              { name: "mobile", label: t("tableHeader.phone") },
+              { name: "code", label: t("login.captcha") },
             ],
             props: {
               rules: {
                 mobile: [
-                  { required: true, message: "请输入手机号", trigger: "blur" },
-                  { pattern: /^1[3-9]\d{9}$/, message: "请输入正确的手机号", trigger: "blur" },
+                  { required: true, message: t("input") + t("tableHeader.phone"), trigger: "blur" },
+                  { pattern: /^1[3-9]\d{9}$/, message: t("rules.phone"), trigger: "blur" },
                 ],
-                code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+                code: [
+                  {
+                    required: true,
+                    message: t("input") + t("login.captcha"),
+                    trigger: "blur",
+                  },
+                ],
               },
             },
           }}
@@ -189,7 +208,9 @@ export default defineComponent({
                   loading={spin.value}
                   onClick={sendMobileCode}
                 >
-                  {mobileCountdown.value > 0 ? `${mobileCountdown.value} 秒后重试` : "发送验证码"}
+                  {mobileCountdown.value > 0
+                    ? t("profile.seconds", { val: mobileCountdown.value })
+                    : t("profile.sendCode")}
                 </NButton>
               </NFlex>
             ),
@@ -204,20 +225,22 @@ export default defineComponent({
           props={{ draggable: true }}
           form={{
             config: [
-              { name: "email", label: "邮箱" },
-              { name: "code", label: "验证码" },
+              { name: "email", label: t("tableHeader.email") },
+              { name: "code", label: t("login.captcha") },
             ],
             props: {
               rules: {
                 email: [
-                  { required: true, message: "请输入邮箱", trigger: "blur" },
+                  { required: true, message: t("input") + t("tableHeader.email"), trigger: "blur" },
                   {
                     pattern: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
-                    message: "请输入正确的邮箱",
+                    message: t("rules.email"),
                     trigger: "blur",
                   },
                 ],
-                code: [{ required: true, message: "请输入验证码", trigger: "blur" }],
+                code: [
+                  { required: true, message: t("input") + t("login.captcha"), trigger: "blur" },
+                ],
               },
             },
           }}
@@ -238,7 +261,9 @@ export default defineComponent({
                   loading={spin.value}
                   onClick={sendEmailCode}
                 >
-                  {emailCountdown.value > 0 ? `${emailCountdown.value} 秒后重试` : "发送验证码"}
+                  {emailCountdown.value > 0
+                    ? t("profile.seconds", { val: emailCountdown.value })
+                    : t("profile.sendCode")}
                 </NButton>
               </NFlex>
             ),

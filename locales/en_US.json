@@ -52,6 +52,7 @@
     "view": "View",
     "operation": "Operation",
     "more": "More...",
+    "replace": "Replace",
     "detail": "Detail",
     "expand": "Expand",
     "collapse": "Collapse",
@@ -590,5 +591,28 @@
       "dataTime": "Date Time Picker",
       "hidden": "Hidden Field"
     }
+  },
+  "profile": {
+    "accountInfo": "Account Info",
+    "changeAccountInfo": "Change Account Info",
+    "securitySetting": "Security Setting",
+    "accountPassword": "Account Password",
+    "changePasswordTip": "Regularly modify passwords can help protect account security",
+    "changePassword": {
+      "title": "Change Password",
+      "oldPassword": "Old Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "success": "Password Modified Successfully"
+    },
+    "changePhone": "Change Phone",
+    "changeEmail": "Change Email",
+    "sendCode": "Send Code",
+    "sendCodeSuccess": "Code Sent Successfully!",
+    "bindPhoneSuccess": "Phone Bound Successfully!",
+    "bindEmailSuccess": "Email Bound Successfully!",
+    "updateAvatarSuccess": "Avatar Updated Successfully!",
+    "updateAvatarFailed": "Avatar Upload Failed!",
+    "seconds": "{val} seconds later"
   }
 }

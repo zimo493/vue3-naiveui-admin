@@ -9,28 +9,33 @@ import ModalForm from "@/components/custom/ModalForm.vue";
 export default defineComponent({
   name: "ProfileSafeSetting",
   setup() {
+    const { t } = useI18n();
+
     /** 修改用户密码配置 */
     const passwordChangeForm = ref<User.PasswordChangeForm>({}); // 修改密码表单
     const passwordChangeFormRef = ref();
 
     /** 修改用户密码 */
     const updatePassword = () =>
-      passwordChangeFormRef.value?.open("修改密码", passwordChangeForm.value);
+      passwordChangeFormRef.value?.open(
+        t("profile.changePassword.title"),
+        passwordChangeForm.value
+      );
     /** 修改用户密码提交 */
     const submitPassword = async (val: User.PasswordChangeForm) =>
       executeAsync(
         () => UserAPI.changePassword(val),
         () => passwordChangeFormRef.value?.close(),
-        "密码修改成功"
+        t("profile.changePassword.success")
       );
 
     return () => (
       <>
-        <NCard title="安全设置" segmented={{ content: true }}>
+        <NCard title={t("profile.securitySetting")} segmented={{ content: true }}>
           <NFlex align="center" justify="space-between" class="p-2">
             <NFlex vertical>
-              <NText class="text-16px">账户密码</NText>
-              <NText depth={3}>定期修改密码有助于保护账户安全</NText>
+              <NText class="text-16px">{t("profile.accountPassword")}</NText>
+              <NText depth={3}>{t("profile.changePasswordTip")}</NText>
             </NFlex>
             <NButton
               quaternary
@@ -38,7 +43,7 @@ export default defineComponent({
               v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
               onClick={updatePassword}
             >
-              修改密码
+              {t("profile.changePassword.title")}
             </NButton>
           </NFlex>
         </NCard>
@@ -50,21 +55,49 @@ export default defineComponent({
           ref={passwordChangeFormRef}
           form={{
             config: [
-              { name: "oldPassword", label: "旧密码", component: "password" },
-              { name: "newPassword", label: "新密码", component: "password" },
-              { name: "confirmPassword", label: "确认密码", component: "password" },
+              {
+                name: "oldPassword",
+                label: t("profile.changePassword.oldPassword"),
+                component: "password",
+              },
+              {
+                name: "newPassword",
+                label: t("profile.changePassword.newPassword"),
+                component: "password",
+              },
+              {
+                name: "confirmPassword",
+                label: t("profile.changePassword.confirmPassword"),
+                component: "password",
+              },
             ],
             props: {
               rules: {
-                oldPassword: [{ required: true, message: "请输入旧密码", trigger: "blur" }],
-                newPassword: [{ required: true, message: "请输入新密码", trigger: "blur" }],
+                oldPassword: [
+                  {
+                    required: true,
+                    message: t("input") + t("profile.changePassword.oldPassword"),
+                    trigger: "blur",
+                  },
+                ],
+                newPassword: [
+                  {
+                    required: true,
+                    message: t("input") + t("profile.changePassword.newPassword"),
+                    trigger: "blur",
+                  },
+                ],
                 confirmPassword: [
-                  { required: true, message: "请输入确认密码", trigger: "blur" },
+                  {
+                    required: true,
+                    message: t("input") + t("profile.changePassword.confirmPassword"),
+                    trigger: "blur",
+                  },
                   {
                     validator: (_rule: FormItemRule, value: string) =>
                       new Promise((resolve, reject) =>
                         value !== passwordChangeForm.value.newPassword
-                          ? reject(new Error("两次输入的密码不一致"))
+                          ? reject(new Error(t("register.passwordNotMatch")))
                           : resolve()
                       ),
                     trigger: "blur",

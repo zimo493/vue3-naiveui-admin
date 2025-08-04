@@ -39,7 +39,7 @@ export default defineComponent({
           </NGi>
           <NGi span={16}>
             <NFlex size={[0, 10]}>
-              <AccountInfo user-profile={userProfile.value} />
+              <AccountInfo user-profile={userProfile.value} onSuccess={loadUserProfile} />
               <SafeSetting />
             </NFlex>
           </NGi>

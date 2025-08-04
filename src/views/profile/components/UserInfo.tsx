@@ -16,9 +16,10 @@ export default defineComponent({
     },
   },
   emits: ["success"],
-
   setup(props, { emit }) {
     const { userProfile } = toRefs(props);
+
+    const { t } = useI18n();
 
     /** 修改用户信息配置 */
     const userProfileForm = ref<User.ProfileForm>({}); // 用户信息表单
@@ -31,7 +32,7 @@ export default defineComponent({
         gender: userProfile.value.gender,
         nickname: userProfile.value.nickname,
       };
-      userProfileFormRef.value?.open("账号信息修改", userProfileForm.value);
+      userProfileFormRef.value?.open(t("profile.changeAccountInfo"), userProfileForm.value);
     };
 
     /** 修改基本信息提交 */
@@ -67,18 +68,29 @@ export default defineComponent({
           ref={userProfileFormRef}
           props={{ draggable: true }}
           form={{
+            config: [
+              { name: "nickname", label: t("tableHeader.nickname") },
+              { name: "gender", label: t("tableHeader.sex"), component: "select", dict: "gender" },
+            ],
             props: {
               rules: {
-                nickname: [{ required: true, message: "请输入昵称", trigger: "blur" }],
+                nickname: [
+                  {
+                    required: true,
+                    message: t("input") + t("tableHeader.nickname"),
+                    trigger: "blur",
+                  },
+                ],
                 gender: [
-                  { required: true, type: "number", message: "请选择性别", trigger: "change" },
+                  {
+                    required: true,
+                    type: "number",
+                    message: t("select") + t("tableHeader.sex"),
+                    trigger: "change",
+                  },
                 ],
               },
             },
-            config: [
-              { name: "nickname", label: "昵称" },
-              { name: "gender", label: "性别", component: "select", dict: "gender" },
-            ],
           }}
           modelValue={userProfileForm.value}
           onSubmit={submitUserProfile}
