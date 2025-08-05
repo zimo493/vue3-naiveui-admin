@@ -5,7 +5,7 @@
     "lib": ["ESNext", "DOM"],
     "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": { "@/*": ["src/*"] },
     "resolveJsonModule": true,
     "types": ["node", "vite/client", "naive-ui/volar", "unplugin-icons/types/vue"],
