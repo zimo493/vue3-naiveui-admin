@@ -148,6 +148,17 @@ const formConfig = ref<FormPro.FormItemConfig[]>([
       ],
     },
   },
+  {
+    name: "publishTime",
+    label: t("notice.publishTime"),
+    span: 6,
+    component: "date",
+    props: {
+      type: "daterange",
+      closeOnSelect: true,
+      onUpdateFormattedValue: (val: [string, string]) => (query.value.publishTime = val),
+    },
+  },
 ]);
 
 // 获取发布状态标签

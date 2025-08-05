@@ -538,7 +538,11 @@
       "revoke": "Confirm to revoke the notice?",
       "publishSuccess": "Notice published successfully",
       "revokeSuccess": "Notice revoked successfully"
-    }
+    },
+    "title": "Message Notification",
+    "more": "View More",
+    "allRead": "All Read",
+    "noMessage": "No Messages"
   },
   "codeGen": {
     "tableHeader": {

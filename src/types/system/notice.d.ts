@@ -5,6 +5,9 @@ declare namespace Notice {
     title?: string;
     /** 发布状态(0：未发布，1：已发布，-1：已撤回) */
     publishStatus?: number;
+    /** 	发布时间 */
+    publishTime?: [string, string];
+    /** 是否已读(0-未读 1-已读) */
     isRead?: number;
   }
 
@@ -33,7 +36,7 @@ declare namespace Notice {
     /** 通知内容 */
     content?: string;
     /** 通知类型 */
-    type?: number;
+    type: number;
     /** 发布人 */
     publisherId?: bigint;
     /** 优先级(0-低 1-中 2-高) */
@@ -50,6 +53,8 @@ declare namespace Notice {
     revokeTime?: Date;
     /** 通知等级 */
     level?: string;
+    /** 发布人 */
+    publisherName?: string;
   }
 
   interface DetailVO {

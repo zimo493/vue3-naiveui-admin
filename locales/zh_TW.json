@@ -538,7 +538,11 @@
       "revoke": "確認撤回該通知？",
       "publishSuccess": "通知發布成功",
       "revokeSuccess": "通知撤回成功"
-    }
+    },
+    "title": "消息通知",
+    "more": "查看更多",
+    "allRead": "全部已讀",
+    "noMessage": "暫無消息"
   },
   "codeGen": {
     "tableHeader": {

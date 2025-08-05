@@ -10,6 +10,7 @@ defineOptions({ name: "RightNavigation" });
     <FullScreen />
     <DarkModeSwitch />
     <LangsSwitch />
+    <Notices />
     <Setting />
     <UserCenter />
   </div>
