@@ -2,6 +2,7 @@
   "input": "请输入",
   "select": "请选择",
   "common": {
+    "loading": "加载中...",
     "sysTip": "系统提示",
     "downloading": "正在下载数据，请稍候...",
     "notImplemented": "暂未实现，开发中 ...",

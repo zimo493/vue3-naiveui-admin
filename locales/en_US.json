@@ -2,6 +2,7 @@
   "input": "Please enter ",
   "select": "Please select ",
   "common": {
+    "loading": "Loading...",
     "sysTip": "System Tip",
     "downloading": "Downloading data, please wait...",
     "notImplemented": "Not implemented yet, under development ...",
