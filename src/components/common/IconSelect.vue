@@ -11,11 +11,7 @@
       :readonly="props.disabled"
       :placeholder="t('components.iconSelect.placeholder')"
       :onClear="clearIcon"
-    >
-      <template #clear-icon>
-        <Icones icon="gravity-ui:trash-bin" />
-      </template>
-    </n-input>
+    />
     <n-button type="primary" strong :disabled="props.disabled" @click="showModal = true">
       <template #icon>
         <Icones icon="ant-design:select-outlined" />
@@ -77,9 +73,7 @@
                   clearable
                   :placeholder="t('components.iconSelect.search')"
                 >
-                  <template #prefix>
-                    <Icones icon="ant-design:search-outlined" :size="24" />
-                  </template>
+                  <template #prefix><icon-park-outline-search /></template>
                 </n-input>
               </template>
 

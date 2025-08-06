@@ -10,7 +10,9 @@
               </CommonWrapper>
             </n-badge>
           </template>
-          <span>{{ t("notice.title") }}</span>
+          <span>
+            {{ t("notice.title") }}
+          </span>
         </n-tooltip>
       </template>
       <n-spin :show="loading">
@@ -37,7 +39,10 @@
           </n-scrollbar>
           <n-flex p-y-3 p-x-5 justify="space-between" align="center">
             <n-button type="primary" size="small" @click="router.push('/system/notice')">
-              {{ t("notice.more") }}
+              <n-flex align="center" :size="[6, 0]">
+                {{ t("notice.more") }}
+                <icon-park-outline-arrow-right />
+              </n-flex>
             </n-button>
             <n-button
               type="info"
@@ -46,7 +51,10 @@
               :loading="allReadLoading"
               @click="allRead"
             >
-              {{ t("notice.allRead") }}
+              <n-flex align="center" :size="[6, 0]">
+                {{ t("notice.allRead") }}
+                <icon-park-outline-check-small />
+              </n-flex>
             </n-button>
           </n-flex>
         </template>
