@@ -15,7 +15,7 @@
             content-style="height:50px; display: flex; align-items: center;"
           >
             <Logo v-if="appStore.showLogo" />
-            <Menu mode="horizontal" responsive />
+            <SideMenu mode="horizontal" responsive />
 
             <!-- 右侧导航 -->
             <RightNavigation />

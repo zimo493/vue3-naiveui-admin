@@ -41,7 +41,7 @@
     >
       <Logo v-if="appStore.showLogo" />
       <n-scrollbar class="flex-1">
-        <Menu />
+        <SideMenu />
       </n-scrollbar>
       <!-- <CollButton /> -->
     </n-layout-sider>

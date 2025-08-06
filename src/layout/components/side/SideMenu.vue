@@ -16,6 +16,8 @@ import type { MenuInst } from "naive-ui";
 import { LayoutMode } from "@/enums";
 import { useAppStoreHook, useRouteStoreHook } from "@/store";
 
+defineOptions({ name: "SideMenu" });
+
 const route = useRoute();
 const appStore = useAppStoreHook();
 const routesStore = useRouteStoreHook();
