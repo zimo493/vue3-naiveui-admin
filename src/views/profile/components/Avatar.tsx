@@ -76,9 +76,6 @@ export default defineComponent({
         await UserAPI.updateProfile({ avatar });
         imageCutRef.value?.close();
         window.$message.success(t("profile.updateAvatarSuccess"));
-      } catch (error) {
-        console.error("头像上传失败：" + error);
-        window.$message.error(t("profile.updateAvatarFailed"));
       } finally {
         imageCutRef.value?.endLoading();
       }
