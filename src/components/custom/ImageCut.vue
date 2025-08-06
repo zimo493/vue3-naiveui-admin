@@ -114,7 +114,7 @@ const emit = defineEmits({
 
 const visible = ref(false);
 
-const fileType = ref<string[]>(["png", "jpg", "jpeg"]); // 文件格式
+const fileType = ref<string[]>(["png", "jpg", "jpeg", "webp"]); // 文件格式
 const fileSize = ref<number>(5); //文件大小
 
 const option = reactive({
