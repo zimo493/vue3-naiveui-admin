@@ -60,7 +60,7 @@ import Icones from "@/components/common/Icones.vue";
 import CommonStatus from "@/components/common/CommonStatus.vue";
 
 defineOptions({
-  name: "DictType",
+  name: "Dict",
   inheritAttrs: false,
 });
 
