@@ -332,6 +332,7 @@ const defaultOptions = computed((): EChartsOption => {
     legend: {
       data: [t("home.chart.pv"), t("home.chart.uv")],
       textStyle: { color: "#666" },
+      top: "0",
     },
     grid: {
       left: "20",
