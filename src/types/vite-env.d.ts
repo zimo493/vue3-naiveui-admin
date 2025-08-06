@@ -21,8 +21,6 @@ interface ImportMetaEnv {
   VITE_APP_API_URL: string;
   /** Websocket 地址 */
   VITE_APP_WS_ENDPOINT: string;
-  /** 是否开启 Mock 服务 */
-  VITE_MOCK_DEV_SERVER: boolean;
   /** 默认语言 */
   VITE_DEFAULT_LANG: App.lang;
   /** 本地存储前缀 */
