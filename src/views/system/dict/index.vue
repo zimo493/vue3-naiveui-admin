@@ -210,7 +210,7 @@ const openDrawer = (row?: DictType.VO) => {
 };
 
 /** 表单提交 */
-const submitForm = async (val: DictType.Form) =>
+const submitForm = (val: DictType.Form) =>
   executeAsync(
     () => (val.id ? DictTypeAPI.update(val.id, val) : DictTypeAPI.create(val)),
     () => {

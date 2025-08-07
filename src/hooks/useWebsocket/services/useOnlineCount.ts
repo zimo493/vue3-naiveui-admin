@@ -5,7 +5,7 @@ import { useStomp } from "../core/useStomp";
  * 在线用户计数Hook
  * 用于订阅后端推送的在线用户数量变化
  */
-export function useOnlineCount() {
+export const useOnlineCount = () => {
   // 在线用户数量
   const onlineUserCount = ref(0);
 
@@ -36,7 +36,7 @@ export function useOnlineCount() {
   let subscriptionId = "";
 
   // 连接超时计时器
-  let connectionTimeoutTimer: any = null;
+  let connectionTimeoutTimer: ReturnType<typeof setInterval> | null = null;
 
   // 监听Stomp连接状态
   watch(stompConnected, (connected) => {
@@ -98,7 +98,8 @@ export function useOnlineCount() {
     connect();
 
     // 设置连接超时显示UI提示
-    clearTimeout(connectionTimeoutTimer);
+    if (connectionTimeoutTimer) clearTimeout(connectionTimeoutTimer);
+
     connectionTimeoutTimer = setTimeout(() => {
       if (!isConnected.value) {
         console.warn("WebSocket连接超时，将自动尝试重连");
@@ -120,7 +121,7 @@ export function useOnlineCount() {
     // 监听连接状态变化，连接成功后清除超时计时器
     const unwatch = watch(stompConnected, (connected) => {
       if (connected) {
-        clearTimeout(connectionTimeoutTimer);
+        if (connectionTimeoutTimer) clearTimeout(connectionTimeoutTimer);
         unwatch();
       }
     });
@@ -164,4 +165,4 @@ export function useOnlineCount() {
     initWebSocket,
     closeWebSocket,
   };
-}
+};

@@ -24,7 +24,7 @@ export interface UseStompOptions {
  * STOMP WebSocket连接Hook
  * 用于管理WebSocket连接的建立、断开、重连和消息订阅
  */
-export function useStomp(options: UseStompOptions = {}) {
+export const useStomp = (options: UseStompOptions = {}) => {
   // 默认值：brokerURL 从环境变量中获取，token 从 getAccessToken() 获取
   const defaultBrokerURL = import.meta.env.VITE_APP_WS_ENDPOINT || "";
   // 不再使用defaultToken，每次连接时直接获取最新token
@@ -299,4 +299,4 @@ export function useStomp(options: UseStompOptions = {}) {
     unsubscribe,
     disconnect,
   };
-}
+};

@@ -420,7 +420,7 @@ const handleSubmit = async () => {
     return window.$message.error(t("menu.form.parentMenuTip"));
   }
 
-  executeAsync(
+  await executeAsync(
     () => (menuId ? MenuAPI.update(menuId, modelValue.value) : MenuAPI.create(modelValue.value)),
     () => {
       emit("success");

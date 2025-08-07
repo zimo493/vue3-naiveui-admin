@@ -285,7 +285,7 @@ const submitForm = async (val: DictData.Form) => {
   if (!val.tagType) {
     val.tagType = "" as DictData.Form["tagType"];
   }
-  executeAsync(
+  await executeAsync(
     () =>
       val.id
         ? DictDataAPI.updateDictItem(dictCode.value, val.id, val)

@@ -18,13 +18,13 @@ let instance: ReturnType<typeof createDictSyncHook> | null = null;
  * 创建字典同步Hook
  * 负责监听后端字典变更并同步到前端
  */
-function createDictSyncHook() {
+const createDictSyncHook = () => {
   const dictStore = useDictStoreHook();
 
   // 使用现有的useStomp，配置适合字典场景的重连参数
   const { isConnected, connect, subscribe, unsubscribe, disconnect } = useStomp({
     reconnectDelay: 10000, // 使用更长的重连延迟 - 10秒
-    connectionTimeout: 15000, // 更长的连接超时时间 - 15秒
+    connectionTimeout: 15000, // 更长连接超时时间 - 15秒
     useExponentialBackoff: false, // 字典数据不需要指数退避策略
   });
 
@@ -146,7 +146,7 @@ function createDictSyncHook() {
       console.log(`收到字典更新消息: ${message.body}`);
 
       // 尝试解析消息
-      const parsedData = JSON.parse(message.body) as DictMessage;
+      const parsedData = JSON.parse(message.body);
       const dictCode = parsedData.dictCode;
 
       if (!dictCode) return;
@@ -178,16 +178,16 @@ function createDictSyncHook() {
     handleDictEvent,
     onDictMessage,
   };
-}
+};
 
 /**
  * 字典同步Hook
  * 用于监听后端字典变更并同步到前端
  */
-export function useDictSync() {
+export const useDictSync = () => {
   if (!instance) {
     instance = createDictSyncHook();
   }
 
   return instance;
-}
+};

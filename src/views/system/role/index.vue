@@ -9,7 +9,7 @@
       :loading="loading"
       :row-key="(row) => row.id"
       :table-props="{
-        'onUpdate:checkedRowKeys': handleCheck,
+        onUpdateCheckedRowKeys: handleCheck,
       }"
       @query="handleQuery"
       @reset="handleQuery"

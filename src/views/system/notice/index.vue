@@ -408,7 +408,7 @@ const openDrawer = (row?: Notice.VO) => {
   }
 };
 
-const submitForm = async (val: Notice.Form) =>
+const submitForm = (val: Notice.Form) =>
   executeAsync(
     () => (val.id ? NoticeAPI.update(val.id, val) : NoticeAPI.create(val)),
     () => {

@@ -233,7 +233,7 @@ const handleEdit = ({ id }: Dept.VO) => {
 };
 
 /** 表单提交 */
-const submitForm = async (val: Dept.Form) =>
+const submitForm = (val: Dept.Form) =>
   executeAsync(
     () => (val.id ? DeptAPI.update(val.id, val) : DeptAPI.create(val)),
     () => {

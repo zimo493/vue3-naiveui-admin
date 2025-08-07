@@ -173,7 +173,7 @@ const openDrawer = (row?: Config.VO) => {
 };
 
 /** 表单提交 */
-const submitForm = async (val: Config.Form) =>
+const submitForm = (val: Config.Form) =>
   executeAsync(
     () => (val.id ? ConfigAPI.update(val.id, val) : ConfigAPI.create(val)),
     () => {
