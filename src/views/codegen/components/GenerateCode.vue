@@ -132,6 +132,10 @@ defineExpose({
   },
 });
 
+const emit = defineEmits<{
+  (e: "refresh"): void;
+}>();
+
 const visible = ref(false);
 const tableCode = ref(""); // 表名
 
@@ -356,6 +360,9 @@ const checkAllSelected = (key: keyof CodeGen.FieldConfig, isCheckAllRef: Ref) =>
   isCheckAllRef.value = fieldConfigs.every((row) => row[key] === 1);
 };
 
+/** 是否需要刷新列表 */
+const needRefresh = ref(false);
+
 // 保存配置
 const formProRef = useTemplateRef("formPro");
 const genCode = async () => {
@@ -365,6 +372,8 @@ const genCode = async () => {
     await GeneratorAPI.saveGenConfig(tableCode.value, modelValue.value);
 
     await getConfigForm();
+
+    needRefresh.value = true;
 
     active.value = "preview"; // 跳转到预览
   } catch (err) {
@@ -570,6 +579,11 @@ const handleExportCode = () => {
 // 取消
 const cancel = () => {
   active.value = "basic";
+  // 取消之后刷新列表
+  if (needRefresh.value) {
+    emit("refresh");
+    needRefresh.value = false;
+  }
   visible.value = false;
 };
 </script>

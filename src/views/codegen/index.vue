@@ -13,7 +13,7 @@
       @reset="handleQuery"
     />
     <!-- 生成代码预览 -->
-    <GenerateCode ref="generateCode" />
+    <GenerateCode ref="generateCode" @refresh="handleQuery" />
   </div>
 </template>
 <script setup lang="tsx">
