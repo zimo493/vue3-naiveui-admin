@@ -29,7 +29,7 @@ const reqOnFulfilled = (config: InternalAxiosRequestConfig) => {
   }
 
   // get请求映射params参数
-  if (config.method === "get" && config.params) {
+  if (config.method?.toLocaleLowerCase() === "get" && config.params) {
     let url = config.url + "?" + tansParams(config.params);
 
     url = url.slice(0, -1);
@@ -120,6 +120,11 @@ service.interceptors.response.use(resOnFulfilled, async (error) => {
       window.$message.error(msg);
 
       return Promise.reject(new Error(msg || "Error"));
+    } else if (code === ResultEnum.CANNOT_OPERATE) {
+      // 禁止用户操作（演示模式配合Nginx拦截使用）
+      window.$message.warning($t("common.cannotOperate"));
+
+      return Promise.reject(new Error($t("common.cannotOperate")));
     }
     window.$message.error(msg || $t("common.sysError"));
   } else {
