@@ -26,8 +26,8 @@ installPinia(app);
 
 /** 注册模块 VueRouter */
 installRouter(app)
-  .then(setupWebSocket) // 创建websocket连接
-  .then(setupAppVersion) // App更新后提示用户刷新
+  .then(() => setupWebSocket()) // 创建websocket连接
+  .then(() => setupAppVersion()) // App更新后提示用户刷新
   .finally(() => appLoading.unmount());
 
 /** 挂载 App */
