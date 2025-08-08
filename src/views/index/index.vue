@@ -231,7 +231,7 @@
 <script lang="tsx" setup>
 import LogAPI from "@/api/system/log";
 import { parseTime } from "@/utils";
-import { EChartsOption, graphic } from "echarts";
+import { type EChartsOption } from "echarts";
 import { useLoading, useOnlineCount } from "@/hooks";
 
 const up = "ant-design:arrow-up-outlined";
@@ -409,25 +409,7 @@ const defaultOptions = computed((): EChartsOption => {
           shadowOffsetX: 1,
         },
         areaStyle: {
-          color: new graphic.LinearGradient(
-            0,
-            0,
-            0,
-            1,
-            [
-              {
-                offset: 0,
-                color: "rgba(0,179,244,0.3)",
-              },
-              {
-                offset: 1,
-                color: "rgba(0,179,244,0)",
-              },
-            ],
-            false
-          ),
-          shadowColor: "rgba(0,179,244, 0.9)",
-          shadowBlur: 20,
+          color: "rgba(64, 158, 255, 0.1)",
         },
         markLine: {
           silent: true,
@@ -473,25 +455,7 @@ const defaultOptions = computed((): EChartsOption => {
           shadowOffsetX: 2,
         },
         areaStyle: {
-          color: new graphic.LinearGradient(
-            0,
-            0,
-            0,
-            1,
-            [
-              {
-                offset: 0,
-                color: "rgba(0,202,149,0.3)",
-              },
-              {
-                offset: 1,
-                color: "rgba(0,202,149,0)",
-              },
-            ],
-            false
-          ),
-          shadowColor: "rgba(0,202,149, 0.9)",
-          shadowBlur: 20,
+          color: "rgba(103, 194, 58, 0.1)",
         },
         markLine: {
           silent: true,

@@ -10,10 +10,10 @@ import type { EChartsType } from "echarts/core";
 import type { BarSeriesOption, LineSeriesOption } from "echarts/charts";
 /** 组件类型（按需添加） */
 import type {
-  DatasetComponentOption,
+  // DatasetComponentOption,
   GridComponentOption,
   LegendComponentOption,
-  TitleComponentOption,
+  // TitleComponentOption,
   TooltipComponentOption,
 } from "echarts/components";
 
@@ -23,15 +23,15 @@ import * as echarts from "echarts/core";
 import { BarChart, LineChart } from "echarts/charts";
 /**功能组件（按需注册） */
 import {
-  DatasetComponent, // 数据集支持
+  // DatasetComponent, // 数据集支持
   GridComponent, // 直角坐标系网格
   LegendComponent, // 图例组件
-  TitleComponent, // 标题组件
+  // TitleComponent, // 标题组件
   TooltipComponent, // 提示框组件
-  TransformComponent, // 数据转换（过滤/排序）
+  // TransformComponent, // 数据转换（过滤/排序）
 } from "echarts/components";
 /** 特性模块 */
-import { LabelLayout, UniversalTransition } from "echarts/features"; // 标签布局与过渡动画
+// import { LabelLayout, UniversalTransition } from "echarts/features"; // 标签布局与过渡动画
 /** 渲染器 */
 import { CanvasRenderer } from "echarts/renderers"; // 使用Canvas渲染
 
@@ -43,33 +43,33 @@ import { CanvasRenderer } from "echarts/renderers"; // 使用Canvas渲染
 export type ECOption = echarts.ComposeOption<
   | BarSeriesOption
   | LineSeriesOption
-  | TitleComponentOption
+  // | TitleComponentOption
   | TooltipComponentOption
   | GridComponentOption
   | LegendComponentOption
-  | DatasetComponentOption
+  // | DatasetComponentOption
 >;
 
 /** 注册必需组件（按需增减） */
 echarts.use([
+  /** 渲染器 */
+  CanvasRenderer, // 必须注册一个渲染器
+
   /** 基础组件 */
-  TitleComponent, // 标题
+  // TitleComponent, // 标题
   TooltipComponent, // 提示框
   GridComponent, // 网格系统
   LegendComponent, // 图例
-  DatasetComponent, // 数据集
-  TransformComponent, // 数据转换
+  // DatasetComponent, // 数据集
+  // TransformComponent, // 数据转换
 
   /** 图表类型 */
   BarChart, // 柱状图
   LineChart, // 折线图
 
   /** 特性模块 */
-  LabelLayout, // 自动标签布局
-  UniversalTransition, // 通用过渡动画
-
-  /** 渲染器 */
-  CanvasRenderer, // 必须注册一个渲染器
+  // LabelLayout, // 自动标签布局
+  // UniversalTransition, // 通用过渡动画
 ]);
 
 defineOptions({ name: "ECharts" });
