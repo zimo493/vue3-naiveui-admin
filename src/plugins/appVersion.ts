@@ -57,7 +57,9 @@ export const setupAppVersion = () => {
             (): string => $t("app.refreshNow")
           ),
         ]),
-      onClose: () => (showRefresh = false),
+      onClose: () => {
+        showRefresh = false;
+      },
     });
   });
 };
