@@ -9,14 +9,18 @@ import IconsResolver from "unplugin-icons/resolver";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import { FileSystemIconLoader } from "unplugin-icons/loaders";
 
+// 自定义html插件
+import { htmlPlugin } from "./htmlPlugin";
+
 /**
  * 插件配置
  * 集中管理所有Vite插件
  */
-export const pluginsOptions: PluginOption[] = [
+export const pluginsOptions = (buildTimestamp: number): PluginOption[] => [
   vue(),
   vueJsx(),
   UnoCSS(),
+  htmlPlugin(buildTimestamp),
   AutoImport({
     imports: [
       "vue",

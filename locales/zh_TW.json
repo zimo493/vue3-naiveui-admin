@@ -28,6 +28,12 @@
       "message": "消息"
     }
   },
+  "app": {
+    "systemUpdateTitle": "系統更新啦",
+    "systemUpdateContent": "檢測到系統有新版本發布，是否立即刷新？",
+    "laterOn": "稍後",
+    "refreshNow": "立即刷新"
+  },
   "button": {
     "refresh": "刷新",
     "search": "搜尋",

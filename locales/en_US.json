@@ -28,6 +28,12 @@
       "message": "Message"
     }
   },
+  "app": {
+    "systemUpdateTitle": "System Update",
+    "systemUpdateContent": "A new version of the system has been detected. Would you like to refresh now?",
+    "laterOn": "Later",
+    "refreshNow": "Refresh Now"
+  },
   "button": {
     "refresh": "Refresh",
     "search": "Search",

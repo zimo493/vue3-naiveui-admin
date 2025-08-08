@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
     resolve: resolveOptions(__dirname), // 路径解析配置
     server: serverOptions(env), // 开发服务器配置
     css: cssOptions, // CSS预处理器配置
-    plugins: pluginsOptions, // 插件配置
+    plugins: pluginsOptions(__APP_INFO__.buildTimestamp), // 插件配置
     optimizeDeps: optimizeDepsOptions, // 依赖优化配置
     build: buildOptions, // 构建配置
     // 全局常量定义

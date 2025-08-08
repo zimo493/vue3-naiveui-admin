@@ -1,7 +1,7 @@
 import { type App, createApp } from "vue";
 import { installPinia } from "@/store";
 import { installRouter } from "@/router";
-import { setupWebSocket } from "@/plugins/websocket";
+import { setupWebSocket, setupAppVersion } from "@/plugins";
 
 import AppVue from "@/App";
 import AppLoading from "@/components/common/AppLoading.vue";
@@ -26,7 +26,8 @@ installPinia(app);
 
 /** 注册模块 VueRouter */
 installRouter(app)
-  .then(setupWebSocket)
+  .then(setupWebSocket) // 创建websocket连接
+  .then(setupAppVersion) // App更新后提示用户刷新
   .finally(() => appLoading.unmount());
 
 /** 挂载 App */
