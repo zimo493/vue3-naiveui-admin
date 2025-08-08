@@ -39,7 +39,7 @@
 <details>
 <summary> vue3-naiveui-admin </summary>
 
-```text
+```ini
 ├─ .husky                   # Git 提交钩子
 ├─ .vscode                  # VSCode 推荐配置
 ├─ build                    # 构建文件配置
