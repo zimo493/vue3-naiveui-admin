@@ -45,6 +45,7 @@
 ├─ build                    # 构建文件配置
 │  ├─ buildOptions.ts        # Vite构建配置
 │  ├─ cssOptions.ts          # CSS 配置
+│  ├─ htmlPlugin.ts          # 自定义Vite插件
 │  ├─ index.ts               # 构建入口
 │  ├─ optimizeDepsOptions.ts # 依赖优化配置
 │  ├─ pluginsOptions.ts      # 插件配置
@@ -66,6 +67,7 @@
 │  ├─ directives            # 全局指令文件
 │  ├─ enums                 # 枚举文件
 │  ├─ hooks                 # 常用 Hooks 封装
+│     ├── useWebsocket/*     # Websocket
 │     ├── index.ts           # 统一导出全局 Hooks
 │     ├── useBoolean.ts      # 组合式使用 Boolean
 │     ├── useCompRef.ts      # 组合式使用 ref
@@ -78,8 +80,13 @@
 │     ├── main               # 布局框架
 │     └── index.txs          # 布局组件基座
 │  ├─ modules               # 全局模块注册
-│     ├── assets.ts          # 自动注册静态资源
-│     └── directives.ts      # 自动注册指令
+│     ├── assets.ts          # 静态资源
+│     ├── directives.ts      # 指令
+│     └── i18n.ts            # 多语言
+│  ├─ plugins               # 全局插件注册
+│     ├── appVersion.ts      # App更新提示刷新
+│     ├── websocket.ts       # WebSocket
+│     └── index.ts           # 统一导出
 │  ├─ router                # 路由管理
 │     ├── modules            # 路由模块
 │         ├── guard.ts        # 路由守卫配置
