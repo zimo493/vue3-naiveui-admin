@@ -6,7 +6,7 @@
         <FormPro
           ref="ruleForm"
           v-model:model-value="modelValue"
-          :form-config="showFormConfig"
+          :form-config="showFormConfig.map((item) => ({ ...item, blockMessage: undefined }))"
           :form-props="{ showFeedback: false, labelWidth: undefined, ...(form?.props || {}) }"
           :operationSpan="operationSpan"
           :grid-props="{ yGap: 16, ...(form?.gridProps || {}) }"

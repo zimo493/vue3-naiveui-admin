@@ -12,11 +12,18 @@
             <FormTipLabel :label="item.label" :msg="item.labelMessage" />
           </template>
           <slot :name="item.name" :value="modelValue[item.name]">
-            <component
-              :is="renderComponent(item)"
-              v-model:value="modelValue[item.name]"
-              v-bind="{ ...item.props }"
-            />
+            <n-flex vertical w-full :size="[0, 2]">
+              <component
+                :is="renderComponent(item)"
+                v-model:value="modelValue[item.name]"
+                v-bind="{ ...item.props }"
+              />
+              <n-text v-if="item.blockMessage" depth="3">
+                <n-ellipsis :line-clamp="1">
+                  {{ item.blockMessage }}
+                </n-ellipsis>
+              </n-text>
+            </n-flex>
           </slot>
         </n-form-item-gi>
       </template>
@@ -89,7 +96,7 @@ const {
     type: Object as PropType<FormPro.FormProProps["gridProps"]>,
   },
   operationSpan: {
-    type: Number,
+    type: Number as PropType<FormPro.FormProProps["operationSpan"]>,
   },
 });
 
