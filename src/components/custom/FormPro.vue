@@ -18,11 +18,9 @@
                 v-model:value="modelValue[item.name]"
                 v-bind="{ ...item.props }"
               />
-              <n-text v-if="item.blockMessage" depth="3">
-                <n-ellipsis :line-clamp="1">
-                  {{ item.blockMessage }}
-                </n-ellipsis>
-              </n-text>
+              <template v-if="item.blockMessage">
+                <component :is="getBlockMessage(item.blockMessage)" />
+              </template>
             </n-flex>
           </slot>
         </n-form-item-gi>
@@ -50,6 +48,7 @@ import {
   NRadio,
   NRadioGroup,
   NText,
+  NEllipsis,
 } from "naive-ui";
 
 import { useDict } from "@/hooks";
@@ -160,6 +159,20 @@ watchEffect(() => {
     }
   });
 });
+
+const getBlockMessage = (blockMessage: FormPro.FormItemConfig["blockMessage"]) => {
+  // 如果是字符串
+  if (typeof blockMessage === "string") {
+    return h(
+      NText,
+      { depth: "3" },
+      h(NEllipsis, { lineClamp: 1 }, () => blockMessage)
+    );
+  }
+
+  // 如果是组件或其他VNode
+  return blockMessage;
+};
 
 /**
  * 渲染表单项组件
