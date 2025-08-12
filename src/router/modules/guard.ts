@@ -5,7 +5,7 @@ import type { Router } from "vue-router";
 const { pkg } = __APP_INFO__;
 
 // 白名单
-const whiteList = ["/login", "/test"];
+const whiteList = ["/login", "/fitScreen", "/test"];
 
 export const setupRouterGuard = (router: Router) => {
   const appStore = useAppStoreHook();

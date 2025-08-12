@@ -43,6 +43,12 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: { title: "登录", hidden: true },
   },
   {
+    path: "/fitScreen",
+    name: "FitScreen",
+    component: () => import("@/views/fitScreen/index.vue"),
+    meta: { title: "数据大屏", hidden: true },
+  },
+  {
     path: "/403",
     name: "403",
     component: () => import("@/views/error/403"),
