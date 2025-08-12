@@ -19,19 +19,21 @@ export const setupWebSocket = async () => {
   }
 
   try {
-    const dictWebSocket = useDictSync();
+    setTimeout(async () => {
+      const dictWebSocket = useDictSync();
 
-    // 初始化字典WebSocket服务
-    await dictWebSocket.initWebSocket();
-    console.log("[WebSocketPlugin] 字典WebSocket初始化完成");
+      // 初始化字典WebSocket服务
+      await dictWebSocket.initWebSocket();
+      console.log("[WebSocketPlugin] 字典WebSocket初始化完成");
 
-    // 在窗口关闭前断开WebSocket连接
-    window.addEventListener("beforeunload", () => {
-      console.log("[WebSocketPlugin] 窗口即将关闭，断开WebSocket连接");
-      dictWebSocket.closeWebSocket();
-    });
+      // 在窗口关闭前断开WebSocket连接
+      window.addEventListener("beforeunload", () => {
+        console.log("[WebSocketPlugin] 窗口即将关闭，断开WebSocket连接");
+        dictWebSocket.closeWebSocket();
+      });
 
-    console.log("[WebSocketPlugin] WebSocket服务初始化完成");
+      console.log("[WebSocketPlugin] WebSocket服务初始化完成");
+    }, 1000);
   } catch (error) {
     console.error("[WebSocketPlugin] 初始化WebSocket服务失败:", error);
   }
