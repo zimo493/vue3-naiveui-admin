@@ -18,7 +18,7 @@ const randomNum = () => Math.floor(Math.random() * 500) + 500;
 const options: EChartsOption = {
   title: {
     text: "车辆充电统计",
-    textStyle: { color: "#fff" },
+    textStyle: { color: "#fff", fontSize: 18, fontFamily: "YouSheBiaoTiHei,Arial,sans-serif" },
     top: 0,
     left: 0,
   },

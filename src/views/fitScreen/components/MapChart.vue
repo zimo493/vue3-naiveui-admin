@@ -39,7 +39,7 @@ const option: EChartsOption = {
       itemStyle: { areaColor: "#071537" },
     },
     itemStyle: {
-      areaColor: "rgba(7,21,57,0.5)",
+      areaColor: "rgba(7,21,55,0.8)",
       borderColor: "#0177ff",
     },
     roam: true,
@@ -50,14 +50,12 @@ const option: EChartsOption = {
       type: "effectScatter",
       coordinateSystem: "geo",
       rippleEffect: { brushType: "stroke" },
-
       emphasis: {
         label: {
           show: true,
           position: "right",
           formatter: "{b}",
         },
-        itemStyle: { color: "#46bee9" },
       },
       showEffectOn: "render",
       data: eriesData.cityData,
