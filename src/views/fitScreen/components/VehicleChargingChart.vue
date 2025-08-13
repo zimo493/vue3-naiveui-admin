@@ -3,10 +3,17 @@
 </template>
 <script lang="ts" setup>
 import { EChartsOption } from "echarts";
+import { useKeepTicking } from "@/hooks";
 
 defineOptions({ name: "VehicleChargingChart" });
 
 const chartRef = useTemplateRef("chart");
+
+onMounted(() => {
+  chartRef.value?.initOptions(options);
+});
+// 生成一个500到1000的随机数
+const randomNum = () => Math.floor(Math.random() * 500) + 500;
 
 const options: EChartsOption = {
   title: {
@@ -21,45 +28,20 @@ const options: EChartsOption = {
   grid: {
     left: "0",
     right: "0",
-    top: "18%",
-    bottom: "0%",
+    top: "20%",
+    bottom: "0",
   },
   color: ["#a4d8cc", "#25f3e6"],
   xAxis: [
     {
       type: "category",
-      boundaryGap: false,
+      boundaryGap: true, // 两边留白
       axisLabel: {
         color: "#ccc",
         fontSize: "12",
         rotate: 45,
       },
-      data: [
-        "0时",
-        "1时",
-        "2时",
-        "3时",
-        "4时",
-        "5时",
-        "6时",
-        "7时",
-        "8时",
-        "9时",
-        "10时",
-        "11时",
-        "12时",
-        "13时",
-        "14时",
-        "15时",
-        "16时",
-        "17时",
-        "18时",
-        "19时",
-        "20时",
-        "21时",
-        "22时",
-        "23时",
-      ],
+      data: Array.from({ length: 24 }, (_, i) => `${i}:00`),
     },
   ],
   yAxis: {
@@ -88,22 +70,21 @@ const options: EChartsOption = {
           x2: 0,
           y2: 0.8,
           colorStops: [
-            { offset: 0, color: "#25f3e6" },
-            { offset: 1, color: "#0089ff" },
+            { offset: 0, color: "#3ae8dd" },
+            { offset: 1, color: "#047ee8" },
           ],
           global: false,
         },
       },
       smooth: true,
-      data: [
-        710, 312, 321, 754, 500, 830, 710, 521, 504, 660, 530, 410, 710, 312, 321, 754, 500, 830,
-        710, 521, 504, 660, 530, 410,
-      ],
+      data: Array.from({ length: 24 }, () => randomNum()),
     },
   ],
 };
 
-onMounted(() => {
-  chartRef.value?.initOptions(options);
-});
+useKeepTicking(() => {
+  chartRef.value?.updateCharts({
+    series: [{ data: Array.from({ length: 24 }, () => randomNum()) }],
+  });
+}, 3000);
 </script>

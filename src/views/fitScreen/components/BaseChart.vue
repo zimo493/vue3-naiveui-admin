@@ -7,8 +7,12 @@
     wh-full
     relative
     z-90
-    class="border border-[#20558b]"
+    class="border border-[#2E6099]"
   >
+    <div class="ornamental"></div>
+    <div class="ornamental"></div>
+    <div class="ornamental"></div>
+    <div class="ornamental"></div>
     <div ref="chart" wh-full />
   </div>
 </template>
@@ -95,3 +99,33 @@ defineExpose({
   updateCharts,
 });
 </script>
+<style lang="scss" scoped>
+.ornamental {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #7ce7fd;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 4px 0 4px 0;
+  &:nth-child(1) {
+    top: -2px;
+    left: -2px;
+  }
+  &:nth-child(2) {
+    top: -2px;
+    right: -2px;
+    transform: rotate(90deg);
+  }
+  &:nth-child(3) {
+    bottom: -2px;
+    left: -2px;
+    transform: rotate(-90deg);
+  }
+  &:nth-child(4) {
+    right: -2px;
+    bottom: -2px;
+    transform: rotate(180deg);
+  }
+}
+</style>

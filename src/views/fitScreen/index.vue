@@ -36,7 +36,7 @@
         <div class="centerChart">
           <n-flex align="end" z-999 pt-5 font="[YouSheBiaoTiHei,Arial,sans-serif]">
             <n-text text-24px>实时行驶车辆</n-text>
-            <div font-900 text-36px p-x-3 p-y-1 bg="[#0089ff]" rounded="[10px]" leading-none>
+            <div font-900 text-36px p-x-3 p-y-1 bg="[#0089ff]" rounded="[6px]" leading-none>
               <n-number-animation show-separator :from="oldCarNum" :to="carNum" />
             </div>
           </n-flex>
