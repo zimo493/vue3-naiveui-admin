@@ -9,7 +9,11 @@ export const htmlPlugin = (buildTimestamp: number): Plugin => {
     name: "html-plugin",
     apply: "build",
     transformIndexHtml(html: string) {
-      return html.replace("<head>", `<head>\n<meta name="buildTime" content="${buildTimestamp}">`);
+      // 使用正则匹配 <head> 标签（不区分大小写），确保有属性时也能匹配
+      return html.replace(
+        /<head(.*?)>/i,
+        `<head$1><meta name="buildTime" content="${buildTimestamp}">`
+      );
     },
   };
 };

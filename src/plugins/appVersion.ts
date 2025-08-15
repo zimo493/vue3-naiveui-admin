@@ -69,14 +69,32 @@ export const setupAppVersion = () => {
  * @returns {Promise<number>} 构建时间戳
  */
 const getBuildTimestamp = async (): Promise<number> => {
-  const baseURL = import.meta.env.VITE_BASE_URL;
-  const res: Response = await fetch(`${baseURL}index.html`);
-  const html: string = await res.text();
-  // 匹配出打包时间
-  // const match: RegExpMatchArray | null = html.match(
-  //   /<meta name="buildTime" content="(.*?)" \/>/
-  // );
-  const match: RegExpMatchArray | null = html.match(/<meta name="buildTime" content="(.*)">/);
+  try {
+    const baseURL = import.meta.env.VITE_BASE_URL || "/";
 
-  return match ? (isNaN(Number(match?.[1])) ? 0 : Number(match?.[1])) : 0;
+    // 添加随机参数避免缓存
+    const cacheBuster = `?t=${Date.now()}`;
+    const res = await fetch(`${baseURL}index.html${cacheBuster}`);
+
+    // 检查响应状态
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const html = await res.text();
+
+    // 使用正则表达式匹配时间戳
+    const match = html.match(/<meta\s+name="buildTime"\s+content="([^"]+)"\s*\/?>/i);
+
+    // 双重验证
+    if (!match?.[1]) return 0;
+
+    const timestamp = Number(match[1]);
+
+    return isNaN(timestamp) ? 0 : timestamp;
+  } catch (error) {
+    console.error("Failed to get build timestamp:", error);
+
+    return 0;
+  }
 };
