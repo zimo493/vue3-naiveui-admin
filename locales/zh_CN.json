@@ -485,11 +485,11 @@
       "parentMenuTip": "父级菜单不能为当前菜单"
     },
     "tip": {
-      "routeName": "如果需要开启缓存，需保证页面 defineOptions 中的 name 与此处一致，建议使用驼峰<br/>例如: User",
-      "routePath": "定义应用中不同页面对应的 URL 路径，目录需以 / 开头，菜单项不用<br/>例如：系统管理目录/system, 系统管理下的用户管理菜单 user",
-      "componentPath": "组件页面完整路径，相对于 src/views/<br/>如 system/user/index, 缺省后缀 .vue",
+      "routeName": "如果需要开启缓存，需保证页面 defineOptions 中的 name 与此处一致，建议使用驼峰\n例如: User",
+      "routePath": "定义应用中不同页面对应的 URL 路径，目录需以 / 开头，菜单项不用\n例如：系统管理目录/system, 系统管理下的用户管理菜单 user",
+      "componentPath": "组件页面完整路径，相对于 src/views/\n如 system/user/index, 缺省后缀 .vue",
       "routeParam": "组件页面使用 `useRoute().query.参数名` 获取路由参数值",
-      "alwaysShow": "选择“是”，即使目录或菜单下只有一个子节点，也会显示父节点<br/>选择“否”，如果目录或菜单下只有一个子节点，则只显示该子节点，隐藏父节点<br/>如果是叶子节点，请选择“否”"
+      "alwaysShow": "选择“是”，即使目录或菜单下只有一个子节点，也会显示父节点\n选择“否”，如果目录或菜单下只有一个子节点，则只显示该子节点，隐藏父节点\n如果是叶子节点，请选择“否”"
     }
   },
   "dept": {
@@ -585,7 +585,7 @@
     "resetConfigConfirm": "确定要重置 {tableName} 的配置吗？",
     "resetConfigSuccess": "重置成功",
     "drawer": {
-      "parentMenuTip": "选择上级菜单，生成代码后会自动创建对应菜单。<br />注意1: 生成菜单后需分配权限给角色，否则菜单将无法显示。<br />注意2: 演示环境默认不生成菜单，如需生成，请在本地部署数据库。",
+      "parentMenuTip": "选择上级菜单，生成代码后会自动创建对应菜单。\n注意1: 生成菜单后需分配权限给角色，否则菜单将无法显示。\n注意2: 演示环境默认不生成菜单，如需生成，请在本地部署数据库。",
       "alert": "index.vue 中的代码在此不适用，仅用于演示！",
       "configPreview": "配置预览",
       "downloading": "下载中...",

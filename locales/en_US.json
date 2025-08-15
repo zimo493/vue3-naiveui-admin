@@ -485,11 +485,11 @@
       "parentMenuTip": "Parent menu cannot be the current menu"
     },
     "tip": {
-      "routeName": "If you need to enable caching, ensure that the name in defineOptions on the page matches this field. It is recommended to use camelCase.<br/>Example: User",
-      "routePath": "Define the URL path corresponding to different pages in the application. Directories must start with /, menu items do not.<br/>Example: System management directory /system, user management menu under system management: user",
-      "componentPath": "Complete component page path, relative to src/views/<br/>Such as system/user/index, default suffix .vue is omitted",
+      "routeName": "If you need to enable caching, ensure that the name in defineOptions on the page matches this field. It is recommended to use camelCase.\nExample: User",
+      "routePath": "Define the URL path corresponding to different pages in the application. Directories must start with /, menu items do not.\nExample: System management directory /system, user management menu under system management: user",
+      "componentPath": "Complete component page path, relative to src/views/\nSuch as system/user/index, default suffix .vue is omitted",
       "routeParam": "Component page uses `useRoute().query.parameterName` to get route parameter values",
-      "alwaysShow": "Select 'Yes', even if there is only one child node under the directory or menu, the parent node will be displayed.<br/>Select 'No', if there is only one child node under the directory or menu, only that child node will be displayed, and the parent node will be hidden.<br/>If it is a leaf node, please select 'No'"
+      "alwaysShow": "Select 'Yes', even if there is only one child node under the directory or menu, the parent node will be displayed.\nSelect 'No', if there is only one child node under the directory or menu, only that child node will be displayed, and the parent node will be hidden.\nIf it is a leaf node, please select 'No'"
     }
   },
   "dept": {
@@ -585,7 +585,7 @@
     "resetConfigConfirm": "Are you sure you want to reset the configuration of {tableName}?",
     "resetConfigSuccess": "Reset Success",
     "drawer": {
-      "parentMenuTip": "Select the parent menu, and the menu will be automatically created after the code is generated. <br />Note 1: After generating the menu, you need to assign permissions to the role, otherwise the menu will not be displayed. <br />Note 2: The demo environment does not generate menus by default. If you need to generate menus, please deploy the database locally.",
+      "parentMenuTip": "Select the parent menu, and the menu will be automatically created after the code is generated. \nNote 1: After generating the menu, you need to assign permissions to the role, otherwise the menu will not be displayed. \nNote 2: The demo environment does not generate menus by default. If you need to generate menus, please deploy the database locally.",
       "alert": "The code in index.vue is not applicable here, and it is only used for demonstration purposes!",
       "configPreview": "Configuration Preview",
       "downloading": "Downloading...",

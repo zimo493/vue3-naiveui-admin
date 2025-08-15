@@ -9,6 +9,8 @@ const { message = "" } = defineProps({
     <template #trigger>
       <icon-park-outline-help class="cursor-pointer" />
     </template>
-    <div v-html="message" />
+    <n-flex vertical>
+      <n-text v-for="msg in message.split('\n')">{{ msg }}</n-text>
+    </n-flex>
   </n-tooltip>
 </template>

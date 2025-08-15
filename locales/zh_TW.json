@@ -485,11 +485,11 @@
       "parentMenuTip": "父級菜單不能為當前菜單"
     },
     "tip": {
-      "routeName": "如果需要開啟緩存，需保證頁面 defineOptions 中的 name 與此處一致，建議使用駝峰<br/>例如: User",
-      "routePath": "定義應用中不同頁面對應的 URL 路徑，目錄需以 / 開頭，菜單項不用<br/>例如：系統管理目錄/system, 系統管理下的用戶管理菜單 user",
-      "componentPath": "組件頁面完整路徑，相對於 src/views/<br/>如 system/user/index, 缺省後綴 .vue",
+      "routeName": "如果需要開啟緩存，需保證頁面 defineOptions 中的 name 與此處一致，建議使用駝峰\n例如: User",
+      "routePath": "定義應用中不同頁面對應的 URL 路徑，目錄需以 / 開頭，菜單項不用\n例如：系統管理目錄/system, 系統管理下的用戶管理菜單 user",
+      "componentPath": "組件頁面完整路徑，相對於 src/views/\n如 system/user/index, 缺省後綴 .vue",
       "routeParam": "組件頁面使用 `useRoute().query.參數名` 獲取路由參數值",
-      "alwaysShow": "選擇「是」，即使目錄或菜單下只有一個子節點，也會顯示父節點<br/>選擇「否」，如果目錄或菜單下只有一個子節點，則只顯示該子節點，隱藏父節點<br/>如果是葉子節點，請選擇「否」"
+      "alwaysShow": "選擇「是」，即使目錄或菜單下只有一個子節點，也會顯示父節點\n選擇「否」，如果目錄或菜單下只有一個子節點，則只顯示該子節點，隱藏父節點\n如果是葉子節點，請選擇「否」"
     }
   },
   "dept": {
@@ -585,7 +585,7 @@
     "resetConfigConfirm": "確定要重置 {tableName} 的配置嗎？",
     "resetConfigSuccess": "重置成功",
     "drawer": {
-      "parentMenuTip": "選擇上級菜單，生成代碼後會自動創建對應菜單。<br />注意1: 生成菜單後需分配權限給角色，否則菜單將無法顯示。<br />注意2: 演示環境默認不生成菜單，如需生成請在本地部署數據庫。",
+      "parentMenuTip": "選擇上級菜單，生成代碼後會自動創建對應菜單。\n注意1: 生成菜單後需分配權限給角色，否則菜單將無法顯示。\n注意2: 演示環境默認不生成菜單，如需生成請在本地部署數據庫。",
       "alert": "index.vue 中的代碼在此不適用，僅用於演示！",
       "configPreview": "配置預覽",
       "downloading": "下載中...",
