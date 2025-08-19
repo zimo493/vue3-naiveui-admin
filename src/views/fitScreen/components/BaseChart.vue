@@ -127,7 +127,7 @@ defineExpose({
 </script>
 <style lang="scss" scoped>
 .charts-bg {
-  background: rgba(0, 24, 106, 0.4) url("../assets/images/line.png");
+  background: rgba(0, 24, 106, 0.4) url("../assets/images/line.webp");
 }
 .ornamental {
   position: absolute;

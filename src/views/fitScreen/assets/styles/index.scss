@@ -30,13 +30,13 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: url("../images/bg.png") center;
+  background: url("../images/bg.webp") center;
   background-size: cover;
 }
 .dataScreen-header {
   position: relative;
   height: 60px;
-  background: url("../images/header-bg.png") 50%;
+  background: url("../images/header-bg.webp") 50%;
   background-size: cover;
   // padding: 0 10px;
   --padding-size: 10px;
@@ -92,7 +92,7 @@
     z-index: -1;
     width: 100%;
     height: 56px;
-    background-image: url("../images/ray.png");
+    background-image: url("../images/ray.webp");
     background-position: 100px;
   }
 }
