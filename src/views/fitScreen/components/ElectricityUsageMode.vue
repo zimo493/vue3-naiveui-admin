@@ -24,9 +24,7 @@ const data = ref([
 ]);
 
 const options: EChartsOption = {
-  tooltip: {
-    trigger: "item",
-  },
+  tooltip: { trigger: "item" },
   legend: {
     bottom: 0,
     left: "center",
@@ -39,13 +37,8 @@ const options: EChartsOption = {
       center: ["50%", "40%"],
       padAngle: 5,
       avoidLabelOverlap: false,
-      itemStyle: {
-        borderRadius: 4,
-      },
-      label: {
-        show: false,
-        position: "center",
-      },
+      itemStyle: { borderRadius: 4 },
+      label: { show: false, position: "center" },
       emphasis: {
         label: {
           show: true,
@@ -54,9 +47,7 @@ const options: EChartsOption = {
           fontWeight: "bold",
         },
       },
-      labelLine: {
-        show: false,
-      },
+      labelLine: { show: false },
       data: data.value,
     },
   ],
