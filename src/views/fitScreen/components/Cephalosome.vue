@@ -6,8 +6,7 @@
       <!-- 左侧内容 -->
       <div class="leftHead"></div>
       <!-- 中间标题 -->
-      <!-- 新能源汽车联网平台数据概览 -->
-      <div class="title">111111111</div>
+      <div class="title">新能源汽车联网平台数据概览</div>
       <!-- 右侧内容 -->
       <div class="rightHead">
         <!-- 实时时间 -->
