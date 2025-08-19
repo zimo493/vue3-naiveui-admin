@@ -1,6 +1,6 @@
 <template>
   <div absolute inset-0 z-1>
-    <BaseChart ref="chart" type="map" />
+    <BaseChart ref="chart" :border="false" />
   </div>
 </template>
 <script lang="ts" setup>

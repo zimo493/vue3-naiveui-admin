@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="type === 'common'"
+    v-if="border"
     bg="[rgba(0,24,106,0.4)]"
     rounded="[4px]"
     p-x-2
@@ -74,9 +74,9 @@ echarts.use([
 
 defineOptions({ name: "BaseChart" });
 
-const { theme = "light", type = "common" } = defineProps({
+const { theme = "light", border = true } = defineProps({
   theme: { type: String },
-  type: { type: String as PropType<"common" | "map"> },
+  border: { type: Boolean },
 });
 
 const emit = defineEmits<{
