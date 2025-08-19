@@ -99,7 +99,11 @@
 
 .leftChart,
 .rightChart {
+  display: flex;
   flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
 }
 
 .centerChart {
@@ -114,11 +118,4 @@
   .vehicleCharging {
     height: 25%;
   }
-}
-
-.leftChart {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: 100%;
 }

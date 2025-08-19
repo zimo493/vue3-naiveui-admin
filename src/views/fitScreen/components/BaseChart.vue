@@ -32,11 +32,12 @@ import * as echarts from "echarts/core";
 /** 图表类型（按需注册） */
 import {
   BarChart,
-  EffectScatterChart,
+  PieChart,
   LineChart,
   LinesChart,
-  PieChart,
+  RadarChart,
   ScatterChart,
+  EffectScatterChart,
 } from "echarts/charts";
 /**功能组件（按需注册） */
 import {
@@ -62,13 +63,13 @@ echarts.use([
 
   /** 图表类型 */
   BarChart, // 柱状图
-  LineChart, // 折线图
   PieChart, // 饼图
+  LineChart, // 折线图
+  LinesChart, // 折线图
+  RadarChart, // 雷达图
   ScatterChart, // 散点图
   GeoComponent, // 地理坐标系
-
-  EffectScatterChart,
-  LinesChart,
+  EffectScatterChart, // 带有涟漪效果的散点图
 ]);
 
 defineOptions({ name: "BaseChart" });
