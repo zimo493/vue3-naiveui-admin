@@ -33,7 +33,6 @@ useKeepTicking(() => {
 <style lang="scss" scoped>
 .text-carousel {
   height: 45px;
-  margin-top: 10px;
   overflow: hidden;
   font-family: DIN, Arial, sans-serif;
   font-size: 16px;

@@ -10,7 +10,7 @@ import getSeriesData from "../utils/seriesData";
 import { EChartsOption } from "echarts";
 import { useKeepTicking } from "@/hooks";
 
-const eriesData = getSeriesData(50);
+const eriesData = getSeriesData(20);
 const chartRef = useTemplateRef("chart");
 
 const option: EChartsOption = {

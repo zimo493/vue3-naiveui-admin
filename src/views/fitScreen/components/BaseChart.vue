@@ -9,12 +9,15 @@
     relative
     z-90
     class="border border-[#2E6099]"
+    flex="~ col"
   >
     <div class="ornamental"></div>
     <div class="ornamental"></div>
     <div class="ornamental"></div>
     <div class="ornamental"></div>
+    <slot name="before"></slot>
     <div ref="chart" wh-full />
+    <slot name="after"></slot>
   </div>
   <div v-else ref="chart" wh-full />
 </template>
@@ -27,7 +30,7 @@ import type { EChartsType } from "echarts/core";
 /** 核心模块 */
 import * as echarts from "echarts/core";
 /** 图表类型（按需注册） */
-import { BarChart, EffectScatterChart, LineChart, LinesChart } from "echarts/charts";
+import { BarChart, EffectScatterChart, LineChart, LinesChart, PieChart } from "echarts/charts";
 /**功能组件（按需注册） */
 import {
   GridComponent, // 直角坐标系网格
@@ -53,6 +56,7 @@ echarts.use([
   /** 图表类型 */
   BarChart, // 柱状图
   LineChart, // 折线图
+  PieChart, // 饼图
   GeoComponent, // 地理坐标系
 
   EffectScatterChart,
@@ -65,6 +69,10 @@ const { theme = "light", type = "common" } = defineProps({
   theme: { type: String },
   type: { type: String as PropType<"common" | "map"> },
 });
+
+const emit = defineEmits<{
+  (e: "onload", v: EChartsType): void;
+}>();
 
 const chartRef = useTemplateRef<HTMLDivElement>("chart");
 const chartInstance = ref<EChartsType>();
@@ -89,6 +97,7 @@ const initOptions = async (options: EChartsOption) => {
   await nextTick();
   chartInstance.value?.clear(); // 清空旧配置
   chartInstance.value?.setOption(options); // 应用新配置
+  emit("onload", chartInstance.value!);
 };
 
 /** 更新图表配置（增量更新） */

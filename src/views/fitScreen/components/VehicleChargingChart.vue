@@ -86,5 +86,5 @@ useKeepTicking(() => {
   chartRef.value?.updateCharts({
     series: [{ data: Array.from({ length: 24 }, () => randomNum()) }],
   });
-}, 3000);
+});
 </script>
