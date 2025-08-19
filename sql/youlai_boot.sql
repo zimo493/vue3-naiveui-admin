@@ -292,6 +292,7 @@ INSERT INTO `sys_menu` VALUES (40, 0, '0', '接口文档', 2, NULL, '/api', 'Lay
 INSERT INTO `sys_menu` VALUES (89, 0, '0', '功能演示', 2, NULL, '/function', 'Layout', NULL, NULL, NULL, 1, 12, 'mdi:laptop', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (110, 0, '0', '路由参数', 2, NULL, '/route-param', 'Layout', NULL, 1, 1, 1, 11, 'icon-park-outline:router', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (118, 0, '0', '系统工具', 2, NULL, '/utils', 'Layout', NULL, 0, 1, 1, 2, 'ep:menu', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (151, 0, '0', '数据大屏', 2, NULL, '/dashboard', 'Layout', NULL, 0, 1, 1, 3, 'ant-design:dashboard-filled', NULL, now(), now(), NULL);
 
 -- 二级菜单
 INSERT INTO `sys_menu` VALUES (2, 1, '0,1', '用户管理', 1, 'User', 'user', 'system/user/index', NULL, NULL, 1, 1, 1, 'ep:user-filled', NULL, now(), now(), NULL);
@@ -320,6 +321,7 @@ INSERT INTO `sys_menu` VALUES (126, 1, '0,1', '通知公告', 1, 'Notice', 'noti
 INSERT INTO `sys_menu` VALUES (135, 1, '0,1', '字典项', 1, 'DictItem', 'dict-item', 'system/dict/dict-item', NULL, 0, 1, 0, 6, 'icon-park-outline:ad-product', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (144, 26, '0,26', '后端文档', 3, NULL, 'https://youlai.blog.csdn.net/article/details/145178880', '', NULL, NULL, NULL, 1, 3, 'local:csdn', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (145, 26, '0,26', '移动端文档', 3, NULL, 'https://youlai.blog.csdn.net/article/details/143222890', '', NULL, NULL, NULL, 1, 4, 'local:csdn', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (152, 151, '0,151', '大屏适配', 3, NULL, 'http://192.168.1.5/fitScreen', NULL, NULL, 0, 1, 1, 1, 'icon-park-outline:data-screen', NULL, now(), now(), NULL);
 
 -- 三级菜单
 INSERT INTO `sys_menu` VALUES (22, 21, '0,20,21', '菜单二级', 1, 'Multilevel2', 'multi-level2', 'demo/multi-level/children/level2', NULL, 0, 1, 1, 1, 'healthicons:2', NULL, now(), now(), NULL);
@@ -517,6 +519,8 @@ INSERT INTO `sys_role_menu` VALUES (2, 142);
 INSERT INTO `sys_role_menu` VALUES (2, 143);
 INSERT INTO `sys_role_menu` VALUES (2, 144);
 INSERT INTO `sys_role_menu` VALUES (2, 145);
+INSERT INTO `sys_role_menu` VALUES (2, 151);
+INSERT INTO `sys_role_menu` VALUES (2, 152);
 INSERT INTO `sys_role_menu` VALUES (3, 89);
 INSERT INTO `sys_role_menu` VALUES (3, 90);
 INSERT INTO `sys_role_menu` VALUES (3, 97);
