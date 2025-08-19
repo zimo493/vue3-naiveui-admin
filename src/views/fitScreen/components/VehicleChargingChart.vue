@@ -2,7 +2,7 @@
   <BaseChart ref="chart" />
 </template>
 <script lang="ts" setup>
-import { EChartsOption } from "echarts";
+import { type EChartsOption } from "echarts";
 import { useKeepTicking } from "@/hooks";
 
 defineOptions({ name: "VehicleChargingChart" });
@@ -18,7 +18,12 @@ const randomNum = () => Math.floor(Math.random() * 500) + 500;
 const options: EChartsOption = {
   title: {
     text: "车辆充电统计",
-    textStyle: { color: "#fff", fontSize: 18, fontFamily: "YouSheBiaoTiHei,Arial,sans-serif" },
+    textStyle: {
+      color: "#fff",
+      fontSize: 20,
+      fontFamily: "YouSheBiaoTiHei,Arial,sans-serif",
+      fontWeight: "normal",
+    },
     top: 0,
     left: 0,
   },

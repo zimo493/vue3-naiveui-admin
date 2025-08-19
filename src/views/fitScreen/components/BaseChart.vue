@@ -30,7 +30,14 @@ import type { EChartsType } from "echarts/core";
 /** 核心模块 */
 import * as echarts from "echarts/core";
 /** 图表类型（按需注册） */
-import { BarChart, EffectScatterChart, LineChart, LinesChart, PieChart } from "echarts/charts";
+import {
+  BarChart,
+  EffectScatterChart,
+  LineChart,
+  LinesChart,
+  PieChart,
+  ScatterChart,
+} from "echarts/charts";
 /**功能组件（按需注册） */
 import {
   GridComponent, // 直角坐标系网格
@@ -57,6 +64,7 @@ echarts.use([
   BarChart, // 柱状图
   LineChart, // 折线图
   PieChart, // 饼图
+  ScatterChart, // 散点图
   GeoComponent, // 地理坐标系
 
   EffectScatterChart,

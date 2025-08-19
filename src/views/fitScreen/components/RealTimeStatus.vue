@@ -95,7 +95,7 @@ const options: EChartsOption = {
     .digit-value {
       display: block;
       margin-bottom: 5px;
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: #fff;
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
@@ -115,7 +115,7 @@ const options: EChartsOption = {
     .digit-label {
       font-size: 0.8rem;
       font-weight: 300;
-      color: #a0a0a0;
+      color: #e0e0e0;
     }
   }
 }
