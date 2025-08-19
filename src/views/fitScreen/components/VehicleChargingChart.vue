@@ -1,5 +1,10 @@
 <template>
-  <BaseChart ref="chart" />
+  <BaseChart ref="chart">
+    <template #before>
+      <!-- 用电方式 -->
+      <ElectricityUsageMode />
+    </template>
+  </BaseChart>
 </template>
 <script lang="ts" setup>
 import { type EChartsOption } from "echarts";
