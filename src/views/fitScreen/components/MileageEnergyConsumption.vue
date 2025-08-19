@@ -3,6 +3,7 @@
 </template>
 <script setup lang="ts">
 import type { EChartsOption } from "echarts";
+import { useKeepTicking } from "@/hooks";
 
 defineOptions({ name: "MileageEnergyConsumption" });
 
@@ -12,9 +13,24 @@ onMounted(() => {
   chartRef.value?.initOptions(options);
 });
 
+// 生成一个800到1500的随机数
+const randomMileage = () => Math.floor(Math.random() * (1500 - 800 + 1)) + 800;
+
+// 生成一个15到20的随机数
+const randomEnergy = () => Math.floor(Math.random() * (20 - 15 + 1)) + 15;
+
 const days = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
-const mileageData = [1250, 1180, 1320, 1450, 1380, 980, 850];
-const energyData = [18.5, 17.8, 19.2, 18.9, 18.1, 16.5, 15.8];
+const mileageData = Array.from({ length: 7 }, () => randomMileage());
+const energyData = Array.from({ length: 7 }, () => randomEnergy());
+
+useKeepTicking(() => {
+  chartRef.value?.updateCharts({
+    series: [
+      { data: Array.from({ length: 7 }, () => randomMileage()) },
+      { data: Array.from({ length: 7 }, () => randomEnergy()) },
+    ],
+  });
+});
 
 const options: EChartsOption = {
   backgroundColor: "transparent",

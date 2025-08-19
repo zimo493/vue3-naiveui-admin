@@ -3,6 +3,7 @@
 </template>
 <script setup lang="ts">
 import type { EChartsOption } from "echarts";
+import { useKeepTicking } from "@/hooks";
 
 defineOptions({ name: "RegionalOperation" });
 
@@ -12,8 +13,20 @@ onMounted(() => {
   chartRef.value?.initOptions(options);
 });
 
+// 生成一个500到3000的随机数
+const randomNum = () => Math.floor(Math.random() * (500 - 3000 + 1)) + 3000;
+
 const cities = ["北京", "上海", "深圳", "广州", "杭州", "成都", "西安", "武汉", "南京", "重庆"];
-const vehicleData = [2340, 1890, 1560, 1340, 980, 890, 780, 720, 650, 580];
+
+// 获取数据
+const getDate = () =>
+  Array.from({ length: cities.length }, () => randomNum()).sort((a, b) => b - a);
+
+useKeepTicking(() => {
+  chartRef.value?.updateCharts({
+    series: [{ data: getDate() }],
+  });
+});
 
 const options: EChartsOption = {
   backgroundColor: "transparent",
@@ -50,7 +63,7 @@ const options: EChartsOption = {
     {
       name: "车辆数",
       type: "bar",
-      data: vehicleData,
+      data: getDate(),
       itemStyle: {
         color: {
           type: "linear",

@@ -11,7 +11,7 @@ interface MoveLine {
   coords: [[number, number], [number, number]];
 }
 
-const city: City[] = [
+export const city: City[] = [
   { name: "北京", value: [116.395645, 39.929986, 12], itemStyle: { color: "#58B3CC" } },
   { name: "上海", value: [121.487899, 31.249162, 12], itemStyle: { color: "#58B3CC" } },
   { name: "天津", value: [117.210813, 39.14393, 12], itemStyle: { color: "#58B3CC" } },

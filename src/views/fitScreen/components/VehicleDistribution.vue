@@ -3,6 +3,8 @@
 </template>
 <script lang="ts" setup>
 import { type EChartsOption } from "echarts";
+import { city } from "../utils/seriesData";
+import { useKeepTicking } from "@/hooks";
 
 defineOptions({ name: "VehicleDistribution" });
 
@@ -12,19 +14,29 @@ onMounted(() => {
   chartRef.value?.initOptions(options);
 });
 
-// 以下数据仅模拟
-const geoData = [
-  { name: "北京", value: [116.46, 39.92, 2340] },
-  { name: "上海", value: [121.48, 31.22, 1890] },
-  { name: "深圳", value: [114.07, 22.62, 1560] },
-  { name: "成都", value: [104.06, 30.67, 890] },
-  { name: "西安", value: [108.95, 34.27, 780] },
-  { name: "武汉", value: [114.31, 30.52, 720] },
-  { name: "南京", value: [118.78, 32.04, 650] },
-  { name: "重庆", value: [106.54, 29.59, 580] },
-  { name: "长沙", value: [113.01, 28.21, 520] },
-  { name: "合肥", value: [117.27, 31.86, 1226] },
-];
+// 生成一个500到2000的数值
+const randomNum = () => Math.floor(Math.random() * (500 - 2000 + 1)) + 2000;
+
+const buildGeoData = () =>
+  Array.from({ length: 20 }).map(() => {
+    const cityData = city[Math.floor(Math.random() * city.length)];
+
+    const {
+      name,
+      value: [a, b],
+    } = cityData;
+
+    return {
+      name,
+      value: [a, b, randomNum()],
+    };
+  });
+
+useKeepTicking(() => {
+  chartRef.value?.updateCharts({
+    series: [{ data: buildGeoData() }],
+  });
+});
 
 const options: EChartsOption = {
   backgroundColor: "transparent",
@@ -77,7 +89,7 @@ const options: EChartsOption = {
   series: [
     {
       type: "scatter",
-      data: geoData,
+      data: buildGeoData(),
       symbolSize(val) {
         return Math.max(val[2] / 100, 8);
       },

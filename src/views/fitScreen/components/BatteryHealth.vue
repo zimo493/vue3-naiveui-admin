@@ -3,6 +3,7 @@
 </template>
 <script setup lang="ts">
 import type { EChartsOption } from "echarts";
+import { useKeepTicking } from "@/hooks";
 
 defineOptions({ name: "BatteryHealth" });
 
@@ -12,8 +13,17 @@ onMounted(() => {
   chartRef.value?.initOptions(options);
 });
 
+// 生成一个100到5000的随机数
+const randomNumber = () => Math.floor(Math.random() * 5000) + 100;
+
 const healthRanges = ["70-75%", "75-80%", "80-85%", "85-90%", "90-95%", "95-100%"];
-const healthData = [120, 350, 890, 2340, 4560, 3890];
+const healthData = Array.from({ length: healthRanges.length }, () => randomNumber());
+
+useKeepTicking(() => {
+  chartRef.value?.updateCharts({
+    series: [{ data: Array.from({ length: healthRanges.length }, () => randomNumber()) }],
+  });
+});
 
 const options: EChartsOption = {
   backgroundColor: "transparent",
