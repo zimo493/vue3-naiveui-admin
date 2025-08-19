@@ -34,13 +34,10 @@
         <div class="leftChart"></div>
         <!-- 中间图表 -->
         <div class="centerChart">
-          <n-flex align="end" z-999 pt-5 font="[YouSheBiaoTiHei,Arial,sans-serif]">
-            <n-text text-18px>实时行驶车辆</n-text>
-            <div font-900 text-20px p-x-3 p-y-1 bg="[#0089ff]" rounded="[6px]" leading-none>
-              <n-number-animation show-separator :from="oldCarNum" :to="carNum" />
-            </div>
-          </n-flex>
+          <!-- 文字滚动 -->
+          <TextCarousel />
           <div class="vehicleCharging">
+            <!-- 充电数据 -->
             <VehicleChargingChart />
           </div>
         </div>
@@ -66,28 +63,4 @@ const getCurrentTime = () => (dateTime.value = parseTime(new Date()));
 
 // 使用定时器钩子更新时间
 useKeepTicking(getCurrentTime, 1000);
-
-/**
- * 地图图表
- */
-const mapChartRef = useTemplateRef("mapChart");
-
-// 生成一个一万到两万的随机数
-const randomNum = () => Math.floor(Math.random() * 10000 + 10000);
-// 行驶车辆数
-const carNum = ref(randomNum());
-const oldCarNum = ref(0); // 旧数据
-
-watch(
-  () => carNum.value,
-  (_, o) => {
-    oldCarNum.value = o;
-  }
-);
-
-// 定时更新地图图表
-useKeepTicking(() => {
-  mapChartRef.value?.updateCharts();
-  carNum.value = randomNum();
-}, 6 * 1000);
 </script>

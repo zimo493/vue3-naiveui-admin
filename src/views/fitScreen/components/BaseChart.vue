@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="type === 'common'"
     bg="[rgba(0,24,106,0.4)]"
     rounded="[4px]"
     p-x-2
@@ -15,6 +16,7 @@
     <div class="ornamental"></div>
     <div ref="chart" wh-full />
   </div>
+  <div v-else ref="chart" wh-full />
 </template>
 
 <script lang="ts" setup>
@@ -25,13 +27,14 @@ import type { EChartsType } from "echarts/core";
 /** 核心模块 */
 import * as echarts from "echarts/core";
 /** 图表类型（按需注册） */
-import { BarChart, LineChart } from "echarts/charts";
+import { BarChart, EffectScatterChart, LineChart, LinesChart } from "echarts/charts";
 /**功能组件（按需注册） */
 import {
   GridComponent, // 直角坐标系网格
   LegendComponent, // 图例组件
   TooltipComponent, // 提示框组件
   TitleComponent, // 标题组件
+  GeoComponent, // 地理坐标系组件
 } from "echarts/components";
 
 /** 渲染器 */
@@ -50,12 +53,17 @@ echarts.use([
   /** 图表类型 */
   BarChart, // 柱状图
   LineChart, // 折线图
+  GeoComponent, // 地理坐标系
+
+  EffectScatterChart,
+  LinesChart,
 ]);
 
 defineOptions({ name: "BaseChart" });
 
-const { theme = "light" } = defineProps({
+const { theme = "light", type = "common" } = defineProps({
   theme: { type: String },
+  type: { type: String as PropType<"common" | "map"> },
 });
 
 const chartRef = useTemplateRef<HTMLDivElement>("chart");
@@ -95,6 +103,7 @@ onMounted(() => init());
 onBeforeUnmount(() => chartInstance.value?.dispose());
 
 defineExpose({
+  echarts,
   initOptions,
   updateCharts,
 });

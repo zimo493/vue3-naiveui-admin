@@ -1,49 +1,48 @@
 <template>
-  <div ref="chart" wh-full />
+  <BaseChart ref="chart" type="map" />
 </template>
 <script lang="ts" setup>
-import type { EChartsOption } from "echarts";
-import type { EChartsType } from "echarts/core";
-
-// 核心模块
-import * as echarts from "echarts/core";
-// 图表类型
-import { EffectScatterChart, LinesChart } from "echarts/charts";
-// 组件
-import { GeoComponent, LegendComponent } from "echarts/components";
-// 渲染器
-import { CanvasRenderer } from "echarts/renderers";
-
-// 按需注册组件
-echarts.use([CanvasRenderer, GeoComponent, EffectScatterChart, LegendComponent, LinesChart]);
-
 import chinaGeoJSON from "../assets/chinaGeoJSON.json";
+
 import getSeriesData from "../utils/seriesData";
-
-defineOptions({ name: "MapChart" });
-
-const { theme = "light" } = defineProps({
-  theme: { type: String },
-});
+import { EChartsOption } from "echarts";
+import { useKeepTicking } from "@/hooks";
 
 const eriesData = getSeriesData(50);
+const chartRef = useTemplateRef("chart");
 
 const option: EChartsOption = {
   legend: { show: false },
-  geo: {
-    map: "china",
-    zoom: 1.25, // 缩放比例
-    center: [104.3, 29.5], // 中心点
-    label: { show: true },
-    emphasis: {
-      itemStyle: { areaColor: "#071537" },
+  geo: [
+    {
+      map: "china",
+      // zoom: 1.2, // 缩放比例
+      aspectScale: 0.85,
+      layoutCenter: ["50%", "50%"], //地图位置
+      layoutSize: "100%",
+      label: {
+        show: true,
+        color: "#fff",
+        fontSize: 14,
+      },
+      emphasis: {
+        itemStyle: {
+          areaColor: "#409eff",
+        },
+        label: {
+          color: "#fff",
+        },
+      },
+      itemStyle: {
+        areaColor: "rgba(7,21,55,0.8)",
+        borderColor: "#0177ff",
+        borderWidth: 2,
+        shadowColor: "rgba(7,21,55,0.8)",
+        shadowBlur: 10,
+      },
+      roam: true,
     },
-    itemStyle: {
-      areaColor: "rgba(7,21,55,0.8)",
-      borderColor: "#0177ff",
-    },
-    roam: true,
-  },
+  ],
   series: [
     {
       name: "地点",
@@ -79,38 +78,17 @@ const option: EChartsOption = {
   ],
 };
 
-const chartRef = useTemplateRef<HTMLDivElement>("chart");
-const chartInstance = ref<EChartsType>();
-
-const init = async () => {
-  await nextTick();
-  if (!chartRef.value) return;
-
-  chartInstance.value = echarts.getInstanceByDom(chartRef.value);
-  if (!chartInstance.value) {
-    echarts.registerMap("china", chinaGeoJSON as any);
-
-    chartInstance.value = markRaw(
-      echarts.init(chartRef.value, theme, {
-        renderer: "canvas",
-      })
-    );
-
-    chartInstance.value.setOption(option);
-  }
-};
-
-onMounted(() => init());
-
-onBeforeUnmount(() => chartInstance.value?.dispose());
-
-defineExpose({
-  updateCharts: () => {
-    const seriesData = getSeriesData(50);
-
-    chartInstance.value?.setOption({
-      series: [{ data: seriesData.cityData }, { data: seriesData.moveLines }],
-    });
-  },
+onMounted(() => {
+  chartRef.value?.echarts.registerMap("china", chinaGeoJSON as any);
+  chartRef.value?.initOptions(option);
 });
+
+// 定时更新地图图表
+useKeepTicking(() => {
+  const seriesData = getSeriesData(20);
+
+  chartRef.value?.updateCharts({
+    series: [{ data: seriesData.cityData }, { data: seriesData.moveLines }],
+  });
+}, 6 * 1000);
 </script>
