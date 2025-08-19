@@ -80,7 +80,7 @@ useKeepTicking(() => {
 .electricityUsageMode {
   position: absolute;
   top: calc(-1 * var(--height) - 12px); /* 通过 calc 计算为负值 */
-  left: 0;
+  left: -1px;
   width: var(--width);
   height: var(--height);
   margin-bottom: 10px;
