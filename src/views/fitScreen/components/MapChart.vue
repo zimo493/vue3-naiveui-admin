@@ -1,5 +1,7 @@
 <template>
-  <BaseChart ref="chart" type="map" />
+  <div absolute inset-0 z-1>
+    <BaseChart ref="chart" type="map" />
+  </div>
 </template>
 <script lang="ts" setup>
 import chinaGeoJSON from "../assets/chinaGeoJSON.json";
