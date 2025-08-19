@@ -1,14 +1,13 @@
 <template>
   <div
     v-if="border"
-    bg="[rgba(0,24,106,0.4)]"
     rounded="[4px]"
     p-x-2
     p-y-3
     wh-full
     relative
     z-90
-    class="border border-[#2E6099]"
+    class="border border-[#2E6099] charts-bg"
     flex="~ col"
   >
     <div class="ornamental"></div>
@@ -127,6 +126,9 @@ defineExpose({
 });
 </script>
 <style lang="scss" scoped>
+.charts-bg {
+  background: rgba(0, 24, 106, 0.4) url("../assets/images/line.png");
+}
 .ornamental {
   position: absolute;
   width: 18px;
