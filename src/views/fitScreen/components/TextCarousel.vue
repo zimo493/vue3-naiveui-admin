@@ -32,10 +32,10 @@ useKeepTicking(() => {
 
 <style lang="scss" scoped>
 .text-carousel {
-  height: 45px;
+  height: 52px;
   overflow: hidden;
   font-family: DIN, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   color: #fff;
   background: linear-gradient(90deg, rgba(64, 158, 255, 0.6), rgba(64, 158, 255, 0));
   border-radius: 4px;
