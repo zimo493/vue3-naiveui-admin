@@ -71,48 +71,6 @@ const options: EChartsOption = {
       },
       barWidth: "60%",
     },
-    {
-      type: "gauge",
-      center: ["75%", "75%"],
-      radius: "35%",
-      min: 70,
-      max: 100,
-      startAngle: 180,
-      endAngle: 0,
-      axisLine: {
-        lineStyle: {
-          width: 8,
-          color: [
-            [0.2, "#ff6b6b"],
-            [0.5, "#ffc107"],
-            [0.8, "#00ff7f"],
-            [1, "#00ffff"],
-          ],
-        },
-      },
-      pointer: {
-        itemStyle: { color: "#00ffff" },
-      },
-      axisTick: { show: false },
-      splitLine: { show: false },
-      axisLabel: {
-        color: "#ffffff",
-        fontSize: 10,
-      },
-      title: {
-        offsetCenter: [0, "80%"],
-        fontSize: 12,
-        color: "#00ffff",
-      },
-      detail: {
-        fontSize: 16,
-        offsetCenter: [0, "60%"],
-        valueAnimation: true,
-        formatter: "{value}%",
-        color: "#00ffff",
-      },
-      data: [{ value: 87.5, name: "平均SOH" }],
-    },
   ],
   tooltip: {
     trigger: "axis",
