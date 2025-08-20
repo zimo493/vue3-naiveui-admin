@@ -73,12 +73,29 @@ const options: EChartsOption = {
           y2: 0,
           colorStops: [
             { offset: 0, color: "#00ff7f" },
+            { offset: 0.7, color: "#00b7ff" },
             { offset: 1, color: "#409eff" },
           ],
           global: false,
         },
+        borderRadius: [0, 4, 4, 0],
+        borderWidth: 0,
+        shadowColor: "rgba(64, 158, 255, 0.5)",
+        shadowBlur: 10,
       },
-      barWidth: "40%",
+      label: {
+        show: true,
+        color: "#fff",
+        fontSize: 12,
+        formatter: "{c}",
+      },
+      barWidth: "55%",
+      emphasis: {
+        itemStyle: {
+          shadowColor: "rgba(64, 158, 255, 0.8)",
+          shadowBlur: 10,
+        },
+      },
     },
   ],
   tooltip: {

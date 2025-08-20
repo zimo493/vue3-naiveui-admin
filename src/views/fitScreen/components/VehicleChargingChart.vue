@@ -41,19 +41,17 @@ const options: EChartsOption = {
     top: "20%",
     bottom: "0",
   },
-  color: ["#a4d8cc", "#25f3e6"],
-  xAxis: [
-    {
-      type: "category",
-      boundaryGap: true, // 两边留白
-      axisLabel: {
-        color: "#ccc",
-        fontSize: "12",
-        rotate: 45,
-      },
-      data: Array.from({ length: 24 }, (_, i) => `${i}:00`),
+  // color: ["#a4d8cc", "#25f3e6"],
+  xAxis: {
+    type: "category",
+    boundaryGap: true, // 两边留白
+    data: Array.from({ length: 24 }, (_, i) => `${i}:00`),
+    axisLabel: {
+      color: "#ccc",
+      fontSize: "12",
+      rotate: 45,
     },
-  ],
+  },
   yAxis: {
     type: "value",
     axisLabel: { color: "#ccc", fontSize: "12" },
@@ -64,7 +62,8 @@ const options: EChartsOption = {
     },
     splitLine: {
       lineStyle: {
-        color: "rgba(160,160,160,0.3)",
+        color: "rgba(0, 255, 255, 0.15)",
+        type: "dashed",
       },
     },
   },
@@ -72,19 +71,51 @@ const options: EChartsOption = {
     {
       type: "line",
       name: "充电量（度）",
+      symbol: "circle",
+      symbolSize: 8,
+      itemStyle: {
+        color: "#04eef8",
+        borderWidth: 2,
+        borderColor: "#ffffff",
+      },
+      lineStyle: {
+        width: 4,
+        color: {
+          type: "linear",
+          x: 0,
+          y: 0,
+          x2: 1,
+          y2: 0,
+          colorStops: [
+            { offset: 0, color: "#04eef8" },
+            { offset: 1, color: "#047ee8" },
+          ],
+        },
+        shadowColor: "rgba(4, 126, 232, 0.5)",
+        shadowBlur: 15,
+      },
       areaStyle: {
         color: {
           type: "linear",
           x: 0,
           y: 0,
           x2: 0,
-          y2: 0.8,
+          y2: 1,
           colorStops: [
-            { offset: 0, color: "#3ae8dd" },
-            { offset: 1, color: "#047ee8" },
+            { offset: 0, color: "rgba(4, 126, 232, 0.8)" },
+            { offset: 1, color: "rgba(4, 126, 232, 0.1)" },
           ],
-          global: false,
         },
+      },
+      label: {
+        show: true,
+        position: "top",
+        color: "#fff",
+        fontSize: 12,
+        formatter: "{c}",
+        backgroundColor: "rgba(0, 0, 0, 0.3)",
+        padding: [2, 4],
+        borderRadius: 4,
       },
       smooth: true,
       data: Array.from({ length: 24 }, () => randomNum()),
