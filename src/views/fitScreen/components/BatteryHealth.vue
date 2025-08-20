@@ -63,13 +63,18 @@ const options: EChartsOption = {
       type: "bar",
       data: healthData,
       itemStyle: {
-        color(params) {
-          const colors = ["#ff6b6b", "#ffc107", "#28a745", "#00ff7f", "#00ffff", "#007bff"];
-
-          return colors[params.dataIndex];
-        },
+        color: (params) =>
+          ["#ff6b6b", "#ffc107", "#28a745", "#00ff7f", "#00ffff", "#007bff"][params.dataIndex],
+        borderRadius: [5, 5, 0, 0],
+        borderWidth: 0,
       },
       barWidth: "60%",
+      label: {
+        show: true,
+        color: "#fff",
+        position: "top",
+        formatter: "{c} 辆",
+      },
     },
   ],
   tooltip: {

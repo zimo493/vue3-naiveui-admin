@@ -25,4 +25,11 @@
 import "./assets/styles/index.scss";
 
 defineOptions({ name: "FitScreen" });
+
+onMounted(() => {
+  window.$message.info("此页面数据均为模拟数据，仅用于演示。没有任何实际依据！", {
+    showIcon: false,
+    duration: 10000,
+  });
+});
 </script>
