@@ -339,7 +339,7 @@ const defaultOptions = computed((): EChartsOption => {
       right: "50",
       bottom: "10",
       top: "60",
-      containLabel: true,
+      // containLabel: true, // 已过时的方式
     },
     tooltip: {
       trigger: "axis",

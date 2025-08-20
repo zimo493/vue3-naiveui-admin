@@ -53,7 +53,7 @@ const options: EChartsOption = {
     right: "2%",
     top: "20%",
     bottom: 0,
-    containLabel: true,
+    // containLabel: true, // 已过时的方式
   },
   xAxis: {
     type: "category",
