@@ -10,14 +10,9 @@ export default <RouteRecordRaw>{
     {
       path: "/",
       component: () => import("@/views/index/index.vue"),
-      name: "Index", // 用于 keep-alive, 必须与SFC自动推导或者显示声明的组件name一致
       // https://cn.vuejs.org/guide/built-ins/keep-alive.html#include-exclude
-      meta: {
-        title: "首页",
-        icon: homeIcon,
-        affix: true,
-        keepAlive: true,
-      },
+      name: "Home", // 用于 keep-alive, 必须与SFC自动推导或者显示声明的组件name一致
+      meta: { title: "首页", icon: homeIcon, affix: true },
     },
     {
       path: "/profile",

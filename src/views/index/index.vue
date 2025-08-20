@@ -229,9 +229,9 @@
 </template>
 
 <script lang="tsx" setup>
+import { type EChartsOption } from "echarts";
 import LogAPI from "@/api/system/log";
 import { parseTime } from "@/utils";
-import { type EChartsOption } from "echarts";
 import { useLoading, useOnlineCount } from "@/hooks";
 
 const up = "ant-design:arrow-up-outlined";
