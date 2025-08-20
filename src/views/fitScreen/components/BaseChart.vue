@@ -10,10 +10,13 @@
     class="border border-[#2E6099] charts-bg"
     flex="~ col"
   >
-    <div class="ornamental"></div>
-    <div class="ornamental"></div>
-    <div class="ornamental"></div>
-    <div class="ornamental"></div>
+    <!-- 边框装饰 -->
+    <div
+      v-for="item in 4"
+      :key="item"
+      class="ornamental"
+      :style="{ borderColor: ornamentalColor }"
+    />
     <slot name="before"></slot>
     <div ref="chart" wh-full />
     <slot name="after"></slot>
@@ -73,9 +76,14 @@ echarts.use([
 
 defineOptions({ name: "BaseChart" });
 
-const { theme = "light", border = true } = defineProps({
+const {
+  theme = "light",
+  border = true,
+  ornamentalColor = "#7ce7fd",
+} = defineProps({
   theme: { type: String },
   border: { type: Boolean },
+  ornamentalColor: { type: String },
 });
 
 const emit = defineEmits<{
@@ -133,7 +141,7 @@ defineExpose({
   position: absolute;
   width: 18px;
   height: 18px;
-  border: 3px solid #7ce7fd;
+  border: 3px solid;
   border-right: none;
   border-bottom: none;
   border-radius: 4px 0 4px 0;
