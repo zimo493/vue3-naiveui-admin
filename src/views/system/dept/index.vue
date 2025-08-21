@@ -55,8 +55,8 @@ import DeptAPI from "@/api/system/dept";
 import { useLoading } from "@/hooks";
 import { spin, executeAsync, InquiryBox, startSpin, endSpin, statusOptions } from "@/utils";
 
-import Icones from "@/components/common/Icones.vue";
-import CommonStatus from "@/components/common/CommonStatus.vue";
+import Icones from "@/components/Icones.vue";
+import CommonStatus from "@/components/CommonStatus.vue";
 
 defineOptions({ name: "Dept" });
 

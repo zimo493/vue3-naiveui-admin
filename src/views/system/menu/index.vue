@@ -49,8 +49,8 @@ import { InquiryBox, local } from "@/utils";
 
 import MenuAPI from "@/api/system/menu";
 
-import Icones from "@/components/common/Icones.vue";
-import CommonStatus from "@/components/common/CommonStatus.vue";
+import Icones from "@/components/Icones.vue";
+import CommonStatus from "@/components/CommonStatus.vue";
 import { defaultIcon } from "@/modules/assets";
 
 defineOptions({ name: "SysMenu" });

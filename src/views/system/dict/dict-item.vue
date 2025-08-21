@@ -64,8 +64,8 @@ import { useLoading } from "@/hooks";
 import { spin, executeAsync, InquiryBox, startSpin, endSpin, statusOptions } from "@/utils";
 import { useTabStoreHook } from "@/store";
 
-import Icones from "@/components/common/Icones.vue";
-import CommonStatus from "@/components/common/CommonStatus.vue";
+import Icones from "@/components/Icones.vue";
+import CommonStatus from "@/components/CommonStatus.vue";
 
 defineOptions({
   name: "DictItem",

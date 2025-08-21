@@ -88,8 +88,8 @@ import { useDict, useLoading } from "@/hooks";
 import NoticeAPI from "@/api/system/notice";
 import UserAPI from "@/api/system/user";
 
-import DictTag from "@/components/custom/DictTag.vue";
-import WangEditor from "@/components/custom/WangEditor.vue";
+import DictTag from "@/components/DictTag.vue";
+import WangEditor from "@/components/WangEditor.vue";
 
 defineOptions({
   name: "NoticeList",

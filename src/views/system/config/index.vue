@@ -45,7 +45,7 @@ import ConfigAPI from "@/api/system/config";
 import { useLoading } from "@/hooks";
 import { spin, startSpin, endSpin, InquiryBox, executeAsync } from "@/utils";
 
-import Icones from "@/components/common/Icones.vue";
+import Icones from "@/components/Icones.vue";
 
 defineOptions({
   name: "Config",

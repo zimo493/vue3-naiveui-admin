@@ -149,9 +149,9 @@ import tableData from "./config/tableData";
 
 import { useLoading } from "@/hooks";
 
-import Icones from "@/components/common/Icones.vue";
+import Icones from "@/components/Icones.vue";
 import { spin, endSpin, InquiryBox, startSpin } from "@/utils";
-import UploadFile from "@/components/custom/UploadFile.vue";
+import UploadFile from "@/components/UploadFile.vue";
 import { FileInfo } from "@/api/file";
 
 const { loading, startLoading, endLoading } = useLoading();

@@ -1,7 +1,7 @@
 import { NAvatar, NEl, NFlex } from "naive-ui";
 import { useCompRef } from "@/hooks";
-import Icones from "@/components/common/Icones.vue";
-import ImageCut from "@/components/custom/ImageCut.vue";
+import Icones from "@/components/Icones.vue";
+import ImageCut from "@/components/ImageCut.vue";
 import FileAPI from "@/api/file";
 import UserAPI from "@/api/system/user";
 import { useAuthStoreHook } from "@/store";

@@ -1,4 +1,4 @@
-import ErrorTip from "@/components/common/ErrorTip.vue";
+import ErrorTip from "@/components/ErrorTip.vue";
 
 export default defineComponent({
   name: "Error403",

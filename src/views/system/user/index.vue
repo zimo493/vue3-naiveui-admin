@@ -124,10 +124,10 @@ import DeptAPI from "@/api/system/dept";
 import UserAPI from "@/api/system/user";
 import RoleAPI from "@/api/system/role";
 
-import Icones from "@/components/common/Icones.vue";
+import Icones from "@/components/Icones.vue";
 import ImportUser from "./components/ImportUser.vue";
-import DictTag from "@/components/custom/DictTag.vue";
-import CommonStatus from "@/components/common/CommonStatus.vue";
+import DictTag from "@/components/DictTag.vue";
+import CommonStatus from "@/components/CommonStatus.vue";
 
 defineOptions({ name: "User" });
 

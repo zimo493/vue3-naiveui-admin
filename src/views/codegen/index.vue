@@ -24,7 +24,7 @@ import GeneratorAPI from "@/api/codeGen";
 import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
 
-import Icones from "@/components/common/Icones.vue";
+import Icones from "@/components/Icones.vue";
 
 defineOptions({ name: "Codegen" });
 

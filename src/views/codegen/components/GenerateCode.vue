@@ -105,7 +105,7 @@ import { FormType, QueryType } from "./config";
 
 import Selection from "./Selection";
 import EditableCheckbox from "./EditableCheckbox";
-import Icones from "@/components/common/Icones.vue";
+import Icones from "@/components/Icones.vue";
 import { NCheckbox, NFlex, NInput, NInputNumber, NText } from "naive-ui";
 
 defineOptions({ name: "GenerateCode" });

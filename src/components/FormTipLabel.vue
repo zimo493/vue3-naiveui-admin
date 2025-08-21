@@ -1,6 +1,6 @@
 <script lang="tsx">
 import { NFlex, NText } from "naive-ui";
-import HelpInfo from "@/components/common/HelpInfo.vue";
+import HelpInfo from "@/components/HelpInfo.vue";
 
 export default defineComponent({
   name: "FormTipLabel",
