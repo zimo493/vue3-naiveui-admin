@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { RouteRecordRaw } from "vue-router";
-
 import { useRouteStore } from "@/store";
 import { useBoolean } from "@/hooks";
 import { defaultIcon } from "@/modules/assets";
@@ -106,14 +104,14 @@ onMounted(() => {
 });
 
 // 计算符合条件的菜单选项
-const options = computed<RouteRecordRaw[]>(() => {
+const options = computed<AppRoute.RouteVO[]>(() => {
   if (!searchValue.value) return [];
 
   const keyword = searchValue.value.toLowerCase();
-  const result: RouteRecordRaw[] = [];
+  const result: AppRoute.RouteVO[] = [];
 
   // 递归搜索路由
-  const searchRoutes = (routes: RouteRecordRaw[], parentPath: string = "") => {
+  const searchRoutes = (routes: AppRoute.RouteVO[], parentPath: string = "") => {
     routes.forEach((route) => {
       // 跳过excludedRoutes中的路由和包含":"的动态路由
       if (excludedRoutes.value.includes(route.path) || route.path.includes(":")) {
@@ -164,7 +162,7 @@ const handleInputChange = () => {
 };
 
 // 选择菜单选项
-function handleSelect(value: RouteRecordRaw) {
+function handleSelect(value: AppRoute.RouteVO) {
   // 添加到搜索历史（在关闭模态框前添加）
   if (searchValue.value.trim()) {
     addSearchHistory(searchValue.value);
