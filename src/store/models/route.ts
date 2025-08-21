@@ -4,12 +4,13 @@ import { router } from "@/router";
 import MenuAPI from "@/api/system/menu";
 import appRootRoutes, { constantRoutes } from "@/router/modules/ruotes";
 import {
+  $t,
   isHttpUrl,
   joinPaths,
-  parseDynamicRoutes,
   processRoute,
+  convertRouterType,
+  parseDynamicRoutes,
   findAndMergeRouteArrays,
-  $t,
 } from "@/utils";
 
 export const useRouteStore = defineStore("route-store", {
@@ -71,7 +72,7 @@ export const useRouteStore = defineStore("route-store", {
     _processRouteData(userRoutes: AppRoute.RouteVO[]) {
       this.createRoutes(userRoutes).then((routes) => {
         this.setAllCacheRoutes(routes); // 设置所有缓存路由(包括设置的静态路由和动态路由)
-        this.createMenus(userRoutes); // 创建菜单
+        this.createMenus(routes); // 创建菜单
       });
     },
 
@@ -79,20 +80,27 @@ export const useRouteStore = defineStore("route-store", {
      * 创建路由
      * @param userRoutes 用户路由配置
      */
-    createRoutes(userRoutes: AppRoute.RouteVO[]): Promise<Status.Routes["routes"]> {
-      return new Promise<Status.Routes["routes"]>((resolve) => {
+    createRoutes(userRoutes: AppRoute.RouteVO[]) {
+      return new Promise<AppRoute.RouteVO[]>((resolve) => {
         if (!userRoutes?.length) resolve([]);
 
         this.setRedirect(userRoutes);
         const routes = parseDynamicRoutes(userRoutes);
 
-        if (appRootRoutes.children) {
-          appRootRoutes.children.push(...routes);
-        }
+        router.addRoute({
+          ...appRootRoutes,
+          children: (appRootRoutes.children ?? []).concat(routes),
+        });
 
-        router.addRoute(appRootRoutes);
-        this.routes = [...constantRoutes, ...routes];
-        resolve(appRootRoutes.children ?? []);
+        const routeVO = [
+          ...convertRouterType(appRootRoutes.children ?? []),
+          ...convertRouterType(constantRoutes),
+          ...userRoutes,
+        ];
+
+        this.routes = routeVO;
+
+        resolve(routeVO);
       });
     },
 
@@ -188,7 +196,7 @@ export const useRouteStore = defineStore("route-store", {
      * 获取所有的缓存路由
      * @param userRoutes 用户路由配置
      */
-    setAllCacheRoutes(userRoutes: Status.Routes["routes"]) {
+    setAllCacheRoutes(userRoutes: AppRoute.RouteVO[]) {
       if (!userRoutes?.length) {
         this.allCacheRoutes = [];
 
@@ -198,7 +206,7 @@ export const useRouteStore = defineStore("route-store", {
       const result: string[][] = [];
 
       userRoutes.forEach((route) => {
-        if (route.component) {
+        if (route.component !== "Layout") {
           this._traverseRoutes([route], [], result);
         }
         if (route.children?.length) {
@@ -215,7 +223,7 @@ export const useRouteStore = defineStore("route-store", {
      * @param path 当前路径
      * @param result 结果数组
      */
-    _traverseRoutes(nodes: Status.Routes["routes"], path: string[], result: string[][]) {
+    _traverseRoutes(nodes: AppRoute.RouteVO[], path: string[], result: string[][]) {
       nodes.forEach((node) => {
         const newPath = node.name ? [...path, String(node.name)] : [...path];
 

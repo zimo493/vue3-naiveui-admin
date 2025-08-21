@@ -126,7 +126,7 @@ const handleSideMenu = (key: string) => {
     sideMenu.value = [
       {
         key: "/",
-        label: () => h(RouterLink, { to: "/" }, { default: () => $t("route.Index") }),
+        label: () => h(RouterLink, { to: "/" }, { default: () => $t("route.Home") }),
         icon: renderIcon(homeIcon),
       },
     ];

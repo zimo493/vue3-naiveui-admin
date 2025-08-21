@@ -76,7 +76,7 @@ declare namespace Status {
     cacheRoutes: string[];
     /** 所有需要缓存的路由 */
     allCacheRoutes: string[][];
-    routes: import("vue-router").RouteRecordRaw[];
+    routes: AppRoute.RouteVO[];
   }
 
   /** tab-store */

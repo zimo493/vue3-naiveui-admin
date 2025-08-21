@@ -18,7 +18,7 @@ export default <RouteRecordRaw>{
       path: "/profile",
       name: "Profile",
       component: () => import("@/views/profile"),
-      meta: { title: "个人中心", icon: "material-symbols:person-edit-sharp" },
+      meta: { title: "个人中心", icon: "material-symbols:person-edit-sharp", hidden: true },
     },
   ],
 };
@@ -29,7 +29,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     path: "/test",
     name: "Test",
     component: () => import("@/views/test.vue"),
-    meta: { title: "组件测试页", icon: "icon-park-outline:test-tube" },
+    meta: { title: "组件测试页", icon: "icon-park-outline:test-tube", hidden: true },
   },
   {
     path: "/login",

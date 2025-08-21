@@ -208,3 +208,16 @@ export const findAndMergeRouteArrays = (data: string[][], elements: string[]): s
 
   return Array.from(mergedSet);
 };
+
+export const convertRouterType = (router: RouteRecordRaw[]): AppRoute.RouteVO[] =>
+  router.map((item) => {
+    const { children, name, redirect, ...rest } = item;
+
+    return {
+      ...rest,
+      name: String(name),
+      component: undefined,
+      redirect: redirect ? String(redirect) : undefined,
+      children: children ? convertRouterType(children) : [],
+    };
+  });
