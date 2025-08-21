@@ -62,8 +62,6 @@
 │  ├─ assets                # 静态资源文件
 │     └── svg-icons          # 自定义svg图标资源(图标选择器选择本地图标源)
 │  ├─ components            # 全局组件
-│     ├── common             # 内部组件
-│     └── custom             # 自定义组件
 │  ├─ directives            # 全局指令文件
 │  ├─ enums                 # 枚举文件
 │  ├─ hooks                 # 常用 Hooks 封装
