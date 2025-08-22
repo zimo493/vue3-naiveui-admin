@@ -9,7 +9,7 @@ defineOptions({ name: "RightNavigation" });
     <Search />
     <FullScreen />
     <DarkModeSwitch />
-    <LangsSwitch />
+    <LangSwitch />
     <Notices />
     <Setting />
     <UserCenter />

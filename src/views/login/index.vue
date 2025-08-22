@@ -15,7 +15,7 @@ const { pkg } = __APP_INFO__;
   <n-el wh-full flex flex-col bg="[url(@/assets/images/login-bg.svg)]">
     <div fixed top-40px right-40px text-lg flex gap-2>
       <DarkModeSwitch />
-      <LangsSwitch />
+      <LangSwitch />
     </div>
     <n-el flex-1 flex-center>
       <n-el border-rd-10px shadow="[var(--box-shadow-2)]" sm:w-450px sm:h-700px p-4xl>

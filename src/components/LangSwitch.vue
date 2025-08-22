@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAppStore } from "@/store";
 
-defineOptions({ name: "LangsSwitch" });
+defineOptions({ name: "LangSwitch" });
 
 const { t } = useI18n();
 
