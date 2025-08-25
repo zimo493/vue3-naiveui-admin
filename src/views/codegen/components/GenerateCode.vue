@@ -92,13 +92,14 @@
   </n-drawer>
 </template>
 <script lang="tsx" setup>
-import type { DataTableColumns, TreeOverrideNodeClickBehavior, TreeOption } from "naive-ui";
+import type { DataTableColumns, TreeOption, TreeOverrideNodeClickBehavior } from "naive-ui";
+import { NCheckbox, NFlex, NInput, NInputNumber, NText } from "naive-ui";
 
 import GeneratorAPI from "@/api/codeGen";
 import MenuAPI from "@/api/system/menu";
 import DictAPI from "@/api/system/dict/type";
 
-import { spin, startSpin, endSpin, exportFile } from "@/utils";
+import { endSpin, exportFile, spin, startSpin } from "@/utils";
 import { useLoading } from "@/hooks";
 import { MIMETYPE } from "@/enums";
 import { FormType, QueryType } from "./config";
@@ -106,7 +107,6 @@ import { FormType, QueryType } from "./config";
 import Selection from "./Selection";
 import EditableCheckbox from "./EditableCheckbox";
 import Icones from "@/components/Icones.vue";
-import { NCheckbox, NFlex, NInput, NInputNumber, NText } from "naive-ui";
 
 defineOptions({ name: "GenerateCode" });
 
@@ -146,13 +146,33 @@ const formConfig = ref<FormPro.FormItemConfig[]>([
   { name: "tableName", label: t("codeGen.tableHeader.name"), span: 8 },
   { name: "businessName", label: t("codeGen.tableHeader.bizName"), span: 8 },
   { name: "packageName", label: t("codeGen.tableHeader.mainPackage"), span: 8 },
-  { name: "moduleName", label: t("codeGen.tableHeader.moduleName"), span: 6 },
-  { name: "entityName", label: t("codeGen.tableHeader.entityName"), span: 6 },
-  { name: "author", label: t("codeGen.tableHeader.author"), span: 6 },
+  { name: "moduleName", label: t("codeGen.tableHeader.moduleName"), span: 8 },
+  { name: "entityName", label: t("codeGen.tableHeader.entityName"), span: 8 },
+  { name: "author", label: t("codeGen.tableHeader.author"), span: 8 },
+  {
+    name: "removeTablePrefix",
+    label: "移除表前缀",
+    span: 8,
+    props: {
+      placeholder: "如: sys_",
+    },
+  },
+  {
+    name: "pageType",
+    label: "页面类型",
+    span: 8,
+    component: "radio",
+    props: {
+      options: [
+        { label: "普通", value: "classic" },
+        { label: "封装(CURD)", value: "curd" },
+      ],
+    },
+  },
   {
     name: "parentMenuId",
     label: t("codeGen.tableHeader.parentMenu"),
-    span: 6,
+    span: 8,
     labelMessage: t("codeGen.drawer.parentMenuTip"),
   },
 ]);
@@ -181,7 +201,11 @@ const modelValue = ref<CodeGen.ConfigForm>({
 
 // 获取基本信息表配置
 const getConfigForm = async () => {
-  modelValue.value = await GeneratorAPI.getGenConfig(tableCode.value);
+  const data = await GeneratorAPI.getGenConfig(tableCode.value);
+
+  data.pageType = data.pageType || "classic"; // 默认普通页面
+  modelValue.value = data;
+
   // 如果配置过则切换到预览页
   if (modelValue.value.id) {
     active.value = "preview";
@@ -391,7 +415,7 @@ const treeDataLoading = ref(false);
 const handlePreview = (tableName: string) => {
   treeDataLoading.value = true;
   treeData.value = [];
-  GeneratorAPI.getPreviewData(tableName)
+  GeneratorAPI.getPreviewData(tableName, modelValue.value.pageType)
     .then((data) => {
       // 组装树形结构完善代码
       treeData.value = buildTree(data);
@@ -564,7 +588,7 @@ const highlightedCode = (key?: string) => {
 const downloadLoading = ref(false);
 const handleExportCode = () => {
   downloadLoading.value = true;
-  GeneratorAPI.download(tableCode.value)
+  GeneratorAPI.download(tableCode.value, modelValue.value.pageType)
     .then((response) => {
       window.$message.loading(t("common.downloading"));
       const fileName = decodeURI(

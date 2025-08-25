@@ -28,9 +28,10 @@ export default {
   /**
    * 获取代码生成预览数据
    * @param tableName 数据表名
+   * @param pageType 页面类型 `classic` | `curd`
    */
-  getPreviewData: (tableName: string) =>
-    get<CodeGen.PreviewVO[]>(`${GENERATOR_BASE_URL}/${tableName}/preview`),
+  getPreviewData: (tableName: string, pageType: CodeGen.ConfigForm["pageType"]) =>
+    get<CodeGen.PreviewVO[]>(`${GENERATOR_BASE_URL}/${tableName}/preview`, { pageType }),
 
   /**
    * 重置代码生成配置
@@ -41,11 +42,13 @@ export default {
   /**
    * 下载 zip 文件
    * @param tableName 数据表名
+   * @param pageType 页面类型 `classic` | `curd`
    */
-  download: (tableName: string) =>
+  download: (tableName: string, pageType: CodeGen.ConfigForm["pageType"]) =>
     request({
       url: `${GENERATOR_BASE_URL}/${tableName}/download`,
       method: "get",
+      params: { pageType },
       responseType: "blob",
     }),
 };
