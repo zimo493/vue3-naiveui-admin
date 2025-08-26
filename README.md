@@ -1,39 +1,35 @@
 <div align="center">
   <h1>vue3-naiveui-admin</h1>
 
-![Vue.js](https://img.shields.io/badge/Vue-3.5.18-42B883?logo=vuedotjs)
-![Vite](https://img.shields.io/badge/Vite-7.0.6-bd34fe?logo=vite&logoColor=bd34fe)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9.0-3178C6?logo=typescript)
-![UnoCSS](https://img.shields.io/badge/UnoCSS-66.4.1-333?logo=unocss)
-![NaiveUI](https://img.shields.io/badge/NaiveUI-2.42.0-63e2b7.svg)
-![Author](https://img.shields.io/badge/Author--orange.svg)
+  ![Vue.js](https://img.shields.io/badge/Vue-3.5.18-42B883?logo=vuedotjs)
+  ![Vite](https://img.shields.io/badge/Vite-7.0.6-bd34fe?logo=vite&logoColor=bd34fe)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.0-3178C6?logo=typescript)
+  ![UnoCSS](https://img.shields.io/badge/UnoCSS-66.4.1-333?logo=unocss)
+  ![NaiveUI](https://img.shields.io/badge/NaiveUI-2.42.0-63e2b7.svg)
 </div>
 
-![](https://foruda.gitee.com/images/1708618984641188532/a7cca095_716974.png "rainbow.png")
-
 ## 项目介绍 📖
-[vue3-naiveui-admin](https://gitee.com/zimo493/vue3-naiveui-admin) 基于 `Vue3` `Vite` `TypeScript` 和 `Naive UI` 搭建的极简开箱即用企业级后台管理前端模板。 配套 Java 后端 [youlai-boot](https://gitee.com/youlaiorg/youlai-boot) 和 Node 后端 [youlai-nest](https://gitee.com/youlaiorg/youlai-nest) 。 提供`Element Plus`三版本供开发者快速开发。
+[vue3-naiveui-admin](https://gitee.com/zimo493/vue3-naiveui-admin) 基于 `Vue3` `Vite` `TypeScript` 和 `Naive UI` 搭建的极简开箱即用企业级后台管理前端模板。 配套 Java 后端 [youlai-boot](https://gitee.com/youlaiorg/youlai-boot) 和 Node 后端 [youlai-nest](https://gitee.com/youlaiorg/youlai-nest) 。 提供 **`Element Plus`** 三版本供开发者快速开发。
+
 > **标准版:** [vue3-element-admin](https://gitee.com/youlaiorg/vue3-element-admin) <br />
 > **精简版:** [vue3-element-template](https://gitee.com/youlaiorg/vue3-element-template) <br />
-> **JS版本:** [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin) <br />
+> **JS版:** [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin-js) <br />
 
 ## 在线体验 👀
-- Link：-
 
 ## 代码仓库 ⭐
 - **Gitee：** https://gitee.com/zimo493/vue3-naiveui-admin
 - **GitHub：** https://github.com/zimo493/vue3-naiveui-admin
-- **GitCode：** -
 
 ## 项目功能 🔨
-- **基于** `Vue3.5`、`Vite6`、`TypeScript`、`NaiveUI`、`UnoCSS` `tsx` 等最新技术栈开发，单文件组件 **＜ script setup ＞**
-- **基于** `Naive` 二次封装 `FormPro`、基于 `FormPro` 封装 `TablePro`、`DrawerForm`、`ModalForm` 组件，在一定程度上提高您的开发效率
-- **使用** `KeepAlive` 对页面进行缓存
+- **基于** `Vue3.5`、`Vite6`、`TypeScript`、`NaiveUI`、`UnoCSS` `tsx` 等最新技术栈开发
+- **基于** `Naive UI` 二次封装 `FormPro`、基于 `FormPro` 封装 `TablePro`、`DrawerForm`、`ModalForm` 组件，在一定程度上提高您的开发效率
+- **使用** `KeepAlive` 对页面进行缓存，支持多级缓存
 - **使用** `Pinia` 替代 `Vuex`，轻量、简单、易用，集成 `Pinia` 持久化插件
-- **使用** `TypeScript` 对 `Axios` 整个二次封装（请求拦截、常用请求封装…）
+- **使用** `TypeScript` 对 `Axios` 整个二次封装（请求拦截、常用请求封装等）
 - **使用** `ESLint` + `Prettier` + `Stylelint` + `EditorConfig` 约束和统一代码规范
-- **集成** `Husky` + `lint-staged` + `commitlint` + `commitizen` + `cz-git` 配置 `Git` 提交规范
-- **支持** `自定义主题色`、`页面过度` 等超多设置，黑暗主题适配，界面样式保持 Naive 风格
+- **集成** `husky` + `lint-staged` + `commitlint` + `commitizen` + `cz-git` 配置 `Git` 提交规范
+- **支持** `自定义主题色`、`页面过度` 等超多设置，黑暗主题适配，界面样式保持 `Naive` 风格
 
 ## 项目目录 📁
 <details>
@@ -146,7 +142,8 @@
 
 ## 安装使用步骤 📔
 ### 后端启动
-> 后端安装请拉取 [有来开源组织/youlai-boot](https://gitee.com/youlaiorg/youlai-boot) 源代码。本项目中的图标经过修改，请执行本项目内的 `sql` 文件夹下的 `youlai_boot.sql` 文件到数据库中，配置好数据库、Redis连接，启动项目即可。
+- 后端安装请拉取 [有来开源组织/youlai-boot](https://gitee.com/youlaiorg/youlai-boot) 源代码。
+- 本项目中的图标经过修改，请执行本项目内的 `sql` 文件夹下的 `youlai_boot.sql` 文件到数据库中，配置好数据库、Redis连接，启动项目即可。
 
 ### 前端启动
 ```bash
@@ -164,7 +161,8 @@ pnpm dev
 ```
 
 ## 提交规范
-> 执行 `pnpm commit` 唤起 git commit 交互，根据提示完成信息的输入和选择。
+- 执行 `pnpm commit` 唤起 `git commit` 交互，根据提示完成信息的输入和选择。
+
 ```shell
 PS E:\Code\vue-naiveui-admin> pnpm commit
 
@@ -207,17 +205,16 @@ PS E:\Code\vue-naiveui-admin>
 ```bash
 # 项目打包
 pnpm build  # 参考package.json "scripts" 配置
-
-# 上传文件至远程服务器（XShell、MobaXterm）
-将打包生成在 `dist` 目录下的文件拷贝至服务器 `/website/dist` 目录下
 ```
 
-**🪧 提示**
-> 不在 `nginx.conf` 中直接配置，单独配置方便后期维护<br/>
-> 创建 `/etc/nginx/conf.d/admin.conf` 文件<br/>
+> 将打包生成在 `dist` 目录下的文件拷贝至服务器 `/website/dist` 目录下
+
+> 不直接在 `nginx.conf` 中直接配置，单独配置方便后期维护。
+
 > `nginx.conf` 默认会加载 `/etc/nginx/conf.d/*.conf` 文件
 
 ```bash
+# 创建 /etc/nginx/conf.d/admin.conf 文件
 vim /etc/nginx/conf.d/admin.conf
 ```
 
@@ -228,17 +225,12 @@ server {
   server_name localhost;
   location / {
     root /website/dist; # 对应上传的文件夹路径
-    try_files $uri $uri/ /index.html;
+    try_files $uri $uri/ /index.html; # 默认打开 index.html
     index index.html;
   }
   # 反向代理配置
   location /prod-api/ {
-    proxy_set_header Host $http_host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header REMOTE-HOST $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    
-    # localhost:8989 替换成实际的后端API地址，如果末尾不添加 / ，则请求就会携带代理路径（/prod-api）
+    # localhost:8989 替换成实际的后端API地址，请注意末尾的 "/"
     proxy_pass http://localhost:8989/;
   }
 }
