@@ -209,7 +209,7 @@ pnpm build  # 参考package.json "scripts" 配置
 
 > 将打包生成在 `dist` 目录下的文件拷贝至服务器 `/website/dist` 目录下
 
-> 不直接在 `nginx.conf` 中直接配置，单独配置方便后期维护。
+> 不直接在 `nginx.conf` 中配置，单独配置方便后期维护。
 
 > `nginx.conf` 默认会加载 `/etc/nginx/conf.d/*.conf` 文件
 
