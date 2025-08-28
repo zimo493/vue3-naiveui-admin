@@ -1,8 +1,8 @@
 <template>
-  <RouterView v-slot="{ Component, route }" class="flex-1">
+  <RouterView v-slot="{ Component }" class="flex-1">
     <Transition :name="appStore.transitionAnimation" mode="out-in">
       <KeepAlive :include="currentCacheRoutes">
-        <component :is="Component" v-if="appStore.loadFlag" :key="route.fullPath" />
+        <component :is="Component" v-if="appStore.loadFlag" />
         <ContentLoading v-else />
       </KeepAlive>
     </Transition>
