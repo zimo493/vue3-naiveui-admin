@@ -218,7 +218,7 @@ const renderComponent = (item: FormPro.FormItemConfig) => {
     return h(component, { filterable: true, consistentMenuWidth: false, ...defaultProps }, slots);
   }
 
-  if (type === "treeSelect") {
+  if (type === "tree-select") {
     return h(component, { filterable: true, ...defaultProps }, slots);
   }
 
@@ -237,7 +237,7 @@ const renderComponent = (item: FormPro.FormItemConfig) => {
 const getPlaceholder = (type: FormPro.ComponentType, label: string) => {
   if (typeof type !== "string") return undefined;
 
-  if (["select", "date", "treeSelect"].includes(type)) {
+  if (["select", "date", "tree-select"].includes(type)) {
     return `${t("select")}${label}`;
   }
 
@@ -278,7 +278,7 @@ const componentMap: Record<string, Component> = {
   radio: transformComponent(NRadioGroup, NRadio),
   checkbox: transformComponent(NCheckboxGroup, NCheckbox),
   "radio-button": transformComponent(NRadioGroup, NRadioButton, false),
-  treeSelect: NTreeSelect,
+  "tree-select": NTreeSelect,
   text: NText,
 };
 

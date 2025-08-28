@@ -17,7 +17,7 @@ type CompType =
   | "date"
   | "time"
   | "switch"
-  | "treeSelect"
+  | "tree-select"
   | "text"
   | Component
   | (() => VNode);
@@ -100,7 +100,7 @@ interface SelectFormItemConfig extends BaseFormItemConfig {
  * 树形选择配置
  */
 interface TreeSelectFormItemConfig extends BaseFormItemConfig {
-  component: "treeSelect";
+  component: "tree-select";
   props?: import("naive-ui").TreeSelectProps;
   slots?: InstanceType<typeof import("naive-ui").NTreeSelect>["$slots"];
   dict?: never;

@@ -160,7 +160,7 @@ const editFormConfig = computed(
       {
         name: "parentId",
         label: t("dept.top"),
-        component: "treeSelect",
+        component: "tree-select",
         props: { keyField: "value", labelField: "label", options: deptOptions.value },
       },
       { name: "name", label: t("tableHeader.deptName") },
