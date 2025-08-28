@@ -12,6 +12,7 @@ type CompType =
   | "password"
   | "select"
   | "radio"
+  | "radio-button"
   | "checkbox"
   | "date"
   | "time"
@@ -116,6 +117,16 @@ interface RadioGroupFormItemConfig extends BaseFormItemConfig {
 }
 
 /**
+ * 单选按钮组配置
+ */
+interface RadioButtonGroupFormItemConfig extends BaseFormItemConfig {
+  component: "radio-button";
+  props?: import("naive-ui").RadioGroupProps & {
+    options: import("naive-ui").SelectOption[];
+  };
+}
+
+/**
  * 多选组配置
  */
 interface CheckboxGroupFormItemConfig extends BaseFormItemConfig {
@@ -190,6 +201,7 @@ declare namespace FormPro {
     | NumberFormItemConfig
     | SelectFormItemConfig
     | RadioGroupFormItemConfig
+    | RadioButtonGroupFormItemConfig
     | CheckboxGroupFormItemConfig
     | DatePickerFormItemConfig
     | TimePickerFormItemConfig

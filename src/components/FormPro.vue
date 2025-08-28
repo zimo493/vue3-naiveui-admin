@@ -46,6 +46,7 @@ import {
   NCheckboxGroup,
   NCheckbox,
   NRadio,
+  NRadioButton,
   NRadioGroup,
   NText,
   NEllipsis,
@@ -251,12 +252,15 @@ const getPlaceholder = (type: FormPro.ComponentType, label: string) => {
  * 组件转换函数
  * @param c  选项组组件
  * @param oc  选项组件
+ * @param container 是否需要容器组件
  */
 const transformComponent =
-  (c: Component, oc: Component) => (props: { options: SelectOption[] }) => {
+  (c: Component, oc: Component, container: boolean = true) =>
+  (props: { options: SelectOption[] }) => {
     const { options = [] } = props;
+    const renderOptions = () => options.map((item) => h(oc, { ...item })); // 渲染选项
 
-    return h(c, props, () => h(NFlex, {}, () => options.map((item) => h(oc, { ...item }))));
+    return container ? h(c, props, () => h(NFlex, {}, renderOptions)) : h(c, props, renderOptions);
   };
 
 /**
@@ -273,6 +277,7 @@ const componentMap: Record<string, Component> = {
   time: NTimePicker,
   radio: transformComponent(NRadioGroup, NRadio),
   checkbox: transformComponent(NCheckboxGroup, NCheckbox),
+  "radio-button": transformComponent(NRadioGroup, NRadioButton, false),
   treeSelect: NTreeSelect,
   text: NText,
 };
