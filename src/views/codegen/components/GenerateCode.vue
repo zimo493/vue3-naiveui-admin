@@ -161,7 +161,7 @@ const formConfig = ref<FormPro.FormItemConfig[]>([
     name: "pageType",
     label: "页面类型",
     span: 8,
-    component: "radio",
+    component: "radio-button",
     props: {
       options: [
         { label: "普通", value: "classic" },
