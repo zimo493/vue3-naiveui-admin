@@ -12,7 +12,15 @@ const { pkg } = __APP_INFO__;
 
 <template>
   <!-- bg="[var(--body-color)]" -->
-  <n-el wh-full flex flex-col bg="[url(@/assets/images/login-bg.svg)]" bg-center bg-cover>
+  <n-el
+    wh-full
+    flex
+    flex-col
+    bg-center
+    bg-cover
+    bg-no-repeat
+    bg="[url(@/assets/images/login-bg.svg)]"
+  >
     <div fixed top-40px right-40px text-lg flex gap-2>
       <DarkModeSwitch />
       <LangSwitch />
@@ -23,7 +31,7 @@ const { pkg } = __APP_INFO__;
           <SvgIconsLogo class="text-5em" />
 
           <n-badge :value="`v${pkg.version}`" type="success" :offset="[0, 15]">
-            <n-h1 text-24px p-xl m-0>{{ pkg.name }}</n-h1>
+            <n-h1 text-24px p-xl m-0 font-bold>{{ pkg.name }}</n-h1>
           </n-badge>
 
           <transition name="fade-slide" mode="out-in">

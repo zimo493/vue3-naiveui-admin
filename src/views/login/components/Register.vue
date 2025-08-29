@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-h2 depth="3" class="text-center">{{ t("register.register") }}</n-h2>
+    <n-h3 mt-0 depth="3" text-center>{{ t("register.register") }}</n-h3>
     <n-form ref="form" :rules="rules" :model="model" :show-label="false" size="large">
       <n-form-item path="username">
         <n-input

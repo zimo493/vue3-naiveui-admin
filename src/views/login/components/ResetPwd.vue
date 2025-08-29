@@ -25,7 +25,7 @@ const handleRegister = async () => {
 
 <template>
   <div>
-    <n-h3 depth="3" class="text-center">{{ t("resetPwd.reset") }}</n-h3>
+    <n-h3 mt-0 depth="3" text-center>{{ t("resetPwd.reset") }}</n-h3>
     <n-form ref="form" :rules="rules" :model="model" :show-label="false" size="large">
       <n-form-item path="account">
         <n-input v-model:value="model.account" clearable placeholder="请输入用户名">
