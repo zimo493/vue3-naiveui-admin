@@ -12,7 +12,7 @@ const { pkg } = __APP_INFO__;
 
 <template>
   <!-- bg="[var(--body-color)]" -->
-  <n-el wh-full flex flex-col bg="[url(@/assets/images/login-bg.svg)]">
+  <n-el wh-full flex flex-col bg="[url(@/assets/images/login-bg.svg)]" bg-center bg-cover>
     <div fixed top-40px right-40px text-lg flex gap-2>
       <DarkModeSwitch />
       <LangSwitch />
