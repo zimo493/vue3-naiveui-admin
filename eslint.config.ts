@@ -100,6 +100,7 @@ export default tsEslint.config(
       parser: tsEslint.parser,
       parserOptions: {
         project: "./tsconfig.json",
+        tsconfigRootDir: __dirname,
         ecmaVersion: "latest",
         sourceType: "module",
         ecmaFeatures: {
@@ -148,6 +149,7 @@ export default tsEslint.config(
       parser: vueParser,
       parserOptions: {
         parser: tsEslint.parser,
+        tsconfigRootDir: __dirname,
         ecmaVersion: "latest",
         sourceType: "module",
         extraFileExtensions: [".vue"],
@@ -177,6 +179,7 @@ export default tsEslint.config(
       "@typescript-eslint/no-unsafe-function-type": "off", // 允许使用无参数的函数类型
       "@typescript-eslint/no-unused-expressions": "off", // 允许使用无表达式的表达式
       "@typescript-eslint/no-explicit-any": "off", // 允许使用 any
+      "@typescript-eslint/no-inferrable-types": "warn", // 可推断类型不需要显式声明
 
       // 变量使用
       "no-unused-vars": "off", // 关闭原生规则，使用TypeScript版本
