@@ -255,7 +255,7 @@ const getPlaceholder = (type: FormPro.ComponentType, label: string) => {
  * @param container 是否需要容器组件
  */
 const transformComponent =
-  (c: Component, oc: Component, container: boolean = true) =>
+  (c: Component, oc: Component, container = true) =>
   (props: { options: SelectOption[] }) => {
     const { options = [] } = props;
     const renderOptions = () => options.map((item) => h(oc, { ...item })); // 渲染选项

@@ -75,7 +75,7 @@ const expressionChange = (): void => {
   }
 
   // 用于记录进入循环的次数
-  let nums: number = 0;
+  let nums = 0;
   // 用于暂时存符号时间规则结果的数组
   const resultArr: string[] = [];
 
@@ -586,8 +586,8 @@ const getAssignArr = (rule: string): number[] => {
 const getAverageArr = (rule: string, limit: number): number[] => {
   const arr: number[] = [];
   const agArr: string[] = rule.split("/");
-  let min: number = Number(agArr[0]);
-  const step: number = Number(agArr[1]);
+  let min = Number(agArr[0]);
+  const step = Number(agArr[1]);
 
   while (min <= limit) {
     arr.push(min);
@@ -602,14 +602,14 @@ const getCycleArr = (rule: string, limit: number, status: boolean): number[] => 
   // status--表示是否从0开始（则从1开始）
   const arr: number[] = [];
   const cycleArr: string[] = rule.split("-");
-  const min: number = Number(cycleArr[0]);
-  let max: number = Number(cycleArr[1]);
+  const min = Number(cycleArr[0]);
+  let max = Number(cycleArr[1]);
 
   if (min > max) {
     max += limit;
   }
   for (let i = min; i <= max; i++) {
-    let add: number = 0;
+    let add = 0;
 
     if (!status && i % limit === 0) {
       add = limit;

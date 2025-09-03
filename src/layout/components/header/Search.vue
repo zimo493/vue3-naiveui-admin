@@ -111,7 +111,7 @@ const options = computed<AppRoute.RouteVO[]>(() => {
   const result: AppRoute.RouteVO[] = [];
 
   // 递归搜索路由
-  const searchRoutes = (routes: AppRoute.RouteVO[], parentPath: string = "") => {
+  const searchRoutes = (routes: AppRoute.RouteVO[], parentPath = "") => {
     routes.forEach((route) => {
       // 跳过excludedRoutes中的路由和包含":"的动态路由
       if (excludedRoutes.value.includes(route.path) || route.path.includes(":")) {

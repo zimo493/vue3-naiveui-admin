@@ -355,7 +355,7 @@ class ParticleSystem {
     this.toY = (e.touches[0].clientY - this.canvas.height / 2) * 0.8;
   }
 
-  public addParticles(count: number = 100): void {
+  public addParticles(count = 100): void {
     for (let i = 0; i < count; i++) {
       this.addParticle();
     }
