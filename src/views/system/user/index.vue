@@ -479,8 +479,8 @@ const handleResetPassword = (row: User.VO) => {
         )}
       </NFlex>
     ),
-    onPositiveClick: () => {
-      return new Promise<void>((resolve) => {
+    onPositiveClick: () =>
+      new Promise<void>((resolve) => {
         // 校验密码
         const { pwd } = newPassword.value;
 
@@ -499,8 +499,7 @@ const handleResetPassword = (row: User.VO) => {
             .then(() => window.$message.success(t("user.rememberNewPassword", { value: pwd })))
             .then(() => resolve());
         }
-      });
-    },
+      }),
     onAfterLeave: () => {
       newPassword.value = {
         pwd: "",

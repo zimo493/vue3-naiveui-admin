@@ -43,8 +43,8 @@ export const InquiryBox = (
   content: string,
   type: "success" | "warning" | "error" = "warning",
   title = $t("common.sysTip")
-): Promise<boolean> => {
-  return new Promise((resolve, reject) => {
+): Promise<boolean> =>
+  new Promise((resolve, reject) => {
     window.$dialog[type]({
       title,
       content,
@@ -60,7 +60,6 @@ export const InquiryBox = (
       onAfterLeave: () => reject(false),
     });
   });
-};
 
 // 小于10前面补0
 export const zeroFill = (num: number): string => (num < 10 ? "0" + num : num.toString());

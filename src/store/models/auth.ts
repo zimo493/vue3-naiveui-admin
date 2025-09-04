@@ -6,14 +6,12 @@ import UserAPI from "@/api/system/user";
 import { router } from "@/router";
 
 export const useAuthStore = defineStore("auth-store", {
-  state: (): Status.Auth => {
-    return {
-      userInfo: {
-        roles: [],
-        perms: [],
-      },
-    };
-  },
+  state: (): Status.Auth => ({
+    userInfo: {
+      roles: [],
+      perms: [],
+    },
+  }),
   actions: {
     /**
      * 登录
@@ -62,7 +60,8 @@ export const useAuthStore = defineStore("auth-store", {
           .then(() => {
             this.resetAuthStore()
               .then(() => window.$message.success($t("message.logoutSuccess")))
-              .then(async () => await router.replace("/login"));
+              .then(async () => await router.replace("/login"))
+              .catch((error) => console.error("Error during logout process:", error));
             resolve();
           })
           .catch((error) => reject(error));

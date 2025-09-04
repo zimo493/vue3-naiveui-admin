@@ -34,30 +34,28 @@ export default defineComponent({
     );
 
     /** 头像组件 */
-    const Avatar = () => {
-      return (
-        <NFlex
-          class="relative inline-block"
-          onMouseenter={() => (isEdit.value = true)}
-          onMouseleave={() => (isEdit.value = false)}
-        >
-          <NAvatar
-            size={100}
-            src={userProfile.value.avatar}
-            renderFallback={ErrorAvatar}
-            v-slots={{ fallback: ErrorAvatar }}
-          />
-          {isEdit.value && (
-            <NEl
-              class="absolute top-1 left-1 bottom-1 right-1 bg-black bg-opacity-50 flex-center cursor-pointer border-rd-3px"
-              onClick={changeAvatar}
-            >
-              <Icones icon="ant-design:edit-outlined" size={32} color="#fff" />
-            </NEl>
-          )}
-        </NFlex>
-      );
-    };
+    const Avatar = () => (
+      <NFlex
+        class="relative inline-block"
+        onMouseenter={() => (isEdit.value = true)}
+        onMouseleave={() => (isEdit.value = false)}
+      >
+        <NAvatar
+          size={100}
+          src={userProfile.value.avatar}
+          renderFallback={ErrorAvatar}
+          v-slots={{ fallback: ErrorAvatar }}
+        />
+        {isEdit.value && (
+          <NEl
+            class="absolute top-1 left-1 bottom-1 right-1 bg-black bg-opacity-50 flex-center cursor-pointer border-rd-3px"
+            onClick={changeAvatar}
+          >
+            <Icones icon="ant-design:edit-outlined" size={32} color="#fff" />
+          </NEl>
+        )}
+      </NFlex>
+    );
 
     /**
      * 上传并设置头像

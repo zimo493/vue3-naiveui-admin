@@ -240,59 +240,55 @@ const columns = ref<DataTableColumns<Notice.VO>>([
     title: t("tableHeader.operateTime"),
     key: "createTime",
     align: "center",
-    render: ({ createTime, publishTime, revokeTime, publishStatus }) => {
-      return (
-        <NFlex vertical size={[0, 0]}>
+    render: ({ createTime, publishTime, revokeTime, publishStatus }) => (
+      <NFlex vertical size={[0, 0]}>
+        <NText>
+          {t("notice.time.create")}：{createTime}
+        </NText>
+        {publishStatus === 1 && (
           <NText>
-            {t("notice.time.create")}：{createTime}
+            {t("notice.time.publish")}：{publishTime}
           </NText>
-          {publishStatus === 1 && (
-            <NText>
-              {t("notice.time.publish")}：{publishTime}
-            </NText>
-          )}
-          {publishStatus === -1 && (
-            <NText>
-              {t("notice.time.revoke")}：{revokeTime}
-            </NText>
-          )}
-        </NFlex>
-      );
-    },
+        )}
+        {publishStatus === -1 && (
+          <NText>
+            {t("notice.time.revoke")}：{revokeTime}
+          </NText>
+        )}
+      </NFlex>
+    ),
   },
   {
     title: t("tableHeader.action"),
     key: "action",
     align: "center",
-    render: (row) => {
-      return (
-        <NFlex justify="center">
-          <NButton text type="info" onClick={() => viewDetail(row.id)}>
-            {t("button.view")}
+    render: (row) => (
+      <NFlex justify="center">
+        <NButton text type="info" onClick={() => viewDetail(row.id)}>
+          {t("button.view")}
+        </NButton>
+        {row.publishStatus !== 1 && (
+          <NButton text type="primary" onClick={() => openDrawer(row)}>
+            {t("button.edit")}
           </NButton>
-          {row.publishStatus !== 1 && (
-            <NButton text type="primary" onClick={() => openDrawer(row)}>
-              {t("button.edit")}
-            </NButton>
-          )}
-          {row.publishStatus !== 1 && (
-            <NButton text type="success" onClick={() => handlePublish(row.id)}>
-              {t("notice.time.publish")}
-            </NButton>
-          )}
-          {row.publishStatus === 1 && (
-            <NButton text type="warning" onClick={() => handleRevoke(row.id)}>
-              {t("notice.time.revoke")}
-            </NButton>
-          )}
-          {row.publishStatus !== 1 && (
-            <NButton text type="error" onClick={() => handleDelete(row.id)}>
-              {t("button.delete")}
-            </NButton>
-          )}
-        </NFlex>
-      );
-    },
+        )}
+        {row.publishStatus !== 1 && (
+          <NButton text type="success" onClick={() => handlePublish(row.id)}>
+            {t("notice.time.publish")}
+          </NButton>
+        )}
+        {row.publishStatus === 1 && (
+          <NButton text type="warning" onClick={() => handleRevoke(row.id)}>
+            {t("notice.time.revoke")}
+          </NButton>
+        )}
+        {row.publishStatus !== 1 && (
+          <NButton text type="error" onClick={() => handleDelete(row.id)}>
+            {t("button.delete")}
+          </NButton>
+        )}
+      </NFlex>
+    ),
   },
 ]);
 

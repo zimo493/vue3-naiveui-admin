@@ -11,10 +11,14 @@ export function useDict<T extends string>(...args: T[]): ToRefs<Dict.DictItem> {
 
     if (dict) res.value[dictType] = dict;
     else {
-      DictDataAPI.getDictItems(dictType).then((data): void => {
-        res.value[dictType] = data;
-        useDictStoreHook().setDict(dictType, res.value[dictType]);
-      });
+      DictDataAPI.getDictItems(dictType)
+        .then((data): void => {
+          res.value[dictType] = data;
+          useDictStoreHook().setDict(dictType, res.value[dictType]);
+        })
+        .catch((error): void => {
+          console.error(`Failed to fetch dictionary items for type "${dictType}":`, error);
+        });
     }
   });
 

@@ -144,11 +144,8 @@ const value = defineModel("modelValue", { type: String });
 const nameList = ["icon-park-outline", "ant-design", "ep", "f7", "line-md"];
 
 // 获取单个图标库数据
-const fetchIconList = async (name: string): Promise<IconList> => {
-  return await fetch(`https://api.iconify.design/collection?prefix=${name}`).then((res) =>
-    res.json()
-  );
-};
+const fetchIconList = async (name: string): Promise<IconList> =>
+  await fetch(`https://api.iconify.design/collection?prefix=${name}`).then((res) => res.json());
 
 // 获取所有本地图标
 const generateLocalIconList = () => {
@@ -234,11 +231,11 @@ const icons = computed(() => {
 });
 
 // 符合搜索条件的图标列表
-const visibleIcons = computed(() => {
-  return icons.value
+const visibleIcons = computed(() =>
+  icons.value
     ?.filter((i) => i.includes(searchValue.value))
-    ?.slice((currentPage.value - 1) * pageSize.value, currentPage.value * pageSize.value);
-});
+    ?.slice((currentPage.value - 1) * pageSize.value, currentPage.value * pageSize.value)
+);
 
 const showModal = ref(false);
 

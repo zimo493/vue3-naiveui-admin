@@ -327,8 +327,8 @@ const list = computed<List[]>(() => [
 ]);
 
 const dateRange = ref<[number, number]>();
-const defaultOptions = computed((): EChartsOption => {
-  return {
+const defaultOptions = computed(
+  (): EChartsOption => ({
     legend: {
       data: [t("home.chart.pv"), t("home.chart.uv")],
       textStyle: { color: "#666" },
@@ -473,8 +473,8 @@ const defaultOptions = computed((): EChartsOption => {
         },
       },
     ],
-  };
-});
+  })
+);
 
 // 在线用户数量组件相关
 const { onlineUserCount, lastUpdateTime, isConnected } = useOnlineCount();

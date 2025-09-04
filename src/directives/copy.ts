@@ -42,7 +42,9 @@ export function install(app: App) {
 
   function handlerCopy(this: CopyHTMLElement) {
     if (!clipboardEnable()) return;
-    copy(this._copyText).then(() => window.$message.success(this._msg));
+    copy(this._copyText)
+      .then(() => window.$message.success(this._msg))
+      .catch(() => window.$message.error($t("directive.copyFailed")));
   }
 
   function updateClipboard(el: CopyHTMLElement, text: string | { text: string; msg: string }) {

@@ -2,11 +2,9 @@ import { store } from "@/store";
 
 export const useDictStore = defineStore("dict-store", {
   // state
-  state: (): { dict: Dict.StoreType[] } => {
-    return {
-      dict: [],
-    };
-  },
+  state: (): { dict: Dict.StoreType[] } => ({
+    dict: [],
+  }),
   actions: {
     // 获取字典
     getDict(_key: string | null) {

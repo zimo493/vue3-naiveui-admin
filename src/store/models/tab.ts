@@ -3,14 +3,12 @@ import { router } from "@/router";
 import { store } from "@/store";
 
 export const useTabStore = defineStore("tab-store", {
-  state: (): Status.Tab => {
-    return {
-      pinTabs: [],
-      tabs: [],
-      cacheRoutes: [],
-      currentTabPath: "",
-    };
-  },
+  state: (): Status.Tab => ({
+    pinTabs: [],
+    tabs: [],
+    cacheRoutes: [],
+    currentTabPath: "",
+  }),
   getters: {
     allTabs: (state) => [...state.pinTabs, ...state.tabs],
   },
@@ -66,7 +64,7 @@ export const useTabStore = defineStore("tab-store", {
       this.tabs = this.tabs.filter((item: RouteLocationNormalized) => item.path !== path);
       // 删除后如果清空了，就跳转到默认首页
       if (tabsLength - 1 === 0) await router.push("/");
-      this.setCurrentTab(this.currentTabPath);
+      await this.setCurrentTab(this.currentTabPath);
       this.delCache(path);
     },
 
@@ -115,7 +113,7 @@ export const useTabStore = defineStore("tab-store", {
     },
     /** 关闭当前标签打开新标签 */
     async closeCurrentTabOpenNew(path: string) {
-      this.closeTab(this.currentTabPath);
+      await this.closeTab(this.currentTabPath);
       await router.push(path);
     },
 

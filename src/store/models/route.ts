@@ -13,14 +13,12 @@ import {
 } from "@/utils";
 
 export const useRouteStore = defineStore("route-store", {
-  state: (): Status.Routes => {
-    return {
-      menus: [],
-      routes: [],
-      activeMenu: "",
-      isInitAuthRoute: false,
-    };
-  },
+  state: (): Status.Routes => ({
+    menus: [],
+    routes: [],
+    activeMenu: "",
+    isInitAuthRoute: false,
+  }),
   actions: {
     /**
      * 获取个人信息，初始化路由
@@ -67,9 +65,13 @@ export const useRouteStore = defineStore("route-store", {
      * @param userRoutes 用户路由数据
      */
     _processRouteData(userRoutes: AppRoute.RouteVO[]) {
-      this.createRoutes(userRoutes).then((routes) => {
-        this.createMenus(routes); // 创建菜单
-      });
+      this.createRoutes(userRoutes)
+        .then((routes) => {
+          this.createMenus(routes); // 创建菜单
+        })
+        .catch((error) => {
+          console.error("Error creating routes:", error);
+        });
     },
 
     /**

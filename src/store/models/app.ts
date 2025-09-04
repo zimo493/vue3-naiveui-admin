@@ -21,42 +21,40 @@ const { system, store } = useColorMode();
 const { VITE_DEFAULT_LANG } = import.meta.env;
 
 export const useAppStore = defineStore("app-store", {
-  state: (): Status.App => {
-    return {
-      footerText: "Copyright © 2021 - 2025 youlai.tech All Rights Reserved.",
-      theme,
-      lang: VITE_DEFAULT_LANG,
-      primaryColor,
-      infoColor,
-      successColor,
-      warningColor,
-      errorColor,
-      borderRadius: "4px",
-      followPrimary: false,
-      collapsed: false,
-      grayMode: false,
-      colorWeak: false,
-      fixed: true, // 是否固定头部和底部
-      loadFlag: true,
-      showLogo: true,
-      showTabs: true,
-      showTabsIcon: true,
-      showFooter: false,
-      showProgress: true,
-      showBreadcrumb: true,
-      showBreadcrumbIcon: true,
-      showWatermark: false,
-      watermarkText: "",
-      transitionAnimation: "fade-slide",
-      layoutMode: LayoutMode.LEFT,
-      contentFullScreen: false,
-      sideWidth: 200,
-      sideCollapsedWidth: 50,
-      sideTrigger: "bar",
-      placement: "top",
-      inverted: false, // 菜单反转样式
-    };
-  },
+  state: (): Status.App => ({
+    footerText: "Copyright © 2021 - 2025 youlai.tech All Rights Reserved.",
+    theme,
+    lang: VITE_DEFAULT_LANG,
+    primaryColor,
+    infoColor,
+    successColor,
+    warningColor,
+    errorColor,
+    borderRadius: "4px",
+    followPrimary: false,
+    collapsed: false,
+    grayMode: false,
+    colorWeak: false,
+    fixed: true, // 是否固定头部和底部
+    loadFlag: true,
+    showLogo: true,
+    showTabs: true,
+    showTabsIcon: true,
+    showFooter: false,
+    showProgress: true,
+    showBreadcrumb: true,
+    showBreadcrumbIcon: true,
+    showWatermark: false,
+    watermarkText: "",
+    transitionAnimation: "fade-slide",
+    layoutMode: LayoutMode.LEFT,
+    contentFullScreen: false,
+    sideWidth: 200,
+    sideCollapsedWidth: 50,
+    sideTrigger: "bar",
+    placement: "top",
+    inverted: false, // 菜单反转样式
+  }),
   getters: {
     storeColorMode: () => store.value,
     colorMode: () => (store.value === ThemeMode.AUTO ? system.value : store.value),
@@ -111,7 +109,7 @@ export const useAppStore = defineStore("app-store", {
       setLocale(lang);
       local.set("lang", lang);
       this.lang = lang;
-      this.reloadPage();
+      void this.reloadPage();
     },
     /* 设置题色 */
     setColor(type: Status.ThemeColorType, color: string) {

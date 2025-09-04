@@ -80,12 +80,12 @@ const modelValue = defineModel<T>("modelValue", {
  * 展示的表单配置
  * 优先使用直接传入的 formConfig，如果没有则使用 form.config
  */
-const showFormConfig = computed(() => {
-  return (props.formConfig || props.form?.config || []).map((item) => ({
+const showFormConfig = computed(() =>
+  (props.formConfig || props.form?.config || []).map((item) => ({
     ...item,
     span: item.span ?? 24,
-  }));
-});
+  }))
+);
 
 const emit = defineEmits<{
   (e: "submit", v: T): void;

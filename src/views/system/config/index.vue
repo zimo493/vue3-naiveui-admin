@@ -95,28 +95,26 @@ const columns = ref<DataTableColumns<Config.VO>>([
     title: t("tableHeader.action"),
     key: "action",
     align: "center",
-    render: (row) => {
-      return (
-        <NFlex justify="center">
-          <NButton
-            text
-            type="info"
-            v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
-            onClick={() => openDrawer(row)}
-          >
-            {t("button.edit")}
-          </NButton>
-          <NButton
-            text
-            type="error"
-            v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
-            onClick={() => handleDelete(row)}
-          >
-            {t("button.delete")}
-          </NButton>
-        </NFlex>
-      );
-    },
+    render: (row) => (
+      <NFlex justify="center">
+        <NButton
+          text
+          type="info"
+          v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
+          onClick={() => openDrawer(row)}
+        >
+          {t("button.edit")}
+        </NButton>
+        <NButton
+          text
+          type="error"
+          v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
+          onClick={() => handleDelete(row)}
+        >
+          {t("button.delete")}
+        </NButton>
+      </NFlex>
+    ),
   },
 ]);
 

@@ -74,7 +74,9 @@ export default defineComponent({
     const handleSelect = async (key: string | number) => {
       switch (key) {
         case "loginOut":
-          InquiryBox(t("confirm.logout")).then(() => authStore.logout());
+          InquiryBox(t("confirm.logout"))
+            .then(() => authStore.logout())
+            .catch((error) => console.error("Logout confirmation failed:", error));
           break;
 
         case "userCenter":

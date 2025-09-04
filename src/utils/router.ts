@@ -16,8 +16,8 @@ export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRa
   const viewModules = import.meta.glob("@/views/**/*.vue");
 
   // 内部递归解析函数
-  const parse = (routes: AppRoute.RouteVO[]): RouteRecordRaw[] => {
-    return routes.reduce<RouteRecordRaw[]>((parsed, route) => {
+  const parse = (routes: AppRoute.RouteVO[]): RouteRecordRaw[] =>
+    routes.reduce<RouteRecordRaw[]>((parsed, route) => {
       // 跳过HTTP链接路径
       if (isHttpUrl(route.path)) return parsed;
 
@@ -55,7 +55,6 @@ export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRa
 
       return parsed;
     }, []);
-  };
 
   return parse(rawRoutes);
 };
@@ -172,15 +171,12 @@ export const renderEllipsis = (VNode: VNode): VNode => h(NEllipsis, null, { defa
 /**
  * 拼接路径，处理开头和结尾的斜杠
  */
-export const joinPaths = (...paths: string[]): string => {
-  return (
-    "/" +
-    paths
-      .map((path) => path.replace(/^\/+|\/+$/g, "")) // 去除开头和结尾的斜杠
-      .filter(Boolean) // 过滤空路径
-      .join("/")
-  );
-};
+export const joinPaths = (...paths: string[]): string =>
+  "/" +
+  paths
+    .map((path) => path.replace(/^\/+|\/+$/g, "")) // 去除开头和结尾的斜杠
+    .filter(Boolean) // 过滤空路径
+    .join("/");
 
 export const convertRouterType = (router: RouteRecordRaw[]): AppRoute.RouteVO[] =>
   router.map((item) => {

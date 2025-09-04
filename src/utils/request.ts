@@ -208,8 +208,12 @@ async function handleTokenRefresh(config: InternalAxiosRequestConfig) {
 }
 // 处理会话过期
 async function handleSessionExpired() {
-  InquiryBox($t("common.sessionTimeout")).then(async () => {
-    await useAuthStoreHook().resetAuthStore();
-    await router.replace("/login");
-  });
+  InquiryBox($t("common.sessionTimeout"))
+    .then(async () => {
+      await useAuthStoreHook().resetAuthStore();
+      await router.replace("/login");
+    })
+    .catch((error) => {
+      console.error("Error handling session timeout:", error);
+    });
 }

@@ -87,13 +87,11 @@ watch(
 const topMenu = ref<MenuOption[]>([]);
 const activeTopMenu = ref<string>("");
 const handleTopMenu = (menu: MenuOption[]) => {
-  topMenu.value = menu.map((item) => {
-    return {
-      icon: item.icon,
-      label: item.label,
-      key: item.key,
-    };
-  });
+  topMenu.value = menu.map((item) => ({
+    icon: item.icon,
+    label: item.label,
+    key: item.key,
+  }));
 };
 
 onMounted(() => {

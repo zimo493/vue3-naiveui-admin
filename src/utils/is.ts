@@ -17,19 +17,13 @@ export function isFunction(val: unknown): val is (...args: any[]) => any {
 /**
  * @description: 是否已定义
  */
-export const isDef = <T = unknown>(val?: T): val is T => {
-  return typeof val !== "undefined";
-};
+export const isDef = <T = unknown>(val?: T): val is T => typeof val !== "undefined";
 
-export const isUnDef = <T = unknown>(val?: T): val is T => {
-  return !isDef(val);
-};
+export const isUnDef = <T = unknown>(val?: T): val is T => !isDef(val);
 /**
  * @description: 是否为对象
  */
-export const isObject = (val: any): val is Record<any, any> => {
-  return val !== null && is(val, "Object");
-};
+export const isObject = (val: any): val is Record<any, any> => val !== null && is(val, "Object");
 
 /**
  * @description:  是否为时间
@@ -83,20 +77,15 @@ export function isArray(val: any): val is Array<any> {
 /**
  * @description: 是否客户端
  */
-export const isClient = () => {
-  return typeof window !== "undefined";
-};
+export const isClient = () => typeof window !== "undefined";
 
 /**
  * @description: 是否为浏览器
  */
-export const isWindow = (val: any): val is Window => {
-  return typeof window !== "undefined" && is(val, "Window");
-};
+export const isWindow = (val: any): val is Window =>
+  typeof window !== "undefined" && is(val, "Window");
 
-export const isElement = (val: unknown): val is Element => {
-  return isObject(val) && !!val.tagName;
-};
+export const isElement = (val: unknown): val is Element => isObject(val) && !!val.tagName;
 
 export const isServer = typeof window === "undefined";
 
@@ -118,6 +107,4 @@ export function isNullOrUnDef(val: unknown): val is null | undefined {
 }
 
 // HTTP URL检测函数
-export const isHttpUrl = (path?: string): boolean => {
-  return path ? /^https?:\/\//.test(path) : false;
-};
+export const isHttpUrl = (path?: string): boolean => (path ? /^https?:\/\//.test(path) : false);

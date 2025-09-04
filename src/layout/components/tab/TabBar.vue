@@ -46,16 +46,14 @@ const handleClose = (path: string) => tabStore.closeTab(path).then(() => updateB
 /** 手动更新指示条 */
 const updateBar = () => tabsInstRef.value?.syncBarPosition();
 
-const options = computed(() => {
-  return [
-    { label: t("tabBar.refresh"), key: "reload", icon: () => h(IconRedo) },
-    { label: t("tabBar.close"), key: "closeCurrent", icon: () => h(IconClose) },
-    { label: t("tabBar.closeOthers"), key: "closeOther", icon: () => h(IconDelete) },
-    { label: t("tabBar.closeLeft"), key: "closeLeft", icon: () => h(IconLeft) },
-    { label: t("tabBar.closeRight"), key: "closeRight", icon: () => h(IconRight) },
-    { label: t("tabBar.closeAll"), key: "closeAll", icon: () => h(IconFullwith) },
-  ];
-});
+const options = computed(() => [
+  { label: t("tabBar.refresh"), key: "reload", icon: () => h(IconRedo) },
+  { label: t("tabBar.close"), key: "closeCurrent", icon: () => h(IconClose) },
+  { label: t("tabBar.closeOthers"), key: "closeOther", icon: () => h(IconDelete) },
+  { label: t("tabBar.closeLeft"), key: "closeLeft", icon: () => h(IconLeft) },
+  { label: t("tabBar.closeRight"), key: "closeRight", icon: () => h(IconRight) },
+  { label: t("tabBar.closeAll"), key: "closeAll", icon: () => h(IconFullwith) },
+]);
 const showDropdown = ref(false);
 const x = ref(0);
 const y = ref(0);

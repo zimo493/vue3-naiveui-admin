@@ -179,7 +179,7 @@ export const useStomp = (options: UseStompOptions = {}) => {
       console.log(`brokerURL changed from ${oldURL} to ${newURL}`);
       // 断开当前连接，重新激活客户端
       if (client.value && client.value.connected) {
-        client.value.deactivate();
+        void client.value.deactivate();
       }
       brokerURL.value = newURL;
       initializeClient(); // 重新初始化客户端
@@ -284,7 +284,7 @@ export const useStomp = (options: UseStompOptions = {}) => {
       connectionTimeoutTimer = null;
     }
 
-    client.value?.deactivate();
+    void client.value?.deactivate();
     isConnected.value = false;
     reconnectCount.value = 0;
   };

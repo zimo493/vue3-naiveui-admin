@@ -28,6 +28,7 @@ installPinia(app);
 installRouter(app)
   .then(() => setupWebSocket()) // 创建websocket连接
   .then(() => setupAppVersion()) // App更新后提示用户刷新
+  .catch((error) => console.error("Error during app initialization:", error))
   .finally(() => appLoading.unmount());
 
 /** 挂载 App */

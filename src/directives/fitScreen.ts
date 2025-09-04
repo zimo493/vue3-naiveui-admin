@@ -23,10 +23,8 @@ const getScale = (width: number, height: number): number => {
   return Math.min(ww, wh);
 };
 // 设置响应式
-const resize = (el: HTMLElement, width: number, height: number) => {
-  return (): void => {
-    el.style.transform = `scale(${getScale(width, height)}) translate(-50%, -50%)`;
-  };
+const resize = (el: HTMLElement, width: number, height: number) => (): void => {
+  el.style.transform = `scale(${getScale(width, height)}) translate(-50%, -50%)`;
 };
 
 export function install(app: App) {
