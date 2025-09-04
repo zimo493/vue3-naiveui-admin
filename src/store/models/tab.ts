@@ -21,6 +21,8 @@ export const useTabStore = defineStore("tab-store", {
       const meta = route.meta || {};
       const { hidden, affix, title, icon, params, keepAlive } = meta;
 
+      if (keepAlive) this.addCache(fullPath);
+
       // 根据meta确定是否不添加，可用于错误页,登录页等
       if (hidden) return;
 
@@ -39,7 +41,6 @@ export const useTabStore = defineStore("tab-store", {
       // 根据meta.affix传递到不同的分组中
       if (affix) this.pinTabs.push(tab);
       else this.tabs.push(tab);
-      if (tab.meta.keepAlive) this.addCache(fullPath);
     },
     async closeTab(path: string) {
       const tabsLength = this.tabs.length;
