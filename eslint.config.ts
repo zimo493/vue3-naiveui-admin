@@ -27,7 +27,15 @@ export default tsEslint.config(
   {
     // 全局配置
     files: ["**/*.{js,mjs,cjs,ts,tsx,vue}"],
-    ignores: ["**/.*", "dist/*", "**/*.d.ts", "public/*", "src/assets/**"],
+    ignores: [
+      "**/.*",
+      "dist/*",
+      "**/*.d.ts",
+      "public/*",
+      "src/assets/**",
+      "node_modules/**",
+      "*.config.js",
+    ],
     // 自定义规则
     rules: {
       // 开发辅助
@@ -69,6 +77,7 @@ export default tsEslint.config(
           argsIgnorePattern: "^_", // 忽略参数名以 _ 开头的参数未使用警告
           varsIgnorePattern: "^[A-Z0-9_]+$", // 忽略变量名为大写字母、数字或下划线组合的未使用警告（枚举定义未使用场景）
           ignoreRestSiblings: true, // 忽略解构赋值中同级未使用变量的警告
+          caughtErrorsIgnorePattern: "^_", // 忽略错误变量以 _ 开头的警告
         },
       ],
 
@@ -113,11 +122,11 @@ export default tsEslint.config(
       "no-undef": "off", // TypeScript已处理此问题
 
       // 类型相关
-      "@typescript-eslint/no-explicit-any": "off", // 允许使用 any
+      "@typescript-eslint/no-explicit-any": "off", // 允许使用any
       "@typescript-eslint/no-empty-function": "off", // 允许空函数
       "@typescript-eslint/no-empty-object-type": "off", // 允许空对象类型
       "@typescript-eslint/no-extraneous-class": "off", // 允许空类
-      "@typescript-eslint/no-non-null-assertion": "off", // 允许使用非空断言
+      "@typescript-eslint/no-non-null-assertion": "off", // 允许使用!
 
       // 导入相关
       "@typescript-eslint/consistent-type-imports": [
@@ -133,6 +142,7 @@ export default tsEslint.config(
           argsIgnorePattern: "^_", // 忽略参数名以 _ 开头的参数未使用警告
           varsIgnorePattern: "^[A-Z0-9_]+$", // 忽略变量名为大写字母、数字或下划线组合的未使用警告
           ignoreRestSiblings: true, // 忽略解构赋值中同级未使用变量的警告
+          caughtErrorsIgnorePattern: "^_", // 忽略错误变量以 _ 开头的警告
         },
       ],
 
@@ -140,6 +150,11 @@ export default tsEslint.config(
       "@typescript-eslint/explicit-function-return-type": "off", // 不强制要求函数返回类型
       "@typescript-eslint/explicit-module-boundary-types": "off", // 不强制要求模块边界类型
       "@typescript-eslint/no-inferrable-types": "warn", // 可推断类型不需要显式声明
+
+      "@typescript-eslint/ban-ts-comment": "warn", // 对@ts-expect-error等注释的使用给出警告
+      "@typescript-eslint/prefer-ts-expect-error": "error", // 优先使用@ts-expect-error而不是@ts-ignore
+      "@typescript-eslint/no-floating-promises": "error", // 确保Promise被正确处理
+      "@typescript-eslint/await-thenable": "error", // 确保只await可等待的值
     },
   },
   // Vue 配置
@@ -176,10 +191,14 @@ export default tsEslint.config(
       "vue/no-setup-props-destructure": "off", // 允许在setup中解构props (Vue3.2+响应式已修复此问题)
       "vue/attribute-hyphenation": ["error", "always"], // 强制使用连字符格式
 
+      "vue/no-unused-components": "error", // 确保组件未被 unused
+      "vue/require-explicit-emits": "error", // 要求显式声明emit事件
+      "vue/no-mutating-props": "error", // 禁止直接修改props
+
       // TypeScript相关
       "@typescript-eslint/no-unsafe-function-type": "off", // 允许使用无参数的函数类型
       "@typescript-eslint/no-unused-expressions": "off", // 允许使用无表达式的表达式
-      "@typescript-eslint/no-explicit-any": "off", // 允许使用 any
+      "@typescript-eslint/no-explicit-any": "off", // 允许使用any
       "@typescript-eslint/no-inferrable-types": "warn", // 可推断类型不需要显式声明
 
       // 变量使用
@@ -190,6 +209,7 @@ export default tsEslint.config(
           argsIgnorePattern: "^_", // 忽略参数名以 _ 开头的参数未使用警告
           varsIgnorePattern: "^[A-Z0-9_]+$", // 忽略变量名为大写字母、数字或下划线组合的未使用警告
           ignoreRestSiblings: true, // 忽略解构赋值中同级未使用变量的警告
+          caughtErrorsIgnorePattern: "^_", // 忽略错误变量以 _ 开头的警告
         },
       ],
 
@@ -216,7 +236,7 @@ export default tsEslint.config(
     rules: {
       ...eslintConfigPrettier.rules,
       "prettier/prettier": ["error", {}, { usePrettierrc: true }],
-      "arrow-body-style": "off",
+      "arrow-body-style": "error", // 箭头函数体要求使用简洁写法
       "prefer-arrow-callback": "off",
     },
   }
