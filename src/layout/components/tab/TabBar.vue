@@ -2,7 +2,7 @@
 import type { TabsInst } from "naive-ui";
 import type { RouteLocationNormalized } from "vue-router";
 
-import { useAppStoreHook, useRouteStoreHook, useTabStoreHook } from "@/store";
+import { useAppStoreHook, useTabStoreHook } from "@/store";
 
 import IconRedo from "~icons/icon-park-outline/redo";
 import IconClose from "~icons/icon-park-outline/close";
@@ -20,18 +20,7 @@ const router = useRouter();
 const { t } = useI18n();
 
 const tabStore = useTabStoreHook();
-const routeStore = useRouteStoreHook();
 const appStore = useAppStoreHook();
-
-// 动态页签
-const dynamicTab = ref<RouteLocationNormalized[]>([]);
-
-watchEffect(() => {
-  dynamicTab.value = tabStore.tabs;
-  const names = dynamicTab.value.map((item) => item.name as string).filter(Boolean);
-
-  routeStore.setCacheRoutes(names);
-});
 
 watch(
   () => appStore.showTabsIcon,
@@ -81,16 +70,16 @@ const handleSelect = (key: string) => {
       appStore.reloadPage();
     },
     closeCurrent() {
-      handleClose(currentRoute.value.path);
+      handleClose(currentRoute.value.fullPath);
     },
     closeOther() {
-      tabStore.closeOtherTabs(currentRoute.value.path);
+      tabStore.closeOtherTabs(currentRoute.value.fullPath);
     },
     closeLeft() {
-      tabStore.closeLeftTabs(currentRoute.value.path);
+      tabStore.closeLeftTabs(currentRoute.value.fullPath);
     },
     closeRight() {
-      tabStore.closeRightTabs(currentRoute.value.path);
+      tabStore.closeRightTabs(currentRoute.value.fullPath);
     },
     closeAll() {
       tabStore.closeAllTabs();
@@ -137,7 +126,7 @@ const onClickOutSide = () => (showDropdown.value = false);
         </div>
       </n-tab>
       <n-tab
-        v-for="item in dynamicTab"
+        v-for="item in tabStore.tabs"
         :key="item.path"
         closable
         :name="item.path"

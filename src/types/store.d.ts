@@ -72,10 +72,7 @@ declare namespace Status {
     menus: import("naive-ui").MenuOption[];
     /** 激活的菜单 */
     activeMenu: string;
-    /** 缓存的路由 */
-    cacheRoutes: string[];
-    /** 所有需要缓存的路由 */
-    allCacheRoutes: string[][];
+    /** 路由列表 */
     routes: AppRoute.RouteVO[];
   }
 
@@ -83,6 +80,8 @@ declare namespace Status {
   interface Tab {
     pinTabs: import("vue-router").RouteLocationNormalized[];
     tabs: import("vue-router").RouteLocationNormalized[];
+    /** 缓存的路由 */
+    cacheRoutes: string[];
     currentTabPath: string;
   }
 }

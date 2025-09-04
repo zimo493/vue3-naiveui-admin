@@ -10,14 +10,11 @@ import {
   processRoute,
   convertRouterType,
   parseDynamicRoutes,
-  findAndMergeRouteArrays,
 } from "@/utils";
 
 export const useRouteStore = defineStore("route-store", {
   state: (): Status.Routes => {
     return {
-      cacheRoutes: [],
-      allCacheRoutes: [],
       menus: [],
       routes: [],
       activeMenu: "",
@@ -71,7 +68,6 @@ export const useRouteStore = defineStore("route-store", {
      */
     _processRouteData(userRoutes: AppRoute.RouteVO[]) {
       this.createRoutes(userRoutes).then((routes) => {
-        this.setAllCacheRoutes(routes); // 设置所有缓存路由(包括设置的静态路由和动态路由)
         this.createMenus(routes); // 创建菜单
       });
     },
@@ -176,67 +172,6 @@ export const useRouteStore = defineStore("route-store", {
      */
     _isValidMenu(menu: any): boolean {
       return menu.key !== undefined && (menu.children?.length > 0 || menu.key);
-    },
-
-    /**
-     * 设置缓存路由
-     * @param names 路由名称数组
-     */
-    setCacheRoutes(names: string[]) {
-      if (!names?.length) {
-        this.cacheRoutes = [];
-
-        return;
-      }
-
-      this.cacheRoutes = findAndMergeRouteArrays(this.allCacheRoutes, names);
-    },
-
-    /**
-     * 获取所有的缓存路由
-     * @param userRoutes 用户路由配置
-     */
-    setAllCacheRoutes(userRoutes: AppRoute.RouteVO[]) {
-      if (!userRoutes?.length) {
-        this.allCacheRoutes = [];
-
-        return;
-      }
-
-      const result: string[][] = [];
-
-      userRoutes.forEach((route) => {
-        if (route.component !== "Layout") {
-          this._traverseRoutes([route], [], result);
-        }
-        if (route.children?.length) {
-          this._traverseRoutes(route.children, [], result);
-        }
-      });
-
-      this.allCacheRoutes = result;
-    },
-
-    /**
-     * 遍历路由树收集缓存路由
-     * @param nodes 路由节点
-     * @param path 当前路径
-     * @param result 结果数组
-     */
-    _traverseRoutes(nodes: AppRoute.RouteVO[], path: string[], result: string[][]) {
-      nodes.forEach((node) => {
-        const newPath = node.name ? [...path, String(node.name)] : [...path];
-
-        // 有子节点且需要缓存
-        if (!node.children?.length && node.meta?.keepAlive) {
-          result.push(newPath);
-        }
-
-        // 递归处理子节点
-        if (node.children?.length) {
-          this._traverseRoutes(node.children, newPath, result);
-        }
-      });
     },
 
     /**

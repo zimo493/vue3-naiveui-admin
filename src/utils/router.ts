@@ -188,27 +188,6 @@ export const joinPaths = (...paths: string[]): string => {
   );
 };
 
-/**
- * 查找并合并路由数组
- * @param data 所有缓存路由数据
- * @param elements 目标元素
- * @returns 合并后的路由数组
- */
-export const findAndMergeRouteArrays = (data: string[][], elements: string[]): string[] => {
-  const foundArrays = elements
-    .map((element) => data.find((arr) => arr.includes(element)))
-    .filter(Boolean) as string[][];
-
-  // 使用Set去重并合并
-  const mergedSet = new Set<string>();
-
-  foundArrays.forEach((arr) => {
-    arr.forEach((item) => mergedSet.add(item));
-  });
-
-  return Array.from(mergedSet);
-};
-
 export const convertRouterType = (router: RouteRecordRaw[]): AppRoute.RouteVO[] =>
   router.map((item) => {
     const { children, name, redirect, ...rest } = item;

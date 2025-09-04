@@ -7,6 +7,7 @@ export const useTabStore = defineStore("tab-store", {
     return {
       pinTabs: [],
       tabs: [],
+      cacheRoutes: [],
       currentTabPath: "",
     };
   },
@@ -18,13 +19,13 @@ export const useTabStore = defineStore("tab-store", {
       // 创建一个新的路由对象，只包含需要的属性，避免枚举整个组件实例
       const { path, name, fullPath, query } = route;
       const meta = route.meta || {};
-      const { hidden, affix, title, icon, params } = meta;
+      const { hidden, affix, title, icon, params, keepAlive } = meta;
 
       // 根据meta确定是否不添加，可用于错误页,登录页等
       if (hidden) return;
 
       // 如果标签名称已存在则不添加
-      if (this.hasExistTab(path)) return;
+      if (this.hasExistTab(fullPath)) return;
 
       // 创建一个简化的路由对象
       const tab = {
@@ -32,12 +33,13 @@ export const useTabStore = defineStore("tab-store", {
         name,
         fullPath,
         query,
-        meta: { hidden, affix, title, icon, params },
+        meta: { hidden, affix, title, icon, params, keepAlive },
       } as RouteLocationNormalized;
 
       // 根据meta.affix传递到不同的分组中
       if (affix) this.pinTabs.push(tab);
       else this.tabs.push(tab);
+      if (tab.meta.keepAlive) this.addCache(fullPath);
     },
     async closeTab(path: string) {
       const tabsLength = this.tabs.length;
@@ -64,37 +66,43 @@ export const useTabStore = defineStore("tab-store", {
       // 删除后如果清空了，就跳转到默认首页
       if (tabsLength - 1 === 0) await router.push("/");
       this.setCurrentTab(this.currentTabPath);
+      this.delCache(path);
     },
 
     closeOtherTabs(path: string) {
       const index = this.getTabIndex(path);
 
       this.tabs = this.tabs.filter((_: RouteLocationNormalized, i: number) => i === index);
+      this.setCache(this.tabs);
     },
     closeLeftTabs(path: string) {
       const index = this.getTabIndex(path);
 
       this.tabs = this.tabs.filter((_: RouteLocationNormalized, i: number) => i >= index);
+      this.setCache(this.tabs);
     },
     closeRightTabs(path: string) {
       const index = this.getTabIndex(path);
 
       this.tabs = this.tabs.filter((_: RouteLocationNormalized, i: number) => i <= index);
+      this.setCache(this.tabs);
     },
     clearAllTabs() {
       this.tabs.length = 0;
       this.pinTabs.length = 0;
+      this.cacheRoutes.length = 0;
       this.$reset();
     },
     async closeAllTabs() {
       this.tabs.length = 0;
+      this.cacheRoutes.length = 0;
       await router.push("/");
     },
 
     hasExistTab(path: string) {
       const _tabs = [...this.tabs, ...this.pinTabs];
 
-      return _tabs.some((item) => item.path === path);
+      return _tabs.some((item) => item.fullPath === path);
     },
     /* 设置当前激活的标签 */
     async setCurrentTab(path: string) {
@@ -108,6 +116,22 @@ export const useTabStore = defineStore("tab-store", {
     async closeCurrentTabOpenNew(path: string) {
       this.closeTab(this.currentTabPath);
       await router.push(path);
+    },
+
+    /** 添加缓存 */
+    addCache(path: string) {
+      if (!this.cacheRoutes.includes(path)) {
+        this.cacheRoutes.push(path);
+      }
+    },
+    /** 移除缓存 */
+    delCache(path: string) {
+      this.cacheRoutes = this.cacheRoutes.filter((item) => item !== path);
+    },
+
+    /** 设置缓存 */
+    setCache(routes: RouteLocationNormalized[]) {
+      this.cacheRoutes = routes.filter((item) => item.meta?.keepAlive).map((item) => item.fullPath);
     },
   },
   persist: { storage: sessionStorage },
