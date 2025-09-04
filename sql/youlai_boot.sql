@@ -154,42 +154,6 @@ INSERT INTO `sys_dict` VALUES (2, 'notice_type', '通知类型', 1, NULL, now(),
 INSERT INTO `sys_dict` VALUES (3, 'notice_level', '通知级别', 1, NULL, now(), 1, now(), 1, 0);
 
 -- ----------------------------
--- Table structure for sys_dict_data
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dict_data`;
-CREATE TABLE `sys_dict_data`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `dict_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '关联字典编码，与sys_dict表中的dict_code对应',
-  `value` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '字典项值',
-  `label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '字典项标签',
-  `tag_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签类型，用于前端样式展示（如success、warning等）',
-  `status` tinyint NULL DEFAULT 0 COMMENT '状态（1-正常，0-禁用）',
-  `sort` int NULL DEFAULT 0 COMMENT '排序',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注',
-  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-  `create_by` bigint NULL DEFAULT NULL COMMENT '创建人ID',
-  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
-  `update_by` bigint NULL DEFAULT NULL COMMENT '修改人ID',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of sys_dict_data
--- ----------------------------
-INSERT INTO `sys_dict_data` VALUES (1, 'gender', '1', '男', 'primary', 1, 1, NULL, now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (2, 'gender', '2', '女', '', 1, 2, NULL, now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (3, 'gender', '0', '保密', 'info', 1, 3, NULL, now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (4, 'notice_type', '1', '系统升级', 'success', 1, 1, '', now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (5, 'notice_type', '2', '系统维护', 'primary', 1, 2, '', now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (6, 'notice_type', '3', '安全警告', 'error', 1, 3, '', now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (7, 'notice_type', '4', '假期通知', 'success', 1, 4, '', now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (8, 'notice_type', '5', '公司新闻', 'primary', 1, 5, '', now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (9, 'notice_type', '99', '其他', 'info', 1, 99, '', now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (10, 'notice_level', 'L', '低', 'info', 1, 1, '', now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (11, 'notice_level', 'M', '中', 'warning', 1, 2, '', now(), 1, now(), 1);
-INSERT INTO `sys_dict_data` VALUES (12, 'notice_level', 'H', '高', 'error', 1, 3, '', now(), 1, now(), 1);
-
--- ----------------------------
 -- Table structure for sys_dict_item
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_item`;
@@ -302,7 +266,7 @@ INSERT INTO `sys_menu` VALUES (3, 1, '0,1', '角色管理', 1, 'Role', 'role', '
 INSERT INTO `sys_menu` VALUES (4, 1, '0,1', '菜单管理', 1, 'SysMenu', 'menu', 'system/menu/index', NULL, NULL, 1, 1, 3, 'ep:menu', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (5, 1, '0,1', '部门管理', 1, 'Dept', 'dept', 'system/dept/index', NULL, NULL, 1, 1, 4, 'icon-park-solid:network-tree', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (6, 1, '0,1', '字典管理', 1, 'Dict', 'dict', 'system/dict/index', NULL, NULL, 1, 1, 5, 'streamline:dictionary-language-book-solid', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (21, 20, '0,20', '菜单一级', 1, 'Multilevel1', 'multi-level1', 'demo/multi-level/level1', NULL, 1, 1, 1, 1, 'healthicons:1', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (21, 20, '0,20', '菜单一级', 2, 'Multilevel1', 'multi-level1', 'Layout', NULL, 1, 1, 1, 1, 'healthicons:1', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (30, 26, '0,26', '平台文档(外链)', 3, NULL, 'https://juejin.cn/post/7228990409909108793', '', NULL, NULL, NULL, 1, 2, 'local:vitepress', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (37, 36, '0,36', '富文本编辑器', 1, 'WangEditor', 'wang-editor', 'demo/wang-editor', NULL, NULL, 1, 1, 2, 'icon-park-outline:edit', NULL, NULL, NULL, NULL);
 INSERT INTO `sys_menu` VALUES (38, 36, '0,36', '图片上传', 1, 'Upload', 'upload', 'demo/upload', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
@@ -326,7 +290,7 @@ INSERT INTO `sys_menu` VALUES (145, 26, '0,26', '移动端文档', 3, NULL, 'htt
 INSERT INTO `sys_menu` VALUES (152, 151, '0,151', '大屏适配', 3, NULL, 'http://192.168.1.5/fitScreen', NULL, NULL, 0, 1, 1, 1, 'icon-park-outline:data-screen', NULL, now(), now(), NULL);
 
 -- 三级菜单
-INSERT INTO `sys_menu` VALUES (22, 21, '0,20,21', '菜单二级', 1, 'Multilevel2', 'multi-level2', 'demo/multi-level/children/level2', NULL, 0, 1, 1, 1, 'healthicons:2', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (22, 21, '0,20,21', '菜单二级', 2, 'Multilevel2', 'multi-level2', 'Layout', NULL, 0, 1, 1, 1, 'healthicons:2', NULL, now(), now(), NULL);
 
 -- 四级菜单
 INSERT INTO `sys_menu` VALUES (23, 22, '0,20,21,22', '菜单三级-1', 1, 'Multilevel31', 'multi-level3-1', 'demo/multi-level/children/children/level3-1', NULL, 0, 1, 1, 1, 'healthicons:3', NULL, now(), now(), NULL);
