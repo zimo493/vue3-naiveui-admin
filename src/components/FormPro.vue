@@ -166,7 +166,7 @@ const getBlockMessage = (blockMessage: FormPro.FormItemConfig["blockMessage"]) =
   if (typeof blockMessage === "string") {
     return h(
       NText,
-      { depth: "3" },
+      { depth: "3", class: "flex-y-center" },
       h(NEllipsis, { lineClamp: 1 }, () => blockMessage)
     );
   }
