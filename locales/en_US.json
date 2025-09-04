@@ -183,8 +183,8 @@
   },
   "route": {
     "Home": "Home",
-    "System": "System",
-    "Utils": "System Utils",
+    "/system": "System",
+    "/utils": "System Utils",
     "/api": "API Docs",
     "/doc": "Docs",
     "/multiLevel": "Multi-Menu",
