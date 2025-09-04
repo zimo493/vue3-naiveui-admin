@@ -174,6 +174,7 @@ export default tsEslint.config(
       "vue/require-default-prop": "off", // 允许没有默认值的 prop
       "vue/multi-word-component-names": "off", // 允许单字组件名
       "vue/no-setup-props-destructure": "off", // 允许在setup中解构props (Vue3.2+响应式已修复此问题)
+      "vue/attribute-hyphenation": ["error", "always"], // 强制使用连字符格式
 
       // TypeScript相关
       "@typescript-eslint/no-unsafe-function-type": "off", // 允许使用无参数的函数类型
