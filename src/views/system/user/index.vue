@@ -221,16 +221,16 @@ const formConfig = ref<FormPro.FormItemConfig[]>([
       onUpdateFormattedValue: (val: [string, string]) => (queryParams.value.createTime = val),
     },
     slots: {
-      confirm: ({ onConfirm }) => [
-        h(
-          NButton,
-          { type: "primary", size: "small", onClick: () => onConfirm() },
-          () => `${t("button.ok")}😎`
-        ),
-      ],
-      clear: ({ onClear }) => [
-        h(NButton, { size: "small", onClick: () => onClear() }, () => `${t("button.cancel")}🙄`),
-      ],
+      confirm: ({ onConfirm }) => (
+        <NButton type="primary" size="small" onClick={onConfirm}>
+          {`${t("button.ok")} 😎`}
+        </NButton>
+      ),
+      clear: ({ onClear }) => (
+        <NButton size="small" onClick={onClear}>
+          {`${t("button.cancel")} 🙄`}
+        </NButton>
+      ),
     },
   },
 ]);
@@ -459,10 +459,10 @@ const handleResetPassword = (row: User.VO) => {
     positiveText: t("button.ok"),
     negativeText: t("button.cancel"),
     positiveButtonProps: {
-      renderIcon: () => h(Icones, { icon: "ant-design:check-outlined", size: 16 }),
+      renderIcon: () => <Icones icon="ant-design:check-outlined" size={16} />,
     },
     negativeButtonProps: {
-      renderIcon: () => h(Icones, { icon: "ant-design:close-outlined", size: 16 }),
+      renderIcon: () => <Icones icon="ant-design:close-outlined" size={16} />,
     },
     content: () => (
       <NFlex vertical>
