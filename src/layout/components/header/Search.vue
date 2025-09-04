@@ -327,13 +327,13 @@ const highlightStyle = {
             <n-highlight
               :text="option.meta?.title"
               :patterns="[searchValue]"
-              :highlightStyle="highlightStyle"
+              :highlight-style="highlightStyle"
             />
             <icon-park-outline-right class="row-span-2 place-self-center" />
             <n-highlight
               :text="option.path"
               :patterns="[searchValue]"
-              :highlightStyle="highlightStyle"
+              :highlight-style="highlightStyle"
             />
           </div>
         </n-el>

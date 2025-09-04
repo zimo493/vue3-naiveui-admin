@@ -189,7 +189,7 @@
               v-model:value="dateRange"
               w-300px
               type="daterange"
-              closeOnSelect
+              close-on-select
               :shortcuts="shortcuts"
               :is-date-disabled="(ts: number) => ts > Date.now()"
               @update:value="fetchVisitTrendData"

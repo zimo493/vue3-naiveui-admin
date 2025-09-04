@@ -8,7 +8,7 @@
           v-model:model-value="modelValue"
           :form-config="showFormConfig.map((item) => ({ ...item, blockMessage: undefined }))"
           :form-props="{ showFeedback: false, labelWidth: undefined, ...(form?.props || {}) }"
-          :operationSpan="operationSpan"
+          :operation-span="operationSpan"
           :grid-props="{ yGap: 16, ...(form?.gridProps || {}) }"
         >
           <!-- 转发所有具名插槽 -->

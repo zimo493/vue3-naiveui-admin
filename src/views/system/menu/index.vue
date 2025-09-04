@@ -5,7 +5,7 @@
       :form-config="formConfig"
       :show-table="expandAll.show"
       :columns="columns"
-      :tableData="tableData"
+      :table-data="tableData"
       :loading="loading"
       :row-key="(row) => row.id"
       :table-props="{

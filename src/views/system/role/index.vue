@@ -4,7 +4,7 @@
       v-model="queryParams"
       :form-config="formConfig"
       :columns="columns"
-      :tableData="tableData"
+      :table-data="tableData"
       :total="total"
       :loading="loading"
       :row-key="(row) => row.id"

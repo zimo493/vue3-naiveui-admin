@@ -10,7 +10,7 @@
       clearable
       :readonly="props.disabled"
       :placeholder="t('components.iconSelect.placeholder')"
-      :onClear="clearIcon"
+      :on-clear="clearIcon"
     />
     <n-button type="primary" strong :disabled="props.disabled" @click="showModal = true">
       <template #icon>

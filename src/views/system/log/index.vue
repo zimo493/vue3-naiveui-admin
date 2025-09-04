@@ -7,7 +7,7 @@
       :table-data="tableData"
       :total="total"
       :loading="loading"
-      :rowKey="(row) => row.id"
+      :row-key="(row) => row.id"
       @query="handleQuery"
       @reset="handleQuery"
     />
