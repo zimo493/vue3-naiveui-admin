@@ -1,6 +1,6 @@
 import { RouterLink, type RouteRecordRaw } from "vue-router";
 import { type MenuOption, NEllipsis } from "naive-ui";
-import { $t, isHttpUrl, pathToHump, renderIcon } from ".";
+import { $t, isHttpUrl, renderIcon } from ".";
 import { defaultIcon } from "@/modules/assets";
 
 const MAX_DEPTH = 5; // 最大递归深度
@@ -31,8 +31,6 @@ export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRa
         if (compStr === "Layout") {
           // 明确设置Layout组件标识
           record.component = undefined;
-
-          record.name = pathToHump(route.path);
         } else {
           // 标准化组件路径：移除首尾斜杠，确保路径一致性
           const normalizedPath = compStr.replace(/^\/+|\/+$/g, "");
@@ -64,10 +62,6 @@ export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRa
 
 // 核心递归处理路由函数
 export const processRoute = (route: AppRoute.RouteVO, parentPath = "", depth = 0): MenuOption[] => {
-  if (route.component === "Layout") {
-    route.name = pathToHump(route.path);
-  }
-
   if (depth > MAX_DEPTH) {
     console.warn(`菜单层级超过${MAX_DEPTH}层，路径：${route.path}`);
 

@@ -129,25 +129,6 @@ export const parseTime = (
   return pattern.replace(/YYYY|MM|DD|HH|mm|ss|dd/g, (match) => formatMap[match]);
 };
 
-/**
- * 路径转驼峰
- * @param path 路径
- * @example
- * pathToHump("user/list") // "userList"
- * @returns 驼峰路径
- */
-export const pathToHump = (path?: string): string => {
-  if (!path) return "";
-  // 移除斜杠
-  const withoutSlash = path.replaceAll("/", "");
-
-  // 按分隔符（横杠、斜杠等）拆分成单词数组
-  const words = withoutSlash.split(/[-/_]/);
-
-  // 将每个单词首字母大写并连接
-  return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("");
-};
-
 export const statusOptions = computed(() => [
   { label: $t("statusTag.normal"), value: 1, type: "success" },
   { label: $t("statusTag.disable"), value: 0, type: "error" },
