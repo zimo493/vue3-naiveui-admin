@@ -86,6 +86,10 @@
       "expandSearch": "Expand Search",
       "exportSvg": "Export SVG",
       "tableSize": "Table Size",
+      "tableSetting": "Table Setting",
+      "singleLine": "Vertical Border",
+      "singleColumn": "Horizontal Border",
+      "striped": "Striped",
       "expandMenu": "Expand Menu",
       "collapseMenu": "Collapse Menu"
     },

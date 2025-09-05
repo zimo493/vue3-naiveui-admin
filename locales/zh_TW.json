@@ -86,6 +86,10 @@
       "expandSearch": "展開搜尋",
       "exportSvg": "匯出SVG",
       "tableSize": "表格尺寸",
+      "tableSetting": "表格設定",
+      "singleLine": "垂直邊框",
+      "singleColumn": "水平邊框",
+      "striped": "斑馬紋",
       "expandMenu": "展開選單",
       "collapseMenu": "收起選單"
     },

@@ -86,6 +86,10 @@
       "expandSearch": "展开搜索",
       "exportSvg": "导出SVG",
       "tableSize": "表格尺寸",
+      "tableSetting": "表格设置",
+      "singleLine": "垂直边框",
+      "singleColumn": "水平边框",
+      "striped": "斑马纹",
       "expandMenu": "展开菜单",
       "collapseMenu": "收起菜单"
     },
