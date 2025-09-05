@@ -11,8 +11,8 @@ import IconLeft from "~icons/icon-park-outline/to-left";
 import IconRight from "~icons/icon-park-outline/to-right";
 import IconFullwith from "~icons/icon-park-outline/close-one";
 
-import Reload from "./Reload.vue";
-import DropTabs from "./DropTabs.vue";
+import Reload from "./reload.vue";
+import DropTabs from "./drop-tabs.vue";
 
 import { defaultIcon } from "@/modules/assets";
 

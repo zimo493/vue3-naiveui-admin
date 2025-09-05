@@ -12,8 +12,8 @@ import json from "highlight.js/lib/languages/json";
 import xml from "highlight.js/lib/languages/xml";
 import sql from "highlight.js/lib/languages/sql";
 
-import NaiveProvider from "@/components/NaiveProvider.vue";
-import Watermark from "@/components/Watermark.vue";
+import NaiveProvider from "@/components/naive-provider.vue";
+import Watermark from "@/components/watermark.vue";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("java", java);

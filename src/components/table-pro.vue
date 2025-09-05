@@ -1,7 +1,7 @@
 <template>
   <n-el flex flex-col>
     <n-collapse-transition v-if="(form || formConfig) && modelValue" class="mb-[10px]" :show="show">
-      <!-- Search Form -->
+      <!-- MenuSearch Form -->
       <n-card>
         <FormPro
           ref="ruleForm"

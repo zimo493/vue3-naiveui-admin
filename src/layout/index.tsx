@@ -1,12 +1,18 @@
 import { useAppStoreHook } from "@/store";
 
-import left from "./main/Left.vue";
-import top from "./main/Top.vue";
-import right from "./main/Right.vue";
-import mixLeft from "./main/MixLeft.vue";
-import mixRight from "./main/MixRight.vue";
+import Left from "./main/layout-left.vue";
+import Top from "./main/layout-top.vue";
+import Right from "./main/layout-right.vue";
+import MixLeft from "./main/layout-mix-left.vue";
+import MixRight from "./main/layout-mix-right.vue";
 
-const layoutMap = { left, top, right, mixLeft, mixRight };
+const layoutMap = {
+  Left,
+  Top,
+  Right,
+  MixLeft,
+  MixRight,
+};
 
 const appStore = useAppStoreHook();
 

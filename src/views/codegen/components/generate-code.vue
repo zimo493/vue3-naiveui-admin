@@ -104,9 +104,9 @@ import { useLoading } from "@/hooks";
 import { MIMETYPE } from "@/enums";
 import { FormType, QueryType } from "./config";
 
-import Selection from "./Selection";
-import EditableCheckbox from "./EditableCheckbox";
-import Icones from "@/components/Icones.vue";
+import Selection from "./selection";
+import EditableCheckbox from "./editable-checkbox";
+import Icones from "@/components/icones.vue";
 
 defineOptions({ name: "GenerateCode" });
 

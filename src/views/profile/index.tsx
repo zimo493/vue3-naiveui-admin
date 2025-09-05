@@ -3,10 +3,10 @@ import { NSpin, NGrid, NGi, NCard, NFlex, NDivider } from "naive-ui";
 import UserAPI from "@/api/system/user";
 import { spin, executeAsync } from "@/utils";
 
-import Avatar from "./components/Avatar";
-import UserInfo from "./components/UserInfo";
-import AccountInfo from "./components/AccountInfo";
-import SafeSetting from "./components/SafeSetting";
+import Avatar from "./components/avatar";
+import UserInfo from "./components/user-info";
+import AccountInfo from "./components/account-info";
+import SafeSetting from "./components/safe-setting";
 
 export default defineComponent({
   name: "Profile",

@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import UserCenter from "@/layout/components/header/UserCenter";
+import UserCenter from "@/layout/components/header/user-center";
 
 defineOptions({ name: "RightNavigation" });
 </script>
 
 <template>
   <div class="flex-y-center gap-1 h-full p-x-10px">
-    <Search />
+    <MenuSearch />
     <FullScreen />
     <DarkModeSwitch />
     <LangSwitch />
     <Notices />
-    <Setting />
+    <SystemSetting />
     <UserCenter />
   </div>
 </template>

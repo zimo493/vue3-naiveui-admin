@@ -14,8 +14,8 @@ import { useDict } from "@/hooks";
 import { executeAsync, spin, local } from "@/utils";
 import { useCountdown } from "../hooks/useCountdown";
 
-import Icones from "@/components/Icones.vue";
-import ModalForm from "@/components/ModalForm.vue";
+import Icones from "@/components/icones.vue";
+import ModalForm from "@/components/modal-form.vue";
 
 export default defineComponent({
   name: "ProfileAccountInfo",

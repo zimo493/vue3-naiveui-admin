@@ -3,9 +3,9 @@ import { NFlex, NH3, NTag } from "naive-ui";
 import UserAPI from "@/api/system/user";
 import { executeAsync, spin } from "@/utils";
 
-import Icones from "@/components/Icones.vue";
-import ModalForm from "@/components/ModalForm.vue";
-import CommonWrapper from "@/components/CommonWrapper.vue";
+import Icones from "@/components/icones.vue";
+import ModalForm from "@/components/modal-form.vue";
+import CommonWrapper from "@/components/common-wrapper.vue";
 
 export default defineComponent({
   name: "ProfileUserInfo",

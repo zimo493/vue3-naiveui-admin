@@ -3,8 +3,8 @@ import { NCard, NFlex, NText, NButton, type FormItemRule } from "naive-ui";
 import UserAPI from "@/api/system/user";
 import { executeAsync, spin } from "@/utils";
 
-import Icones from "@/components/Icones.vue";
-import ModalForm from "@/components/ModalForm.vue";
+import Icones from "@/components/icones.vue";
+import ModalForm from "@/components/modal-form.vue";
 
 export default defineComponent({
   name: "ProfileSafeSetting",

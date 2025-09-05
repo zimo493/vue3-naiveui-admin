@@ -11,25 +11,25 @@
       <n-gi>
         <n-tabs type="segment" animated>
           <n-tab-pane name="second" :tab="t('crontab.second')">
-            <Second v-model="crontabValue.second" />
+            <CronSecond v-model="crontabValue.second" />
           </n-tab-pane>
           <n-tab-pane name="min" :tab="t('crontab.min')">
-            <Min v-model="crontabValue.min" />
+            <CronMin v-model="crontabValue.min" />
           </n-tab-pane>
           <n-tab-pane name="hour" :tab="t('crontab.hour')">
-            <Hour v-model="crontabValue.hour" />
+            <CronHour v-model="crontabValue.hour" />
           </n-tab-pane>
           <n-tab-pane name="day" :tab="t('crontab.day')">
-            <Day v-model="crontabValue.day" />
+            <CronDay v-model="crontabValue.day" />
           </n-tab-pane>
           <n-tab-pane name="month" :tab="t('crontab.month')">
-            <Month v-model="crontabValue.month" />
+            <CronMonth v-model="crontabValue.month" />
           </n-tab-pane>
           <n-tab-pane name="week" :tab="t('crontab.week')">
-            <Week v-model="crontabValue.week" />
+            <CronWeek v-model="crontabValue.week" />
           </n-tab-pane>
           <n-tab-pane name="year" :tab="t('crontab.year')">
-            <Year v-model="crontabValue.year" />
+            <CronYear v-model="crontabValue.year" />
           </n-tab-pane>
         </n-tabs>
       </n-gi>

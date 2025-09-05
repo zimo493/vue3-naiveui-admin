@@ -4,7 +4,7 @@ import { installRouter } from "@/router";
 import { setupWebSocket, setupAppVersion } from "@/plugins";
 
 import AppVue from "@/App";
-import AppLoading from "@/components/AppLoading.vue";
+import AppLoading from "@/components/app-loading.vue";
 
 /** 载入全局loading加载状态 */
 const appLoading: App<Element> = createApp(AppLoading);

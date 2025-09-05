@@ -51,8 +51,8 @@ import RoleAPI from "@/api/system/role";
 import { useLoading } from "@/hooks";
 import { spin, executeAsync, InquiryBox, startSpin, endSpin, statusOptions } from "@/utils";
 
-import Icones from "@/components/Icones.vue";
-import CommonStatus from "@/components/CommonStatus.vue";
+import Icones from "@/components/icones.vue";
+import CommonStatus from "@/components/common-status.vue";
 
 defineOptions({ name: "Role" });
 

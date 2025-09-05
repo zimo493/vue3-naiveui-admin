@@ -1,10 +1,10 @@
 <script setup lang="ts">
-type LayoutMap = "login" | "register" | "resetPwd";
+type LayoutMap = "login" | "register" | "resetPasswd";
 const formType = ref<LayoutMap>("login");
 const formComponents = {
-  login: defineAsyncComponent(() => import("./components/Login.vue")),
-  register: defineAsyncComponent(() => import("./components/Register.vue")),
-  resetPwd: defineAsyncComponent(() => import("./components/ResetPwd.vue")),
+  login: defineAsyncComponent(() => import("./components/login.vue")),
+  register: defineAsyncComponent(() => import("./components/register.vue")),
+  resetPasswd: defineAsyncComponent(() => import("./components/reset-passwd.vue")),
 };
 
 const { pkg } = __APP_INFO__;

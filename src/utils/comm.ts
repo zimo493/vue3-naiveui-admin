@@ -1,5 +1,5 @@
 import type { MIMETYPE } from "@/enums";
-import Icones from "@/components/Icones.vue";
+import Icones from "@/components/icones.vue";
 import { $t } from "./i18n";
 
 /**
