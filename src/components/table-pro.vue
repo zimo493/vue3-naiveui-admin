@@ -55,7 +55,10 @@
           <n-flex>
             <n-tooltip v-if="(form || formConfig) && modelValue" trigger="hover">
               <template #trigger>
-                <CommonWrapper @click="show = !show">
+                <CommonWrapper
+                  :style="{ backgroundColor: show ? 'var(--button-color-2-hover)' : '' }"
+                  @click="show = !show"
+                >
                   <Icones icon="ant-design:search-outlined" />
                 </CommonWrapper>
               </template>
@@ -81,28 +84,46 @@
             </n-tooltip>
             <n-tooltip trigger="hover">
               <template #trigger>
-                <!-- <n-el tag="div">
-                  <n-dropdown trigger="click" :options="options" @select="handleSelect">
-                    <CommonWrapper>
-                      <Icones icon="ant-design:font-size-outlined" />
-                    </CommonWrapper>
-                  </n-dropdown>
-                </n-el> -->
                 <n-popselect v-model:value="size" :options="options" trigger="click">
                   <CommonWrapper>
-                    <Icones icon="ant-design:font-size-outlined" />
+                    <Icones icon="ant-design:column-height-outlined" />
                   </CommonWrapper>
                 </n-popselect>
               </template>
               <span>{{ t("system.tooltip.tableSize") }}</span>
+            </n-tooltip>
+            <n-tooltip trigger="hover">
+              <template #trigger>
+                <n-popover trigger="click" placement="bottom">
+                  <template #trigger>
+                    <CommonWrapper>
+                      <Icones icon="ant-design:setting-outlined" />
+                    </CommonWrapper>
+                  </template>
+                  <n-flex vertical>
+                    <SettingBorder
+                      v-model="tableSetting.singleColumn"
+                      :title="t('system.tooltip.singleColumn')"
+                    />
+                    <SettingBorder
+                      v-model="tableSetting.singleLine"
+                      :title="t('system.tooltip.singleLine')"
+                    />
+                    <n-checkbox v-model:checked="tableSetting.striped">
+                      {{ t("system.tooltip.striped") }}
+                    </n-checkbox>
+                  </n-flex>
+                </n-popover>
+              </template>
+              <span>{{ t("system.tooltip.tableSetting") }}</span>
             </n-tooltip>
           </n-flex>
         </n-flex>
         <n-data-table
           v-if="showTable"
           ref="table"
+          v-bind="{ ...tableProps, ...$attrs, ...tableSetting }"
           :size="size"
-          v-bind="{ ...tableProps, ...$attrs }"
           :columns="columns"
           :data="tableData"
           :row-key="rowKey"
@@ -121,13 +142,24 @@
     </n-card>
   </n-el>
 </template>
-<script lang="ts" setup generic="T extends Recordable">
-import { DataTableColumns, DataTableInst, DataTableProps } from "naive-ui";
+<script lang="tsx" setup generic="T extends Recordable">
+import type { DataTableColumns, DataTableInst, DataTableProps } from "naive-ui";
+import { NCheckbox } from "naive-ui";
 
 interface Props<T> {
   tableData?: DataTableProps["data"];
   columns?: DataTableColumns<T>;
-  tableProps?: Omit<DataTableProps, "data" | "columns" | "pagination">;
+  tableProps?: Omit<
+    DataTableProps,
+    | "data"
+    | "columns"
+    | "pagination"
+    | "striped"
+    | "single-column"
+    | "single-line"
+    | "singleColumn"
+    | "singleLine"
+  >;
   form?: DataTablePro.Form;
   rowKey?: (row: T) => string | number;
   operationButtonPosition?: "left" | "right";
@@ -167,6 +199,36 @@ const props = withDefaults(defineProps<Props<T>>(), {
   collapseRows: 3,
   operationSpan: 4,
   paginationPosition: "left",
+});
+
+// 表格设置
+const tableSetting = useStorage(
+  "table-setting",
+  {
+    striped: false, // 斑马纹
+    singleColumn: false, // 水平
+    singleLine: true, // 垂直
+  },
+  localStorage,
+  { listenToStorageChanges: true }
+);
+
+// 设置边框组件
+const SettingBorder = defineComponent({
+  props: {
+    modelValue: { type: Boolean },
+    title: { type: String },
+  },
+  emits: ["update:modelValue"],
+
+  setup(props, { emit }) {
+    const checked = computed({
+      get: () => !props.modelValue, // 反向：当modelValue为true时，checkbox不选中，反之亦然。
+      set: (v) => emit("update:modelValue", !v),
+    });
+
+    return () => <NCheckbox v-model:checked={checked.value}>{props.title}</NCheckbox>;
+  },
 });
 
 const totalNum = computed(() => props.total);
