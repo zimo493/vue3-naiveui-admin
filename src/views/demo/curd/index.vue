@@ -14,6 +14,7 @@
         checkedRowKeys: selectedRowKeys,
         onUpdateCheckedRowKeys: handleCheck,
       }"
+      pagination-position="center"
       @query="handleQuery"
       @reset="handleQuery"
     >
