@@ -2,7 +2,13 @@
   <n-drawer v-model:show="modal.visible" :width="502" :on-after-leave="cancel">
     <n-drawer-content :title="modal.title">
       <n-spin :show="loading">
-        <n-form ref="ruleForm" :rules="rules" :model="modelValue" label-placement="top">
+        <n-form
+          ref="ruleForm"
+          :rules="rules"
+          :model="modelValue"
+          label-placement="left"
+          label-width="auto"
+        >
           <n-grid :x-gap="0" :y-gap="0">
             <n-form-item-grid-item :span="24" :label="t('menu.form.parentMenu')" path="parentId">
               <n-tree-select
@@ -52,11 +58,12 @@
             <n-form-item-grid-item
               v-if="modelValue.type === MenuTypeEnum.MENU"
               :span="24"
+              :label="t('tableHeader.routeName')"
               path="routeName"
             >
-              <template #label>
+              <!-- <template #label>
                 <FormTipLabel :label="t('tableHeader.routeName')" :msg="t('menu.tip.routeName')" />
-              </template>
+              </template> -->
               <n-input
                 v-model:value="modelValue.routeName"
                 type="text"
