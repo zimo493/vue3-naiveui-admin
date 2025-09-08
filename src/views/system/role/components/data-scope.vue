@@ -5,7 +5,7 @@
         <n-spin :show="loading">
           <n-flex vertical class="w-full" :size="[0, 20]">
             {{ title }}
-            <n-flex align="center">
+            <n-flex align="center" :size="[20, 0]">
               <div flex-1>
                 <n-input v-model:value="pattern" :placeholder="t('button.search')" clearable>
                   <template #prefix>
