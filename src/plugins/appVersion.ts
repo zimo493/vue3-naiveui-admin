@@ -1,4 +1,4 @@
-import { type NotificationReactive, NButton, NFlex } from "naive-ui";
+import { NButton } from "naive-ui";
 import { $t, parseTime } from "@/utils";
 
 export const setupAppVersion = () => {
@@ -34,32 +34,18 @@ export const setupAppVersion = () => {
     /**
      * 创建通知
      */
-    const n: NotificationReactive = window.$notification?.create({
+    window.$notification?.create({
       title: $t("app.systemUpdateTitle"),
       content: $t("app.systemUpdateContent"),
       avatar: () => h("div", "🎉"),
       meta: parseTime(buildTimestamp),
+      closable: false,
       action: () =>
-        h(NFlex, { wrap: false }, () => [
-          h(
-            NButton,
-            {
-              strong: true,
-              secondary: true,
-              type: "tertiary",
-              onClick: () => n?.destroy(), // 忽略
-            },
-            (): string => $t("app.laterOn")
-          ),
-          h(
-            NButton,
-            { strong: true, type: "primary", onClick: () => location.reload() },
-            (): string => $t("app.refreshNow")
-          ),
-        ]),
-      onClose: () => {
-        showRefresh = false;
-      },
+        h(
+          NButton,
+          { strong: true, type: "primary", onClick: () => location.reload() },
+          (): string => $t("app.refreshNow")
+        ),
     });
   });
 };

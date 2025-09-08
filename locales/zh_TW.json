@@ -30,8 +30,7 @@
   },
   "app": {
     "systemUpdateTitle": "系統更新啦",
-    "systemUpdateContent": "檢測到系統有新版本發佈，是否立即刷新？",
-    "laterOn": "稍後",
+    "systemUpdateContent": "檢測到系統有新版本發佈，請立即刷新！",
     "refreshNow": "立即刷新"
   },
   "button": {

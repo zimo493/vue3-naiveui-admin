@@ -30,8 +30,7 @@
   },
   "app": {
     "systemUpdateTitle": "System Update",
-    "systemUpdateContent": "A new version of the system has been detected. Would you like to refresh now?",
-    "laterOn": "Later",
+    "systemUpdateContent": "A new version of the system has been detected. please refresh immediately!",
     "refreshNow": "Refresh Now"
   },
   "button": {
