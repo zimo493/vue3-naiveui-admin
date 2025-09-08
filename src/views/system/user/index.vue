@@ -128,6 +128,7 @@ import Icones from "@/components/icones.vue";
 import ImportUser from "./components/import-user.vue";
 import DictTag from "@/components/dict-tag.vue";
 import CommonStatus from "@/components/common-status.vue";
+import { useAuthStoreHook } from "@/store";
 
 defineOptions({ name: "User" });
 
@@ -135,6 +136,8 @@ const { t } = useI18n();
 
 const { loading, startLoading, endLoading } = useLoading();
 const { gender } = useDict("gender");
+
+const authStore = useAuthStoreHook();
 
 onMounted(async () => {
   getDeptTree(); // 获取部门树
@@ -237,7 +240,11 @@ const formConfig = ref<FormPro.FormItemConfig[]>([
 
 /** 表格配置 */
 const columns = ref<DataTableColumns<User.VO>>([
-  { type: "selection", options: ["all", "none"] },
+  {
+    type: "selection",
+    options: ["all", "none"],
+    disabled: ({ id }) => id === authStore.userInfo.userId, // 禁用当前登录用户
+  },
   {
     key: "avatar",
     align: "center",
@@ -316,15 +323,18 @@ const columns = ref<DataTableColumns<User.VO>>([
         >
           {t("button.resetPassword")}
         </NButton>
-        <NButton
-          v-has-perm={["sys:user:delete"]}
-          text
-          type="error"
-          v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
-          onClick={() => handleDelete(row.id)}
-        >
-          {t("button.delete")}
-        </NButton>
+        {/* 排除当前登录用户 */}
+        {authStore.userInfo.userId !== row.id && (
+          <NButton
+            v-has-perm={["sys:user:delete"]}
+            text
+            type="error"
+            v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
+            onClick={() => handleDelete(row.id)}
+          >
+            {t("button.delete")}
+          </NButton>
+        )}
       </NFlex>
     ),
   },
