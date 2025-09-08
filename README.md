@@ -92,7 +92,8 @@
 │         ├── auth.ts         # 用户权限相关存储
 │         ├── dict.ts         # 字典相关存储
 │         ├── routes.ts       # 路由相关存储
-│         └── tab.ts          # Tab页签相关存储
+│         ├── tab.ts          # Tab页签相关存储
+│         └── watermark.ts    # 水印相关存储
 │     └── index.ts           # 实例化仓库导出
 │  ├─ styles                # 全局样式文件
 │     ├── index.css          # 统一导出出口
