@@ -84,4 +84,9 @@ declare namespace Status {
     cacheRoutes: string[];
     currentTabPath: string;
   }
+
+  /** watermark-store */
+  interface Watermark {
+    config: import("naive-ui").WatermarkProps;
+  }
 }
