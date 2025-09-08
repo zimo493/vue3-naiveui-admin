@@ -9,7 +9,7 @@
     </template>
     <n-flex w-500px vertical>
       <n-flex p-y-2 justify="space-between">
-        <span text-18px font-bold>水印设置</span>
+        <span text-18px font-bold>{{ t("watermark.title") }}</span>
         <n-button type="warning" size="small" @click="reset">
           <template #icon>
             <icon-park-outline-redo />
@@ -47,32 +47,32 @@ const { config } = storeToRefs(watermark);
 const formConfig: FormPro.FormItemConfig[] = [
   {
     name: "fontSize",
-    label: "字体大小",
+    label: t("watermark.fontSize"),
     component: "number",
     span: 12,
   },
   {
     name: "fontColor",
-    label: "字体颜色",
+    label: t("watermark.fontColor"),
     span: 12,
     component: () => <NColorPicker v-model:value={config.value.fontColor} />,
   },
   {
     name: "fontStyle",
-    label: "字体样式",
+    label: t("watermark.fontStyle.title"),
     component: "select",
     span: 12,
     props: {
       options: [
-        { label: "正常", value: "normal" },
-        { label: "斜体", value: "italic" },
-        { label: "倾斜", value: "oblique" },
+        { label: t("watermark.fontStyle.normal"), value: "normal" },
+        { label: t("watermark.fontStyle.italic"), value: "italic" },
+        { label: t("watermark.fontStyle.oblique"), value: "oblique" },
       ],
     },
   },
   {
     name: "fontWeight",
-    label: "字重",
+    label: t("watermark.fontWeight"),
     component: "number",
     span: 12,
     props: {
@@ -83,32 +83,32 @@ const formConfig: FormPro.FormItemConfig[] = [
   },
   {
     name: "rotate",
-    label: "旋转角度",
+    label: t("watermark.rotate"),
     span: 12,
     component: () => <NSlider v-model:value={config.value.rotate} min={-90} max={90} />,
   },
   {
     name: "globalRotate",
-    label: "整体旋转",
+    label: t("watermark.globalRotate"),
     span: 12,
     component: () => <NSlider v-model:value={config.value.globalRotate} min={-180} max={180} />,
   },
   {
     name: "cross",
-    label: "跨越边界",
+    label: t("watermark.cross"),
     component: "switch",
     span: 12,
     props: {
       round: false,
     },
     slots: {
-      checked: () => <NEl>是</NEl>,
-      unchecked: () => <NEl>否</NEl>,
+      checked: () => <NEl>{t("common.yes")}</NEl>,
+      unchecked: () => <NEl>{t("common.no")}</NEl>,
     },
   },
   {
     name: "lineHeight",
-    label: "行高",
+    label: t("watermark.lineHeight"),
     span: 12,
     component: "number",
     props: {
@@ -117,7 +117,7 @@ const formConfig: FormPro.FormItemConfig[] = [
   },
   {
     name: "height",
-    label: "高度",
+    label: t("watermark.height"),
     span: 12,
     component: "number",
     props: {
@@ -126,7 +126,7 @@ const formConfig: FormPro.FormItemConfig[] = [
   },
   {
     name: "width",
-    label: "宽度",
+    label: t("watermark.width"),
     span: 12,
     component: "number",
     props: {
@@ -135,44 +135,44 @@ const formConfig: FormPro.FormItemConfig[] = [
   },
   {
     name: "xGap",
-    label: "X轴间隔",
+    label: t("watermark.xGap"),
     span: 12,
     component: "number",
   },
   {
     name: "yGap",
-    label: "Y轴间隔",
+    label: t("watermark.yGap"),
     span: 12,
     component: "number",
   },
   {
     name: "xOffset",
-    label: "X轴偏移",
+    label: t("watermark.xOffset"),
     span: 12,
     component: "number",
   },
   {
     name: "yOffset",
-    label: "Y轴偏移",
+    label: t("watermark.yOffset"),
     span: 12,
     component: "number",
   },
   {
     name: "zIndex",
-    label: "层级",
+    label: t("watermark.zIndex"),
     span: 12,
     component: "number",
   },
   {
     name: "textAlign",
-    label: "对齐方式",
+    label: t("watermark.textAlign.title"),
     component: "select",
     span: 12,
     props: {
       options: [
-        { label: "左对齐", value: "left" },
-        { label: "居中", value: "center" },
-        { label: "右对齐", value: "right" },
+        { label: t("watermark.textAlign.left"), value: "left" },
+        { label: t("watermark.textAlign.center"), value: "center" },
+        { label: t("watermark.textAlign.right"), value: "right" },
       ],
     },
   },

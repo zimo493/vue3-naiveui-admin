@@ -691,5 +691,34 @@
     "invalidFormat": "cron expression format is incorrect",
     "noResult": "No result meets the conditions!",
     "recent100Years": "Only {val} results in the last 100 years!"
+  },
+  "watermark": {
+    "title": "Watermark Setting",
+    "fontSize": "Font Size",
+    "fontColor": "Font Color",
+    "fontStyle": {
+      "title": "Font Style",
+      "normal": "Normal",
+      "italic": "Italic",
+      "oblique": "Oblique"
+    },
+    "fontWeight": "Font Weight",
+    "rotate": "Rotation Angle",
+    "globalRotate": "Global Rotation",
+    "cross": "Cross Boundary",
+    "lineHeight": "Line Height",
+    "height": "Height",
+    "width": "Width",
+    "xGap": "X-axis Gap",
+    "yGap": "Y-axis Gap",
+    "xOffset": "X-axis Offset",
+    "yOffset": "Y-axis Offset",
+    "zIndex": "Z-index",
+    "textAlign": {
+      "title": "Text Alignment",
+      "left": "Left Align",
+      "center": "Center Align",
+      "right": "Right Align"
+    }
   }
 }

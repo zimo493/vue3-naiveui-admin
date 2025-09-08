@@ -691,5 +691,34 @@
     "invalidFormat": "cron表达式格式不正确",
     "noResult": "没有达到条件的结果！",
     "recent100Years": "最近100年内只有 {val} 条结果！"
+  },
+  "watermark": {
+    "title": "水印设置",
+    "fontSize": "字体大小",
+    "fontColor": "字体颜色",
+    "fontStyle": {
+      "title": "字体样式",
+      "normal": "正常",
+      "italic": "斜体",
+      "oblique": "倾斜"
+    },
+    "fontWeight": "字重",
+    "rotate": "旋转角度",
+    "globalRotate": "整体旋转",
+    "cross": "跨越边界",
+    "lineHeight": "行高",
+    "height": "高度",
+    "width": "宽度",
+    "xGap": "X轴间隔",
+    "yGap": "Y轴间隔",
+    "xOffset": "X轴偏移",
+    "yOffset": "Y轴偏移",
+    "zIndex": "层级",
+    "textAlign": {
+      "title": "对齐方式",
+      "left": "左对齐",
+      "center": "居中对齐",
+      "right": "右对齐"
+    }
   }
 }
