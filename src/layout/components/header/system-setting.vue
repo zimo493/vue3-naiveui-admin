@@ -157,7 +157,12 @@
           <template v-if="setSideBar">
             <n-flex align="center" justify="space-between">
               {{ t("system.interface.sidebarWidth") }}
-              <n-input-number v-model:value="appStore.sideWidth" class="w-10em" :min="180" />
+              <n-input-number
+                v-model:value="appStore.sideWidth"
+                class="w-10em"
+                :min="180"
+                :max="300"
+              />
             </n-flex>
             <n-flex align="center" justify="space-between">
               {{ t("system.interface.sidebarCollapseWidth") }}
@@ -165,6 +170,7 @@
                 v-model:value="appStore.sideCollapsedWidth"
                 class="w-10em"
                 :min="50"
+                :max="100"
               />
             </n-flex>
             <n-flex align="center" justify="space-between">
