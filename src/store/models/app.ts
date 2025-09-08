@@ -62,45 +62,16 @@ export const useAppStore = defineStore("app-store", {
   },
   actions: {
     // 重置所有设置
-    resetAllTheme() {
-      this.theme = theme;
-      this.primaryColor = primaryColor;
-      this.infoColor = infoColor;
-      this.successColor = successColor;
-      this.warningColor = warningColor;
-      this.errorColor = errorColor;
-      this.borderRadius = "4px";
-      this.followPrimary = false;
-      this.collapsed = false;
-      this.grayMode = false;
-      this.colorWeak = false;
-      this.fixed = true;
-      this.loadFlag = true;
-      this.showLogo = true;
-      this.showTabs = true;
-      this.showTabsIcon = true;
-      this.showLogo = true;
-      this.showFooter = false;
-      this.showBreadcrumb = true;
-      this.showBreadcrumbIcon = true;
-      this.showWatermark = false;
-      this.watermarkText = "";
-      this.transitionAnimation = "fade-slide";
-      this.layoutMode = LayoutMode.LEFT;
-      this.contentFullScreen = false;
-      this.sideWidth = 200;
-      this.sideCollapsedWidth = 50;
-      this.sideTrigger = "bar";
-      this.placement = "top";
-      this.inverted = false;
-
+    async resetAllTheme() {
+      this.$reset();
+      await nextTick();
       // 重置所有配色
       this.setPrimaryColor();
       this.setInfoColor();
       this.setSuccessColor();
       this.setWarningColor();
       this.setErrorColor();
-      this.setBorderRadius("4px");
+      this.setBorderRadius(this.borderRadius);
     },
 
     /* 设置语言 */
