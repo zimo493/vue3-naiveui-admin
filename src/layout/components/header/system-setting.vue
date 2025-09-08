@@ -232,7 +232,11 @@
                   v-model:value="appStore.watermarkText"
                   type="text"
                   :placeholder="t('system.interface.watermarkTip')"
-                />
+                >
+                  <template #suffix>
+                    <SettingWatermark />
+                  </template>
+                </n-input>
               </div>
             </n-flex>
             <n-switch v-model:value="appStore.showWatermark" />
