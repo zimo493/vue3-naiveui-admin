@@ -6,17 +6,21 @@
           <n-flex vertical class="w-full" :size="[0, 20]">
             {{ title }}
             <n-flex align="center">
-              <n-input v-model:value="pattern" :placeholder="t('button.search')" clearable>
-                <template #prefix>
-                  <Icones icon="icon-park-outline:search" />
-                </template>
-              </n-input>
-              <n-checkbox v-model:checked="expandAll">
-                {{ t("button.expand") }}/{{ t("button.collapse") }}
-              </n-checkbox>
-              <n-checkbox v-model:checked="cascade">
-                {{ t("button.linkage") }}
-              </n-checkbox>
+              <div flex-1>
+                <n-input v-model:value="pattern" :placeholder="t('button.search')" clearable>
+                  <template #prefix>
+                    <Icones icon="icon-park-outline:search" />
+                  </template>
+                </n-input>
+              </div>
+              <n-flex>
+                <n-checkbox v-model:checked="expandAll">
+                  {{ t("button.expand") }}/{{ t("button.collapse") }}
+                </n-checkbox>
+                <n-checkbox v-model:checked="cascade">
+                  {{ t("button.linkage") }}
+                </n-checkbox>
+              </n-flex>
             </n-flex>
           </n-flex>
         </n-spin>
