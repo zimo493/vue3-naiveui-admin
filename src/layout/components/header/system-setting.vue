@@ -151,7 +151,7 @@
               v-model:value="appStore.transitionAnimation"
               class="w-10em"
               :options="transitionSelectorOptions"
-              @update:value="appStore.reloadPage"
+              @update:value="appStore.reloadPage()"
             />
           </n-flex>
           <template v-if="setSideBar">
