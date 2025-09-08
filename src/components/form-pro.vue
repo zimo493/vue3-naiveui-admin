@@ -12,7 +12,7 @@
             <FormTipLabel :label="item.label" :msg="item.labelMessage" />
           </template>
           <slot :name="item.name" :value="modelValue[item.name]">
-            <n-flex vertical w-full :size="[0, 2]">
+            <n-flex vertical w-full align="flex-start" :size="[0, 2]">
               <component
                 :is="renderComponent(item)"
                 v-model:value="modelValue[item.name]"
