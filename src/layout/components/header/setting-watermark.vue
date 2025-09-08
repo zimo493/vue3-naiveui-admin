@@ -76,11 +76,7 @@ const formConfig: FormPro.FormItemConfig[] = [
     label: t("watermark.fontWeight"),
     component: "number",
     span: 12,
-    props: {
-      min: 100,
-      max: 900,
-      step: 100,
-    },
+    props: { min: 100, max: 900, step: 100 },
   },
   {
     name: "rotate",
@@ -99,9 +95,7 @@ const formConfig: FormPro.FormItemConfig[] = [
     label: t("watermark.cross"),
     component: "switch",
     span: 12,
-    props: {
-      round: false,
-    },
+    props: { round: false },
     slots: {
       checked: () => <NEl>{t("common.yes")}</NEl>,
       unchecked: () => <NEl>{t("common.no")}</NEl>,
@@ -112,58 +106,21 @@ const formConfig: FormPro.FormItemConfig[] = [
     label: t("watermark.lineHeight"),
     span: 12,
     component: "number",
-    props: {
-      min: 1,
-    },
+    props: { min: 1 },
   },
   {
     name: "height",
     label: t("watermark.height"),
     span: 12,
     component: "number",
-    props: {
-      min: 1,
-    },
+    props: { min: 1 },
   },
-  {
-    name: "width",
-    label: t("watermark.width"),
-    span: 12,
-    component: "number",
-    props: {
-      min: 1,
-    },
-  },
-  {
-    name: "xGap",
-    label: t("watermark.xGap"),
-    span: 12,
-    component: "number",
-  },
-  {
-    name: "yGap",
-    label: t("watermark.yGap"),
-    span: 12,
-    component: "number",
-  },
-  {
-    name: "xOffset",
-    label: t("watermark.xOffset"),
-    span: 12,
-    component: "number",
-  },
-  {
-    name: "yOffset",
-    label: t("watermark.yOffset"),
-    span: 12,
-    component: "number",
-  },
-  {
-    name: "zIndex",
-    label: t("watermark.zIndex"),
-    span: 12,
-    component: "number",
-  },
+  { name: "width", label: t("watermark.width"), span: 12, component: "number", props: { min: 1 } },
+  { name: "xGap", label: t("watermark.xGap"), span: 12, component: "number" },
+  { name: "yGap", label: t("watermark.yGap"), span: 12, component: "number" },
+  { name: "xOffset", label: t("watermark.xOffset"), span: 12, component: "number" },
+  { name: "yOffset", label: t("watermark.yOffset"), span: 12, component: "number" },
+  { name: "zIndex", label: t("watermark.zIndex"), span: 12, component: "number" },
   {
     name: "textAlign",
     label: t("watermark.textAlign.title"),
