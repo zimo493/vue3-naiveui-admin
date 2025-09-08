@@ -50,6 +50,7 @@ const formConfig: FormPro.FormItemConfig[] = [
     label: t("watermark.fontSize"),
     component: "number",
     span: 12,
+    props: { max: 28 },
   },
   {
     name: "fontColor",
