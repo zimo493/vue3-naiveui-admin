@@ -1,10 +1,10 @@
 <div align="center">
   <h1>vue3-naiveui-admin</h1>
 
-  ![Vue.js](https://img.shields.io/badge/Vue-3.5.18-42B883?logo=vuedotjs)
-  ![Vite](https://img.shields.io/badge/Vite-7.0.6-bd34fe?logo=vite&logoColor=bd34fe)
-  ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.0-3178C6?logo=typescript)
-  ![UnoCSS](https://img.shields.io/badge/UnoCSS-66.4.1-333?logo=unocss)
+  ![Vue.js](https://img.shields.io/badge/Vue-3.5.21-42B883?logo=vuedotjs)
+  ![Vite](https://img.shields.io/badge/Vite-7.1.4-bd34fe?logo=vite&logoColor=bd34fe)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-3178C6?logo=typescript)
+  ![UnoCSS](https://img.shields.io/badge/UnoCSS-66.5.1-333?logo=unocss)
   ![NaiveUI](https://img.shields.io/badge/NaiveUI-2.42.0-63e2b7.svg)
 </div>
 
