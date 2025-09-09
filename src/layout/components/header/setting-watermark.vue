@@ -32,7 +32,7 @@
 
 <script lang="tsx" setup>
 import { useWatermarkStoreHook } from "@/store";
-import { NColorPicker, NEl, NSlider } from "naive-ui";
+import { NEl, NSlider } from "naive-ui";
 
 defineOptions({
   name: "SettingWatermark",
@@ -55,8 +55,8 @@ const formConfig: FormPro.FormItemConfig[] = [
   {
     name: "fontColor",
     label: t("watermark.fontColor"),
+    component: "color-picker",
     span: 12,
-    component: () => <NColorPicker v-model:value={config.value.fontColor} />,
   },
   {
     name: "fontStyle",
