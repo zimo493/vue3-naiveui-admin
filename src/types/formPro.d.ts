@@ -16,6 +16,7 @@ type CompType =
   | "checkbox"
   | "date"
   | "time"
+  | "color-picker"
   | "switch"
   | "tree-select"
   | "text"
@@ -156,6 +157,16 @@ interface TimePickerFormItemConfig extends BaseFormItemConfig {
 }
 
 /**
+ * 颜色选择器配置
+ */
+interface ColorPickerFormItemConfig extends BaseFormItemConfig {
+  component: "color-picker";
+  props?: import("naive-ui").ColorPickerProps;
+  slots?: InstanceType<typeof import("naive-ui").NColorPicker>["$slots"];
+  dict?: never;
+}
+
+/**
  * 开关配置
  */
 interface SwitchFormItemConfig extends BaseFormItemConfig {
@@ -205,6 +216,7 @@ declare namespace FormPro {
     | CheckboxGroupFormItemConfig
     | DatePickerFormItemConfig
     | TimePickerFormItemConfig
+    | ColorPickerFormItemConfig
     | SwitchFormItemConfig
     | CustomFormItemConfig
     | TreeSelectFormItemConfig

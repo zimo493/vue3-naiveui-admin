@@ -48,6 +48,7 @@ import {
   NRadio,
   NRadioButton,
   NRadioGroup,
+  NColorPicker,
   NText,
   NEllipsis,
 } from "naive-ui";
@@ -279,6 +280,7 @@ const componentMap: Record<string, Component> = {
   checkbox: transformComponent(NCheckboxGroup, NCheckbox),
   "radio-button": transformComponent(NRadioGroup, NRadioButton, false),
   "tree-select": NTreeSelect,
+  "color-picker": NColorPicker,
   text: NText,
 };
 
