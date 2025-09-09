@@ -10,10 +10,9 @@ export default {
   login: (data: Auth.LoginFormData) => {
     const formData = new FormData();
 
-    formData.append("username", data.username);
-    formData.append("password", data.password);
-    formData.append("captchaKey", data.captchaKey);
-    formData.append("captchaCode", data.captchaCode);
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
 
     return request<any, Auth.LoginResult>({
       url: `${AUTH_BASE_URL}/login`,
