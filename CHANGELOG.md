@@ -1,3 +1,6 @@
+### Fixes
+- `cron-tab` 修复 `cron-tab` 组件中的 `CronResult` 被错误的拼写为 `Result` `2025/9/9`
+
 ## 2.0.0
 
 `2025-09-09`
