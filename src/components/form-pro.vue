@@ -51,6 +51,7 @@ import {
   NColorPicker,
   NText,
   NEllipsis,
+  NSlider,
 } from "naive-ui";
 
 import { useDict } from "@/hooks";
@@ -281,6 +282,7 @@ const componentMap: Record<string, Component> = {
   "radio-button": transformComponent(NRadioGroup, NRadioButton, false),
   "tree-select": NTreeSelect,
   "color-picker": NColorPicker,
+  slider: NSlider,
   text: NText,
 };
 

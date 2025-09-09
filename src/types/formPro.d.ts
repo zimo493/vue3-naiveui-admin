@@ -17,6 +17,7 @@ type CompType =
   | "date"
   | "time"
   | "color-picker"
+  | "slider"
   | "switch"
   | "tree-select"
   | "text"
@@ -135,6 +136,7 @@ interface CheckboxGroupFormItemConfig extends BaseFormItemConfig {
   props?: import("naive-ui").CheckboxGroupProps & {
     options: import("naive-ui").SelectOption[];
   };
+  slots?: InstanceType<typeof import("naive-ui").NCheckboxGroup>["$slots"];
 }
 
 /**
@@ -153,6 +155,7 @@ interface DatePickerFormItemConfig extends BaseFormItemConfig {
 interface TimePickerFormItemConfig extends BaseFormItemConfig {
   component: "time";
   props?: import("naive-ui").TimePickerProps;
+  slots?: InstanceType<typeof import("naive-ui").NTimePicker>["$slots"];
   dict?: never;
 }
 
@@ -163,6 +166,16 @@ interface ColorPickerFormItemConfig extends BaseFormItemConfig {
   component: "color-picker";
   props?: import("naive-ui").ColorPickerProps;
   slots?: InstanceType<typeof import("naive-ui").NColorPicker>["$slots"];
+  dict?: never;
+}
+
+/**
+ * 滑块选择器配置
+ */
+interface SliderFormItemConfig extends BaseFormItemConfig {
+  component: "slider";
+  props?: import("naive-ui").SliderProps;
+  slots?: InstanceType<typeof import("naive-ui").NSlider>["$slots"];
   dict?: never;
 }
 
@@ -217,6 +230,7 @@ declare namespace FormPro {
     | DatePickerFormItemConfig
     | TimePickerFormItemConfig
     | ColorPickerFormItemConfig
+    | SliderFormItemConfig
     | SwitchFormItemConfig
     | CustomFormItemConfig
     | TreeSelectFormItemConfig
