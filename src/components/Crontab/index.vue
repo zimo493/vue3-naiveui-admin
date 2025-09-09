@@ -55,7 +55,7 @@
       </n-gi>
       <n-gi>
         <n-card :title="t('crontab.last10RunTime')" :segmented="{ content: true }">
-          <Result v-model="crontabValueString" />
+          <CronResult v-model="crontabValueString" />
         </n-card>
       </n-gi>
     </n-grid>
