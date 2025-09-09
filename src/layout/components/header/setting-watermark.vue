@@ -32,7 +32,7 @@
 
 <script lang="tsx" setup>
 import { useWatermarkStoreHook } from "@/store";
-import { NEl, NSlider } from "naive-ui";
+import { NEl } from "naive-ui";
 
 defineOptions({
   name: "SettingWatermark",
@@ -74,21 +74,23 @@ const formConfig: FormPro.FormItemConfig[] = [
   {
     name: "fontWeight",
     label: t("watermark.fontWeight"),
-    component: "number",
     span: 12,
+    component: "slider",
     props: { min: 100, max: 900, step: 100 },
   },
   {
     name: "rotate",
     label: t("watermark.rotate"),
     span: 12,
-    component: () => <NSlider v-model:value={config.value.rotate} min={-90} max={90} />,
+    component: "slider",
+    props: { min: -90, max: 90 },
   },
   {
     name: "globalRotate",
     label: t("watermark.globalRotate"),
     span: 12,
-    component: () => <NSlider v-model:value={config.value.globalRotate} min={-180} max={180} />,
+    component: "slider",
+    props: { min: -180, max: 180 },
   },
   {
     name: "cross",
