@@ -95,7 +95,7 @@
 import type { DataTableColumns, TreeOption, TreeOverrideNodeClickBehavior } from "naive-ui";
 import { NCheckbox, NFlex, NInput, NInputNumber, NText } from "naive-ui";
 
-import GeneratorAPI from "@/api/codeGen";
+import GeneratorAPI from "@/api/utils/codeGen";
 import MenuAPI from "@/api/system/menu";
 import DictAPI from "@/api/system/dict/type";
 

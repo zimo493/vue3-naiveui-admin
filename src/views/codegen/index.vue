@@ -19,7 +19,7 @@
 <script setup lang="tsx">
 import { type DataTableColumns, NButton, NFlex } from "naive-ui";
 
-import GeneratorAPI from "@/api/codeGen";
+import GeneratorAPI from "@/api/utils/codeGen";
 
 import { useLoading } from "@/hooks";
 import { InquiryBox } from "@/utils";
