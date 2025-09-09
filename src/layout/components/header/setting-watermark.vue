@@ -53,12 +53,6 @@ const formConfig: FormPro.FormItemConfig[] = [
     props: { max: 28 },
   },
   {
-    name: "fontColor",
-    label: t("watermark.fontColor"),
-    component: "color-picker",
-    span: 12,
-  },
-  {
     name: "fontStyle",
     label: t("watermark.fontStyle.title"),
     component: "select",
@@ -70,6 +64,12 @@ const formConfig: FormPro.FormItemConfig[] = [
         { label: t("watermark.fontStyle.oblique"), value: "oblique" },
       ],
     },
+  },
+  {
+    name: "fontColor",
+    label: t("watermark.fontColor"),
+    component: "color-picker",
+    span: 12,
   },
   {
     name: "fontWeight",
