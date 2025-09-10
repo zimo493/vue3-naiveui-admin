@@ -9,7 +9,11 @@
           :label="item.label"
         >
           <template v-if="item.labelMessage" #label>
-            <FormTipLabel :label="item.label" :msg="item.labelMessage" />
+            <FormTipLabel
+              :label="item.label"
+              :msg="item.labelMessage"
+              :reverse="item.labelReverse"
+            />
           </template>
           <slot :name="item.name" :value="modelValue[item.name]">
             <n-flex vertical w-full align="flex-start" :size="[0, 2]">

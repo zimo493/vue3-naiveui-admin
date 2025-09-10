@@ -46,6 +46,7 @@ interface BaseFormItemConfig {
   props?: Record<string, any>;
   formItemProps?: Omit<GridFromItem, "path" | "span" | "label">;
   labelMessage?: string;
+  labelReverse?: boolean;
   blockMessage?: string | Component | (() => VNode);
   slots?: Record<string, (val: never) => VNode[]>;
 }
