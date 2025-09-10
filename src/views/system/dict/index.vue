@@ -32,6 +32,7 @@
             <icon-park-outline-delete />
           </template>
           {{ t("button.clearCache") }}
+          <span v-if="!clearDisabled" ml-8px>{{ cacheSize }}</span>
         </n-button>
       </template>
     </TablePro>
@@ -53,7 +54,15 @@ import DictTypeAPI from "@/api/system/dict/type";
 
 import { router } from "@/router";
 import { useLoading } from "@/hooks";
-import { spin, executeAsync, InquiryBox, endSpin, startSpin, statusOptions } from "@/utils";
+import {
+  spin,
+  executeAsync,
+  InquiryBox,
+  endSpin,
+  startSpin,
+  statusOptions,
+  getJsonSizeWithUnit,
+} from "@/utils";
 import { useDictStoreHook, useTabStoreHook } from "@/store";
 
 import Icones from "@/components/icones.vue";
@@ -78,7 +87,20 @@ const total = ref<number>(0);
 const { loading, startLoading, endLoading } = useLoading();
 const { loading: clear, startLoading: clearStart, endLoading: clearEnd } = useLoading();
 
-onMounted(() => handleQuery());
+// 缓存大小
+const cacheSize = ref<string>("0 B");
+// 获取字典缓存大小
+const getCacheSize = () => {
+  cacheSize.value = getJsonSizeWithUnit(window.sessionStorage.getItem("dict-store"));
+};
+
+onMounted(() => {
+  getCacheSize();
+  handleQuery();
+});
+
+onActivated(() => getCacheSize());
+
 /** 查询方法 */
 const handleQuery = () => {
   startLoading();
@@ -262,10 +284,10 @@ const dictStore = useDictStoreHook();
 const clearDisabled = computed(() => dictStore.dict.length === 0);
 const clearDictCache = () => {
   clearStart();
-  const dictList = dictStore.dict.map((item) => item.key);
-
-  dictStore.cleanDict();
   setTimeout(() => {
+    const dictList = dictStore.dict.map((item) => item.key);
+
+    dictStore.cleanDict();
     clearEnd();
     window.$message.success(t("dict.clear", { dict: dictList.join(", ") }));
   }, 1000);
