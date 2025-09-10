@@ -31,6 +31,12 @@ export const InquiryBox = (
     });
   });
 
+// 通用的状态（正常 禁用）
+export const statusOptions = computed(() => [
+  { label: $t("statusTag.normal"), value: 1, type: "success" },
+  { label: $t("statusTag.disable"), value: 0, type: "error" },
+]);
+
 // 小于10前面补0
 export const zeroFill = (num: number): string => String(num).padStart(2, "0");
 
@@ -176,7 +182,24 @@ export const formatDateTime = (time: Date | string | number) =>
  */
 export const formatTime = (time: Date | string | number) => parseTime(time, "HH:mm:ss");
 
-export const statusOptions = computed(() => [
-  { label: $t("statusTag.normal"), value: 1, type: "success" },
-  { label: $t("statusTag.disable"), value: 0, type: "error" },
-]);
+/**
+ * 计算 JSON 字符串的大小并返回带单位的字符串
+ * @param jsonString JSON 字符串
+ * @returns 带单位的大小字符串
+ */
+export const getJsonSizeWithUnit = (jsonString: string | null): string => {
+  if (!jsonString) {
+    return "0 B";
+  }
+  // 计算字节数
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode(jsonString).length;
+
+  // 格式化单位
+  if (bytes === 0) return "0 B";
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(2)} KB`;
+  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+};
