@@ -10,7 +10,7 @@
     </n-tooltip>
 
     <!-- 设置面板 -->
-    <n-drawer v-model:show="drawerActive" :width="386">
+    <n-drawer v-model:show="drawerActive" :width="386" show-mask="transparent">
       <n-drawer-content :title="t('system.tooltip.settings')" closable>
         <n-flex vertical>
           <!-- <n-divider>布局设置</n-divider> -->
