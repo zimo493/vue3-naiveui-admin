@@ -1,5 +1,7 @@
 ### Features
 - `utils` 重构时间格式化函数，支持更灵活的时间格式化 `2025/9/10`
+- `form-tip-label` 添加 `reverse` 属性，支持标签和帮助信息的反向布局 `2025/9/10`
+- `form-pro` 增加 `labelReverse` 属性，用于应用 `form-tip-label` 控制标签和提示信息的布局顺序 `2025/9/10`
 
 ### Fixes
 - `cron-tab` 修复 `cron-tab` 组件中的 `CronResult` 被错误的拼写为 `Result` `2025/9/9`
