@@ -87,6 +87,9 @@ declare namespace Status {
 
   /** watermark-store */
   interface Watermark {
-    config: import("naive-ui").WatermarkProps;
+    config: Omit<
+      import("naive-ui").WatermarkProps,
+      "image" | "content" | "imageWidth" | "imageOpacity" | "imageHeight"
+    >;
   }
 }
