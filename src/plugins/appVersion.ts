@@ -1,5 +1,5 @@
 import { NButton } from "naive-ui";
-import { $t, parseTime } from "@/utils";
+import { $t, formatDateTime } from "@/utils";
 
 export const setupAppVersion = () => {
   const { buildTimestamp } = __APP_INFO__;
@@ -38,7 +38,7 @@ export const setupAppVersion = () => {
       title: $t("app.systemUpdateTitle"),
       content: $t("app.systemUpdateContent"),
       avatar: () => h("div", "🎉"),
-      meta: parseTime(buildTimestamp),
+      meta: formatDateTime(buildTimestamp),
       closable: false,
       action: () =>
         h(

@@ -3,36 +3,6 @@ import Icones from "@/components/icones.vue";
 import { $t } from "./i18n";
 
 /**
- * 参数处理
- * @param {*} params  参数
- */
-export function tansParams(params: { [key: string]: any }) {
-  let result = "";
-
-  for (const propName of Object.keys(params)) {
-    const value = params[propName];
-    const part = encodeURIComponent(propName) + "=";
-
-    if (value !== null && value !== "" && typeof value !== "undefined") {
-      if (typeof value === "object") {
-        for (const key of Object.keys(value)) {
-          if (value[key] !== null && value[key] !== "" && typeof value[key] !== "undefined") {
-            const params = propName + "[" + key + "]";
-            const subPart = encodeURIComponent(params) + "=";
-
-            result += subPart + encodeURIComponent(value[key]) + "&";
-          }
-        }
-      } else {
-        result += part + encodeURIComponent(value) + "&";
-      }
-    }
-  }
-
-  return result;
-}
-
-/**
  * 询问框
  * @param content 提示文字
  * @param type 提示类型 success | warning | error
@@ -62,7 +32,7 @@ export const InquiryBox = (
   });
 
 // 小于10前面补0
-export const zeroFill = (num: number): string => (num < 10 ? "0" + num : num.toString());
+export const zeroFill = (num: number): string => String(num).padStart(2, "0");
 
 export const checkNumber = (value: number, minLimit: number, maxLimit: number): number => {
   // 添加参数有效性检查
@@ -97,36 +67,114 @@ export const exportFile = (fileData: BlobPart, fileType: MIMETYPE, fileName: str
  * @description 格式化时间工具函数
  * @param time 时间，可以是 Date 对象、时间戳或时间字符串
  * @param pattern 时间格式，例如 'YYYY-MM-DD HH:mm:ss 周dd'
+ * @param locale 本地化设置，默认为中文
  * @returns 格式化后的时间字符串
  */
 export const parseTime = (
   time: Date | string | number,
-  pattern = "YYYY-MM-DD HH:mm:ss"
+  pattern = "YYYY-MM-DD HH:mm:ss",
+  locale: "zh-CN" | "en-US" = "zh-CN"
 ): string => {
-  const date = time instanceof Date ? time : new Date(time);
-
-  // 如果 date 是无效的 Date 对象
-  if (isNaN(date.getTime())) {
-    throw new Error("parseTime: => 无效的日期");
+  // 验证输入
+  if (time === null || time === undefined) {
+    throw new Error("parseTime: 时间参数不能为空");
   }
 
-  // 定义星期几的映射
-  const weekdays: string[] = ["日", "一", "二", "三", "四", "五", "六"];
+  // 创建日期对象
+  let date: Date;
 
-  // 定义格式化规则
-  const formatMap: Record<string, string> = {
-    YYYY: String(date.getFullYear()),
-    MM: String(date.getMonth() + 1).padStart(2, "0"),
-    DD: String(date.getDate()).padStart(2, "0"),
-    HH: String(date.getHours()).padStart(2, "0"),
-    mm: String(date.getMinutes()).padStart(2, "0"),
-    ss: String(date.getSeconds()).padStart(2, "0"),
-    dd: weekdays[date.getDay()], // 周几
+  if (time instanceof Date) {
+    date = time;
+  } else if (typeof time === "number") {
+    // 处理时间戳（考虑秒和毫秒时间戳）
+    date = time.toString().length < 13 ? new Date(time * 1000) : new Date(time);
+  } else {
+    date = new Date(time);
+  }
+
+  // 验证日期有效性
+  if (isNaN(date.getTime())) {
+    throw new Error("parseTime: 无效的日期");
+  }
+
+  // 本地化配置
+  const locales = {
+    "zh-CN": {
+      weekdays: ["日", "一", "二", "三", "四", "五", "六"],
+      meridiem: ["上午", "下午"],
+    },
+    "en-US": {
+      weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      meridiem: ["AM", "PM"],
+    },
   };
 
-  // 替换 pattern 中的占位符
-  return pattern.replace(/YYYY|MM|DD|HH|mm|ss|dd/g, (match) => formatMap[match]);
+  const currentLocale = locales[locale];
+
+  // 获取日期各部分
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+  const milliseconds = date.getMilliseconds();
+  const weekday = date.getDay();
+
+  // 12小时制处理
+  const hours12 = hours % 12 || 12;
+  const meridiem = hours < 12 ? currentLocale.meridiem[0] : currentLocale.meridiem[1];
+
+  // 格式化映射
+  const formatMap: Record<string, string> = {
+    YYYY: String(year),
+    YY: String(year).slice(-2),
+    MM: String(month).padStart(2, "0"),
+    M: String(month),
+    DD: String(day).padStart(2, "0"),
+    D: String(day),
+    HH: String(hours).padStart(2, "0"),
+    H: String(hours),
+    hh: String(hours12).padStart(2, "0"),
+    h: String(hours12),
+    mm: String(minutes).padStart(2, "0"),
+    m: String(minutes),
+    ss: String(seconds).padStart(2, "0"),
+    s: String(seconds),
+    SSS: String(milliseconds).padStart(3, "0"),
+    A: meridiem,
+    dd: currentLocale.weekdays[weekday],
+    d: String(weekday),
+  };
+
+  // 使用正则表达式替换占位符
+  return pattern.replace(
+    /YYYY|YY|MM|M|DD|D|HH|H|hh|h|mm|m|ss|s|SSS|A|dd|d/g,
+    (match) => formatMap[match] || match
+  );
 };
+
+/**
+ * 日期格式化
+ * @param time 时间
+ * @returns 时间格式化
+ */
+export const formatDate = (time: Date | string | number) => parseTime(time, "YYYY-MM-DD");
+
+/**
+ * 日期时间格式化
+ * @param time 时间
+ * @returns 时间格式化
+ */
+export const formatDateTime = (time: Date | string | number) =>
+  parseTime(time, "YYYY-MM-DD HH:mm:ss");
+
+/**
+ * 时间格式化
+ * @param time 时间
+ * @returns 时间格式化
+ */
+export const formatTime = (time: Date | string | number) => parseTime(time, "HH:mm:ss");
 
 export const statusOptions = computed(() => [
   { label: $t("statusTag.normal"), value: 1, type: "success" },

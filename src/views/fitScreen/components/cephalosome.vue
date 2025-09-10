@@ -29,7 +29,8 @@ defineOptions({ name: "Cephalosome" });
  * 获取当前时间
  */
 const dateTime = ref("加载中...");
-const getCurrentTime = () => (dateTime.value = parseTime(new Date()));
+const getCurrentTime = () =>
+  (dateTime.value = parseTime(new Date(), "YYYY-MM-DD HH:mm:ss 周dd A "));
 
 // 使用定时器钩子更新时间
 useKeepTicking(getCurrentTime, 1000);

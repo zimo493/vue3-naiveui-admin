@@ -4,7 +4,7 @@ import qs from "qs";
 import { useAuthStoreHook } from "@/store";
 import { ResultEnum } from "@/enums";
 import { local, session } from "./storage";
-import { InquiryBox, tansParams } from "./comm";
+import { InquiryBox } from "./comm";
 import { router } from "@/router";
 import { $t } from "./i18n";
 
@@ -26,15 +26,6 @@ const reqOnFulfilled = (config: InternalAxiosRequestConfig) => {
 
   if (accessToken && !isToken) {
     config.headers.Authorization = "Bearer " + accessToken; // 让每个请求携带自定义token 请根据实际情况自行修改
-  }
-
-  // get请求映射params参数
-  if (config.method?.toLocaleLowerCase() === "get" && config.params) {
-    let url = config.url + "?" + tansParams(config.params);
-
-    url = url.slice(0, -1);
-    config.params = {};
-    config.url = url;
   }
 
   if (
@@ -59,9 +50,12 @@ const reqOnFulfilled = (config: InternalAxiosRequestConfig) => {
     if (!sessionObj) {
       session.set("sessionObj", requestObj);
     } else {
-      const s_url = sessionObj.url; // 请求地址
-      const s_data = sessionObj.data; // 请求数据
-      const s_time = sessionObj.time; // 请求时间
+      /**
+       * - s_url 请求地址
+       * - s_data 请求数据
+       * - s_time 请求时间
+       */
+      const { url: s_url, data: s_data, time: s_time } = sessionObj;
       const interval = 1000; // 间隔时间(ms)，小于此时间视为重复提交
 
       if (

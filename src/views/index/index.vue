@@ -231,7 +231,7 @@
 <script lang="tsx" setup>
 import { type EChartsOption } from "echarts";
 import LogAPI from "@/api/system/log";
-import { parseTime } from "@/utils";
+import { formatDate, formatDateTime } from "@/utils";
 import { useLoading, useOnlineCount } from "@/hooks";
 
 const up = "ant-design:arrow-up-outlined";
@@ -499,7 +499,9 @@ const shortcuts = {
 };
 
 // 格式化时间戳
-const formattedTime = computed(() => (lastUpdateTime ? parseTime(lastUpdateTime.value) : ""));
+const formattedTime = computed(() =>
+  lastUpdateTime.value ? formatDateTime(lastUpdateTime.value) : ""
+);
 
 /**
  * 获取访问趋势数据，并更新图表配置
@@ -508,8 +510,8 @@ const fetchVisitTrendData = () => {
   const [startDate, endDate] = dateRange.value!;
 
   LogAPI.getVisitTrend({
-    startDate: parseTime(startDate, "YYYY-MM-DD"),
-    endDate: parseTime(endDate, "YYYY-MM-DD"),
+    startDate: formatDate(startDate),
+    endDate: formatDate(endDate),
   }).then((data) => updateCharts(data));
 };
 
