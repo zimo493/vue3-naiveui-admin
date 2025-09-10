@@ -193,10 +193,8 @@ const formConfig = ref<FormPro.FormItemConfig[]>([
   {
     name: "keywords",
     label: t("tableHeader.keywords"),
-    // "请输入用户名/昵称/手机号"
-    props: {
-      placeholder: `${t("input")}${t("tableHeader.username")}/${t("tableHeader.nickname")}/${t("tableHeader.phone")}`,
-    },
+    labelMessage: `${t("tableHeader.username")} / ${t("tableHeader.nickname")} / ${t("tableHeader.phone")}`, // "用户名/昵称/手机号"
+    labelReverse: true, // 标签和提示信息反向布局
     span: 5,
   },
   {
