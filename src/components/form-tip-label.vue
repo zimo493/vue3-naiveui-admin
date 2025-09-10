@@ -10,15 +10,8 @@ export default defineComponent({
     reverse: { type: Boolean, default: false },
   },
   setup({ reverse, msg, label }) {
-    const style = {
-      display: "flex",
-      justifyContent: "flex-end",
-      gap: "0 4px",
-      flexDirection: reverse ? "row-reverse" : "row",
-    };
-
     return () => (
-      <NEl style={style}>
+      <NEl class={`flex justify-end gap-x-1 ${reverse ? "flex-row-reverse" : "flex-row"}`}>
         <HelpInfo message={msg} />
         {label && <NText>{label}</NText>}
       </NEl>
