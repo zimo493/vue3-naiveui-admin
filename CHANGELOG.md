@@ -1,6 +1,6 @@
 ### ✨ Features
 
-| 影响模块 | 描述 | 修改日期 | 作者 |
+| Module | Description | Update date | Author |
 | --- | --- | :--: | --- |
 | `utils` | 重构时间格式化函数，支持更灵活的时间格式化 | `2025/9/10` | [@zimo493](https://github.com/zimo493) |
 | `form-tip-label` | 添加 `reverse` 属性，支持标签和帮助信息的反向布局 | `2025/9/10` | [@zimo493](https://github.com/zimo493) |
@@ -9,13 +9,13 @@
 
 ### 🐛 Fixes
 
-| 影响模块 | 描述 | 修改日期 | 作者 |
+| Module | Description | Update date | Author |
 | --- | --- | :--: | --- |
 | `cron-tab` | 修复 `cron-tab` 组件中的 `CronResult` 被错误的拼写为 `Result` | `2025/9/9` | [@zimo493](https://github.com/zimo493) |
 
 ### ♻️ Refactor
 
-| 影响模块 | 描述 | 修改日期 | 作者 |
+| Module | Description | Update date | Author |
 | --- | --- | :--: | --- |
 | `appVersion` | 重构应用版本更新提示功能，将通知方式从 `notification` 改为 `dialog` 防止用户在更新提示时进行其他操作，保留原有的 `notification` 方式 | `2025/9/11` | [@zimo493](https://github.com/zimo493) |
 
@@ -25,7 +25,7 @@
 
 ### ✨ Features
 
-| 影响模块 | 描述 | 修改日期 | 作者 |
+| Module | Description | Update date | Author |
 | --- | --- | :--: | --- |
 | `generate-code` | 添加多语言支持 | `2025/8/2` | [@zimo493](https://github.com/zimo493) |
 | `image-cut` | 添加 `webp` 图片格式支持 | `2025/8/6` | [@zimo493](https://github.com/zimo493) |
@@ -41,7 +41,7 @@
 
 ### 🐛 Fixes
 
-| 影响模块 | 描述 | 修改日期 | 作者 |
+| Module | Description | Update date | Author |
 | --- | --- | :--: | --- |
 | `i18n` | 修改 `zh_TW.json` 错误翻译文案 | `2025/8/1` | [@zimo493](https://github.com/zimo493) |
 | `dict-item` | 修复重置按钮事件处理 | `2025/8/2` | [@zimo493](https://github.com/zimo493) |
@@ -50,7 +50,7 @@
 
 ### ♻️ Refactor
 
-| 影响模块 | 描述 | 修改日期 | 作者 |
+| Module | Description | Update date | Author |
 | --- | --- | :--: | --- |
 | `menu` | 移除侧边栏自动折叠功能 | `2025/8/1` | [@zimo493](https://github.com/zimo493) |
 | `sql` | 修改系统工具菜单路径 | `2025/8/1` | [@zimo493](https://github.com/zimo493) |
