@@ -7,6 +7,9 @@
 ### Fixes
 - `cron-tab` 修复 `cron-tab` 组件中的 `CronResult` 被错误的拼写为 `Result` `2025/9/9`
 
+### Refactor
+- `appVersion` 重构应用版本更新提示功能，将通知方式从 `notification` 改为 `dialog` 防止用户在更新提示时进行其他操作，保留原有的 `notification` 方式 `2025/9/11`
+
 ## 2.0.0
 
 `2025-09-09`
