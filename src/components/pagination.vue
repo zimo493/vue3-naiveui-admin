@@ -63,7 +63,6 @@ const handlePageSize = (val: number) => {
       @update-page="handlePage"
       @update-page-size="handlePageSize"
     >
-      <
       <template #prefix="{ itemCount }">{{ t("pagination.total", { total: itemCount }) }}</template>
       <template #goto>{{ t("pagination.goto") }}</template>
     </n-pagination>
