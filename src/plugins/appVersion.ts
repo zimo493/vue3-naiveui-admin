@@ -1,4 +1,4 @@
-import { NButton } from "naive-ui";
+import { NButton, NFlex, NText } from "naive-ui";
 import { $t, formatDateTime } from "@/utils";
 
 export const setupAppVersion = () => {
@@ -32,21 +32,50 @@ export const setupAppVersion = () => {
     showRefresh = true;
 
     /**
-     * 创建通知
+     * 创建通知(dialog模式)
      */
-    window.$notification?.create({
+    window.$dialog.create({
       title: $t("app.systemUpdateTitle"),
       content: $t("app.systemUpdateContent"),
-      avatar: () => h("div", "🎉"),
-      meta: formatDateTime(buildTimestamp),
-      closable: false,
+      icon: () => h("i", "🎉"),
+      iconPlacement: "top",
+      positiveText: $t("app.refreshNow"),
+      closable: false, // 不显示关闭按钮
+      maskClosable: false, // 不允许点击遮罩层关闭
+      closeOnEsc: false, // 不允许ESC键关闭
       action: () =>
-        h(
-          NButton,
-          { strong: true, type: "primary", onClick: () => location.reload() },
-          (): string => $t("app.refreshNow")
-        ),
+        h(NFlex, { align: "center" }, () => [
+          h(NText, {}, { default: () => formatDateTime(buildTimestamp) }),
+          h(
+            NButton,
+            {
+              type: "primary",
+              strong: true,
+              onClick: () => {
+                window.$dialog.destroyAll();
+                window.location.reload();
+              },
+            },
+            { default: () => $t("app.refreshNow") }
+          ),
+        ]),
     });
+    /**
+     * 创建通知(notification模式)
+     */
+    // window.$notification?.create({
+    //   title: $t("app.systemUpdateTitle"),
+    //   content: $t("app.systemUpdateContent"),
+    //   avatar: () => h("div", "🎉"),
+    //   meta: formatDateTime(buildTimestamp),
+    //   closable: false,
+    //   action: () =>
+    //     h(
+    //       NButton,
+    //       { strong: true, type: "primary", onClick: () => location.reload() },
+    //       (): string => $t("app.refreshNow")
+    //     ),
+    // });
   });
 };
 
