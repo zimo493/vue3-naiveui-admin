@@ -24,6 +24,7 @@
     "src/**/*.tsx",
     "src/types/**/*.d.ts",
     "src/typings/*.d.ts",
+    "build/**/*.ts",
     "eslint.config.ts",
     "vite.config.ts",
     "uno.config.ts"
