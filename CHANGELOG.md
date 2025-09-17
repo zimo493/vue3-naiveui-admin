@@ -1,3 +1,7 @@
+## 🎉 v2.1.0
+
+`2025-09-17`
+
 ### ✨ Features
 
 | Module | Description | Update date | Author |
