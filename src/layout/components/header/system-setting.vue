@@ -154,34 +154,6 @@
               @update:value="appStore.reloadPage()"
             />
           </n-flex>
-          <template v-if="setSideBar">
-            <n-flex align="center" justify="space-between">
-              {{ t("system.interface.sidebarWidth") }}
-              <n-input-number
-                v-model:value="appStore.sideWidth"
-                class="w-10em"
-                :min="180"
-                :max="300"
-              />
-            </n-flex>
-            <n-flex align="center" justify="space-between">
-              {{ t("system.interface.sidebarCollapseWidth") }}
-              <n-input-number
-                v-model:value="appStore.sideCollapsedWidth"
-                class="w-10em"
-                :min="50"
-                :max="100"
-              />
-            </n-flex>
-            <n-flex align="center" justify="space-between">
-              {{ t("system.interface.sidebarTriggerStyle") }}
-              <n-select
-                v-model:value="appStore.sideTrigger"
-                class="w-10em"
-                :options="sideBarShowTrigger"
-              />
-            </n-flex>
-          </template>
           <n-flex align="center" justify="space-between">
             {{ t("system.interface.msgPlacement") }}
             <n-select
@@ -191,6 +163,33 @@
               @update:value="appStore.setPlacement"
             />
           </n-flex>
+          <template v-if="setSideBar">
+            <n-flex align="center" justify="space-between">
+              {{ t("system.interface.sidebarTriggerStyle") }}
+              <n-select
+                v-model:value="appStore.sideTrigger"
+                class="w-10em"
+                :options="sideBarShowTrigger"
+              />
+            </n-flex>
+            <n-flex align="center" justify="space-between">
+              {{ t("system.interface.sidebarWidth") }}
+              <div class="w-10em">
+                <n-slider v-model:value="appStore.sideWidth" :min="180" :max="300" :step="10" />
+              </div>
+            </n-flex>
+            <n-flex align="center" justify="space-between">
+              {{ t("system.interface.sidebarCollapseWidth") }}
+              <div class="w-10em">
+                <n-slider
+                  v-model:value="appStore.sideCollapsedWidth"
+                  :min="45"
+                  :max="100"
+                  :step="5"
+                />
+              </div>
+            </n-flex>
+          </template>
 
           <n-flex justify="space-between">
             {{ t("system.interface.logo") }}
