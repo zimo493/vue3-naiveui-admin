@@ -142,7 +142,7 @@
     </n-card>
   </n-el>
 </template>
-<script lang="tsx" setup generic="T extends Recordable">
+<script lang="ts" setup generic="T extends Recordable">
 import type { DataTableColumns, DataTableInst, DataTableProps } from "naive-ui";
 import { NCheckbox } from "naive-ui";
 
@@ -227,7 +227,18 @@ const SettingBorder = defineComponent({
       set: (v) => emit("update:modelValue", !v),
     });
 
-    return () => <NCheckbox v-model:checked={checked.value}>{props.title}</NCheckbox>;
+    // return () => <NCheckbox v-model:checked={checked.value}>{props.title}</NCheckbox>;
+    return () =>
+      h(
+        NCheckbox,
+        {
+          checked: checked.value,
+          "onUpdate:checked": (value: boolean) => {
+            checked.value = value;
+          },
+        },
+        () => props.title
+      );
   },
 });
 
