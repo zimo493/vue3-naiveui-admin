@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Icon } from "@iconify/vue";
 
-interface iconPorps {
+interface iconProps {
   /* 图标名称 */
   icon?: string;
   /* 图标颜色 */
@@ -11,7 +11,7 @@ interface iconPorps {
   /* 图标深度 */
   depth?: 1 | 2 | 3 | 4 | 5;
 }
-const props = withDefaults(defineProps<iconPorps>(), {
+const props = withDefaults(defineProps<iconProps>(), {
   size: 18,
 });
 
