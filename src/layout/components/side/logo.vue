@@ -9,7 +9,7 @@ const router = useRouter();
 
 <template>
   <div class="h-50px flex-center cursor-pointer gap-2 p-x-2" @click="router.push('/')">
-    <SvgIconsLogo class="text-2.2em" />
+    <SvgIconsLogo class="text-1.2em" />
     <n-ellipsis
       v-if="!appStore.collapsed"
       class="text-ellipsis text-1.2em overflow-hidden whitespace-nowrap"
