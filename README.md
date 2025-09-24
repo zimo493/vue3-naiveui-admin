@@ -2,34 +2,84 @@
   <h1>vue3-naiveui-admin</h1>
 
   ![Vue.js](https://img.shields.io/badge/Vue-3.5.21-42B883?logo=vuedotjs)
-  ![Vite](https://img.shields.io/badge/Vite-7.1.4-bd34fe?logo=vite&logoColor=bd34fe)
+  ![Vite](https://img.shields.io/badge/Vite-7.1.5-bd34fe?logo=vite&logoColor=bd34fe)
   ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-3178C6?logo=typescript)
   ![UnoCSS](https://img.shields.io/badge/UnoCSS-66.5.1-333?logo=unocss)
   ![NaiveUI](https://img.shields.io/badge/NaiveUI-2.42.0-63e2b7.svg)
 </div>
 
 ## 项目介绍 📖
-[vue3-naiveui-admin](https://gitee.com/zimo493/vue3-naiveui-admin) 基于 `Vue3` `Vite` `TypeScript` 和 `Naive UI` 搭建的极简开箱即用企业级后台管理前端模板。 配套 Java 后端 [youlai-boot](https://gitee.com/youlaiorg/youlai-boot) 和 Node 后端 [youlai-nest](https://gitee.com/youlaiorg/youlai-nest) 。 提供 **`Element Plus`** 三版本供开发者快速开发。
 
-> **标准版:** [vue3-element-admin](https://gitee.com/youlaiorg/vue3-element-admin) <br />
-> **精简版:** [vue3-element-template](https://gitee.com/youlaiorg/vue3-element-template) <br />
-> **JS版:** [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin-js) <br />
+🚀 **vue3-naiveui-admin** 是一个基于 `Vue3` + `Vite` + `TypeScript` + `Naive UI` 构建的**极简开箱即用**的企业级后台管理前端模板。
 
-## 在线体验 👀
+### 🔗 生态系统
 
-## 代码仓库 ⭐
-- **Gitee：** https://gitee.com/zimo493/vue3-naiveui-admin
-- **GitHub：** https://github.com/zimo493/vue3-naiveui-admin
+| 项目 | 说明 | 技术栈 |
+|------|------|--------|
+| **vue3-naiveui-admin** | 🎯 当前项目 | Vue3 + NaiveUI + TypeScript |
+| [youlai-boot](https://gitee.com/youlaiorg/youlai-boot) | ☕ Java 后端 | Spring Boot + MyBatis Plus |
+| [youlai-nest](https://gitee.com/youlaiorg/youlai-nest) | 🟢 Node 后端 | Nest.js + TypeORM |
 
-## 项目功能 🔨
-- **基于** `Vue3.5`、`Vite6`、`TypeScript`、`NaiveUI`、`UnoCSS` `tsx` 等最新技术栈开发
-- **基于** `Naive UI` 二次封装 `FormPro`、基于 `FormPro` 封装 `TablePro`、`DrawerForm`、`ModalForm` 组件，在一定程度上提高您的开发效率
-- **使用** `KeepAlive` 对页面进行缓存，支持多级缓存
-- **使用** `Pinia` 替代 `Vuex`，轻量、简单、易用，集成 `Pinia` 持久化插件
-- **使用** `TypeScript` 对 `Axios` 整个二次封装（请求拦截、常用请求封装等）
-- **使用** `ESLint` + `Prettier` + `Stylelint` + `EditorConfig` 约束和统一代码规范
-- **集成** `husky` + `lint-staged` + `commitlint` + `commitizen` + `cz-git` 配置 `Git` 提交规范
-- **支持** `自定义主题色`、`页面过度` 等超多设置，黑暗主题适配，界面样式保持 `Naive` 风格
+### 🎨 多版本支持  
+> 💡 **Element Plus 版本同步更新**
+
+| 版本 | 说明 | 仓库地址 |
+|------|------|----------|
+| **标准版** | 功能完整的管理系统 | [vue3-element-admin](https://gitee.com/youlaiorg/vue3-element-admin) |
+| **精简版** | 轻量级开发模板 | [vue3-element-template](https://gitee.com/youlaiorg/vue3-element-template) |
+| **JS 版** | JavaScript 版本 | [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin-js) |
+
+## 快速链接 🔗
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <a href="https://vue.youlai.tech/naiveui" target="_blank">
+        <img src="https://img.shields.io/badge/🌐_在线预览-0052CC?style=for-the-badge" alt="在线预览" />
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://www.youlai.tech/naiveui-docs" target="_blank">
+        <img src="https://img.shields.io/badge/📚_使用文档-FF6B35?style=for-the-badge" alt="使用文档" />
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://gitee.com/zimo493/vue3-naiveui-admin" target="_blank">
+        <img src="https://img.shields.io/badge/💾_Gitee_仓库-C71D23?style=for-the-badge" alt="Gitee仓库" />
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/zimo493/vue3-naiveui-admin" target="_blank">
+        <img src="https://img.shields.io/badge/💾_GitHub_仓库-181717?style=for-the-badge" alt="GitHub仓库" />
+      </a>
+    </td>
+  </tr>
+</table>
+
+## 核心特性 ✨
+
+### 🏗️ 技术栈
+- **前端框架：** `Vue 3.5` + `Vite 7` + `TypeScript` + `TSX`
+- **UI 组件库：** `Naive UI` - 简洁、现代的 Vue 3 组件库  
+- **CSS 框架：** `UnoCSS` - 原子化 CSS 引擎
+- **状态管理：** `Pinia` + 持久化插件 - 替代 Vuex
+- **网络请求：** `Axios` - 完整的 TypeScript 封装
+
+### 🛠️ 组件封装
+- **表单组件：** 基于 `Naive UI` 二次封装的 `FormPro` 组件
+- **表格组件：** 基于 `FormPro` 封装的 `TablePro` 组件  
+- **弹窗组件：** `DrawerForm`、`ModalForm` - 提升开发效率
+- **页面缓存：** `KeepAlive` 支持多级缓存
+
+### 🎨 界面设计
+- **主题适配：** 浅色/深色/自动模式，保持 `Naive UI` 原生风格
+- **自定义主题：** 支持主题色自定义和页面过渡动效
+- **响应式布局：** 完美适配桌面端和移动端
+
+### 📋 代码规范
+- **代码约束：** `ESLint` + `Prettier` + `Stylelint` + `EditorConfig`  
+- **Git 规范：** `Husky` + `Lint-staged` + `Commitlint` + `Commitizen`
+- **提交格式：** 使用 `cz-git` 规范化 Git 提交信息
 
 ## 项目目录 📁
 <details>
@@ -161,46 +211,32 @@ pnpm install
 pnpm dev
 ```
 
-## 提交规范
-- 执行 `pnpm commit` 唤起 `git commit` 交互，根据提示完成信息的输入和选择。
+## Git 提交规范 📝
 
-```shell
-PS E:\Code\vue-naiveui-admin> pnpm commit
+项目使用 `commitizen` + `cz-git` 规范化提交信息：
 
-> vue-naiveui-admin@0.0.0 commit E:\Code\vue-naiveui-admin
-> git-cz
+```bash
+# 规范化提交（推荐）
+pnpm commit
 
-cz-cli@4.3.1, cz-git@1.11.1
-
-? 选择你要提交的类型 : 文档:     📝  文档变更
-? 选择一个提交范围（可选）: empty
-? 填写简短精炼的变更描述 :
- [Infinity more chars allowed]
- (README)优化项目说明文档     # (影响的模块)提交信息
-? 填写更加详细的变更描述（可选）。使用 "|" 换行 :
- - 修改文件目录说明           # 详细的提交信息
-? 选择关联issue前缀（可选）: skip
-
-###--------------------------------------------------------###
-docs: :memo: (README)优化项目说明文档
-
-- 修改文件目录说明
-###--------------------------------------------------------###
-
-? 是否提交或修改commit ? Yes
-Running pre-commit hook...
-
-> vue-naiveui-admin@0.0.0 lint:lint-staged E:\Code\vue-naiveui-admin
-> lint-staged
-
-✔ Backed up original state in git stash (7e08057)
-✔ Running tasks for staged files...
-✔ Applying modifications from tasks...
-✔ Cleaning up temporary files...
-[main e190d89] docs: :memo: 更新项目介绍和提交规范
- 1 file changed, 14 insertions(+), 3 deletions(-)
-PS E:\Code\vue-naiveui-admin>
+# 或使用传统方式
+git commit -m "feat: 添加新功能"
 ```
+
+![](https://foruda.gitee.com/images/1687755823165218215/c1705416_716974.png)
+
+### 提交类型说明
+| 类型 | 说明 | 示例 |
+|------|------|------|
+| `feat` | ✨ 新功能 | `feat: 添加用户管理功能` |  
+| `fix` | 🐛 修复Bug | `fix: 修复登录页面验证码问题` |
+| `docs` | 📝 文档更新 | `docs: 更新README安装说明` |
+| `style` | 💄 代码格式 | `style: 统一代码缩进格式` |
+| `refactor` | ♻️ 代码重构 | `refactor: 优化用户服务逻辑` |
+| `perf` | ⚡ 性能优化 | `perf: 优化表格渲染性能` |
+| `test` | ✅ 测试相关 | `test: 添加登录功能单元测试` |
+| `chore` | 🔧 构建/工具 | `chore: 更新依赖包版本` |
+
 
 ## 项目部署 🚀
 ```bash
@@ -236,3 +272,19 @@ server {
   }
 }
 ```
+
+---
+
+<div align="center">
+  
+### 💖 技术支持
+
+如果这个项目对你有帮助的话，请不吝给个 ⭐ **Star** 鼓励一下，让更多开发者受益！
+
+| 交流方式 | 联系信息 |
+|---------|----------|
+| 📖 **使用文档** | [https://www.youlai.tech/naiveui-docs](https://www.youlai.tech/naiveui-docs) |
+| 🌐 **在线预览** | [https://vue.youlai.tech/naiveui](https://vue.youlai.tech/naiveui) |
+| 💬 **问题反馈** | [提交 Issue](https://gitee.com/zimo493/vue3-naiveui-admin/issues) |
+
+</div>
