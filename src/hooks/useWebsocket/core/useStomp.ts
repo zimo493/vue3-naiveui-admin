@@ -59,6 +59,13 @@ export const useStomp = (options: UseStompOptions = {}) => {
       return;
     }
 
+    // 检查是否配置了 WebSocket 端点
+    if (!brokerURL.value || brokerURL.value.trim() === "") {
+      console.warn("WebSocket未配置端点地址 (VITE_APP_WS_ENDPOINT)，跳过连接");
+
+      return;
+    }
+
     // 每次连接前重新获取最新令牌，不依赖之前的token值
     const currentToken = local.get("accessToken");
 
@@ -193,6 +200,13 @@ export const useStomp = (options: UseStompOptions = {}) => {
    * 激活连接（如果已经连接或正在激活则直接返回）
    */
   const connect = () => {
+    // 检查是否配置了 WebSocket 端点
+    if (!brokerURL.value || brokerURL.value.trim() === "") {
+      console.warn("WebSocket连接跳过：未配置端点地址 (VITE_APP_WS_ENDPOINT)");
+
+      return;
+    }
+
     if (!client.value) {
       initializeClient();
     }
