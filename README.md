@@ -29,7 +29,7 @@
 | **精简版** | 轻量级开发模板 | [vue3-element-template](https://gitee.com/youlaiorg/vue3-element-template) |
 | **JS 版** | JavaScript 版本 | [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin-js) |
 
-## 快速链接 🔗
+## 快速链接
 
 <table align="center">
   <tr>
@@ -58,20 +58,20 @@
 
 ## 核心特性 
 
-### 🏗️ 技术栈
+### 技术栈
 - **前端框架：** `Vue 3.5` + `Vite 7` + `TypeScript` + `TSX`
 - **UI 组件库：** `Naive UI` - 简洁、现代的 Vue 3 组件库  
 - **CSS 框架：** `UnoCSS` - 原子化 CSS 引擎
 - **状态管理：** `Pinia` + 持久化插件 - 替代 Vuex
 - **网络请求：** `Axios` - 完整的 TypeScript 封装
 
-### 🛠️ 组件封装
+### 组件封装
 - **表单组件：** 基于 `Naive UI` 二次封装的 `FormPro` 组件
 - **表格组件：** 基于 `FormPro` 封装的 `TablePro` 组件  
 - **弹窗组件：** `DrawerForm`、`ModalForm` - 提升开发效率
 - **页面缓存：** `KeepAlive` 支持多级缓存
 
-### 🎨 界面设计
+### 界面设计
 - **主题适配：** 浅色/深色/自动模式，保持 `Naive UI` 原生风格
 - **自定义主题：** 支持主题色自定义和页面过渡动效
 - **响应式布局：** 完美适配桌面端和移动端
