@@ -24,3 +24,4 @@ dist-ssr
 .*cache
 .eslintrc-auto-import.json
 /src/typings/*.d.ts
+.history
