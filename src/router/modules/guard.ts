@@ -33,7 +33,13 @@ export const setupRouterGuard = (router: Router) => {
 
     // 判断路由有无进行初始化
     if (!routeStore.isInitAuthRoute) {
-      await routeStore.initAuthRoute();
+      const isInitAuthRoute = await routeStore.initAuthRoute();
+
+      if (!isInitAuthRoute) {
+        next(false);
+
+        return false;
+      }
 
       // 动态路由加载完回到根路由
       if (to.name === "404") {
