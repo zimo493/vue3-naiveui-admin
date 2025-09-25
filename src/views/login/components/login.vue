@@ -35,29 +35,46 @@
         </n-input>
       </n-form-item>
       <n-form-item path="captchaCode">
-        <n-input
-          ref="captcha"
-          v-model:value="model.captchaCode"
-          :placeholder="t('input') + t('login.captcha')"
-          clearable
-          @keyup.enter="handleLoginSubmit"
-        >
-          <template #prefix>
-            <Icones :size="20" icon="ant-design:verified-outlined" />
-          </template>
-        </n-input>
-        <n-spin size="small" :show="captchaLoading">
-          <n-el cursor-pointer h="[40px]" ml="[10px]" w="[120px]" @click="getCaptcha">
-            <img
-              shadow="[var(--box-shadow-1)]"
-              w="[100%]"
-              object-cover
+        <n-flex align="center" :size="10">
+          <n-input
+            ref="captcha"
+            v-model:value="model.captchaCode"
+            :placeholder="t('input') + t('login.captcha')"
+            clearable
+            class="flex-1"
+            @keyup.enter="handleLoginSubmit"
+          >
+            <template #prefix>
+              <Icones :size="20" icon="ant-design:verified-outlined" />
+            </template>
+          </n-input>
+          <n-spin size="small" :show="captchaLoading">
+            <n-el
+              cursor-pointer
+              h="[40px]"
+              w="[120px]"
+              flex
+              items-center
+              justify-center
               border-rd-3px
-              :src="captchaBase64"
-              alt="captchaCode"
-            />
-          </n-el>
-        </n-spin>
+              overflow-hidden
+              bg="hover:var(--n-color-target)"
+              transition-all
+              duration-200
+              @click="getCaptcha"
+            >
+              <img
+                v-if="captchaBase64"
+                w="[100%]"
+                h="[100%]"
+                object-cover
+                :src="captchaBase64"
+                alt="captchaCode"
+              />
+              <n-text v-else depth="3" text="12px">点击获取验证码</n-text>
+            </n-el>
+          </n-spin>
+        </n-flex>
       </n-form-item>
       <n-flex vertical :size="20">
         <div class="flex-y-center justify-between">
@@ -245,3 +262,47 @@ function resolveRedirectTarget(query: LocationQuery): RouteLocationRaw {
   }
 }
 </script>
+
+<style scoped>
+/* 修复输入框灰色背景问题 */
+:deep(.n-input) {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+:deep(.n-input .n-input__input-el) {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+:deep(.n-input .n-input-wrapper) {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+:deep(.n-input--focus .n-input-wrapper) {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+:deep(.n-input--focus .n-input__input-el) {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+:deep(.n-input__input) {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+:deep(.n-input__input-el):autofill,
+:deep(.n-input__input-el):-webkit-autofill,
+:deep(.n-input__input-el):-webkit-autofill:hover,
+:deep(.n-input__input-el):-webkit-autofill:focus {
+  background: transparent !important;
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+  -webkit-text-fill-color: inherit !important;
+}
+</style>
