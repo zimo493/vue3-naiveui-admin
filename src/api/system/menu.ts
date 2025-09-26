@@ -8,7 +8,7 @@ export default {
    * 获取当前用户的路由列表
    *  - 无需传入角色，后端解析token获取角色自行判断是否拥有路由的权限
    */
-  getRoutes: () => get<AppRoute.RouteVO[]>(`${MENU_BASE_URL}/routes`),
+  getRoutes: () => get<AppRoute.RouteVO[]>(`${MENU_BASE_URL}/routes`, { datasource: "naiveui" }),
 
   /**
    * 获取菜单树形列表
