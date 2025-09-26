@@ -263,46 +263,4 @@ function resolveRedirectTarget(query: LocationQuery): RouteLocationRaw {
 }
 </script>
 
-<style scoped>
-/* 修复输入框灰色背景问题 */
-:deep(.n-input) {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-:deep(.n-input .n-input__input-el) {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-:deep(.n-input .n-input-wrapper) {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-:deep(.n-input--focus .n-input-wrapper) {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-:deep(.n-input--focus .n-input__input-el) {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-:deep(.n-input__input) {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-:deep(.n-input__input-el):autofill,
-:deep(.n-input__input-el):-webkit-autofill,
-:deep(.n-input__input-el):-webkit-autofill:hover,
-:deep(.n-input__input-el):-webkit-autofill:focus {
-  background: transparent !important;
-  background-color: transparent !important;
-  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
-  transition: background-color 5000s ease-in-out 0s !important;
-  -webkit-text-fill-color: inherit !important;
-}
-</style>
+<style scoped></style>
