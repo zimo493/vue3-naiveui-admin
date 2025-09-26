@@ -79,7 +79,7 @@
       <n-flex vertical :size="20">
         <div class="flex-y-center justify-between">
           <n-checkbox v-model:checked="model.rememberMe">{{ t("login.rememberMe") }}</n-checkbox>
-          <n-button type="primary" text @click="toOtherForm('resetPwd')">
+          <n-button type="primary" text @click="toOtherForm('resetPasswd')">
             {{ t("login.forget") }}
           </n-button>
         </div>
@@ -134,7 +134,7 @@ const t = useI18n().t;
 const authStore = useAuthStoreHook();
 
 const emit = defineEmits(["update:modelValue"]);
-const toOtherForm = (type: "register" | "resetPwd") => emit("update:modelValue", type);
+const toOtherForm = (type: "register" | "resetPasswd") => emit("update:modelValue", type);
 
 onMounted(() => {
   getCaptcha();
