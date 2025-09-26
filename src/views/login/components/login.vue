@@ -148,8 +148,8 @@ const captchaRef = useTemplateRef<InputInst>("captcha");
 const loading = ref(false); // 按钮 loading 状态
 
 const model = ref<Auth.LoginFormData>({
-  username: "",
-  password: "",
+  username: "admin",
+  password: "123456",
   captchaKey: "",
   captchaCode: "",
   rememberMe: false,
