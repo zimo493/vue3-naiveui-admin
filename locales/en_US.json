@@ -428,8 +428,8 @@
     "time": {
       "week": "Last Week",
       "month": "Last Month",
-      "year": "Last Year",
-      "threeYear": "Last Three Years"
+      "quarter": "Last Quarter",
+      "year": "Last Year"
     }
   },
   "user": {

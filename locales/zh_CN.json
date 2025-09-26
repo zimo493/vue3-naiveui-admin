@@ -428,8 +428,8 @@
     "time": {
       "week": "近一周",
       "month": "近一月",
-      "year": "近一年",
-      "threeYear": "近三年"
+      "quarter": "近三月",
+      "year": "近一年"
     }
   },
   "user": {

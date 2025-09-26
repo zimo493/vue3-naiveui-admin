@@ -494,8 +494,8 @@ const createTimeRange = (days: number) => () => [Date.now() - days * 864e5, Date
 const shortcuts = {
   [t("home.time.week")]: createTimeRange(7),
   [t("home.time.month")]: createTimeRange(30),
-  [t("home.time.year")]: createTimeRange(90),
-  [t("home.time.threeYear")]: createTimeRange(365),
+  [t("home.time.quarter")]: createTimeRange(90),
+  [t("home.time.year")]: createTimeRange(365),
 };
 
 // 格式化时间戳
