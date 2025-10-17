@@ -31,7 +31,7 @@
 
       <!-- 右侧：用户操作 -->
       <div class="flex items-center gap-1">
-        <n-button quaternary circle @click="showSearch = true">
+        <n-button quaternary circle @click="showTools = true">
           <template #icon>
             <icon-park-outline-more />
           </template>
@@ -47,11 +47,11 @@
       <TabBar class="h-40px mobile-tabs" />
     </div>
 
-    <!-- 搜索抽屉 -->
-    <n-drawer v-model:show="showSearch" width="80%" placement="top" height="80">
+    <!-- 其他工具 -->
+    <n-drawer v-model:show="showTools" width="80%" placement="top" height="66">
       <n-drawer-content :native-scrollbar="false">
         <div class="flex-center gap-1 h-full p-x-10px">
-          <MenuSearch @close="showSearch = false" />
+          <MenuSearch @close="showTools = false" />
           <DarkModeSwitch />
           <LangSwitch />
           <Notices />
@@ -76,7 +76,7 @@ const appStore = useAppStoreHook();
 const route = useRoute();
 const router = useRouter();
 
-const showSearch = ref(false);
+const showTools = ref(false);
 
 // 当前页面标题
 const currentPageTitle = computed(() => route.meta?.title || "页面");
