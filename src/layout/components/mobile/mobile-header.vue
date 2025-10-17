@@ -4,10 +4,7 @@
     class="mobile-header z-999"
     bordered
   >
-    <div
-      v-if="!appStore.contentFullScreen"
-      class="h-50px flex items-center justify-between px-10px"
-    >
+    <div v-if="!appStore.contentFullScreen" class="h-50px flex items-center justify-between px-8px">
       <!-- 左侧：菜单按钮 + Logo -->
       <SvgIconsLogo v-if="appStore.showLogo" class="text-1.6em" @click="router.push('/')" />
 
@@ -18,16 +15,16 @@
           </template>
         </n-button>
       </div>
-
       <!-- 中间：页面标题或面包屑 -->
-      <div class="flex-1 flex justify-start">
+      <n-scrollbar
+        class="flex-1 flex items-center justify-start"
+        content-class="flex items-center h-full"
+      >
         <div v-if="appStore.showBreadcrumb">
           <Breadcrumb />
         </div>
-        <div v-else>
-          {{ currentPageTitle }}
-        </div>
-      </div>
+        <div v-else>{{ currentPageTitle }}</div>
+      </n-scrollbar>
 
       <!-- 右侧：用户操作 -->
       <div class="flex items-center gap-1">

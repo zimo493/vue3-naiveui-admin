@@ -76,10 +76,11 @@ const buildPathWithParams = (path: string, params?: Recordable): string => {
             :inverted="appStore.inverted"
             :options="options(item.children)"
             :show-arrow="true"
+            trigger="click"
             placement="bottom-start"
             @select="handleSelect"
           >
-            <n-flex align="center" justify="center" :size="[4, 0]">
+            <n-flex align="center" justify="center" :size="[4, 0]" :wrap="false">
               <Icones
                 v-if="appStore.showBreadcrumbIcon"
                 :icon="item.meta?.icon ? item.meta.icon : defaultIcon"
