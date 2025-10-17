@@ -8,6 +8,10 @@ const routeStore = useRouteStore();
 const { t } = useI18n();
 const { isMobile } = useResponsive();
 
+const emit = defineEmits<{
+  (e: "close"): void;
+}>();
+
 // 搜索值
 const searchValue = ref("");
 
@@ -169,7 +173,12 @@ function handleSelect(value: AppRoute.RouteVO) {
     addSearchHistory(searchValue.value);
   }
   handleClose();
-  router.push({ path: value.path, query: value.meta?.params }).then(() => (searchValue.value = ""));
+  router
+    .push({ path: value.path, query: value.meta?.params })
+    .then(() => (searchValue.value = ""))
+    .then(() => {
+      emit("close");
+    });
 }
 
 watchEffect(() => {
