@@ -1,5 +1,13 @@
 <template>
-  <n-form ref="formPro" :model="modelValue" v-bind="{ ...defaultFormProps, ...formProps }">
+  <n-form
+    ref="formPro"
+    :model="modelValue"
+    v-bind="{
+      ...defaultFormProps,
+      ...formProps,
+      labelWidth: isMobile ? 'auto' : formProps.labelWidth,
+    }"
+  >
     <n-grid v-bind="{ ...defaultGridProps, ...gridProps }">
       <template v-for="item in formItems" :key="item.name">
         <n-form-item-gi
