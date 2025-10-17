@@ -2,7 +2,7 @@
   <n-drawer
     v-model:show="modal.visible"
     v-bind="{
-      width: 502,
+      width: isMobile ? '100%' : 502,
       placement: 'right',
       ...props.props,
       closeOnEsc: !isAllowClose,
@@ -52,6 +52,8 @@
   </n-drawer>
 </template>
 <script lang="ts" setup generic="T extends Recordable">
+import { useResponsive } from "@/hooks";
+
 interface Props {
   props?: DialogForm.DrawerProps;
   form?: DialogForm.Form;
@@ -65,6 +67,8 @@ defineOptions({
 });
 
 const { t } = useI18n();
+
+const { isMobile } = useResponsive();
 
 const props = withDefaults(defineProps<Props>(), {
   loading: false,

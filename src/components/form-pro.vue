@@ -4,7 +4,7 @@
       <template v-for="item in formItems" :key="item.name">
         <n-form-item-gi
           v-bind="item.formItemProps"
-          :span="item.span ?? 4"
+          :span="isMobile ? 24 : (item.span ?? 4)"
           :path="item.name"
           :label="item.label"
         >
@@ -58,7 +58,7 @@ import {
   NSlider,
 } from "naive-ui";
 
-import { useDict } from "@/hooks";
+import { useDict, useResponsive } from "@/hooks";
 
 defineOptions({ name: "FormPro" });
 
@@ -75,9 +75,12 @@ const defaultFormProps: FormProps = {
 /**
  * 默认的GridProps
  */
-const defaultGridProps: GridProps = {
-  xGap: 16,
-};
+const defaultGridProps = computed(
+  (): GridProps => ({
+    xGap: isMobile.value ? 0 : 16,
+    yGap: isMobile.value ? 0 : 16,
+  })
+);
 
 /**
  * 表单项通用的Props
@@ -105,6 +108,8 @@ const {
     type: Number as PropType<FormPro.FormProProps["operationSpan"]>,
   },
 });
+
+const { isMobile } = useResponsive();
 
 // 表单数据
 const modelValue = defineModel<T>("modelValue", {

@@ -145,6 +145,7 @@
 <script lang="ts" setup generic="T extends Recordable">
 import type { DataTableColumns, DataTableInst, DataTableProps } from "naive-ui";
 import { NCheckbox } from "naive-ui";
+import { useResponsive } from "@/hooks";
 
 interface Props<T> {
   tableData?: DataTableProps["data"];
@@ -308,9 +309,10 @@ const showFoldBtn = computed(() => {
 
   return config && config.length > props.collapseRows;
 });
-
+const { isMobile } = useResponsive();
 // 计算操作区按钮的占位宽度
 const operationSpan = computed<number>(() => {
+  if (isMobile.value) return 24;
   let totalSpan = 0;
 
   if (!showFoldBtn) return totalSpan;

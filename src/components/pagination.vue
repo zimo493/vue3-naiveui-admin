@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useResponsive } from "@/hooks";
 import { PropType } from "vue";
 
 const { t } = useI18n();
@@ -40,6 +41,7 @@ const currentPage = useVModel(props, "page", emit);
 
 const pageSize = useVModel(props, "limit", emit);
 
+const { isMobile } = useResponsive();
 const handlePage = (val: number) => {
   emit("pagination", { page: val, limit: pageSize });
 };
@@ -58,6 +60,7 @@ const handlePageSize = (val: number) => {
       :item-count="count"
       :display-order="displayOrder"
       :page-sizes="pageSizes"
+      :simple="isMobile"
       show-quick-jumper
       show-size-picker
       @update-page="handlePage"
