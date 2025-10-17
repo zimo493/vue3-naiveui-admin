@@ -53,10 +53,10 @@ export const useTabStore = defineStore("tab-store", {
         // 如果是关闭的当前页面，路由跳转到原先标签的后一个标签
         if (this.currentTabPath === path && !isLast) {
           // 跳转到后一个标签
-          pushedTab = this.tabs[index + 1].path;
+          pushedTab = this.tabs[index + 1].fullPath;
         } else if (this.currentTabPath === path && isLast) {
           // 已经是最后一个了，就跳转前一个
-          pushedTab = this.tabs[index - 1].path;
+          pushedTab = this.tabs[index - 1].fullPath;
         }
         await router.push(pushedTab);
       }

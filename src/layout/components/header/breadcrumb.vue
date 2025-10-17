@@ -26,7 +26,7 @@ const transformTree = (node: RouteRecordRaw[]): Options[] => {
   const menu = node.filter((item) => !item.meta?.hidden);
 
   return menu.map((item: RouteRecordRaw) => ({
-    key: item.path,
+    key: buildPathWithParams(item.path, item.meta?.params),
     icon: appStore.showBreadcrumbIcon
       ? item.meta?.icon
         ? renderIcon(item.meta.icon)
@@ -38,10 +38,28 @@ const transformTree = (node: RouteRecordRaw[]): Options[] => {
 };
 
 const handleSelect = (path: string) => {
-  console.log(path, "path");
-
   if (path.includes("/:")) return;
   isHttpUrl(path) ? window.open(path, "_blank") : router.push(path);
+};
+
+/**
+ * 将路径和参数对象拼接成完整路径
+ */
+const buildPathWithParams = (path: string, params?: Recordable): string => {
+  if (!params || Object.keys(params).length === 0) {
+    return path;
+  }
+
+  const queryString = Object.entries(params)
+    .map(([key, value]) => {
+      if (value === null || value === undefined) return "";
+
+      return `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`;
+    })
+    .filter(Boolean)
+    .join("&");
+
+  return queryString ? `${path}?${queryString}` : path;
 };
 </script>
 
