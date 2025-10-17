@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useRouteStore } from "@/store";
-import { useBoolean } from "@/hooks";
+import { useBoolean, useResponsive } from "@/hooks";
 import { defaultIcon } from "@/modules/assets";
 
 const routeStore = useRouteStore();
 
 const { t } = useI18n();
+const { isMobile } = useResponsive();
 
 // 搜索值
 const searchValue = ref("");
@@ -257,7 +258,8 @@ const highlightStyle = {
   </n-tag>
   <n-modal
     v-model:show="showModal"
-    class="w-560px fixed top-60px inset-x-0"
+    class="fixed top-60px inset-x-0"
+    :class="isMobile ? 'w-95%' : 'w-560px'"
     size="small"
     preset="card"
     :segmented="{

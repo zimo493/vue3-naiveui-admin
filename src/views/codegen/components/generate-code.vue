@@ -1,5 +1,5 @@
 <template>
-  <n-drawer v-model:show="visible" width="80%" :on-after-leave="cancel">
+  <n-drawer v-model:show="visible" :width="isMobile ? '100%' : '80%'" :on-after-leave="cancel">
     <n-drawer-content :title="`${t('codeGen.generate')}- ${tableCode}`" closable>
       <n-spin :show="loading">
         <template v-if="active === 'basic'">
@@ -22,13 +22,18 @@
             </template>
           </FormPro>
 
-          <n-data-table size="small" :columns="columns" :data="modelValue.fieldConfigs" />
+          <n-data-table
+            size="small"
+            :columns="columns"
+            :scroll-x="1400"
+            :data="modelValue.fieldConfigs"
+          />
         </template>
         <template v-else>
           <n-flex vertical>
             <n-alert :title="t('codeGen.drawer.alert')" type="warning" />
             <n-grid x-gap="12">
-              <n-gi :span="6">
+              <n-gi :span="isMobile ? 24 : 6">
                 <n-scrollbar style="height: calc(100vh - 205px)">
                   <n-spin :show="treeDataLoading">
                     <n-tree
@@ -42,7 +47,7 @@
                   </n-spin>
                 </n-scrollbar>
               </n-gi>
-              <n-gi :span="18">
+              <n-gi :span="isMobile ? 24 : 18">
                 <n-scrollbar style="height: calc(100vh - 205px)">
                   <n-float-button v-copy="code" :right="30" :top="120" shape="square">
                     <Icones icon="ep:document-copy" />
@@ -100,7 +105,7 @@ import MenuAPI from "@/api/system/menu";
 import DictAPI from "@/api/system/dict/type";
 
 import { endSpin, exportFile, spin, startSpin } from "@/utils";
-import { useLoading } from "@/hooks";
+import { useLoading, useResponsive } from "@/hooks";
 import { MIMETYPE } from "@/enums";
 import { FormType, QueryType } from "./config";
 
@@ -122,6 +127,7 @@ interface TreeNode {
 const { t } = useI18n();
 
 const { loading, startLoading, endLoading } = useLoading();
+const { isMobile } = useResponsive();
 
 defineExpose({
   open: (tableName: string) => {

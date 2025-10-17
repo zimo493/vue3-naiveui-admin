@@ -55,7 +55,6 @@
       ref="drawerForm"
       v-model="modelValue"
       :form="editFormConfig"
-      :width="600"
       :loading="spin"
       @submit="submitForm"
     >

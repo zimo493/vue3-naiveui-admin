@@ -1,7 +1,7 @@
 <template>
   <div>
     <n-grid :x-gap="10" :y-gap="10">
-      <n-gi v-for="item in aboutList" :key="item.icon" :span="4">
+      <n-gi v-for="item in aboutList" :key="item.icon" :span="isMobile ? 24 : 4">
         <n-card
           hoverable
           h="[100%]"
@@ -22,7 +22,7 @@
           </a>
         </n-card>
       </n-gi>
-      <n-gi :span="8">
+      <n-gi :span="isMobile ? 24 : 8">
         <n-card
           :segmented="{ content: true }"
           content-style="padding:20px"
@@ -70,7 +70,7 @@
         </n-card>
       </n-gi>
 
-      <n-gi :span="8">
+      <n-gi :span="isMobile ? 24 : 8">
         <n-card
           :segmented="{ content: true }"
           content-style="padding:20px"
@@ -123,7 +123,7 @@
           </n-flex>
         </n-card>
       </n-gi>
-      <n-gi :span="8">
+      <n-gi :span="isMobile ? 24 : 8">
         <n-card
           :segmented="{ content: true }"
           content-style="padding:20px"
@@ -177,7 +177,7 @@
         </n-card>
       </n-gi>
 
-      <n-gi :span="18">
+      <n-gi :span="isMobile ? 24 : 18">
         <n-card
           :title="t('home.card.visitTrend')"
           :segmented="{ content: true }"
@@ -187,7 +187,7 @@
           <template #header-extra>
             <n-date-picker
               v-model:value="dateRange"
-              w-300px
+              :class="isMobile ? 'w-246px' : 'w-300px'"
               type="daterange"
               close-on-select
               :shortcuts="shortcuts"
@@ -198,7 +198,7 @@
           <ECharts ref="chart" height="517px" />
         </n-card>
       </n-gi>
-      <n-gi :span="6">
+      <n-gi :span="isMobile ? 24 : 6">
         <n-flex vertical :size="10">
           <n-card
             :title="t('common.messageType.announcement')"
@@ -232,7 +232,7 @@
 import { type EChartsOption } from "echarts";
 import LogAPI from "@/api/system/log";
 import { formatDate, formatDateTime } from "@/utils";
-import { useLoading, useOnlineCount } from "@/hooks";
+import { useLoading, useOnlineCount, useResponsive } from "@/hooks";
 
 const up = "ant-design:arrow-up-outlined";
 const down = "ant-design:arrow-down-outlined";
@@ -249,6 +249,8 @@ interface List {
 const { t } = useI18n();
 
 const { loading, startLoading, endLoading } = useLoading();
+
+const { isMobile } = useResponsive();
 
 const startDate = new Date();
 

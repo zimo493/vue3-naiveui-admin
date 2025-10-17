@@ -1,7 +1,7 @@
 <template>
   <div>
-    <n-grid x-gap="10">
-      <n-gi :span="4">
+    <n-grid x-gap="10" y-gap="10">
+      <n-gi :span="isMobile ? 24 : 4">
         <n-card h="[100%]">
           <n-flex vertical>
             <n-input
@@ -28,7 +28,7 @@
           </n-flex>
         </n-card>
       </n-gi>
-      <n-gi :span="20">
+      <n-gi :span="isMobile ? 24 : 20">
         <TablePro
           v-model="queryParams"
           :form-config="formConfig"
@@ -109,7 +109,7 @@ import {
 } from "naive-ui";
 
 import { MIMETYPE } from "@/enums";
-import { useCompRef, useDict, useLoading } from "@/hooks";
+import { useCompRef, useDict, useLoading, useResponsive } from "@/hooks";
 import {
   spin,
   startSpin,
@@ -135,6 +135,7 @@ defineOptions({ name: "User" });
 const { t } = useI18n();
 
 const { loading, startLoading, endLoading } = useLoading();
+const { isMobile } = useResponsive();
 const { gender } = useDict("gender");
 
 const authStore = useAuthStoreHook();

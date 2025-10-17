@@ -10,7 +10,7 @@
     </n-tooltip>
 
     <!-- 设置面板 -->
-    <n-drawer v-model:show="drawerActive" :width="386" show-mask="transparent">
+    <n-drawer v-model:show="drawerActive" :width="isMobile ? '100%' : 386" show-mask="transparent">
       <n-drawer-content :title="t('system.tooltip.settings')" closable>
         <n-flex vertical>
           <!-- <n-divider>布局设置</n-divider> -->
@@ -262,8 +262,11 @@ import { LayoutMode, ThemeMode } from "@/enums";
 
 import { type SelectOption, NFlex, NText } from "naive-ui";
 import { InquiryBox } from "@/utils";
+import { useResponsive } from "@/hooks";
 
 const appStore = useAppStoreHook();
+
+const { isMobile } = useResponsive();
 
 const { t } = useI18n();
 
