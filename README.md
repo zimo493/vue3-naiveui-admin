@@ -118,7 +118,8 @@
 │     ├── useDict.ts         # 获取字典数据
 │     ├── useKeepTicking.ts  # 组合式定时器钩子方法
 │     ├── useLoading.ts      # 组合式使用Loading方法
-│     └── useRange.ts        # 列表搜索时间范围处理方法
+│     ├── useRange.ts        # 列表搜索时间范围处理方法
+│     └── useResponsive.ts   # 响应式布局
 │  ├─ layout                # 框架布局模块
 │     ├── components         # 布局内部组件
 │     ├── main               # 布局框架
