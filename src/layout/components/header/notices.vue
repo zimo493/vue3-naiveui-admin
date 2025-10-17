@@ -18,7 +18,7 @@
       <n-spin :show="loading">
         <template v-if="unreadList.length">
           <n-scrollbar style="max-height: 400px">
-            <n-list hoverable clickable w-400px>
+            <n-list hoverable clickable :class="isMobile ? 'w-300px' : 'w-400px'">
               <n-list-item v-for="item in unreadList" @click="viewDetail(item.id)">
                 <n-thing content-indented>
                   <template #header>
@@ -86,11 +86,12 @@
 
 <script lang="tsx" setup>
 import NoticeAPI from "@/api/system/notice";
-import { useDict, useLoading } from "@/hooks";
+import { useDict, useLoading, useResponsive } from "@/hooks";
 import { endSpin, startSpin } from "@/utils";
 import { NTag } from "naive-ui";
 
 const router = useRouter();
+const { isMobile } = useResponsive();
 
 type NoticeList = Notice.VO & { isRead: boolean };
 
