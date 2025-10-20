@@ -86,7 +86,7 @@ const defaultFormProps: FormProps = {
 const defaultGridProps = computed(
   (): GridProps => ({
     xGap: isMobile.value ? 0 : 16,
-    yGap: isMobile.value ? 0 : 16,
+    yGap: !isMobile.value ? 0 : 16,
   })
 );
 
