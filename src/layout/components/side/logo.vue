@@ -12,7 +12,7 @@ const router = useRouter();
     <SvgIconsLogo class="text-1.2em" />
     <n-ellipsis
       v-if="!appStore.collapsed"
-      class="text-ellipsis text-1.2em overflow-hidden whitespace-nowrap"
+      class="text-1.15em text-ellipsis overflow-hidden whitespace-nowrap"
     >
       {{ pkg.name }}
     </n-ellipsis>
