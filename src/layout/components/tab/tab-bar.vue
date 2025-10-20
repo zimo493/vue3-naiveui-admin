@@ -22,23 +22,8 @@ const { t } = useI18n();
 const tabStore = useTabStoreHook();
 const appStore = useAppStoreHook();
 
-watch(
-  () => appStore.showTabsIcon,
-  () => nextTick(() => updateBar())
-);
-
-// 语言切换后刷新以下指示条
-watch(
-  () => appStore.lang,
-  () => nextTick(() => updateBar())
-);
-
-const handleTab = (route: RouteLocationNormalized) => {
-  router.push({
-    path: route.path,
-    query: route.query,
-  });
-};
+// 刷新指示条
+watch([() => appStore.lang, () => appStore.showTabsIcon], () => nextTick(() => updateBar()));
 
 const tabsInstRef = useTemplateRef<TabsInst>("tabs");
 const handleClose = (path: string) => tabStore.closeTab(path).then(() => updateBar());
@@ -64,24 +49,12 @@ const handleSelect = (key: string) => {
   showDropdown.value = false;
 
   const handleFn: Record<string, () => void> = {
-    reload() {
-      appStore.reloadPage();
-    },
-    closeCurrent() {
-      handleClose(currentRoute.value.fullPath);
-    },
-    closeOther() {
-      tabStore.closeOtherTabs(currentRoute.value.fullPath);
-    },
-    closeLeft() {
-      tabStore.closeLeftTabs(currentRoute.value.fullPath);
-    },
-    closeRight() {
-      tabStore.closeRightTabs(currentRoute.value.fullPath);
-    },
-    closeAll() {
-      tabStore.closeAllTabs();
-    },
+    reload: () => appStore.reloadPage(), // 刷新
+    closeCurrent: () => handleClose(currentRoute.value.fullPath), // 关闭当前
+    closeOther: () => tabStore.closeOtherTabs(currentRoute.value.fullPath), // 关闭其他
+    closeLeft: () => tabStore.closeLeftTabs(currentRoute.value.fullPath), // 关闭左侧
+    closeRight: () => tabStore.closeRightTabs(currentRoute.value.fullPath), // 关闭右侧
+    closeAll: () => tabStore.closeAllTabs(), // 关闭所有
   };
 
   handleFn[key]();
@@ -112,23 +85,22 @@ const onClickOutSide = () => (showDropdown.value = false);
     >
       <n-tab
         v-for="item in tabStore.pinTabs"
-        :key="item.path"
+        :key="item.fullPath"
         class="h-40px"
-        :name="item.path"
-        @click="router.push(item.path)"
+        :name="item.fullPath"
+        @click="router.push(item.fullPath)"
       >
         <div class="flex-x-center gap-2 items-center">
           <Icones v-if="appStore.showTabsIcon" :icon="item.meta.icon" />
-          <!-- {{ item.meta.title }} -->
           {{ t(`route.${String(item.name)}`, item.meta?.title ?? "") }}
         </div>
       </n-tab>
       <n-tab
         v-for="item in tabStore.tabs"
-        :key="item.path"
+        :key="item.fullPath"
+        :name="item.fullPath"
         closable
-        :name="item.path"
-        @click="handleTab(item)"
+        @click="router.push(item.fullPath)"
         @contextmenu="handleContextMenu($event, item)"
       >
         <div class="flex-x-center gap-1 items-center">
@@ -141,7 +113,7 @@ const onClickOutSide = () => (showDropdown.value = false);
             class="close"
             :size="14"
             icon="material-symbols:close"
-            @click.stop="handleClose(item.path)"
+            @click.stop="handleClose(item.fullPath)"
           />
         </div>
       </n-tab>

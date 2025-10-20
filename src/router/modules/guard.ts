@@ -71,7 +71,7 @@ export const setupRouterGuard = (router: Router) => {
       typeof to.meta.activeMenu === "string" ? to.meta.activeMenu : to.fullPath.split("?")[0]
     );
     // 设置高亮标签;
-    await tabStore.setCurrentTab(to.path);
+    await tabStore.setCurrentTab(to.fullPath);
   });
 
   router.afterEach((to) => {

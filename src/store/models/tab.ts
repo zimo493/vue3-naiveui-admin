@@ -41,30 +41,28 @@ export const useTabStore = defineStore("tab-store", {
       else this.tabs.push(tab);
     },
     async closeTab(path: string) {
-      const tabsLength = this.tabs.length;
+      const tabsLength = this.tabs.length; // 当前动态标签数量
 
       // 如果动态标签大于一个,才会标签跳转
       if (this.tabs.length > 1) {
         // 获取关闭的标签索引
         const index: number = this.getTabIndex(path);
-        const isLast: boolean = index + 1 === tabsLength;
-        let pushedTab = "";
 
-        // 如果是关闭的当前页面，路由跳转到原先标签的后一个标签
-        if (this.currentTabPath === path && !isLast) {
-          // 跳转到后一个标签
-          pushedTab = this.tabs[index + 1].fullPath;
-        } else if (this.currentTabPath === path && isLast) {
-          // 已经是最后一个了，就跳转前一个
-          pushedTab = this.tabs[index - 1].fullPath;
+        // 判断关闭的是否是当前激活的标签
+        const isCurrentClosing = this.currentTabPath === path;
+
+        if (isCurrentClosing) {
+          // 判断是否是最后一个标签
+          const isLast = index + 1 === tabsLength;
+          const pushedTab = isLast ? this.tabs[index - 1].fullPath : this.tabs[index + 1].fullPath;
+
+          await router.push(pushedTab);
         }
-        await router.push(pushedTab);
       }
       // 删除标签
-      this.tabs = this.tabs.filter((item: RouteLocationNormalized) => item.path !== path);
+      this.tabs = this.tabs.filter((item: RouteLocationNormalized) => item.fullPath !== path);
       // 删除后如果清空了，就跳转到默认首页
       if (tabsLength - 1 === 0) await router.push("/");
-      await this.setCurrentTab(this.currentTabPath);
       this.delCache(path);
     },
 
@@ -109,7 +107,7 @@ export const useTabStore = defineStore("tab-store", {
       this.currentTabPath = path;
     },
     getTabIndex(path: string) {
-      return this.tabs.findIndex((item: RouteLocationNormalized) => item.path === path);
+      return this.tabs.findIndex((item: RouteLocationNormalized) => item.fullPath === path);
     },
     /** 关闭当前标签打开新标签 */
     async closeCurrentTabOpenNew(path: string) {
