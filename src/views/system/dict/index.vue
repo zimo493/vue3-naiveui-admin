@@ -262,21 +262,19 @@ const handleViewItems = ({ dictCode }: DictType.VO) => {
   // 跳转到字典项管理页面，并传递字典类型信息
   const path = `/system/dict-item`;
   const query = { dictCode };
+  // 使用 router.resolve 生成完整的路由对象
+  const route = router.resolve({ path, query });
 
-  router.push({ path, query }).then(() => {
-    // 使用 router.resolve 生成完整的路由对象
-    const route = router.resolve({ path, query });
-
-    // 添加标签页
-    useTabStoreHook().addTab({
-      ...route, // 解构路由对象，确保包含所有必要属性
-      name: `DictItem`,
-      meta: {
-        title: `字典数据项`, // 自定义标题
-        icon: "icon-park-outline:book-one", // 自定义图标
-      },
-    });
+  // 添加标签页
+  useTabStoreHook().addTab({
+    ...route, // 解构路由对象，确保包含所有必要属性
+    name: `DictItem`,
+    meta: {
+      title: `字典数据项`, // 自定义标题
+      icon: "icon-park-outline:book-one", // 自定义图标
+    },
   });
+  router.push(route);
 };
 
 // 清除字典缓存
