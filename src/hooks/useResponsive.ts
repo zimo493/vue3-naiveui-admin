@@ -1,5 +1,3 @@
-import { ref, onMounted, onUnmounted } from "vue";
-
 export interface BreakpointConfig {
   xs: number; // 手机
   sm: number; // 平板
@@ -16,7 +14,7 @@ const defaultBreakpoints: BreakpointConfig = {
   xl: 1600,
 };
 
-export function useResponsive(breakpoints: BreakpointConfig = defaultBreakpoints) {
+export const useResponsive = (breakpoints: BreakpointConfig = defaultBreakpoints) => {
   const screenWidth = ref(window.innerWidth);
   const screenHeight = ref(window.innerHeight);
 
@@ -24,10 +22,14 @@ export function useResponsive(breakpoints: BreakpointConfig = defaultBreakpoints
   const screenType = computed(() => {
     const width = screenWidth.value;
 
-    if (width < breakpoints.xs) return "xs";
-    if (width < breakpoints.sm) return "sm";
-    if (width < breakpoints.md) return "md";
-    if (width < breakpoints.lg) return "lg";
+    // 使用排序和循环优化断点判断逻辑，提高可维护性
+    const sortedBreakpoints = Object.entries(breakpoints)
+      .sort(([, a], [, b]) => a - b)
+      .slice(0, -1); // 移除最后一个元素(xl)，因为它作为默认返回值
+
+    for (const [key, value] of sortedBreakpoints) {
+      if (width < value) return key;
+    }
 
     return "xl";
   });
@@ -47,13 +49,16 @@ export function useResponsive(breakpoints: BreakpointConfig = defaultBreakpoints
     screenHeight.value = window.innerHeight;
   };
 
+  // 防抖函数，避免频繁触发resize事件
+  const debouncedUpdateScreenSize = useDebounceFn(updateScreenSize, 150);
+
   onMounted(() => {
-    window.addEventListener("resize", updateScreenSize);
+    window.addEventListener("resize", debouncedUpdateScreenSize);
     updateScreenSize();
   });
 
   onUnmounted(() => {
-    window.removeEventListener("resize", updateScreenSize);
+    window.removeEventListener("resize", debouncedUpdateScreenSize);
   });
 
   return {
@@ -65,4 +70,4 @@ export function useResponsive(breakpoints: BreakpointConfig = defaultBreakpoints
     isSmallScreen: readonly(isSmallScreen),
     breakpoints,
   };
-}
+};
