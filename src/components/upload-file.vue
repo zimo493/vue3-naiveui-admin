@@ -263,7 +263,7 @@ const handleRemove = async ({
 
       await FileAPI.delete(url);
       emit("remove", { url, name: file.name, idx: index });
-      window.$message.success(t(t("message.deleteSuccess")));
+      window.$message.success(t("message.deleteSuccess"));
 
       return true;
     }
