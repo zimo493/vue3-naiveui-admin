@@ -2,7 +2,7 @@ import { store } from "@/store";
 import { useAuthStoreHook } from "..";
 import { router } from "@/router";
 import MenuAPI from "@/api/system/menu";
-import appRootRoutes, { constantRoutes } from "@/router/modules/ruotes";
+import appRootRoutes, { constantRoutes } from "@/router/modules/routes";
 import {
   $t,
   isHttpUrl,
