@@ -287,7 +287,7 @@ INSERT INTO `sys_menu` VALUES (126, 1, '0,1', '通知公告', 1, 'Notice', 'noti
 INSERT INTO `sys_menu` VALUES (135, 1, '0,1', '字典项', 1, 'DictItem', 'dict-item', 'system/dict/dict-item', NULL, 0, 1, 0, 6, 'icon-park-outline:ad-product', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (144, 26, '0,26', '后端文档', 3, NULL, 'https://youlai.blog.csdn.net/article/details/145178880', '', NULL, NULL, NULL, 1, 3, 'local:csdn', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (145, 26, '0,26', '移动端文档', 3, NULL, 'https://youlai.blog.csdn.net/article/details/143222890', '', NULL, NULL, NULL, 1, 4, 'local:csdn', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (152, 151, '0,151', '大屏适配', 3, NULL, 'http://192.168.2.3/fitScreen', NULL, NULL, 0, 1, 1, 1, 'icon-park-solid:monitor-one', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (152, 151, '0,151', '大屏适配', 3, NULL, 'http://localhost:5173/#/fitScreen', NULL, NULL, 0, 1, 1, 1, 'icon-park-solid:monitor-one', NULL, now(), now(), NULL);
 
 -- 三级菜单
 INSERT INTO `sys_menu` VALUES (22, 21, '0,20,21', '菜单二级', 2, 'Multilevel2', 'multi-level2', 'Layout', NULL, 0, 1, 1, 1, 'healthicons:2', NULL, now(), now(), NULL);
