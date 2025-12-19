@@ -22,6 +22,15 @@ const { t } = useI18n();
 const tabStore = useTabStoreHook();
 const appStore = useAppStoreHook();
 
+/** 缓存路由 Set 集合 */
+const cacheRouteSet = computed(() => new Set(tabStore.cacheRoutes));
+/** 判断路由是否被缓存 */
+const isCached = (path?: string) => Boolean(path && cacheRouteSet.value.has(path));
+
+/** 缓存标志组件 */
+const CacheFlag = ({ cached }: { cached: boolean }) =>
+  cached ? h("div", { class: "cache-flag" }) : null;
+
 // 刷新指示条
 watch([() => appStore.lang, () => appStore.showTabsIcon], () => nextTick(() => updateBar()));
 
@@ -91,6 +100,7 @@ const onClickOutSide = () => (showDropdown.value = false);
         @click="router.push(item.fullPath)"
       >
         <div class="flex-x-center gap-2 items-center">
+          <CacheFlag :cached="isCached(item.fullPath)" />
           <Icones v-if="appStore.showTabsIcon" :icon="item.meta.icon" />
           {{ t(`route.${String(item.name)}`, item.meta?.title ?? "") }}
         </div>
@@ -104,6 +114,7 @@ const onClickOutSide = () => (showDropdown.value = false);
         @contextmenu="handleContextMenu($event, item)"
       >
         <div class="flex-x-center gap-1 items-center">
+          <CacheFlag :cached="isCached(item.fullPath)" />
           <Icones
             v-if="appStore.showTabsIcon"
             :icon="item.meta?.icon ? item.meta.icon : defaultIcon"
@@ -150,5 +161,14 @@ const onClickOutSide = () => (showDropdown.value = false);
   &:hover {
     background-color: var(--n-close-color-hover);
   }
+}
+
+.cache-flag {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  background-color: currentColor;
+  border-radius: 50%;
+  opacity: 0.65;
 }
 </style>
