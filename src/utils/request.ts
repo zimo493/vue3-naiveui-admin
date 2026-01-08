@@ -17,27 +17,27 @@ const service = axios.create({
 });
 // 请求拦截器处理
 const reqOnFulfilled = (config: InternalAxiosRequestConfig) => {
-  // 是否需要设置 token
-  const isToken = (config.headers || {}).isToken === false;
-
+  const headers = config.headers || {};
+  // 是否需要跳过 token 设置
+  const skipToken = headers.isToken === false;
   // 是否需要防止数据重复提交
-  const isRepeatSubmit = (config.headers || {}).repeatSubmit === false;
+  const preventRepeatSubmit = headers.repeatSubmit !== false;
   const accessToken = local.get("accessToken");
 
-  if (accessToken && !isToken) {
-    config.headers.Authorization = "Bearer " + accessToken; // 让每个请求携带自定义token 请根据实际情况自行修改
+  if (accessToken && !skipToken) {
+    headers.Authorization = `Bearer ${accessToken}`; // 让每个请求携带自定义token 请根据实际情况自行修改
+    config.headers = headers;
   }
 
-  if (
-    !isRepeatSubmit &&
-    (config.method?.toLocaleLowerCase() === "post" || config.method?.toLocaleLowerCase() === "put")
-  ) {
+  const method = config.method?.toLowerCase();
+
+  if (preventRepeatSubmit && (method === "post" || method === "put")) {
     const requestObj = {
       url: config.url,
       data: typeof config.data === "object" ? JSON.stringify(config.data) : config.data,
       time: new Date().getTime(),
     };
-    const requestSize = Object.keys(JSON.stringify(requestObj)).length; // 请求数据大小
+    const requestSize = JSON.stringify(requestObj).length; // 请求数据大小
     const limitSize = 5 * 1024 * 1024; // 限制存放数据5M
 
     if (requestSize >= limitSize) {
@@ -122,7 +122,7 @@ service.interceptors.response.use(resOnFulfilled, async (error) => {
     }
     window.$message.error(msg || $t("common.sysError"));
   } else {
-    let { message } = error;
+    let message = error.message || $t("common.sysError");
 
     if (message === "Network Error") {
       message = $t("common.backendError");
@@ -139,75 +139,83 @@ service.interceptors.response.use(resOnFulfilled, async (error) => {
   return Promise.reject(error.message);
 });
 
-// get 请求
-export async function get<T>(url: string, params?: unknown): Promise<T> {
-  return await service.get<any, T>(url, { params });
-}
-
-// post 请求
-export async function post<T = null>(url: string, data?: unknown, params?: unknown): Promise<T> {
-  return await service.post<any, T>(url, data, { params });
-}
-
-// put 请求
-export async function put<T = null>(url: string, data?: unknown, params?: unknown): Promise<T> {
-  return await service.put<any, T>(url, data, { params });
-}
-
-// delete 请求
-export async function del<T = null>(url: string, params?: unknown): Promise<T> {
-  return await service.delete<any, T>(url, { params });
-}
-
-// patch 请求
-export async function patch<T = null>(url: string, data?: unknown): Promise<T> {
-  return await service.patch<any, T>(url, data);
-}
-
-// 导出 axios 实例
-export default service;
-
 // 是否正在刷新标识，避免重复刷新
 let isRefreshing = false;
 // 因 Token 过期导致的请求等待队列
-const waitingQueue: Array<() => void> = [];
+const waitingQueue: Array<(error?: Error) => void> = [];
 
 // 刷新 Token 处理
-async function handleTokenRefresh(config: InternalAxiosRequestConfig) {
-  return new Promise((resolve) => {
+function handleTokenRefresh(config: InternalAxiosRequestConfig) {
+  return new Promise((resolve, reject) => {
     // 封装需要重试的请求
-    const retryRequest = () => {
+    const retryRequest = (error?: Error) => {
+      if (error) {
+        reject(error);
+
+        return;
+      }
       config.headers.Authorization = `Bearer ${local.get("accessToken")}`;
       resolve(service(config));
     };
 
     waitingQueue.push(retryRequest);
+
     if (!isRefreshing) {
       isRefreshing = true;
+
       useAuthStoreHook()
         .refreshToken()
         .then(() => {
           // 依次重试队列中所有请求, 重试后清空队列
-          waitingQueue.forEach((callback) => callback());
+          waitingQueue.forEach((callback) => {
+            try {
+              callback();
+            } catch (error) {
+              console.error("Retry request error:", error);
+            }
+          });
           waitingQueue.length = 0;
         })
-        .catch(async (error) => {
-          console.error("handleTokenRefresh error", error);
-          // 刷新 Token 失败，跳转登录页
-          await handleSessionExpired();
+        .catch((error) => {
+          console.error("Token refresh failed:", error); // 刷新失败，先 reject 所有等待的请求，再清空队列
+          waitingQueue.forEach((callback) => callback(new Error("Token refresh failed")));
+          waitingQueue.length = 0;
         })
         .finally(() => (isRefreshing = false));
     }
   });
 }
 // 处理会话过期
+let isSessionExpiredShowing = false;
+
 async function handleSessionExpired() {
-  InquiryBox($t("common.sessionTimeout"))
-    .then(async () => {
-      await useAuthStoreHook().resetAuthStore();
-      await router.replace("/login");
-    })
-    .catch((error) => {
-      console.error("Error handling session timeout:", error);
-    });
+  if (isSessionExpiredShowing) return;
+  isSessionExpiredShowing = true;
+
+  try {
+    await InquiryBox($t("common.sessionTimeout"));
+    await useAuthStoreHook().resetAuthStore();
+    await router.replace("/login");
+  } catch (error) {
+    console.error("Error handling session timeout:", error);
+  } finally {
+    isSessionExpiredShowing = false;
+  }
 }
+
+/**
+ * 请求方法
+ */
+const request = {
+  get: <T>(url: string, params?: unknown): Promise<T> => service.get(url, { params }),
+  post: <T = null>(url: string, data?: unknown, params?: unknown): Promise<T> =>
+    service.post(url, data, { params }),
+  put: <T = null>(url: string, data?: unknown, params?: unknown): Promise<T> =>
+    service.put(url, data, { params }),
+  del: <T = null>(url: string, params?: unknown): Promise<T> => service.delete(url, { params }),
+  patch: <T = null>(url: string, data?: unknown): Promise<T> => service.patch(url, data),
+};
+
+// 导出 axios 实例
+export default service;
+export const { get, post, put, del, patch } = request;
