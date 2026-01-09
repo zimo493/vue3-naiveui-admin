@@ -83,9 +83,9 @@ const columns: DataTableColumns<Log.VO> = [
 const handleQuery = () => {
   startLoading();
   LogAPI.getPage(query.value)
-    .then((data) => {
-      tableData.value = data.list;
-      total.value = data.total;
+    .then((res) => {
+      tableData.value = res.data;
+      total.value = res.page?.total ?? 0;
     })
     .finally(() => endLoading());
 };

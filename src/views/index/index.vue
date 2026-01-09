@@ -230,7 +230,7 @@
 
 <script lang="tsx" setup>
 import { type EChartsOption } from "echarts";
-import LogAPI from "@/api/system/log";
+import StatisticsAPI from "@/api/system/statistics";
 import { formatDate, formatDateTime } from "@/utils";
 import { useLoading, useOnlineCount, useResponsive } from "@/hooks";
 
@@ -511,7 +511,7 @@ const formattedTime = computed(() =>
 const fetchVisitTrendData = () => {
   const [startDate, endDate] = dateRange.value!;
 
-  LogAPI.getVisitTrend({
+  StatisticsAPI.getVisitTrend({
     startDate: formatDate(startDate),
     endDate: formatDate(endDate),
   }).then((data) => updateCharts(data));
@@ -539,7 +539,7 @@ const visitStatsData = ref<Log.VisitStatsVO>({
 });
 const fetchVisitStatsData = () => {
   startLoading();
-  LogAPI.getVisitStats()
+  StatisticsAPI.getVisitOverview()
     .then((data) => (visitStatsData.value = data))
     .finally(() => endLoading());
 };

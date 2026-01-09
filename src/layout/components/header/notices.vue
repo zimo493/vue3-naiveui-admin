@@ -111,8 +111,8 @@ const unreadList = computed(() => noticeList.value.filter((item) => !item.isRead
 const getUnread = () => {
   startLoading();
   NoticeAPI.getMyNoticePage({ pageNum: 1, pageSize: 10, isRead: 0 })
-    .then(({ list }) => {
-      noticeList.value = list.map((item) => ({ ...item, isRead: false }));
+    .then((res) => {
+      noticeList.value = (res.data ?? []).map((item: Notice.VO) => ({ ...item, isRead: false }));
     })
     .finally(() => endLoading());
 };
