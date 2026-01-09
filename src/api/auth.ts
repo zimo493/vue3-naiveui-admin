@@ -8,17 +8,21 @@ export default {
    * @param data 登录表单数据
    */
   login: (data: Auth.LoginFormData) => {
-    const formData = new FormData();
+    const payload: Record<string, any> = {
+      username: data.username,
+      password: data.password,
+      captchaId: (data as any).captchaId,
+      captchaCode: (data as any).captchaCode,
+    };
 
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
+    if (typeof (data as any).tenantId !== "undefined") {
+      payload.tenantId = (data as any).tenantId;
+    }
 
     return request<any, Auth.LoginResult>({
       url: `${AUTH_BASE_URL}/login`,
       method: "post",
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
+      data: payload,
     });
   },
 

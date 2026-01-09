@@ -88,7 +88,7 @@ const expandAll = ref<boolean>(true);
 const cascade = ref<boolean>(true);
 
 // 菜单权限下拉
-const menuPermOptions = ref<OptionType[]>([]);
+const menuPermOptions = ref<OptionItem[]>([]);
 const selectedKeys = ref<string[]>([]);
 
 const roleId = ref<string>("");

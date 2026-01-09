@@ -1,14 +1,13 @@
 import { del, get, post, put } from "@/utils";
 
-const CONFIG_BASE_URL = "/api/v1/config";
+const CONFIG_BASE_URL = "/api/v1/configs";
 
 export default {
   /**
    * 系统配置分页列表
    * @param params 查询参数
    */
-  getPage: (params?: Config.Query) =>
-    get<PageResult<Config.VO[]>>(`${CONFIG_BASE_URL}/page`, params),
+  getPage: (params?: Config.Query) => get<PageResult<Config.VO>>(`${CONFIG_BASE_URL}`, params),
 
   /**
    * 获取系统配置表单数据

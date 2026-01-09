@@ -1,5 +1,5 @@
 declare namespace DictData {
-  interface Query extends PageQuery {
+  interface Query extends BaseQueryParams {
     /** 关键字(字典数据值/标签) */
     keywords?: string;
 

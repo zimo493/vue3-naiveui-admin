@@ -2,7 +2,7 @@ declare namespace Log {
   /**
    * 日志分页查询对象
    */
-  export interface Query extends PageQuery {
+  export interface Query extends BaseQueryParams {
     /** 搜索关键字 */
     keywords?: string;
     /** 操作时间 */

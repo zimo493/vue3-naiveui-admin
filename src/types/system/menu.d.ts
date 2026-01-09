@@ -30,7 +30,7 @@ declare namespace Menu {
     /** 菜单排序(数字越小排名越靠前) */
     sort?: number;
     /** 菜单 */
-    type?: import("@/enums").MenuTypeEnum;
+    type?: string;
     /** 菜单是否可见(1:显示;0:隐藏) */
     visible?: number;
   }
@@ -58,7 +58,7 @@ declare namespace Menu {
     /** 跳转路由路径 */
     redirect?: string;
     /** 菜单 */
-    type?: import("@/enums").MenuTypeEnum;
+    type?: string;
     /** 权限标识 */
     perm?: string;
     /** 【菜单】是否开启页面缓存 */

@@ -10,7 +10,7 @@ declare namespace CodeGen {
   }
 
   /**  数据表分页查询参数 */
-  export interface Query extends PageQuery {
+  export interface Query extends BaseQueryParams {
     /** 关键字(表名) */
     keywords?: string;
   }

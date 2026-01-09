@@ -5,7 +5,7 @@ export default defineComponent({
   name: "Selection",
   props: {
     modelValue: { type: [String, Number] },
-    options: { type: Array as PropType<OptionType[]>, default: () => [] },
+    options: { type: Array as PropType<OptionItem[]>, default: () => [] },
     filterable: { type: Boolean, default: true },
     clearable: { type: Boolean, default: false },
   },

@@ -1,6 +1,6 @@
 declare namespace Notice {
   /** 通知公告分页查询参数 */
-  interface Query extends PageQuery {
+  interface Query extends BaseQueryParams {
     /** 标题 */
     title?: string;
     /** 发布状态(0：未发布，1：已发布，-1：已撤回) */

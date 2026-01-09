@@ -147,10 +147,10 @@ onMounted(async () => {
 });
 
 const show = ref<boolean>(false); // 部门加载状态
-const deptOptions = ref<OptionType[]>([]); // 部门下拉数据源
+const deptOptions = ref<OptionItem[]>([]); // 部门下拉数据源
 const pattern = ref<string>(""); // 搜索过滤
 
-const roleOptions = ref<OptionType[]>([]); // 角色下拉数据源
+const roleOptions = ref<OptionItem[]>([]); // 角色下拉数据源
 
 /** 查询部门下拉树结构 */
 const getDeptTree = () => {
@@ -181,8 +181,8 @@ const handleQuery = () => {
   startLoading();
   UserAPI.getPage(queryParams.value)
     .then(async (res) => {
-      tableData.value = res.list;
-      total.value = res.total;
+      tableData.value = res.data;
+      total.value = res.page?.total ?? 0;
     })
     .finally(() => endLoading());
 };

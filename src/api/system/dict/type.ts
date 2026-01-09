@@ -7,13 +7,12 @@ export default {
    * 字典分页列表
    * @param params 查询参数
    */
-  getPage: (params: DictType.Query) =>
-    get<PageResult<DictType.VO[]>>(`${DICT_BASE_URL}/page`, params),
+  getPage: (params: DictType.Query) => get<PageResult<DictType.VO>>(`${DICT_BASE_URL}`, params),
 
   /**
    * 字典列表
    */
-  getList: () => get<OptionType[]>(`${DICT_BASE_URL}`),
+  getList: () => get<OptionItem[]>(`${DICT_BASE_URL}/options`),
 
   /**
    * 字典表单数据

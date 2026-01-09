@@ -21,7 +21,7 @@ export default {
    * @param onlyParent 是否只返回一级菜单
    */
   getOptions: (onlyParent?: boolean) =>
-    get<OptionType[]>(`${MENU_BASE_URL}/options`, { onlyParent }),
+    get<OptionItem[]>(`${MENU_BASE_URL}/options`, { onlyParent }),
 
   /**
    * 获取菜单表单数据

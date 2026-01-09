@@ -7,7 +7,7 @@ declare namespace Auth {
     /** 密码 */
     password: string;
     /** 验证码缓存key */
-    captchaKey: string;
+    captchaId: string;
     /** 验证码 */
     captchaCode: string;
     /** 记住我 */
@@ -29,7 +29,7 @@ declare namespace Auth {
   /** 验证码信息 */
   interface CaptchaInfo {
     /** 验证码缓存key */
-    captchaKey: string;
+    captchaId: string;
     /** 验证码图片Base64字符串 */
     captchaBase64: string;
   }

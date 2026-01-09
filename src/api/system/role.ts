@@ -7,12 +7,12 @@ export default {
    * 获取角色分页数据
    * @param params 查询参数
    */
-  getPage: (params?: Role.Query) => get<PageResult<Role.VO[]>>(`${ROLE_BASE_URL}/page`, params),
+  getPage: (params?: Role.Query) => get<PageResult<Role.VO>>(`${ROLE_BASE_URL}`, params),
 
   /**
    * 获取角色下拉数据源
    */
-  getOptions: () => get<OptionType[]>(ROLE_BASE_URL + "/options"),
+  getOptions: () => get<OptionItem[]>(ROLE_BASE_URL + "/options"),
 
   /**
    * 获取角色的菜单id集合

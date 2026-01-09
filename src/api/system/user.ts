@@ -13,7 +13,7 @@ export default {
    * 获取用户分页列表
    * @param params 查询参数
    */
-  getPage: (params: User.Query) => get<PageResult<User.VO[]>>(`${USER_BASE_URL}/page`, params),
+  getPage: (params: User.Query) => get<PageResult<User.VO>>(`${USER_BASE_URL}`, params),
 
   /**
    * 获取用户表单详情
@@ -134,5 +134,5 @@ export default {
   /**
    *  获取用户下拉列表
    */
-  getOptions: () => get<OptionType[]>(`${USER_BASE_URL}/options`),
+  getOptions: () => get<OptionItem[]>(`${USER_BASE_URL}/options`),
 };

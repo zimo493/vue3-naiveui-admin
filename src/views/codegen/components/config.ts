@@ -4,7 +4,7 @@ import { $t } from "@/utils";
  * 表单类型
  */
 export const FormType = computed(
-  (): Record<string, OptionType> => ({
+  (): Record<string, OptionItem> => ({
     INPUT: { value: 1, label: $t("codeGen.formType.input") },
     SELECT: { value: 2, label: $t("codeGen.formType.select") },
     RADIO: { value: 3, label: $t("codeGen.formType.radio") },
@@ -21,7 +21,7 @@ export const FormType = computed(
 /**
  * 查询类型
  */
-export const QueryType: Record<string, OptionType> = {
+export const QueryType: Record<string, OptionItem> = {
   /** 等于 */
   EQ: { value: 1, label: "=" },
 

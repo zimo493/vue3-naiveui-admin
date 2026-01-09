@@ -7,7 +7,7 @@ export default {
    * 获取日志分页列表
    * @param params 查询参数
    */
-  getPage: (params: Log.Query) => get<PageResult<Log.VO[]>>(`${LOG_BASE_URL}/page`, params),
+  getPage: (params: Log.Query) => get<PageResult<Log.VO>>(`${LOG_BASE_URL}`, params),
 
   /**
    * 获取访问趋势

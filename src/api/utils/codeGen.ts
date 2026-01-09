@@ -8,7 +8,7 @@ export default {
    * @param params 查询参数
    */
   getTablePage: (params: CodeGen.Query) =>
-    get<PageResult<CodeGen.VO[]>>(`${GENERATOR_BASE_URL}/table/page`, params),
+    get<PageResult<CodeGen.VO>>(`${GENERATOR_BASE_URL}/table`, params),
 
   /**
    * 获取代码生成配置

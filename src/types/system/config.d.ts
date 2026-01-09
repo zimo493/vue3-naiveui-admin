@@ -1,5 +1,5 @@
 declare namespace Config {
-  interface Query extends PageQuery {
+  interface Query extends BaseQueryParams {
     /** 搜索关键字 */
     keywords?: string;
   }

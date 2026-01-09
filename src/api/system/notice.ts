@@ -7,8 +7,7 @@ export default {
    * 获取通知公告分页列表
    * @param params 查询参数
    */
-  getPage: (params?: Notice.Query) =>
-    get<PageResult<Notice.VO[]>>(`${NOTICE_BASE_URL}/page`, params),
+  getPage: (params?: Notice.Query) => get<PageResult<Notice.VO>>(`${NOTICE_BASE_URL}`, params),
 
   /**
    * 获取通知公告表单数据
@@ -63,5 +62,5 @@ export default {
    * @param params 查询参数
    */
   getMyNoticePage: (params?: Notice.Query) =>
-    get<PageResult<Notice.VO[]>>(`${NOTICE_BASE_URL}/my-page`, params),
+    get<PageResult<Notice.VO>>(`${NOTICE_BASE_URL}/my`, params),
 };

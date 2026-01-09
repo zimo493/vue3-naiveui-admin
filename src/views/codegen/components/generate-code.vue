@@ -223,12 +223,12 @@ const getConfigForm = async () => {
 };
 
 // 菜单下拉选项
-const menuOptions = ref<OptionType[]>([]);
+const menuOptions = ref<OptionItem[]>([]);
 const getMenuOptions = async () => {
   menuOptions.value = await MenuAPI.getOptions(true);
 };
 // 获取字典下拉选项
-const dictOptions = ref<OptionType[]>([]);
+const dictOptions = ref<OptionItem[]>([]);
 const getDictOptions = async () => {
   dictOptions.value = await DictAPI.getList();
 };
@@ -241,9 +241,9 @@ const isCheckAllList = ref(false);
 const isCheckAllForm = ref(false);
 
 // 表单类型
-const formTypeOptions: OptionType[] = Object.values(FormType.value);
+const formTypeOptions: OptionItem[] = Object.values(FormType.value);
 // 查询方式
-const queryTypeOptions: OptionType[] = Object.values(QueryType);
+const queryTypeOptions: OptionItem[] = Object.values(QueryType);
 // 字段信息表格配置
 const columns = ref<DataTableColumns<CodeGen.FieldConfig>>([
   {

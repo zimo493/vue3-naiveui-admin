@@ -69,7 +69,7 @@ const down = "ant-design:caret-down-filled";
 const queryParams = ref<Dept.Query>({});
 
 const tableData = ref<Dept.VO[]>([]);
-const deptOptions = ref<OptionType[]>([]);
+const deptOptions = ref<OptionItem[]>([]);
 
 const { loading, startLoading, endLoading } = useLoading();
 

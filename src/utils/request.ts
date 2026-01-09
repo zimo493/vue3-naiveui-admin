@@ -83,11 +83,19 @@ const resOnFulfilled = (response: AxiosResponse) => {
   if (response.config.responseType === "blob") {
     return response;
   }
-  const { code, data, msg } = response.data;
+  const payload = response.data;
+  const { code, data, msg } = payload;
 
   if (code === ResultEnum.SUCCESS) {
+    const page = (payload as any)?.page;
+
+    if (page !== null && page !== undefined) {
+      return { data, page };
+    }
+
     return data;
   }
+
   window.$message.error(msg || $t("common.sysError"));
 
   return Promise.reject(new Error(msg || "Error"));

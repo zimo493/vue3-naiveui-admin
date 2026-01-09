@@ -80,7 +80,7 @@ const dictCode = ref(route.query.dictCode as string);
 
 const tabStore = useTabStoreHook();
 
-const dictTypeList = ref<OptionType[]>([]);
+const dictTypeList = ref<OptionItem[]>([]);
 const getDictType = () => {
   DictTypeAPI.getList().then((data) => {
     dictTypeList.value = data;
@@ -113,8 +113,8 @@ const handleQuery = () => {
   startLoading();
   DictDataAPI.getDictItemPage(dictCode.value, query.value)
     .then(async (res) => {
-      tableData.value = res.list;
-      total.value = res.total;
+      tableData.value = res.data;
+      total.value = res.page?.total ?? 0;
     })
     .finally(() => endLoading());
 };

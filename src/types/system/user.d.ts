@@ -22,7 +22,7 @@ declare namespace User {
   /**
    * 用户分页查询对象
    */
-  interface Query extends PageQuery {
+  interface Query extends BaseQueryParams {
     /** 搜索关键字 */
     keywords?: string;
 

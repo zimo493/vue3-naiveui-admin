@@ -7,7 +7,7 @@
       :columns="columns"
       :table-data="tableData"
       :loading="loading"
-      :row-key="(row) => row.id"
+      :row-key="rowKey"
       :table-props="{
         defaultExpandAll: expandAll.isExpandAll,
         defaultExpandedRowKeys: expandAll.expandedRowKeys,
@@ -101,6 +101,8 @@ const query = ref<Menu.Query>({});
 const tableData = ref<Menu.VO[]>([]);
 const rowData = ref<Menu.VO[]>([]); // 菜单数据
 
+const rowKey = (row: Menu.VO) => row.id;
+
 const handleQuery = () => {
   startLoading();
   MenuAPI.getList(query.value)
@@ -117,7 +119,7 @@ const columns: DataTableColumns<Menu.VO> = [
     title: t("tableHeader.menuName"),
     key: "name",
     width: 240,
-    render: ({ icon, name }) => (
+    render: ({ icon, name }: Menu.VO) => (
       <>
         <Icones class="mr-[6px]" icon={icon ? icon : defaultIcon} />
         <NText>{name}</NText>
@@ -128,7 +130,7 @@ const columns: DataTableColumns<Menu.VO> = [
     title: t("tableHeader.menuType"),
     key: "type",
     align: "center",
-    render: ({ type }) => createMenuTypeTag(type),
+    render: ({ type, routePath }: Menu.VO) => createMenuTypeTag(type, routePath),
   },
   { title: t("tableHeader.routeName"), align: "center", key: "routeName" },
   {
@@ -150,7 +152,7 @@ const columns: DataTableColumns<Menu.VO> = [
     title: t("tableHeader.status"),
     key: "status",
     align: "center",
-    render: ({ visible }) => <CommonStatus value={visible} />,
+    render: ({ visible }: Menu.VO) => <CommonStatus value={visible} />,
   },
   { title: t("tableHeader.sort"), key: "sort", align: "center", sorter: "default" },
   // { title: "创建时间", key: "createTime", align: "center", sorter: "default" },
@@ -159,7 +161,7 @@ const columns: DataTableColumns<Menu.VO> = [
     key: "action",
     width: 220,
     align: "center",
-    render: (row) => (
+    render: (row: Menu.VO) => (
       <NFlex justify="center">
         {(row.type === MenuTypeEnum.CATALOG || row.type === MenuTypeEnum.MENU) && (
           <NButton
@@ -224,18 +226,23 @@ const typeMap = computed(() => ({
   [MenuTypeEnum.CATALOG]: { type: "warning", label: t("menu.type.catalog") },
   [MenuTypeEnum.MENU]: { type: "success", label: t("menu.type.menu") },
   [MenuTypeEnum.BUTTON]: { type: "info", label: t("menu.type.button") },
-  [MenuTypeEnum.EXTLINK]: { type: "error", label: t("menu.type.extlink") },
 }));
 
 // 创建菜单类型tag
-const createMenuTypeTag = (type?: MenuTypeEnum): VNode => {
+const createMenuTypeTag = (type?: string, routePath?: string): VNode => {
+  const isExternalLink = !!routePath && /^https?:\/\//.test(routePath);
+
   // 如果类型不存在或未匹配到，返回默认值
   if (!type || !(type in typeMap.value)) {
     return h("div", null, "--"); // 默认值处理
   }
 
+  if (type === MenuTypeEnum.MENU && isExternalLink) {
+    return <NTag type="error">{t("menu.type.extlink")}</NTag>;
+  }
+
   // 根据映射关系生成标签
-  const { type: tagType, label } = typeMap.value[type];
+  const { type: tagType, label } = (typeMap.value as any)[type];
 
   return <NTag type={tagType}>{label}</NTag>;
 };

@@ -17,7 +17,7 @@ export interface Form extends Partial<TableData> {
   options?: number;
 }
 
-export interface Search extends Partial<TableData>, PageQuery {
+export interface Search extends Partial<TableData>, BaseQueryParams {
   createTime?: [string, string];
   dict?: string;
   options?: number;

@@ -115,7 +115,7 @@ const { loading, startLoading, endLoading } = useLoading();
 onMounted(() => handleQuery());
 
 // 指定用户发送时获取所有的用户
-const userOptions = ref<OptionType[]>([]);
+const userOptions = ref<OptionItem[]>([]);
 const getUserList = () => {
   UserAPI.getOptions().then((data) => {
     userOptions.value = data;
@@ -127,8 +127,8 @@ const handleQuery = () => {
   startLoading();
   NoticeAPI.getPage(query.value)
     .then(async (res) => {
-      tableData.value = res.list;
-      total.value = res.total;
+      tableData.value = res.data;
+      total.value = res.page?.total ?? 0;
     })
     .finally(() => endLoading());
 };

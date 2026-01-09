@@ -1,6 +1,6 @@
 declare namespace DictType {
   // 查询
-  interface Query extends PageQuery {
+  interface Query extends BaseQueryParams {
     /**
      * 关键字(字典名称/编码)
      */

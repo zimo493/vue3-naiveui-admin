@@ -1,6 +1,6 @@
 import { del, get, post, put } from "@/utils";
 
-const DEPT_BASE_URL = "/api/v1/dept";
+const DEPT_BASE_URL = "/api/v1/depts";
 
 export default {
   /**
@@ -12,7 +12,7 @@ export default {
   /**
    * 获取部门下拉列表
    */
-  getOptions: () => get<OptionType[]>(`${DEPT_BASE_URL}/options`),
+  getOptions: () => get<OptionItem[]>(`${DEPT_BASE_URL}/options`),
 
   /**
    * 获取部门表单数据

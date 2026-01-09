@@ -14,9 +14,20 @@ declare namespace App {
 /**
  * 分页查询参数
  */
-interface PageQuery {
+interface BaseQueryParams {
   pageNum: number;
   pageSize: number;
+  sortBy?: string;
+  order?: string;
+}
+
+/**
+ * 分页元信息
+ */
+interface PageMeta {
+  pageNum: number;
+  pageSize: number;
+  total: number;
 }
 
 /**
@@ -24,9 +35,9 @@ interface PageQuery {
  */
 interface PageResult<T> {
   /** 数据列表 */
-  list: T;
-  /** 总数 */
-  total: number;
+  data: T[];
+  /** 分页信息，不分页时为 null */
+  page: PageMeta | null;
 }
 
 /** LocalStorage */
@@ -77,13 +88,13 @@ interface FormModal {
 /**
  * 下拉选项数据类型
  */
-interface OptionType {
+interface OptionItem {
   /** 值 */
   value: string | number;
   /** 文本 */
   label: string;
   /** 子列表  */
-  children?: OptionType[];
+  children?: OptionItem[];
 }
 
 /**

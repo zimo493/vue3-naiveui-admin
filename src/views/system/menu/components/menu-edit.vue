@@ -36,13 +36,12 @@
                   <n-radio :value="MenuTypeEnum.CATALOG" :label="t('menu.type.catalog')" />
                   <n-radio :value="MenuTypeEnum.MENU" :label="t('menu.type.menu')" />
                   <n-radio :value="MenuTypeEnum.BUTTON" :label="t('menu.type.button')" />
-                  <n-radio :value="MenuTypeEnum.EXTLINK" :label="t('menu.type.extlink')" />
                 </n-flex>
               </n-radio-group>
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="modelValue.type === MenuTypeEnum.EXTLINK"
+              v-if="isExternalLink"
               :span="24"
               :label="t('menu.form.externalLink')"
               path="path"
@@ -56,7 +55,7 @@
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="modelValue.type === MenuTypeEnum.MENU"
+              v-if="modelValue.type === MenuTypeEnum.MENU && !isExternalLink"
               :span="24"
               :label="t('tableHeader.routeName')"
               path="routeName"
@@ -91,7 +90,7 @@
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="modelValue.type === MenuTypeEnum.MENU"
+              v-if="modelValue.type === MenuTypeEnum.MENU && !isExternalLink"
               prop="component"
               :span="24"
             >
@@ -112,7 +111,10 @@
               </n-input>
             </n-form-item-grid-item>
 
-            <n-form-item-grid-item v-if="modelValue.type === MenuTypeEnum.MENU" :span="24">
+            <n-form-item-grid-item
+              v-if="modelValue.type === MenuTypeEnum.MENU && !isExternalLink"
+              :span="24"
+            >
               <template #label>
                 <FormTipLabel :label="t('menu.form.routeParam')" :msg="t('menu.tip.routeParam')" />
               </template>
@@ -200,7 +202,7 @@
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="modelValue.type === MenuTypeEnum.MENU"
+              v-if="modelValue.type === MenuTypeEnum.MENU && !isExternalLink"
               :label="t('menu.form.cache')"
               :span="24"
             >
@@ -242,6 +244,13 @@ import MenuAPI from "@/api/system/menu";
 
 const { t } = useI18n();
 const { loading, startLoading, endLoading } = useLoading();
+
+const isExternalLink = computed(
+  () =>
+    modelValue.value.type === MenuTypeEnum.MENU &&
+    !!modelValue.value.routePath &&
+    /^https?:\/\//.test(modelValue.value.routePath)
+);
 
 // const props = defineProps({
 //   menuOptions: {
@@ -325,6 +334,22 @@ const initialMenuFormData = ref<Menu.Form>({
 });
 // 菜单表单数据
 const modelValue = ref<Menu.Form>({ ...initialMenuFormData.value });
+
+const validateRouteName = (_: unknown, value: string) => {
+  if (modelValue.value.type === MenuTypeEnum.MENU && !isExternalLink.value && !value) {
+    return new Error(t("input") + t("tableHeader.routeName"));
+  }
+
+  return true;
+};
+
+const validateComponent = (_: unknown, value: string) => {
+  if (modelValue.value.type === MenuTypeEnum.MENU && !isExternalLink.value && !value) {
+    return new Error(t("input") + t("tableHeader.componentPath"));
+  }
+
+  return true;
+};
 // 表单验证规则
 const rules = ref<FormRules>({
   parentId: [
@@ -344,16 +369,15 @@ const rules = ref<FormRules>({
   type: [
     {
       required: true,
-      type: "number",
+      type: "string",
       message: t("select") + t("tableHeader.menuType"),
       trigger: "blur",
     },
   ],
   routeName: [
     {
-      required: true,
-      message: t("input") + t("tableHeader.routeName"),
-      trigger: "blur",
+      validator: validateRouteName,
+      trigger: ["blur", "input"],
     },
   ],
   routePath: [
@@ -365,9 +389,8 @@ const rules = ref<FormRules>({
   ],
   component: [
     {
-      required: true,
-      message: t("input") + t("tableHeader.componentPath"),
-      trigger: "blur",
+      validator: validateComponent,
+      trigger: ["blur", "input"],
     },
   ],
   visible: [
@@ -380,7 +403,7 @@ const rules = ref<FormRules>({
 });
 
 // 顶级菜单下拉选项
-const menuOptions = ref<OptionType[]>([]);
+const menuOptions = ref<OptionItem[]>([]);
 
 const getMenuOptions = () => {
   MenuAPI.getOptions(true).then((data) => {
@@ -392,12 +415,15 @@ const getMenuOptions = () => {
 const type = computed(() => {
   if (!modelValue.value.type) return "--";
 
+  if (modelValue.value.type === MenuTypeEnum.MENU && isExternalLink.value) {
+    return t("menu.type.extlink");
+  }
+
   return {
     [MenuTypeEnum.CATALOG]: t("menu.type.catalog"),
     [MenuTypeEnum.MENU]: t("menu.type.menu"),
     [MenuTypeEnum.BUTTON]: t("menu.type.button"),
-    [MenuTypeEnum.EXTLINK]: t("menu.type.extlink"),
-  }[modelValue.value.type];
+  }[modelValue.value.type as string];
 });
 
 // 菜单类型切换
