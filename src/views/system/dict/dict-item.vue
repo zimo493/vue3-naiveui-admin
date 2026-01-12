@@ -15,13 +15,18 @@
       @reset="handleReset"
     >
       <template #controls>
-        <n-button type="primary" @click="openDrawer()">
+        <n-button v-has-perm="['sys:dict-item:add']" type="primary" @click="openDrawer()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
           {{ t("button.add") }}
         </n-button>
-        <n-button type="error" :disabled="!selectedRowKeys.length" @click="handleDelete()">
+        <n-button
+          v-has-perm="['	sys:dict-item:delete']"
+          type="error"
+          :disabled="!selectedRowKeys.length"
+          @click="handleDelete()"
+        >
           <template #icon>
             <icon-park-outline-delete-themes />
           </template>
@@ -164,6 +169,7 @@ const columns = ref<DataTableColumns<DictData.VO>>([
         <NButton
           text
           type="info"
+          v-has-perm={["sys:dict-item:edit"]}
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >
@@ -172,6 +178,7 @@ const columns = ref<DataTableColumns<DictData.VO>>([
         <NButton
           text
           type="error"
+          v-has-perm={["sys:dict-item:delete"]}
           v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
           onClick={() => handleDelete(row.id)}
         >

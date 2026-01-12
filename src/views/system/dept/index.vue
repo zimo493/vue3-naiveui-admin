@@ -16,13 +16,18 @@
       @reset="handleQuery"
     >
       <template #controls>
-        <n-button type="primary" @click="openDrawer()">
+        <n-button v-has-perm="['sys:dept:add']" type="primary" @click="openDrawer()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
           {{ t("button.add") }}
         </n-button>
-        <n-button type="error" :disabled="!selectedRowKeys.length" @click="handleDelete()">
+        <n-button
+          v-has-perm="['sys:dept:delete']"
+          type="error"
+          :disabled="!selectedRowKeys.length"
+          @click="handleDelete()"
+        >
           <template #icon>
             <icon-park-outline-delete-themes />
           </template>
@@ -128,6 +133,7 @@ const columns = ref<DataTableColumns<Dept.VO>>([
         <NButton
           text
           type="primary"
+          v-has-perm={["sys:dept:add"]}
           v-slots={{ icon: () => <Icones icon="ant-design:plus-outlined" /> }}
           onClick={() => openDrawer(row.id)}
         >
@@ -136,6 +142,7 @@ const columns = ref<DataTableColumns<Dept.VO>>([
         <NButton
           text
           type="info"
+          v-has-perm={["sys:dept:edit"]}
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => handleEdit(row)}
         >
@@ -144,6 +151,7 @@ const columns = ref<DataTableColumns<Dept.VO>>([
         <NButton
           text
           type="error"
+          v-has-perm={["sys:dept:delete"]}
           v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
           onClick={() => handleDelete(row.id)}
         >

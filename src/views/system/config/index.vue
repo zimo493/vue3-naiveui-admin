@@ -12,13 +12,18 @@
       @reset="handleQuery"
     >
       <template #controls>
-        <n-button type="primary" @click="openDrawer()">
+        <n-button v-has-perm="['sys:config:add']" type="primary" @click="openDrawer()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
           {{ t("button.add") }}
         </n-button>
-        <n-button type="warning" :loading="spin" @click="handleRefreshCache()">
+        <n-button
+          v-has-perm="['sys:config:refresh']"
+          type="warning"
+          :loading="spin"
+          @click="handleRefreshCache()"
+        >
           <template #icon>
             <icon-park-outline-refresh />
           </template>
@@ -100,6 +105,7 @@ const columns = ref<DataTableColumns<Config.VO>>([
         <NButton
           text
           type="info"
+          v-has-perm={["sys:config:update"]}
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >
@@ -108,6 +114,7 @@ const columns = ref<DataTableColumns<Config.VO>>([
         <NButton
           text
           type="error"
+          v-has-perm={["sys:config:delete"]}
           v-slots={{ icon: () => <Icones icon="ant-design:delete-outlined" /> }}
           onClick={() => handleDelete(row)}
         >

@@ -15,13 +15,18 @@
       @reset="handleQuery"
     >
       <template #controls>
-        <n-button type="primary" @click="openDrawer()">
+        <n-button v-has-perm="['sys:notice:add']" type="primary" @click="openDrawer()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
           {{ t("button.add") }}
         </n-button>
-        <n-button type="error" :disabled="!selectedRowKeys.length" @click="handleDelete()">
+        <n-button
+          v-has-perm="['sys:notice:delete']"
+          type="error"
+          :disabled="!selectedRowKeys.length"
+          @click="handleDelete()"
+        >
           <template #icon>
             <icon-park-outline-delete-themes />
           </template>
@@ -268,22 +273,42 @@ const columns = ref<DataTableColumns<Notice.VO>>([
           {t("button.view")}
         </NButton>
         {row.publishStatus !== 1 && (
-          <NButton text type="primary" onClick={() => openDrawer(row)}>
+          <NButton
+            text
+            type="primary"
+            v-has-perm={["sys:notice:edit"]}
+            onClick={() => openDrawer(row)}
+          >
             {t("button.edit")}
           </NButton>
         )}
         {row.publishStatus !== 1 && (
-          <NButton text type="success" onClick={() => handlePublish(row.id)}>
+          <NButton
+            text
+            type="success"
+            v-has-perm={["sys:notice:publish"]}
+            onClick={() => handlePublish(row.id)}
+          >
             {t("notice.time.publish")}
           </NButton>
         )}
         {row.publishStatus === 1 && (
-          <NButton text type="warning" onClick={() => handleRevoke(row.id)}>
+          <NButton
+            text
+            type="warning"
+            v-has-perm={["sys:notice:revoke"]}
+            onClick={() => handleRevoke(row.id)}
+          >
             {t("notice.time.revoke")}
           </NButton>
         )}
         {row.publishStatus !== 1 && (
-          <NButton text type="error" onClick={() => handleDelete(row.id)}>
+          <NButton
+            text
+            type="error"
+            v-has-perm={["sys:notice:delete"]}
+            onClick={() => handleDelete(row.id)}
+          >
             {t("button.delete")}
           </NButton>
         )}
