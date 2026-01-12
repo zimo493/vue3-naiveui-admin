@@ -1,11 +1,12 @@
 <div align="center">
   <h1>vue3-naiveui-admin</h1>
 
-  ![Vue.js](https://img.shields.io/badge/Vue-3.5.22-42B883?logo=vuedotjs)
-  ![Vite](https://img.shields.io/badge/Vite-7.1.10-bd34fe?logo=vite&logoColor=bd34fe)
-  ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript)
-  ![UnoCSS](https://img.shields.io/badge/UnoCSS-66.5.4-333?logo=unocss)
-  ![NaiveUI](https://img.shields.io/badge/NaiveUI-2.43.1-63e2b7.svg)
+![Vue.js](https://img.shields.io/badge/Vue-3.5.22-42B883?logo=vuedotjs)
+![Vite](https://img.shields.io/badge/Vite-7.1.10-bd34fe?logo=vite&logoColor=bd34fe)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript)
+![UnoCSS](https://img.shields.io/badge/UnoCSS-66.5.4-333?logo=unocss)
+![NaiveUI](https://img.shields.io/badge/NaiveUI-2.43.1-63e2b7.svg)
+
 </div>
 
 ## 项目介绍
@@ -14,20 +15,21 @@
 
 ### 生态系统
 
-| 项目 | 说明 | 技术栈 |
-|------|------|--------|
-| **vue3-naiveui-admin** | 🎯 当前项目 | Vue3 + NaiveUI + TypeScript |
-| [youlai-boot](https://gitee.com/youlaiorg/youlai-boot) | ☕ Java 后端 | Spring Boot + MyBatis Plus |
-| [youlai-nest](https://gitee.com/youlaiorg/youlai-nest) | 🟢 Node 后端 | Nest.js + TypeORM |
+| 项目                                                   | 说明         | 技术栈                      |
+| ------------------------------------------------------ | ------------ | --------------------------- |
+| **vue3-naiveui-admin**                                 | 🎯 当前项目  | Vue3 + NaiveUI + TypeScript |
+| [youlai-boot](https://gitee.com/youlaiorg/youlai-boot) | ☕ Java 后端 | Spring Boot + MyBatis Plus  |
+| [youlai-nest](https://gitee.com/youlaiorg/youlai-nest) | 🟢 Node 后端 | Nest.js + TypeORM           |
 
-### 多版本支持  
+### 多版本支持
+
 > 💡 **Element Plus 版本同步更新**
 
-| 版本 | 说明 | 仓库地址 |
-|------|------|----------|
-| **标准版** | 功能完整的管理系统 | [vue3-element-admin](https://gitee.com/youlaiorg/vue3-element-admin) |
-| **精简版** | 轻量级开发模板 | [vue3-element-template](https://gitee.com/youlaiorg/vue3-element-template) |
-| **JS 版** | JavaScript 版本 | [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin-js) |
+| 版本       | 说明               | 仓库地址                                                                   |
+| ---------- | ------------------ | -------------------------------------------------------------------------- |
+| **标准版** | 功能完整的管理系统 | [vue3-element-admin](https://gitee.com/youlaiorg/vue3-element-admin)       |
+| **精简版** | 轻量级开发模板     | [vue3-element-template](https://gitee.com/youlaiorg/vue3-element-template) |
+| **JS 版**  | JavaScript 版本    | [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin-js) |
 
 ## 快速链接
 
@@ -39,7 +41,7 @@
       </a>
     </td>
     <td align="center">
-      <a href="https://www.youlai.tech/naiveui-docs" target="_blank">
+      <a href="https://www.youlai.tech/docs/naiveui" target="_blank">
         <img src="https://img.shields.io/badge/📚_使用文档-FF6B35?style=for-the-badge" alt="使用文档" />
       </a>
     </td>
@@ -56,32 +58,37 @@
   </tr>
 </table>
 
-## 核心特性 
+## 核心特性
 
 ### 技术栈
+
 - **前端框架：** `Vue 3.5` + `Vite 7` + `TypeScript` + `TSX`
-- **UI 组件库：** `Naive UI` - 简洁、现代的 Vue 3 组件库  
+- **UI 组件库：** `Naive UI` - 简洁、现代的 Vue 3 组件库
 - **CSS 框架：** `UnoCSS` - 原子化 CSS 引擎
 - **状态管理：** `Pinia` + 持久化插件 - 替代 Vuex
 - **网络请求：** `Axios` - 完整的 TypeScript 封装
 
 ### 组件封装
+
 - **表单组件：** 基于 `Naive UI` 二次封装的 `FormPro` 组件
-- **表格组件：** 基于 `FormPro` 封装的 `TablePro` 组件  
+- **表格组件：** 基于 `FormPro` 封装的 `TablePro` 组件
 - **弹窗组件：** `DrawerForm`、`ModalForm` - 提升开发效率
 - **页面缓存：** `KeepAlive` 支持多级缓存
 
 ### 界面设计
+
 - **主题适配：** 浅色/深色/自动模式，保持 `Naive UI` 原生风格
 - **自定义主题：** 支持主题色自定义和页面过渡动效
 - **响应式布局：** 完美适配桌面端和移动端
 
 ### 代码规范
-- **代码约束：** `ESLint` + `Prettier` + `Stylelint` + `EditorConfig`  
+
+- **代码约束：** `ESLint` + `Prettier` + `Stylelint` + `EditorConfig`
 - **Git 规范：** `Husky` + `Lint-staged` + `Commitlint` + `Commitizen`
 - **提交格式：** 使用 `cz-git` 规范化 Git 提交信息
 
 ## 项目目录
+
 <details>
 <summary> vue3-naiveui-admin </summary>
 
@@ -190,14 +197,18 @@
 ├─ unocss.config.js        # unocss 配置
 └─ vite.config.ts          # vite 全局配置文件
 ```
+
 </details>
 
 ## 项目启动
+
 ### 后端启动
+
 - 后端安装请拉取 [有来开源组织/youlai-boot](https://gitee.com/youlaiorg/youlai-boot) 源代码。
 - 本项目中的图标经过修改，请执行本项目内的 `sql` 文件夹下的 `youlai_boot.sql` 文件到数据库中，配置好数据库、Redis连接，启动项目即可。
 
 ### 前端启动
+
 ```bash
 # 全局安装 pnpm
 npm install pnpm -g
@@ -226,20 +237,19 @@ git commit -m "feat: 添加新功能"
 
 ![](https://foruda.gitee.com/images/1687755823165218215/c1705416_716974.png)
 
+| 类型       | 说明         | 示例                          |
+| ---------- | ------------ | ----------------------------- |
+| `feat`     | ✨ 新功能    | `feat: 添加用户管理功能`      |
+| `fix`      | 🐛 修复Bug   | `fix: 修复登录页面验证码问题` |
+| `docs`     | 📝 文档更新  | `docs: 更新README安装说明`    |
+| `style`    | 💄 代码格式  | `style: 统一代码缩进格式`     |
+| `refactor` | ♻️ 代码重构  | `refactor: 优化用户服务逻辑`  |
+| `perf`     | ⚡ 性能优化  | `perf: 优化表格渲染性能`      |
+| `test`     | ✅ 测试相关  | `test: 添加登录功能单元测试`  |
+| `chore`    | 🔧 构建/工具 | `chore: 更新依赖包版本`       |
 
-| 类型 | 说明 | 示例 |
-|------|------|------|
-| `feat` | ✨ 新功能 | `feat: 添加用户管理功能` |  
-| `fix` | 🐛 修复Bug | `fix: 修复登录页面验证码问题` |
-| `docs` | 📝 文档更新 | `docs: 更新README安装说明` |
-| `style` | 💄 代码格式 | `style: 统一代码缩进格式` |
-| `refactor` | ♻️ 代码重构 | `refactor: 优化用户服务逻辑` |
-| `perf` | ⚡ 性能优化 | `perf: 优化表格渲染性能` |
-| `test` | ✅ 测试相关 | `test: 添加登录功能单元测试` |
-| `chore` | 🔧 构建/工具 | `chore: 更新依赖包版本` |
+## 项目部署
 
-
-## 项目部署 
 ```bash
 # 项目打包
 pnpm build  # 参考package.json "scripts" 配置
@@ -268,22 +278,20 @@ server {
   }
   # 反向代理配置
   location /prod-api/ {
-    # localhost:8989 替换成实际的后端API地址，请注意末尾的 "/"
-    proxy_pass http://localhost:8989/;
+    # localhost:8000 替换成实际的后端API地址，请注意末尾的 "/"
+    proxy_pass http://localhost:8000/;
   }
 }
 ```
 
 ---
 
-  
 ## 技术支持
 
 如果这个项目对你有帮助的话，请不吝给个 ⭐ **Star** 鼓励一下，让更多开发者受益！
 
-| 交流方式 | 联系信息 |
-|---------|----------|
-| 📖 **使用文档** | [https://www.youlai.tech/naiveui-docs](https://www.youlai.tech/naiveui-docs) |
-| 🌐 **在线预览** | [https://vue.youlai.tech/naiveui](https://vue.youlai.tech/naiveui) |
-| 💬 **问题反馈** | [提交 Issue](https://gitee.com/zimo493/vue3-naiveui-admin/issues) |
-
+| 交流方式        | 联系信息                                                                     |
+| --------------- | ---------------------------------------------------------------------------- |
+| 📖 **使用文档** | [https://www.youlai.tech/docs/naiveui](https://www.youlai.tech/docs/naiveui) |
+| 🌐 **在线预览** | [https://vue.youlai.tech/naiveui](https://vue.youlai.tech/naiveui)           |
+| 💬 **问题反馈** | [提交 Issue](https://gitee.com/zimo493/vue3-naiveui-admin/issues)            |
