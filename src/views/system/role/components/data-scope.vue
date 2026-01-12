@@ -44,7 +44,7 @@
       />
       <template #footer>
         <n-flex>
-          <n-button type="primary" :loading="spin" @click="handleAssignPermSubmit">
+          <n-button v-hasPerm="['sys:role:assign']" type="primary" :loading="spin" @click="handleAssignPermSubmit">
             <template #icon>
               <Icones icon="ant-design:check-outlined" />
             </template>

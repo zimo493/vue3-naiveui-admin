@@ -48,6 +48,8 @@ import { type DataTableColumns, type DataTableRowKey, NButton, NFlex } from "nai
 
 import RoleAPI from "@/api/system/role";
 
+import { useAuthStoreHook } from "@/store";
+
 import { useLoading } from "@/hooks";
 import { spin, executeAsync, InquiryBox, startSpin, endSpin, statusOptions } from "@/utils";
 
@@ -57,6 +59,8 @@ import CommonStatus from "@/components/common-status.vue";
 defineOptions({ name: "Role" });
 
 const { t } = useI18n();
+
+const authStore = useAuthStoreHook();
 
 // 定义表单的初始值
 const queryParams = ref<Role.Query>({
@@ -104,14 +108,17 @@ const columns = ref<DataTableColumns<Role.VO>>([
     width: 320,
     render: (row) => (
       <NFlex justify="center">
-        <NButton
-          text
-          type="warning"
-          v-slots={{ icon: () => <Icones icon="ant-design:node-index-outlined" /> }}
-          onClick={() => handleOpenAssignPermDialog(row)}
-        >
-          {t("role.dataPermission")}
-        </NButton>
+        {(authStore.userInfo.roles.includes("ROOT") ||
+          authStore.userInfo.perms.includes("sys:role:assign")) && (
+          <NButton
+            text
+            type="warning"
+            v-slots={{ icon: () => <Icones icon="ant-design:node-index-outlined" /> }}
+            onClick={() => handleOpenAssignPermDialog(row)}
+          >
+            {t("role.dataPermission")}
+          </NButton>
+        )}
         <NButton
           text
           type="info"
