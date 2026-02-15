@@ -181,8 +181,8 @@ const handleQuery = () => {
   startLoading();
   UserAPI.getPage(queryParams.value)
     .then(async (res) => {
-      tableData.value = res.data;
-      total.value = res.page?.total ?? 0;
+      tableData.value = res.list;
+      total.value = res.total ?? 0;
     })
     .finally(() => endLoading());
 };

@@ -35,9 +35,9 @@ interface PageMeta {
  */
 interface PageResult<T> {
   /** 数据列表 */
-  data: T[];
-  /** 分页信息，不分页时为 null */
-  page: PageMeta | null;
+  list: T[];
+  /** 数据总量 */
+  total: number;
 }
 
 /** LocalStorage */

@@ -54,11 +54,11 @@ export default {
    */
   getDictItemPage: (dictCode: string, params: DictData.Query) =>
     get<PageResult<DictData.VO>>(`${DICT_BASE_URL}/${dictCode}/items`, params).then((res) => ({
-      data: (res.data ?? []).map((item) => ({
+      ...res,
+      list: (res.list ?? []).map((item) => ({
         ...item,
         tagType: decodeDictTagType((item as any).tagType) as any,
       })),
-      page: res.page ?? null,
     })),
 
   /**

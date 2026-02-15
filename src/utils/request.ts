@@ -87,12 +87,6 @@ const resOnFulfilled = (response: AxiosResponse) => {
   const { code, data, msg } = payload;
 
   if (code === ResultEnum.SUCCESS) {
-    const page = (payload as any)?.page;
-
-    if (page !== null && page !== undefined) {
-      return { data, page };
-    }
-
     return data;
   }
 
