@@ -30,6 +30,8 @@ declare namespace Role {
     code?: string;
     /** 数据权限 */
     dataScope?: number;
+    /** 自定义数据权限部门ID列表(当dataScope=5时有效) */
+    deptIds?: string[];
     /** 角色名称 */
     name?: string;
     /** 排序 */

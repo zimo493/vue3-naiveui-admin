@@ -160,7 +160,7 @@
               prop="perm"
               :span="24"
             >
-              <n-input v-model:value="modelValue.perm" placeholder="sys:user:add" />
+              <n-input v-model:value="modelValue.perm" placeholder="sys:user:create" />
             </n-form-item-grid-item>
 
             <n-form-item-grid-item

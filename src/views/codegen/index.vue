@@ -45,9 +45,9 @@ onMounted(() => handleQuery());
 const handleQuery = () => {
   startLoading();
   GeneratorAPI.getTablePage(query.value)
-    .then(async (res) => {
-      tableData.value = res.data;
-      total.value = res.page?.total ?? 0;
+    .then(async (data) => {
+      tableData.value = data.list;
+      total.value = data.total ?? 0;
     })
     .finally(() => endLoading());
 };

@@ -40,7 +40,7 @@ export default {
    * @param password 新密码
    */
   resetPassword: (id: string, password: string) =>
-    put(`${USER_BASE_URL}/${id}/password/reset`, null, { password }),
+    put(`${USER_BASE_URL}/${id}/reset-password`, null, { password }),
 
   /**
    * 批量删除用户
@@ -71,11 +71,10 @@ export default {
 
   /**
    * 导入用户
-   * @param deptId 部门id
    * @param file 导入文件
    * @param onUploadProgress 进度回调
    */
-  import(deptId: string, file: File, onUploadProgress?: (e: AxiosProgressEvent) => void) {
+  import(file: File, onUploadProgress?: (e: AxiosProgressEvent) => void) {
     const formData = new FormData();
 
     formData.append("file", file);
@@ -83,7 +82,6 @@ export default {
     return request<any, ExcelResult>({
       url: `${USER_BASE_URL}/import`,
       method: "post",
-      params: { deptId },
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
       onUploadProgress,

@@ -16,7 +16,7 @@
       @reset="handleQuery"
     >
       <template #controls>
-        <n-button v-has-perm="['sys:dept:add']" type="primary" @click="openDrawer()">
+        <n-button v-has-perm="['sys:dept:create']" type="primary" @click="openDrawer()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
@@ -133,7 +133,7 @@ const columns = ref<DataTableColumns<Dept.VO>>([
         <NButton
           text
           type="primary"
-          v-has-perm={["sys:dept:add"]}
+          v-has-perm={["sys:dept:create"]}
           v-slots={{ icon: () => <Icones icon="ant-design:plus-outlined" /> }}
           onClick={() => openDrawer(row.id)}
         >
@@ -142,7 +142,7 @@ const columns = ref<DataTableColumns<Dept.VO>>([
         <NButton
           text
           type="info"
-          v-has-perm={["sys:dept:edit"]}
+          v-has-perm={["sys:dept:update"]}
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => handleEdit(row)}
         >

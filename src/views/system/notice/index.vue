@@ -15,7 +15,7 @@
       @reset="handleQuery"
     >
       <template #controls>
-        <n-button v-has-perm="['sys:notice:add']" type="primary" @click="openDrawer()">
+        <n-button v-has-perm="['sys:notice:create']" type="primary" @click="openDrawer()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
@@ -131,9 +131,9 @@ const getUserList = () => {
 const handleQuery = () => {
   startLoading();
   NoticeAPI.getPage(query.value)
-    .then(async (res) => {
-      tableData.value = res.data;
-      total.value = res.page?.total ?? 0;
+    .then(async (data) => {
+      tableData.value = data.list;
+      total.value = data.total ?? 0;
     })
     .finally(() => endLoading());
 };
@@ -276,7 +276,7 @@ const columns = ref<DataTableColumns<Notice.VO>>([
           <NButton
             text
             type="primary"
-            v-has-perm={["sys:notice:edit"]}
+            v-has-perm={["sys:notice:update"]}
             onClick={() => openDrawer(row)}
           >
             {t("button.edit")}

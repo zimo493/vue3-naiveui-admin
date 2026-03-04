@@ -15,7 +15,7 @@
       @reset="handleQuery"
     >
       <template #controls>
-        <n-button v-has-perm="['sys:role:add']" type="primary" @click="openDrawer()">
+        <n-button v-has-perm="['sys:role:create']" type="primary" @click="openDrawer()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
@@ -52,6 +52,7 @@
 import { type DataTableColumns, type DataTableRowKey, NButton, NFlex } from "naive-ui";
 
 import RoleAPI from "@/api/system/role";
+import DeptAPI from "@/api/system/dept";
 
 import { useLoading } from "@/hooks";
 import { spin, executeAsync, InquiryBox, startSpin, endSpin, statusOptions } from "@/utils";
@@ -79,9 +80,9 @@ onMounted(() => handleQuery());
 const handleQuery = () => {
   startLoading();
   RoleAPI.getPage(queryParams.value)
-    .then(async (res) => {
-      tableData.value = res.data;
-      total.value = res.page?.total ?? 0;
+    .then(async (data) => {
+      tableData.value = data.list;
+      total.value = data.total ?? 0;
     })
     .finally(() => endLoading());
 };
@@ -121,7 +122,7 @@ const columns = ref<DataTableColumns<Role.VO>>([
         <NButton
           text
           type="info"
-          v-has-perm={["sys:role:edit"]}
+          v-has-perm={["sys:role:update"]}
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >
@@ -155,7 +156,18 @@ const editFormConfig: DialogForm.Form = {
           { label: t("role.departmentData"), value: 2 },
           { label: t("role.currentDepartmentData"), value: 3 },
           { label: t("role.selfData"), value: 4 },
+          { label: t("role.customDepartmentData"), value: 5 },
         ],
+      },
+    },
+    {
+      name: "deptIds",
+      label: t("dept.dept"),
+      component: "tree-select",
+      hidden: true,
+      props: {
+        multiple: true,
+        cascade: false,
       },
     },
     {
@@ -207,16 +219,70 @@ const modelValue = ref<Role.Form>({
   sort: 1,
   status: 1,
 });
+
+const deptOptions = ref<OptionItem[]>([]);
+
+// dataScope=5 时使用：加载部门下拉、回显 deptIds
+const getDeptIdsField = () => (editFormConfig.config ?? []).find((item) => item.name === "deptIds");
+
+const setDeptIdsFieldVisible = (visible: boolean) => {
+  const field = getDeptIdsField();
+
+  if (!field) return;
+
+  field.hidden = !visible;
+};
+
+const bindDeptOptionsToField = () => {
+  const field = getDeptIdsField();
+
+  if (!field) return;
+
+  field.props = {
+    ...(field.props || {}),
+    options: deptOptions.value,
+    keyField: "value",
+    labelField: "label",
+  };
+};
+
+const ensureDeptOptionsLoaded = async () => {
+  if (deptOptions.value.length > 0) return;
+
+  deptOptions.value = await DeptAPI.getOptions();
+};
+
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
+
 const openDrawer = (row?: Role.VO) => {
   drawerFormRef.value?.open(row ? t("role.edit") : t("role.add"), modelValue.value);
 
+  const isCustomScope = modelValue.value.dataScope === 5;
+
+  setDeptIdsFieldVisible(isCustomScope);
+  bindDeptOptionsToField();
+
   if (row) {
     startSpin();
+
     RoleAPI.getFormData(row.id)
       .then((data) => {
         modelValue.value = { ...data };
+
+        const isCustom = modelValue.value.dataScope === 5;
+
+        setDeptIdsFieldVisible(isCustom);
+
+        if (!isCustom) {
+          modelValue.value.deptIds = undefined;
+
+          return;
+        }
+
+        RoleAPI.getRoleDeptIds(row.id).then((deptIds) => {
+          modelValue.value.deptIds = deptIds;
+        });
       })
       .finally(() => endSpin());
   }
@@ -225,12 +291,32 @@ const openDrawer = (row?: Role.VO) => {
 /** 表单提交 */
 const submitForm = (val: Role.Form) =>
   executeAsync(
-    () => (val.id ? RoleAPI.update(val.id, val) : RoleAPI.create(val)),
+    () => {
+      const submitData: Role.Form = { ...val };
+
+      if (submitData.dataScope !== 5) {
+        submitData.deptIds = undefined;
+      }
+
+      return submitData.id ? RoleAPI.update(submitData.id, submitData) : RoleAPI.create(submitData);
+    },
     () => {
       drawerFormRef.value?.close();
       handleQuery();
     }
   );
+
+watch(
+  () => modelValue.value.dataScope,
+  async (val) => {
+    setDeptIdsFieldVisible(val === 5);
+
+    if (val !== 5) return;
+
+    await ensureDeptOptionsLoaded();
+    bindDeptOptionsToField();
+  }
+);
 
 /** 选中行 */
 const selectedRowKeys = ref<string[]>([]);

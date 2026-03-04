@@ -2,11 +2,24 @@ import type { InternalAxiosRequestConfig, AxiosResponse, AxiosError } from "axio
 import axios from "axios";
 import qs from "qs";
 import { useAuthStoreHook } from "@/store";
+import { useRouteStoreHook } from "@/store";
 import { ResultEnum } from "@/enums";
 import { local, session } from "./storage";
 import { InquiryBox } from "./comm";
 import { router } from "@/router";
 import { $t } from "./i18n";
+
+/**
+ * 权限不足处理：刷新用户信息与路由，并提示用户
+ */
+async function handlePermissionDenied(msg?: string): Promise<never> {
+  const routeStore = useRouteStoreHook();
+
+  await routeStore.reloadPermissionSnapshotOnce();
+  window.$message.error(msg || $t("common.noPermission"));
+
+  return Promise.reject(new Error(msg || "Forbidden"));
+}
 
 // 创建 axios 实例
 const service = axios.create({
@@ -87,12 +100,6 @@ const resOnFulfilled = (response: AxiosResponse) => {
   const { code, data, msg } = payload;
 
   if (code === ResultEnum.SUCCESS) {
-    const page = (payload as any)?.page;
-
-    if (page !== null && page !== undefined) {
-      return { data, page };
-    }
-
     return data;
   }
 
@@ -112,12 +119,14 @@ service.interceptors.response.use(resOnFulfilled, async (error) => {
 
     if (code === ResultEnum.ACCESS_TOKEN_INVALID) {
       // Token 过期，刷新 Token
-      return handleTokenRefresh(config);
+      return retryWithRefresh(config);
     } else if (code === ResultEnum.REFRESH_TOKEN_INVALID) {
       // 刷新 Token 过期，跳转登录页
       await handleSessionExpired();
 
       return Promise.reject(new Error(msg || "Error"));
+    } else if (code === ResultEnum.PERMISSION_DENIED) {
+      return handlePermissionDenied(msg);
     } else if (code === ResultEnum.ERROR) {
       window.$message.error(msg);
 
@@ -147,52 +156,35 @@ service.interceptors.response.use(resOnFulfilled, async (error) => {
   return Promise.reject(error.message);
 });
 
-// 是否正在刷新标识，避免重复刷新
-let isRefreshing = false;
-// 因 Token 过期导致的请求等待队列
-const waitingQueue: Array<(error?: Error) => void> = [];
+/**
+ * 访问令牌过期后，自动刷新 token 并重试请求（单飞 + 最多重试一次）。
+ */
+async function retryWithRefresh(config: InternalAxiosRequestConfig): Promise<unknown> {
+  const retryConfig = config as InternalAxiosRequestConfig & { __retry?: boolean };
 
-// 刷新 Token 处理
-function handleTokenRefresh(config: InternalAxiosRequestConfig) {
-  return new Promise((resolve, reject) => {
-    // 封装需要重试的请求
-    const retryRequest = (error?: Error) => {
-      if (error) {
-        reject(error);
+  if (retryConfig.__retry) {
+    await handleSessionExpired();
 
-        return;
-      }
-      config.headers.Authorization = `Bearer ${local.get("accessToken")}`;
-      resolve(service(config));
-    };
+    return Promise.reject(new Error("Token Invalid"));
+  }
 
-    waitingQueue.push(retryRequest);
+  retryConfig.__retry = true;
 
-    if (!isRefreshing) {
-      isRefreshing = true;
+  try {
+    const authStore = useAuthStoreHook();
 
-      useAuthStoreHook()
-        .refreshToken()
-        .then(() => {
-          // 依次重试队列中所有请求, 重试后清空队列
-          waitingQueue.forEach((callback) => {
-            try {
-              callback();
-            } catch (error) {
-              console.error("Retry request error:", error);
-            }
-          });
-          waitingQueue.length = 0;
-        })
-        .catch((error) => {
-          console.error("Token refresh failed:", error); // 刷新失败，先 reject 所有等待的请求，再清空队列
-          waitingQueue.forEach((callback) => callback(new Error("Token refresh failed")));
-          waitingQueue.length = 0;
-        })
-        .finally(() => (isRefreshing = false));
-    }
-  });
+    await authStore.refreshTokenOnce();
+
+    retryConfig.headers.Authorization = `Bearer ${local.get("accessToken")}`;
+
+    return service(retryConfig);
+  } catch {
+    await handleSessionExpired();
+
+    return Promise.reject(new Error("Token refresh failed"));
+  }
 }
+
 // 处理会话过期
 let isSessionExpiredShowing = false;
 

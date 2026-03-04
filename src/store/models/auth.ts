@@ -5,6 +5,8 @@ import AuthAPI from "@/api/auth";
 import UserAPI from "@/api/system/user";
 import { router } from "@/router";
 
+let refreshPromise: Promise<void> | null = null;
+
 export const useAuthStore = defineStore("auth-store", {
   state: (): Status.Auth => ({
     userInfo: {
@@ -30,6 +32,19 @@ export const useAuthStore = defineStore("auth-store", {
           })
           .catch((error) => reject(error));
       });
+    },
+
+    /**
+     * 刷新token（单飞）
+     */
+    refreshTokenOnce() {
+      if (refreshPromise) return refreshPromise;
+
+      refreshPromise = this.refreshToken().finally(() => {
+        refreshPromise = null;
+      });
+
+      return refreshPromise;
     },
     /**
      * 获取用户信息

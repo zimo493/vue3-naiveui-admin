@@ -15,14 +15,14 @@
       @reset="handleReset"
     >
       <template #controls>
-        <n-button v-has-perm="['sys:dict-item:add']" type="primary" @click="openDrawer()">
+        <n-button v-has-perm="['sys:dict-item:create']" type="primary" @click="openDrawer()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
           {{ t("button.add") }}
         </n-button>
         <n-button
-          v-has-perm="['	sys:dict-item:delete']"
+          v-has-perm="['sys:dict-item:delete']"
           type="error"
           :disabled="!selectedRowKeys.length"
           @click="handleDelete()"
@@ -117,9 +117,9 @@ const handleChange = (v: string) => {
 const handleQuery = () => {
   startLoading();
   DictDataAPI.getDictItemPage(dictCode.value, query.value)
-    .then(async (res) => {
-      tableData.value = res.data;
-      total.value = res.page?.total ?? 0;
+    .then(async (data) => {
+      tableData.value = data.list;
+      total.value = data.total ?? 0;
     })
     .finally(() => endLoading());
 };
@@ -169,7 +169,7 @@ const columns = ref<DataTableColumns<DictData.VO>>([
         <NButton
           text
           type="info"
-          v-has-perm={["sys:dict-item:edit"]}
+          v-has-perm={["sys:dict-item:update"]}
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >

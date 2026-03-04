@@ -44,7 +44,7 @@
           @reset="handleReset"
         >
           <template #controls>
-            <n-button v-has-perm="['sys:user:add']" type="primary" @click="openDrawer()">
+            <n-button v-has-perm="['sys:user:create']" type="primary" @click="openDrawer()">
               <template #icon>
                 <icon-park-outline-plus />
               </template>
@@ -180,9 +180,9 @@ const total = ref<number>(0); // 表格数据总量
 const handleQuery = () => {
   startLoading();
   UserAPI.getPage(queryParams.value)
-    .then(async (res) => {
-      tableData.value = res.data;
-      total.value = res.page?.total ?? 0;
+    .then(async (data) => {
+      tableData.value = data.list;
+      total.value = data.total ?? 0;
     })
     .finally(() => endLoading());
 };
@@ -305,7 +305,7 @@ const columns = ref<DataTableColumns<User.VO>>([
     render: (row) => (
       <NFlex justify="center">
         <NButton
-          v-has-perm={["sys:user:edit"]}
+          v-has-perm={["sys:user:update"]}
           text
           type="info"
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}

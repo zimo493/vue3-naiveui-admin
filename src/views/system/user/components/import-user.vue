@@ -130,7 +130,7 @@ const error = ref("");
 const customRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequestOptions) => {
   startLoading();
   console.log(file);
-  UserAPI.import("1", file.file as File, (e) => {
+  UserAPI.import(file.file as File, (e) => {
     onProgress({
       percent: Number(((e.loaded / Number(e.total)) * 100).toFixed(2)),
     });

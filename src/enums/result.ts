@@ -23,6 +23,11 @@ export const enum ResultEnum {
   REFRESH_TOKEN_INVALID = "A0231",
 
   /**
+   * 权限不足
+   */
+  PERMISSION_DENIED = "A0301",
+
+  /**
    * 无法操作（演示模式配合Nginx拦截使用）
    */
   CANNOT_OPERATE = "A0001",

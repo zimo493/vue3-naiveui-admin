@@ -18,7 +18,13 @@ export default {
    * 获取角色的菜单id集合
    * @param roleId 角色id
    */
-  getRoleMenuIds: (roleId: string) => get<string[]>(`${ROLE_BASE_URL}/${roleId}/menuIds`),
+  getRoleMenuIds: (roleId: string) => get<string[]>(`${ROLE_BASE_URL}/${roleId}/menu-ids`),
+
+  /**
+   * 获取角色的部门ID集合(自定义数据权限)
+   * @param roleId 角色id
+   */
+  getRoleDeptIds: (roleId: string) => get<string[]>(`${ROLE_BASE_URL}/${roleId}/dept-ids`),
 
   /**
    * 分配菜单权限

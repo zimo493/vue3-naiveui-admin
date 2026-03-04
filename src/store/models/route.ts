@@ -20,6 +20,30 @@ export const useRouteStore = defineStore("route-store", {
     isInitAuthRoute: false,
   }),
   actions: {
+    _snapshotPromise: null as Promise<boolean> | null,
+
+    /**
+     * 刷新权限快照（单飞）
+     *
+     * - 重置路由
+     * - 重新初始化授权路由（内部会刷新用户信息）
+     */
+    reloadPermissionSnapshotOnce(): Promise<boolean> {
+      if (this._snapshotPromise) return this._snapshotPromise;
+
+      this._snapshotPromise = (async () => {
+        try {
+          this.resetRouteStore();
+
+          return await this.initAuthRoute();
+        } finally {
+          this._snapshotPromise = null;
+        }
+      })();
+
+      return this._snapshotPromise;
+    },
+
     /**
      * 获取个人信息，初始化路由
      * @returns Promise<boolean> 返回初始化是否成功

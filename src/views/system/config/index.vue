@@ -12,7 +12,7 @@
       @reset="handleQuery"
     >
       <template #controls>
-        <n-button v-has-perm="['sys:config:add']" type="primary" @click="openDrawer()">
+        <n-button v-has-perm="['sys:config:create']" type="primary" @click="openDrawer()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
@@ -75,9 +75,9 @@ onMounted(() => handleQuery());
 const handleQuery = () => {
   startLoading();
   ConfigAPI.getPage(query.value)
-    .then(async (res) => {
-      tableData.value = res.data;
-      total.value = res.page?.total ?? 0;
+    .then(async (data) => {
+      tableData.value = data.list;
+      total.value = data.total ?? 0;
     })
     .finally(() => endLoading());
 };

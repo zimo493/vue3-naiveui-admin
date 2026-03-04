@@ -15,14 +15,14 @@
       @reset="handleQuery"
     >
       <template #controls>
-        <n-button v-has-perm="['sys:dict:add']" type="primary" @click="openDrawer()">
+        <n-button v-has-perm="['sys:dict:create']" type="primary" @click="openDrawer()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
           {{ t("button.add") }}
         </n-button>
         <n-button
-          v-has-perm="['	sys:dict:delete']"
+          v-has-perm="['sys:dict:delete']"
           type="error"
           :disabled="!selectedRowKeys.length"
           @click="handleDelete()"
@@ -110,9 +110,9 @@ onActivated(() => getCacheSize());
 const handleQuery = () => {
   startLoading();
   DictTypeAPI.getPage(query.value)
-    .then(async (res) => {
-      tableData.value = res.data;
-      total.value = res.page?.total ?? 0;
+    .then(async (data) => {
+      tableData.value = data.list;
+      total.value = data.total ?? 0;
     })
     .finally(() => endLoading());
 };
@@ -156,7 +156,7 @@ const columns = ref<DataTableColumns<DictType.VO>>([
         <NButton
           text
           type="info"
-          v-has-perm={["sys:dict:edit"]}
+          v-has-perm={["sys:dict:update"]}
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDrawer(row)}
         >

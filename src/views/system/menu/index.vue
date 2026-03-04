@@ -16,7 +16,7 @@
       @reset="handleQuery"
     >
       <template #controls>
-        <n-button v-has-perm="['sys:menu:add']" type="primary" @click="openDialog()">
+        <n-button v-has-perm="['sys:menu:create']" type="primary" @click="openDialog()">
           <template #icon>
             <icon-park-outline-plus />
           </template>
@@ -167,7 +167,7 @@ const columns: DataTableColumns<Menu.VO> = [
           <NButton
             text
             type="primary"
-            v-has-perm={["sys:menu:add"]}
+            v-has-perm={["sys:menu:create"]}
             v-slots={{ icon: () => <Icones icon="ant-design:plus-outlined" /> }}
             onClick={() => openDialog(row.id)}
           >
@@ -177,7 +177,7 @@ const columns: DataTableColumns<Menu.VO> = [
         <NButton
           text
           type="info"
-          v-has-perm={["sys:menu:edit"]}
+          v-has-perm={["sys:menu:update"]}
           v-slots={{ icon: () => <Icones icon="ant-design:edit-outlined" /> }}
           onClick={() => openDialog(row)}
         >
