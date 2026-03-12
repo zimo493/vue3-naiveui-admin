@@ -64,6 +64,11 @@ declare namespace Status {
     userInfo: User.Info;
   }
 
+  /** dict-store */
+  interface Dict {
+    dict: Record<string, DictData.Option[]>;
+  }
+
   /** route-store */
   interface Routes {
     /** 是否初始化过路由 */

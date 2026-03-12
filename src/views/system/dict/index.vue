@@ -286,11 +286,11 @@ const handleViewItems = ({ dictCode }: DictType.VO) => {
 
 // 清除字典缓存
 const dictStore = useDictStoreHook();
-const clearDisabled = computed(() => dictStore.dict.length === 0);
+const clearDisabled = computed(() => Object.keys(dictStore.dict).length === 0);
 const clearDictCache = () => {
   clearStart();
   setTimeout(() => {
-    const dictList = dictStore.dict.map((item) => item.key);
+    const dictList = Object.keys(dictStore.dict);
 
     dictStore.cleanDict();
     clearEnd();

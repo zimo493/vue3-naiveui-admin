@@ -77,4 +77,9 @@ declare namespace DictData {
     /** 标签类型 */
     tagType?: import("naive-ui").TagProps["type"];
   }
+
+  // 字典组合式函数类型
+  interface Compose {
+    [key: string]: Dict.Option[];
+  }
 }

@@ -2,25 +2,30 @@ import type { ToRefs } from "vue";
 import DictDataAPI from "@/api/system/dict/data";
 import { useDictStoreHook } from "@/store";
 
-export function useDict<T extends string>(...args: T[]): ToRefs<Dict.DictItem> {
-  const res = ref<Dict.DictItem>({});
+/**
+ * 获取字典列表组合式封装
+ */
+export function useDict<T extends string>(...args: T[]): ToRefs<DictData.Compose> {
+  const dictStore = useDictStoreHook();
 
-  args.forEach((dictType: string) => {
-    res.value[dictType] = [];
-    const dict = useDictStoreHook().getDict(dictType);
+  /**
+   * 用 store 缓存初始化
+   */
+  const res = reactive<DictData.Compose>(
+    Object.fromEntries(args.map((typeCode) => [typeCode, dictStore.getDict(typeCode) || []]))
+  );
 
-    if (dict) res.value[dictType] = dict;
-    else {
-      DictDataAPI.getDictItems(dictType)
-        .then((data): void => {
-          res.value[dictType] = data;
-          useDictStoreHook().setDict(dictType, res.value[dictType]);
-        })
-        .catch((error): void => {
-          console.error(`Failed to fetch dictionary items for type "${dictType}":`, error);
-        });
+  args.forEach((typeCode: string) => {
+    /**
+     * 如果缓存中没有该字典，则从后端获取
+     */
+    if (!res[typeCode].length) {
+      void DictDataAPI.getDictItems(typeCode).then((data) => {
+        res[typeCode] = data;
+        dictStore.setDict(typeCode, data);
+      });
     }
   });
 
-  return toRefs(res.value);
+  return toRefs(res);
 }
