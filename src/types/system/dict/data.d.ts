@@ -80,6 +80,6 @@ declare namespace DictData {
 
   // 字典组合式函数类型
   interface Compose {
-    [key: string]: Dict.Option[];
+    [key: string]: DictData.Option[];
   }
 }
