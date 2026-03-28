@@ -8,4 +8,16 @@ export default {
    * @param params 查询参数
    */
   getPage: (params: Log.Query) => get<PageResult<Log.VO>>(`${LOG_BASE_URL}`, params),
+
+  /**
+   * 获取访问趋势
+   * @param params 查询参数
+   */
+  getVisitTrend: (params: Log.VisitTrendQuery) =>
+    get<Log.VisitTrendVO>(`${LOG_BASE_URL}/views/trend`, params),
+
+  /**
+   * 获取访问概览
+   */
+  getVisitOverview: () => get<Log.VisitStatsVO>(`${LOG_BASE_URL}/views`),
 };

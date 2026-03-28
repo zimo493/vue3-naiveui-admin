@@ -1,7 +1,7 @@
 import { type App, createApp } from "vue";
 import { installPinia } from "@/store";
 import { installRouter } from "@/router";
-import { setupWebSocket, setupAppVersion } from "@/plugins";
+import { setupSse, setupAppVersion } from "@/plugins";
 
 import AppVue from "@/App";
 import AppLoading from "@/components/app-loading.vue";
@@ -26,7 +26,7 @@ installPinia(app);
 
 /** 注册模块 VueRouter */
 installRouter(app)
-  .then(() => setupWebSocket()) // 创建websocket连接
+  .then(() => setupSse()) // 创建 SSE 连接
   .then(() => setupAppVersion()) // App更新后提示用户刷新
   .catch((error) => console.error("Error during app initialization:", error))
   .finally(() => appLoading.unmount());

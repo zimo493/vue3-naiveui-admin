@@ -5,4 +5,4 @@ export * from "./useKeepTicking";
 export * from "./useLoading";
 export * from "./useRange";
 export * from "./useResponsive";
-export * from "./useWebsocket";
+export * from "./useSse";
