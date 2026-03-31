@@ -12,7 +12,7 @@ export const setupRouterGuard = (router: Router) => {
   const routeStore = useRouteStoreHook();
   const tabStore = useTabStoreHook();
 
-  router.beforeEach(async (to, _, next) => {
+  router.beforeEach(async (to) => {
     // 开始 loadingBar
     if (appStore.showProgress) {
       window.$loadingBar?.start();
@@ -23,12 +23,10 @@ export const setupRouterGuard = (router: Router) => {
 
     if (!isLogin) {
       if (whiteList.includes(to.path)) {
-        next();
+        return true;
       } else {
-        next(`/login?redirect=${to.path}`);
+        return `/login?redirect=${to.path}`;
       }
-
-      return false;
     }
 
     // 判断路由有无进行初始化
@@ -36,33 +34,28 @@ export const setupRouterGuard = (router: Router) => {
       const isInitAuthRoute = await routeStore.initAuthRoute();
 
       if (!isInitAuthRoute) {
-        next(false);
-
         return false;
       }
 
       // 动态路由加载完回到根路由
       if (to.name === "404") {
-        next({
+        return {
           path: to.fullPath,
           replace: true,
           query: to.query,
           hash: to.hash,
-        });
-
-        return false;
+        };
       }
     }
 
     // 判断当前页是否在login,则定位去首页
     if (to.name === "Login") {
-      next({ path: "/" });
-
-      return false;
+      return { path: "/" };
     }
 
-    next();
+    return true;
   });
+
   router.beforeResolve(async (to) => {
     // 添加tabs
     tabStore.addTab(to);
@@ -70,7 +63,7 @@ export const setupRouterGuard = (router: Router) => {
     routeStore.setActiveMenu(
       typeof to.meta.activeMenu === "string" ? to.meta.activeMenu : to.fullPath.split("?")[0]
     );
-    // 设置高亮标签;
+    // 设置高亮标签
     await tabStore.setCurrentTab(to.fullPath);
   });
 
