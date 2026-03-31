@@ -22,7 +22,7 @@ defineOptions({ name: "KeepCache" });
 
 const appStore = useAppStoreHook();
 const tabsStore = useTabStoreHook();
-const route = useRoute();
+const routerRoute = useRoute();
 
 // 当前组件
 const wrapperMap = new Map<string, Component>();
@@ -66,7 +66,7 @@ watch(
   (newVal, oldVal) => {
     // 当loadFlag从false变为true时（页面刷新完成）
     if (!oldVal && newVal) {
-      const currentRouteName = route.fullPath;
+      const currentRouteName = routerRoute.fullPath;
 
       // 如果当前路由在缓存列表中，临时移除它以强制重新渲染
       if (currentRouteName && tabsStore.cacheRoutes.includes(currentRouteName)) {

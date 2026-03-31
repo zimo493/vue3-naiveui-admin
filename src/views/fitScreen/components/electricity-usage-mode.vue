@@ -1,5 +1,7 @@
 <template>
-  <div class="electricityUsageMode" style="--height: 195px; --width: 280px">
+  <div class="electricityUsageMode" style="
+
+--height: 195px; --width: 280px">
     <BaseChart ref="chart" @onload="highlightItem" />
   </div>
 </template>

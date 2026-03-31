@@ -135,8 +135,9 @@ defineExpose({
 </script>
 <style lang="scss" scoped>
 .charts-bg {
-  background: rgba(0, 24, 106, 0.4) url("../assets/images/line.webp");
+  background: rgb(0 24 106 / 40%) url("../assets/images/line.webp");
 }
+
 .ornamental {
   position: absolute;
   width: 18px;
@@ -144,21 +145,25 @@ defineExpose({
   border: 3px solid;
   border-right: none;
   border-bottom: none;
-  border-radius: 4px 0 4px 0;
+  border-radius: 4px 0;
+
   &:nth-child(1) {
     top: -2px;
     left: -2px;
   }
+
   &:nth-child(2) {
     top: -2px;
     right: -2px;
     transform: rotate(90deg);
   }
+
   &:nth-child(3) {
     bottom: -2px;
     left: -2px;
     transform: rotate(-90deg);
   }
+
   &:nth-child(4) {
     right: -2px;
     bottom: -2px;

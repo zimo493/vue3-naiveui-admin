@@ -22,7 +22,7 @@ defineOptions({
 
 const { t } = useI18n();
 const { maxWidth = "12em" } = defineProps({
-  maxWidth: { type: Number },
+  maxWidth: { type: [Number, String] },
 });
 const modelValue = defineModel<string>("value", { required: true });
 </script>

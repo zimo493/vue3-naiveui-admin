@@ -104,7 +104,7 @@ const {
   operationSpan = 4,
 } = defineProps({
   formConfig: {
-    type: Object as PropType<FormPro.FormItemConfig[]>,
+    type: Array as PropType<FormPro.FormItemConfig[]>,
   },
   formProps: {
     type: Object as PropType<FormPro.FormProProps["formProps"]>,

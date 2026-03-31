@@ -8,7 +8,7 @@
           v-model:model-value="modelValue"
           :form-config="showFormConfig.map((item) => ({ ...item, blockMessage: undefined }))"
           :form-props="{ showFeedback: false, labelWidth: undefined, ...(form?.props || {}) }"
-          :operation-span="operationSpan"
+          :operation-span="operationSpace"
           :grid-props="{ yGap: 16, ...(form?.gridProps || {}) }"
         >
           <!-- 转发所有具名插槽 -->
@@ -311,11 +311,11 @@ const showFoldBtn = computed(() => {
 });
 const { isMobile } = useResponsive();
 // 计算操作区按钮的占位宽度
-const operationSpan = computed<number>(() => {
+const operationSpace = computed<number>(() => {
   if (isMobile.value) return 24;
   let totalSpan = 0;
 
-  if (!showFoldBtn) return totalSpan;
+  if (!showFoldBtn.value) return totalSpan;
   // 计算每行的 span 值
   let currentLineSpan = 0;
 

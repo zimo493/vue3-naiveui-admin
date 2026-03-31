@@ -167,7 +167,7 @@ const onClickOutSide = () => (showDropdown.value = false);
   flex: 0 0 auto;
   width: 6px;
   height: 6px;
-  background-color: currentColor;
+  background-color: currentcolor;
   border-radius: 50%;
   opacity: 0.65;
 }

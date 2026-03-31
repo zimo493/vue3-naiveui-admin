@@ -75,13 +75,14 @@
           </n-divider>
           <n-flex align="center" justify="space-between">
             {{ t("system.theme.color.primary") }}
-            <n-color-picker
-              v-model:value="appStore.primaryColor"
-              w-100px
-              :show-alpha="false"
-              :swatches="palette"
-              @update:value="appStore.setPrimaryColor"
-            />
+            <div class="w-100px">
+              <n-color-picker
+                v-model:value="appStore.primaryColor"
+                :show-alpha="false"
+                :swatches="palette"
+                @update:value="appStore.setPrimaryColor"
+              />
+            </div>
           </n-flex>
           <n-flex align="center" justify="space-between">
             <n-flex>
@@ -93,43 +94,47 @@
                 {{ t("system.theme.color.followPrimary") }}
               </n-checkbox>
             </n-flex>
-            <n-color-picker
-              v-model:value="appStore.infoColor"
-              w-100px
-              :show-alpha="false"
-              :swatches="palette"
-              @update:value="appStore.setInfoColor"
-            />
+            <div class="w-100px">
+              <n-color-picker
+                v-model:value="appStore.infoColor"
+                :show-alpha="false"
+                :swatches="palette"
+                @update:value="appStore.setInfoColor"
+              />
+            </div>
           </n-flex>
           <n-flex align="center" justify="space-between">
             {{ t("system.theme.color.success") }}
-            <n-color-picker
-              v-model:value="appStore.successColor"
-              w-100px
-              :show-alpha="false"
-              :swatches="palette"
-              @update:value="appStore.setSuccessColor"
-            />
+            <div class="w-100px">
+              <n-color-picker
+                v-model:value="appStore.successColor"
+                :show-alpha="false"
+                :swatches="palette"
+                @update:value="appStore.setSuccessColor"
+              />
+            </div>
           </n-flex>
           <n-flex align="center" justify="space-between">
             {{ t("system.theme.color.warning") }}
-            <n-color-picker
-              v-model:value="appStore.warningColor"
-              w-100px
-              :show-alpha="false"
-              :swatches="palette"
-              @update:value="appStore.setWarningColor"
-            />
+            <div class="w-100px">
+              <n-color-picker
+                v-model:value="appStore.warningColor"
+                :show-alpha="false"
+                :swatches="palette"
+                @update:value="appStore.setWarningColor"
+              />
+            </div>
           </n-flex>
           <n-flex align="center" justify="space-between">
             {{ t("system.theme.color.error") }}
-            <n-color-picker
-              v-model:value="appStore.errorColor"
-              w-100px
-              :show-alpha="false"
-              :swatches="palette"
-              @update:value="appStore.setErrorColor"
-            />
+            <div class="w-100px">
+              <n-color-picker
+                v-model:value="appStore.errorColor"
+                :show-alpha="false"
+                :swatches="palette"
+                @update:value="appStore.setErrorColor"
+              />
+            </div>
           </n-flex>
 
           <n-divider>{{ t("system.interface.function") }}</n-divider>

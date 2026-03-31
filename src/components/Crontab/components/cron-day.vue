@@ -227,15 +227,15 @@ watch(
 
 // 计算工作日格式
 const workdayCheck = computed(() => {
-  workday.value = checkNumber(workday.value, 1, 31);
+  const clamped = checkNumber(workday.value, 1, 31);
 
-  return workday.value + "W";
+  return clamped + "W";
 });
 
-watch(
-  () => workdayCheck.value,
-  (v) => (value.value = v)
-);
+watch(workday, (val) => {
+  workday.value = checkNumber(val, 1, 31);
+  value.value = workdayCheck.value;
+});
 
 // 计算勾选的checkbox值合集
 const checkboxString = computed(() => {
