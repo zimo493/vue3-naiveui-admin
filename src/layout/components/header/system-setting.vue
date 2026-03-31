@@ -14,7 +14,7 @@
       <n-drawer-content :title="t('system.tooltip.settings')" closable>
         <n-flex vertical>
           <!-- <n-divider>布局设置</n-divider> -->
-          <LayoutSelector v-model:value="appStore.layoutMode" />
+          <LayoutSelector v-if="!isMobile" v-model:value="appStore.layoutMode" />
 
           <n-divider>{{ t("system.theme.mode.mode") }}</n-divider>
           <n-flex vertical :size="16">
