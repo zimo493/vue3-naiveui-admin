@@ -4,8 +4,6 @@
  */
 
 // 导出各个子配置
-export * from "./rollupOptions";
-export * from "./terserOptions";
 export * from "./cssOptions";
 export * from "./pluginsOptions";
 export * from "./optimizeDepsOptions";
