@@ -35,5 +35,10 @@ export default {
 
     // Vue 项目友好
     "selector-class-pattern": null,
+
+    // 忽略内联 style 属性的属性数量限制，防止强制换行
+    "declaration-block-single-line-max-declarations": null,
+    "custom-property-empty-line-before": null,
+    "declaration-empty-line-before": null,
   },
 };
