@@ -313,31 +313,30 @@ const { isMobile } = useResponsive();
 // 计算操作区按钮的占位宽度
 const operationSpace = computed<number>(() => {
   if (isMobile.value) return 24;
-  let totalSpan = 0;
 
-  if (!showFoldBtn.value) return totalSpan;
-  // 计算每行的 span 值
   let currentLineSpan = 0;
 
-  // 过滤掉隐藏的表单项
   const showForm = showFormConfig.value.filter((i) => !i.hidden);
 
   for (const item of showForm) {
-    const itemSpan = item.span || defaultOperationSpan;
+    const span = item.span || defaultOperationSpan;
 
-    if (currentLineSpan + itemSpan > 24) {
-      currentLineSpan = itemSpan;
+    if (currentLineSpan + span > 24) {
+      currentLineSpan = span;
     } else {
-      currentLineSpan += itemSpan;
+      currentLineSpan += span;
     }
   }
 
-  totalSpan += currentLineSpan;
+  // 已满一行 → 操作区换行
+  if (currentLineSpan === 24) return 24;
 
-  // 计算剩余的 span 值
-  const remainingSpan = 24 - (totalSpan % 24);
+  const remaining = 24 - currentLineSpan;
 
-  return remainingSpan < defaultOperationSpan ? 24 : remainingSpan;
+  // 剩余空间不够放操作区 → 换行
+  if (remaining < defaultOperationSpan) return 24;
+
+  return remaining;
 });
 
 // 切换折叠状态
