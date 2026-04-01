@@ -210,10 +210,6 @@ CREATE TABLE `sys_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统操作日志表';
 
 -- ----------------------------
--- Records of sys_log
--- ----------------------------
-
--- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -242,110 +238,120 @@ CREATE TABLE `sys_menu` (
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
--- 顶级目录（1-9）：系统管理/系统工具/数据大屏/平台文档/接口文档/组件封装/功能演示/多级菜单/路由参数
-INSERT INTO `sys_menu` VALUES (1, 0, '0', '系统管理', 'C', '', '/system', 'Layout', NULL, NULL, NULL, 1, 1, 'material-symbols:jamboard-kiosk', '/system/user', now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2, 0, '0', '系统工具', 'C', '', '/utils', 'Layout', NULL, NULL, NULL, 1, 2, 'ep:menu', '', now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (3, 0, '0', '数据大屏', 'C', '', '/dashboard', 'Layout', NULL, NULL, NULL, 1, 3, 'ant-design:dashboard-filled', '', now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (4, 0, '0', '平台文档', 'C', '', '/doc', 'Layout', NULL, NULL, NULL, 1, 4, 'icon-park-solid:file-code', '', now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (5, 0, '0', '接口文档', 'C', '', '/api', 'Layout', NULL, NULL, NULL, 1, 5, 'simple-icons:apifox', '', now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (6, 0, '0', '组件封装', 'C', '', '/component', 'Layout', NULL, NULL, NULL, 1, 6, 'ep:menu', '', now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (7, 0, '0', '功能演示', 'C', '', '/function', 'Layout', NULL, NULL, NULL, 1, 7, 'mdi:laptop', '', now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (8, 0, '0', '多级菜单', 'C', NULL, '/multi-level', 'Layout', NULL, 1, NULL, 1, 8, 'bi:123', '', now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (9, 0, '0', '路由参数', 'C', '', '/route-param', 'Layout', NULL, NULL, NULL, 1, 9, 'icon-park-outline:router', '', now(), now(), NULL);
 
--- 系统管理
-INSERT INTO `sys_menu` VALUES (210, 1, '0,1', '用户管理', 'M', 'User', 'user', 'system/user/index', NULL, NULL, 1, 1, 1, 'ep:user-filled', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2101, 210, '0,1,210', '用户查询', 'B', NULL, '', NULL, 'sys:user:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2102, 210, '0,1,210', '用户新增', 'B', NULL, '', NULL, 'sys:user:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2103, 210, '0,1,210', '用户编辑', 'B', NULL, '', NULL, 'sys:user:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2104, 210, '0,1,210', '用户删除', 'B', NULL, '', NULL, 'sys:user:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2105, 210, '0,1,210', '重置密码', 'B', NULL, '', NULL, 'sys:user:reset-password', NULL, NULL, 1, 5, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2106, 210, '0,1,210', '用户导入', 'B', NULL, '', NULL, 'sys:user:import', NULL, NULL, 1, 6, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2107, 210, '0,1,210', '用户导出', 'B', NULL, '', NULL, 'sys:user:export', NULL, NULL, 1, 7, '', NULL, now(), now(), NULL);
+-- 顶级目录（100~900，步进 100）系统管理/系统工具/数据大屏/平台文档/接口文档/组件封装/功能演示/多级菜单/路由参数
+INSERT INTO `sys_menu` VALUES (100, 0, '0', '系统管理', 'C', '', '/system', 'Layout', NULL, NULL, NULL, 1, 1, 'material-symbols:jamboard-kiosk', '/system/user', now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (200, 0, '0', '系统工具', 'C', '', '/utils', 'Layout', NULL, NULL, NULL, 1, 2, 'ep:menu', '', now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (300, 0, '0', '数据大屏', 'C', '', '/dashboard', 'Layout', NULL, NULL, NULL, 1, 3, 'ant-design:dashboard-filled', '', now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (400, 0, '0', '平台文档', 'C', '', '/doc', 'Layout', NULL, NULL, NULL, 1, 4, 'icon-park-solid:file-code', '', now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (500, 0, '0', '接口文档', 'C', '', '/api', 'Layout', NULL, NULL, NULL, 1, 5, 'simple-icons:apifox', '', now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (600, 0, '0', '组件封装', 'C', '', '/component', 'Layout', NULL, NULL, NULL, 1, 6, 'ep:menu', '', now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (700, 0, '0', '功能演示', 'C', '', '/function', 'Layout', NULL, NULL, NULL, 1, 7, 'mdi:laptop', '', now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (800, 0, '0', '多级菜单', 'C', '', '/multi-level', 'Layout', NULL, 1, NULL, 1, 8, 'bi:123', '', now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (900, 0, '0', '路由参数', 'C', '', '/route-param', 'Layout', NULL, NULL, NULL, 1, 9, 'icon-park-outline:router', '', now(), now(), NULL);
 
-INSERT INTO `sys_menu` VALUES (220, 1, '0,1', '角色管理', 'M', 'Role', 'role', 'system/role/index', NULL, NULL, 1, 1, 2, 'eos-icons:role-binding', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2201, 220, '0,1,220', '角色查询', 'B', NULL, '', NULL, 'sys:role:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2202, 220, '0,1,220', '角色新增', 'B', NULL, '', NULL, 'sys:role:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2203, 220, '0,1,220', '角色编辑', 'B', NULL, '', NULL, 'sys:role:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2204, 220, '0,1,220', '角色删除', 'B', NULL, '', NULL, 'sys:role:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
 
-INSERT INTO `sys_menu` VALUES (230, 1, '0,1', '菜单管理', 'M', 'SysMenu', 'menu', 'system/menu/index', NULL, NULL, 1, 1, 3, 'ep:menu', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2301, 230, '0,1,230', '菜单查询', 'B', NULL, '', NULL, 'sys:menu:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2302, 230, '0,1,230', '菜单新增', 'B', NULL, '', NULL, 'sys:menu:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2303, 230, '0,1,230', '菜单编辑', 'B', NULL, '', NULL, 'sys:menu:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2304, 230, '0,1,230', '菜单删除', 'B', NULL, '', NULL, 'sys:menu:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
+-- 系统管理（100），二级菜单步进 10
+INSERT INTO `sys_menu` VALUES (110, 100, '0,100', '用户管理', 'M', 'User', 'user', 'system/user/index', NULL, NULL, 1, 1, 1, 'ep:user-filled', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (111, 110, '0,100,110', '用户查询', 'B', NULL, '', NULL, 'sys:user:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (112, 110, '0,100,110', '用户新增', 'B', NULL, '', NULL, 'sys:user:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (113, 110, '0,100,110', '用户编辑', 'B', NULL, '', NULL, 'sys:user:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (114, 110, '0,100,110', '用户删除', 'B', NULL, '', NULL, 'sys:user:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (115, 110, '0,100,110', '重置密码', 'B', NULL, '', NULL, 'sys:user:reset-password', NULL, NULL, 1, 5, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (116, 110, '0,100,110', '用户导入', 'B', NULL, '', NULL, 'sys:user:import', NULL, NULL, 1, 6, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (117, 110, '0,100,110', '用户导出', 'B', NULL, '', NULL, 'sys:user:export', NULL, NULL, 1, 7, '', NULL, now(), now(), NULL);
 
-INSERT INTO `sys_menu` VALUES (240, 1, '0,1', '部门管理', 'M', 'Dept', 'dept', 'system/dept/index', NULL, NULL, 1, 1, 4, 'icon-park-solid:network-tree', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2401, 240, '0,1,240', '部门查询', 'B', NULL, '', NULL, 'sys:dept:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2402, 240, '0,1,240', '部门新增', 'B', NULL, '', NULL, 'sys:dept:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2403, 240, '0,1,240', '部门编辑', 'B', NULL, '', NULL, 'sys:dept:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2404, 240, '0,1,240', '部门删除', 'B', NULL, '', NULL, 'sys:dept:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (120, 100, '0,100', '角色管理', 'M', 'Role', 'role', 'system/role/index', NULL, NULL, 1, 1, 2, 'eos-icons:role-binding', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (121, 120, '0,100,120', '角色查询', 'B', NULL, '', NULL, 'sys:role:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (122, 120, '0,100,120', '角色新增', 'B', NULL, '', NULL, 'sys:role:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (123, 120, '0,100,120', '角色编辑', 'B', NULL, '', NULL, 'sys:role:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (124, 120, '0,100,120', '角色删除', 'B', NULL, '', NULL, 'sys:role:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
 
-INSERT INTO `sys_menu` VALUES (250, 1, '0,1', '字典管理', 'M', 'Dict', 'dict', 'system/dict/index', NULL, NULL, 1, 1, 5, 'streamline:dictionary-language-book-solid', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2501, 250, '0,1,250', '字典查询', 'B', NULL, '', NULL, 'sys:dict:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2502, 250, '0,1,250', '字典新增', 'B', NULL, '', NULL, 'sys:dict:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2503, 250, '0,1,250', '字典编辑', 'B', NULL, '', NULL, 'sys:dict:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2504, 250, '0,1,250', '字典删除', 'B', NULL, '', NULL, 'sys:dict:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (130, 100, '0,100', '菜单管理', 'M', 'SysMenu', 'menu', 'system/menu/index', NULL, NULL, 1, 1, 3, 'ep:menu', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (131, 130, '0,100,130', '菜单查询', 'B', NULL, '', NULL, 'sys:menu:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (132, 130, '0,100,130', '菜单新增', 'B', NULL, '', NULL, 'sys:menu:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (133, 130, '0,100,130', '菜单编辑', 'B', NULL, '', NULL, 'sys:menu:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (134, 130, '0,100,130', '菜单删除', 'B', NULL, '', NULL, 'sys:menu:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
 
-INSERT INTO `sys_menu` VALUES (251, 1, '0,1', '字典项', 'M', 'DictItem', 'dict-item', 'system/dict/dict-item', NULL, 0, 1, 0, 6, 'icon-park-outline:ad-product', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2511, 251, '0,1,251', '字典项查询', 'B', NULL, '', NULL, 'sys:dict-item:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2512, 251, '0,1,251', '字典项新增', 'B', NULL, '', NULL, 'sys:dict-item:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2513, 251, '0,1,251', '字典项编辑', 'B', NULL, '', NULL, 'sys:dict-item:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2514, 251, '0,1,251', '字典项删除', 'B', NULL, '', NULL, 'sys:dict-item:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (140, 100, '0,100', '部门管理', 'M', 'Dept', 'dept', 'system/dept/index', NULL, NULL, 1, 1, 4, 'icon-park-solid:network-tree', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (141, 140, '0,100,140', '部门查询', 'B', NULL, '', NULL, 'sys:dept:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (142, 140, '0,100,140', '部门新增', 'B', NULL, '', NULL, 'sys:dept:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (143, 140, '0,100,140', '部门编辑', 'B', NULL, '', NULL, 'sys:dept:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (144, 140, '0,100,140', '部门删除', 'B', NULL, '', NULL, 'sys:dept:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
 
-INSERT INTO `sys_menu` VALUES (260, 1, '0,1', '系统日志', 'M', 'Log', 'log', 'system/log/index', NULL, 0, 1, 1, 7, 'icon-park-solid:log', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2601, 260, '0,1,260', '日志查询', 'B', NULL, '', NULL, 'sys:log:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (150, 100, '0,100', '字典管理', 'M', 'Dict', 'dict', 'system/dict/index', NULL, NULL, 1, 1, 5, 'streamline:dictionary-language-book-solid', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (151, 150, '0,100,150', '字典查询', 'B', NULL, '', NULL, 'sys:dict:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (152, 150, '0,100,150', '字典新增', 'B', NULL, '', NULL, 'sys:dict:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (153, 150, '0,100,150', '字典编辑', 'B', NULL, '', NULL, 'sys:dict:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (154, 150, '0,100,150', '字典删除', 'B', NULL, '', NULL, 'sys:dict:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
 
-INSERT INTO `sys_menu` VALUES (270, 1, '0,1', '系统配置', 'M', 'Config', 'config', 'system/config/index', NULL, 0, 1, 1, 8, 'file-icons:config-coffeescript', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2701, 270, '0,1,270', '系统配置查询', 'B', NULL, '', NULL, 'sys:config:list', 0, 1, 1, 1, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2702, 270, '0,1,270', '系统配置新增', 'B', NULL, '', NULL, 'sys:config:create', 0, 1, 1, 2, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2703, 270, '0,1,270', '系统配置修改', 'B', NULL, '', NULL, 'sys:config:update', 0, 1, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2704, 270, '0,1,270', '系统配置删除', 'B', NULL, '', NULL, 'sys:config:delete', 0, 1, 1, 4, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2705, 270, '0,1,270', '系统配置刷新', 'B', NULL, '', NULL, 'sys:config:refresh', 0, 1, 1, 5, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (160, 100, '0,100', '字典项', 'M', 'DictItem', 'dict-item', 'system/dict/dict-item', NULL, 0, 1, 0, 6, 'icon-park-outline:ad-product', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (161, 160, '0,100,160', '字典项查询', 'B', NULL, '', NULL, 'sys:dict-item:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (162, 160, '0,100,160', '字典项新增', 'B', NULL, '', NULL, 'sys:dict-item:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (163, 160, '0,100,160', '字典项编辑', 'B', NULL, '', NULL, 'sys:dict-item:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (164, 160, '0,100,160', '字典项删除', 'B', NULL, '', NULL, 'sys:dict-item:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
 
-INSERT INTO `sys_menu` VALUES (280, 1, '0,1', '通知公告', 'M', 'Notice', 'notice', 'system/notice/index', NULL, NULL, NULL, 1, 9, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2801, 280, '0,1,280', '通知查询', 'B', NULL, '', NULL, 'sys:notice:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2802, 280, '0,1,280', '通知新增', 'B', NULL, '', NULL, 'sys:notice:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2803, 280, '0,1,280', '通知编辑', 'B', NULL, '', NULL, 'sys:notice:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2804, 280, '0,1,280', '通知删除', 'B', NULL, '', NULL, 'sys:notice:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2805, 280, '0,1,280', '通知发布', 'B', NULL, '', NULL, 'sys:notice:publish', 0, 1, 1, 5, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (2806, 280, '0,1,280', '通知撤回', 'B', NULL, '', NULL, 'sys:notice:revoke', 0, 1, 1, 6, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (170, 100, '0,100', '系统日志', 'M', 'Log', 'log', 'system/log/index', NULL, 0, 1, 1, 7, 'icon-park-solid:log', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (171, 170, '0,100,170', '日志查询', 'B', NULL, '', NULL, 'sys:log:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
 
--- 系统工具
-INSERT INTO `sys_menu` VALUES (310, 2, '0,2', '代码生成', 'M', 'Codegen', 'codegen', 'codegen/index', NULL, NULL, 1, 1, 1, 'ant-design:code-filled', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (180, 100, '0,100', '系统配置', 'M', 'Config', 'config', 'system/config/index', NULL, 0, 1, 1, 8, 'file-icons:config-coffeescript', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (181, 180, '0,100,180', '系统配置查询', 'B', NULL, '', NULL, 'sys:config:list', 0, 1, 1, 1, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (182, 180, '0,100,180', '系统配置新增', 'B', NULL, '', NULL, 'sys:config:create', 0, 1, 1, 2, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (183, 180, '0,100,180', '系统配置修改', 'B', NULL, '', NULL, 'sys:config:update', 0, 1, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (184, 180, '0,100,180', '系统配置删除', 'B', NULL, '', NULL, 'sys:config:delete', 0, 1, 1, 4, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (185, 180, '0,100,180', '系统配置刷新', 'B', NULL, '', NULL, 'sys:config:refresh', 0, 1, 1, 5, '', NULL, now(), now(), NULL);
 
--- 数据大屏
-INSERT INTO `sys_menu` VALUES (410, 3, '0,3', '大屏适配', 'M', NULL, 'http://localhost:5173/#/fitScreen', NULL, NULL, 0, 1, 1, 1, 'icon-park-solid:monitor-one', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (190, 100, '0,100', '通知公告', 'M', 'Notice', 'notice', 'system/notice/index', NULL, NULL, NULL, 1, 9, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (191, 190, '0,100,190', '通知查询', 'B', NULL, '', NULL, 'sys:notice:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (192, 190, '0,100,190', '通知新增', 'B', NULL, '', NULL, 'sys:notice:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (193, 190, '0,100,190', '通知编辑', 'B', NULL, '', NULL, 'sys:notice:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (194, 190, '0,100,190', '通知删除', 'B', NULL, '', NULL, 'sys:notice:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (195, 190, '0,100,190', '通知发布', 'B', NULL, '', NULL, 'sys:notice:publish', 0, 1, 1, 5, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (196, 190, '0,100,190', '通知撤回', 'B', NULL, '', NULL, 'sys:notice:revoke', 0, 1, 1, 6, '', NULL, now(), now(), NULL);
 
--- 平台文档
-INSERT INTO `sys_menu` VALUES (501, 4, '0,4', '平台文档(外链)', 'M', NULL, 'https://juejin.cn/post/7228990409909108793', '', NULL, NULL, NULL, 1, 1, 'local:vitepress', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (502, 4, '0,4', '后端文档', 'M', NULL, 'https://youlai.blog.csdn.net/article/details/145178880', '', NULL, NULL, NULL, 1, 2, 'local:csdn', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (503, 4, '0,4', '移动端文档', 'M', NULL, 'https://youlai.blog.csdn.net/article/details/143222890', '', NULL, NULL, NULL, 1, 3, 'local:csdn', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (504, 4, '0,4', '内部文档', 'M', 'InternalDoc', 'internal-doc', 'demo/internal-doc', NULL, NULL, NULL, 1, 4, 'local:juejin', NULL, now(), now(), NULL);
 
--- 接口文档
-INSERT INTO `sys_menu` VALUES (601, 5, '0,5', 'Apifox', 'M', 'Apifox', 'apifox', 'demo/api/apifox', NULL, NULL, 1, 1, 1, 'local:apifox', NULL, now(), now(), NULL);
+-- 系统工具（200）
+INSERT INTO `sys_menu` VALUES (210, 200, '0,200', '代码生成', 'M', 'Codegen', 'codegen', 'codegen/index', NULL, NULL, 1, 1, 1, 'ant-design:code-filled', NULL, now(), now(), NULL);
 
--- 组件封装
-INSERT INTO `sys_menu` VALUES (701, 6, '0,6', 'Cron表达式生成器', 'M', 'Cron', 'cron', 'demo/cron', NULL, NULL, 1, 1, 1, 'icon-park-outline:timer', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (702, 6, '0,6', '富文本编辑器', 'M', 'WangEditor', 'wang-editor', 'demo/wang-editor', NULL, NULL, 1, 1, 2, 'icon-park-outline:edit', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (703, 6, '0,6', '图片上传', 'M', 'Upload', 'upload', 'demo/upload', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (704, 6, '0,6', '图标选择器', 'M', 'IconSelector', 'icon-selector', 'demo/icon-selector', NULL, NULL, 1, 1, 4, 'emojione-v1:smiling-face-with-sunglasses', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (705, 6, '0,6', '字典组件', 'M', 'Dictionary', 'dict-demo', 'demo/dictionary', NULL, NULL, 1, 1, 5, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (706, 6, '0,6', '增删改查', 'M', 'Curd', 'curd', 'demo/curd/index', NULL, NULL, 1, 1, 0, '', NULL, now(), now(), NULL);
 
--- 功能演示
-INSERT INTO `sys_menu` VALUES (801, 7, '0,7', 'Icons', 'M', 'Icon', 'icon-demo', 'demo/icons', NULL, NULL, 1, 1, 1, 'noto:grinning-face', NULL, now(), now(), NULL);
+-- 数据大屏（300）
+INSERT INTO `sys_menu` VALUES (310, 300, '0,300', '大屏适配', 'M', 'FitScreen', 'http://localhost:5173/#/fitScreen', NULL, NULL, 0, 1, 1, 1, 'icon-park-solid:monitor-one', NULL, now(), now(), NULL);
 
--- 多级菜单
-INSERT INTO `sys_menu` VALUES (910, 8, '0,8', '菜单一级', 'C', 'Multilevel1', 'multi-level1', 'Layout', NULL, 1, 1, 1, 1, 'healthicons:1', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (911, 910, '0,8,910', '菜单二级', 'C', 'Multilevel2', 'multi-level2', 'Layout', NULL, 0, 1, 1, 1, 'healthicons:2', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (912, 911, '0,8,910,911', '菜单三级-1', 'M', 'Multilevel31', 'multi-level3-1', 'demo/multi-level/children/children/level3-1', NULL, 0, 1, 1, 1, 'healthicons:3', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (913, 911, '0,8,910,911', '菜单三级-2', 'M', 'Multilevel32', 'multi-level3-2', 'demo/multi-level/children/children/level3-2', NULL, 0, 0, 1, 2, 'healthicons:3', NULL, now(), now(), NULL);
 
--- 路由参数
-INSERT INTO `sys_menu` VALUES (1001, 9, '0,9', '参数(type=1)', 'M', 'RouteParamType1', 'route-param-type1', 'demo/route-param', NULL, 0, 1, 1, 1, 'icon-park-outline:star', NULL, now(), now(), '{"type":"1"}');
-INSERT INTO `sys_menu` VALUES (1002, 9, '0,9', '参数(type=2)', 'M', NULL, 'route-param-type2', 'demo/route-param', NULL, 0, 1, 1, 2, 'icon-park-solid:star', NULL, now(), now(), '{"type":"2"}');
+-- 平台文档（400）
+INSERT INTO `sys_menu` VALUES (410, 400, '0,400', '平台文档(外链)', 'M', NULL, 'https://juejin.cn/post/7228990409909108793', '', NULL, NULL, NULL, 1, 1, 'local:vitepress', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (420, 400, '0,400', '后端文档', 'M', NULL, 'https://youlai.blog.csdn.net/article/details/145178880', '', NULL, NULL, NULL, 1, 2, 'local:csdn', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (430, 400, '0,400', '移动端文档', 'M', NULL, 'https://youlai.blog.csdn.net/article/details/143222890', '', NULL, NULL, NULL, 1, 3, 'local:csdn', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (440, 400, '0,400', '内部文档', 'M', 'InternalDoc', 'internal-doc', 'demo/internal-doc', NULL, NULL, NULL, 1, 4, 'local:juejin', NULL, now(), now(), NULL);
+
+
+-- 接口文档（500）
+INSERT INTO `sys_menu` VALUES (510, 500, '0,500', 'Apifox', 'M', 'Apifox', 'apifox', 'demo/api/apifox', NULL, NULL, 1, 1, 1, 'local:apifox', NULL, now(), now(), NULL);
+
+
+-- 组件封装（600）
+INSERT INTO `sys_menu` VALUES (610, 600, '0,600', 'Cron表达式生成器', 'M', 'Cron', 'cron', 'demo/cron', NULL, NULL, 1, 1, 1, 'icon-park-outline:timer', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (620, 600, '0,600', '富文本编辑器', 'M', 'WangEditor', 'wang-editor', 'demo/wang-editor', NULL, NULL, 1, 1, 2, 'icon-park-outline:edit', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (630, 600, '0,600', '图片上传', 'M', 'Upload', 'upload', 'demo/upload', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (640, 600, '0,600', '图标选择器', 'M', 'IconSelector', 'icon-selector', 'demo/icon-selector', NULL, NULL, 1, 1, 4, 'emojione-v1:smiling-face-with-sunglasses', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (650, 600, '0,600', '字典组件', 'M', 'Dictionary', 'dict-demo', 'demo/dictionary', NULL, NULL, 1, 1, 5, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (660, 600, '0,600', '增删改查', 'M', 'Curd', 'curd', 'demo/curd/index', NULL, NULL, 1, 1, 0, '', NULL, now(), now(), NULL);
+
+
+-- 功能演示（700）
+INSERT INTO `sys_menu` VALUES (710, 700, '0,700', 'Icons', 'M', 'Icon', 'icon-demo', 'demo/icons', NULL, NULL, 1, 1, 1, 'noto:grinning-face', NULL, now(), now(), NULL);
+
+
+-- 多级菜单（800）— 含三层嵌套
+INSERT INTO `sys_menu` VALUES (810, 800, '0,800', '菜单一级', 'C', 'Multilevel1', 'multi-level1', 'Layout', NULL, 1, 1, 1, 1, 'healthicons:1', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (811, 810, '0,800,810', '菜单二级', 'C', 'Multilevel2', 'multi-level2', 'Layout', NULL, 0, 1, 1, 1, 'healthicons:2', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (812, 811, '0,800,810,811', '菜单三级-1', 'M', 'Multilevel31', 'multi-level3-1', 'demo/multi-level/children/children/level3-1', NULL, 0, 1, 1, 1, 'healthicons:3', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (813, 811, '0,800,810,811', '菜单三级-2', 'M', 'Multilevel32', 'multi-level3-2', 'demo/multi-level/children/children/level3-2', NULL, 0, 0, 1, 2, 'healthicons:3', NULL, now(), now(), NULL);
+
+
+-- 路由参数（900）
+INSERT INTO `sys_menu` VALUES (910, 900, '0,900', '参数(type=1)', 'M', 'RouteParamType1', 'route-param-type1', 'demo/route-param', NULL, 0, 1, 1, 1, 'icon-park-outline:star', NULL, now(), now(), '{"type":"1"}');
+INSERT INTO `sys_menu` VALUES (920, 900, '0,900', '参数(type=2)', 'M', NULL, 'route-param-type2', 'demo/route-param', NULL, 0, 1, 1, 2, 'icon-park-solid:star', NULL, now(), now(), '{"type":"2"}');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -441,59 +447,68 @@ INSERT IGNORE INTO `sys_role_dept` VALUES (7, 2);
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
--- 系统管理员角色菜单权限（role_id=2）
+
+-- 系统管理员（role_id=2）
 -- 顶级目录
-INSERT INTO `sys_role_menu` VALUES (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7), (2, 8), (2, 9);
--- 系统管理
-INSERT INTO `sys_role_menu` VALUES (2, 210), (2, 2101), (2, 2102), (2, 2103), (2, 2104), (2, 2105), (2, 2106), (2, 2107);
-INSERT INTO `sys_role_menu` VALUES (2, 220), (2, 2201), (2, 2202), (2, 2203), (2, 2204);
-INSERT INTO `sys_role_menu` VALUES (2, 230), (2, 2301), (2, 2302), (2, 2303), (2, 2304);
-INSERT INTO `sys_role_menu` VALUES (2, 240), (2, 2401), (2, 2402), (2, 2403), (2, 2404);
-INSERT INTO `sys_role_menu` VALUES (2, 250), (2, 2501), (2, 2502), (2, 2503), (2, 2504);
-INSERT INTO `sys_role_menu` VALUES (2, 251), (2, 2511), (2, 2512), (2, 2513), (2, 2514);
-INSERT INTO `sys_role_menu` VALUES (2, 260), (2, 2601);
-INSERT INTO `sys_role_menu` VALUES (2, 270), (2, 2701), (2, 2702), (2, 2703), (2, 2704), (2, 2705);
-INSERT INTO `sys_role_menu` VALUES (2, 280), (2, 2801), (2, 2802), (2, 2803), (2, 2804), (2, 2805), (2, 2806);
+INSERT INTO `sys_role_menu` VALUES (2, 100), (2, 200), (2, 300), (2, 400), (2, 500), (2, 600), (2, 700), (2, 800), (2, 900);
+-- 系统管理 - 用户管理
+INSERT INTO `sys_role_menu` VALUES (2, 110), (2, 111), (2, 112), (2, 113), (2, 114), (2, 115), (2, 116), (2, 117);
+-- 系统管理 - 角色管理
+INSERT INTO `sys_role_menu` VALUES (2, 120), (2, 121), (2, 122), (2, 123), (2, 124);
+-- 系统管理 - 菜单管理
+INSERT INTO `sys_role_menu` VALUES (2, 130), (2, 131), (2, 132), (2, 133), (2, 134);
+-- 系统管理 - 部门管理
+INSERT INTO `sys_role_menu` VALUES (2, 140), (2, 141), (2, 142), (2, 143), (2, 144);
+-- 系统管理 - 字典管理
+INSERT INTO `sys_role_menu` VALUES (2, 150), (2, 151), (2, 152), (2, 153), (2, 154);
+-- 系统管理 - 字典项
+INSERT INTO `sys_role_menu` VALUES (2, 160), (2, 161), (2, 162), (2, 163), (2, 164);
+-- 系统管理 - 系统日志
+INSERT INTO `sys_role_menu` VALUES (2, 170), (2, 171);
+-- 系统管理 - 系统配置
+INSERT INTO `sys_role_menu` VALUES (2, 180), (2, 181), (2, 182), (2, 183), (2, 184), (2, 185);
+-- 系统管理 - 通知公告
+INSERT INTO `sys_role_menu` VALUES (2, 190), (2, 191), (2, 192), (2, 193), (2, 194), (2, 195), (2, 196);
 -- 系统工具
-INSERT INTO `sys_role_menu` VALUES (2, 310);
+INSERT INTO `sys_role_menu` VALUES (2, 210);
 -- 数据大屏
-INSERT INTO `sys_role_menu` VALUES (2, 410);
+INSERT INTO `sys_role_menu` VALUES (2, 310);
 -- 平台文档
-INSERT INTO `sys_role_menu` VALUES (2, 501), (2, 502), (2, 503), (2, 504);
+INSERT INTO `sys_role_menu` VALUES (2, 410), (2, 420), (2, 430), (2, 440);
 -- 接口文档
-INSERT INTO `sys_role_menu` VALUES (2, 601);
+INSERT INTO `sys_role_menu` VALUES (2, 510);
 -- 组件封装
-INSERT INTO `sys_role_menu` VALUES (2, 701), (2, 702), (2, 703), (2, 704), (2, 705), (2, 706);
+INSERT INTO `sys_role_menu` VALUES (2, 610), (2, 620), (2, 630), (2, 640), (2, 650), (2, 660);
 -- 功能演示
-INSERT INTO `sys_role_menu` VALUES (2, 801);
+INSERT INTO `sys_role_menu` VALUES (2, 710);
 -- 多级菜单
-INSERT INTO `sys_role_menu` VALUES (2, 910), (2, 911), (2, 912), (2, 913);
+INSERT INTO `sys_role_menu` VALUES (2, 810), (2, 811), (2, 812), (2, 813);
 -- 路由参数
-INSERT INTO `sys_role_menu` VALUES (2, 1001), (2, 1002);
+INSERT INTO `sys_role_menu` VALUES (2, 910), (2, 920);
 
 -- 部门主管（role_id=4）
-INSERT IGNORE INTO `sys_role_menu` VALUES (4, 1);
-INSERT IGNORE INTO `sys_role_menu` VALUES (4, 210), (4, 2101), (4, 2102), (4, 2103), (4, 2104), (4, 2105), (4, 2106), (4, 2107);
-INSERT IGNORE INTO `sys_role_menu` VALUES (4, 220), (4, 2201), (4, 2202), (4, 2203), (4, 2204);
+INSERT IGNORE INTO `sys_role_menu` VALUES (4, 100);
+INSERT IGNORE INTO `sys_role_menu` VALUES (4, 110), (4, 111), (4, 112), (4, 113), (4, 114), (4, 115), (4, 116), (4, 117);
+INSERT IGNORE INTO `sys_role_menu` VALUES (4, 120), (4, 121), (4, 122), (4, 123), (4, 124);
 
 -- 部门成员（role_id=5）
-INSERT IGNORE INTO `sys_role_menu` VALUES (5, 1);
-INSERT IGNORE INTO `sys_role_menu` VALUES (5, 210), (5, 2101), (5, 2102), (5, 2103), (5, 2104), (5, 2105), (5, 2106), (5, 2107);
-INSERT IGNORE INTO `sys_role_menu` VALUES (5, 220), (5, 2201), (5, 2202), (5, 2203), (5, 2204);
+INSERT IGNORE INTO `sys_role_menu` VALUES (5, 100);
+INSERT IGNORE INTO `sys_role_menu` VALUES (5, 110), (5, 111), (5, 112), (5, 113), (5, 114), (5, 115), (5, 116), (5, 117);
+INSERT IGNORE INTO `sys_role_menu` VALUES (5, 120), (5, 121), (5, 122), (5, 123), (5, 124);
 
 -- 普通员工（role_id=6）
-INSERT IGNORE INTO `sys_role_menu` VALUES (6, 1);
-INSERT IGNORE INTO `sys_role_menu` VALUES (6, 210), (6, 2101), (6, 2102), (6, 2103), (6, 2104), (6, 2105), (6, 2106), (6, 2107);
-INSERT IGNORE INTO `sys_role_menu` VALUES (6, 220), (6, 2201), (6, 2202), (6, 2203), (6, 2204);
+INSERT IGNORE INTO `sys_role_menu` VALUES (6, 100);
+INSERT IGNORE INTO `sys_role_menu` VALUES (6, 110), (6, 111), (6, 112), (6, 113), (6, 114), (6, 115), (6, 116), (6, 117);
+INSERT IGNORE INTO `sys_role_menu` VALUES (6, 120), (6, 121), (6, 122), (6, 123), (6, 124);
 
 -- 自定义权限用户（role_id=7）
-INSERT IGNORE INTO `sys_role_menu` VALUES (7, 1);
-INSERT IGNORE INTO `sys_role_menu` VALUES (7, 210), (7, 2101), (7, 2102), (7, 2103), (7, 2104), (7, 2105), (7, 2106), (7, 2107);
-INSERT IGNORE INTO `sys_role_menu` VALUES (7, 220), (7, 2201), (7, 2202), (7, 2203), (7, 2204);
+INSERT IGNORE INTO `sys_role_menu` VALUES (7, 100);
+INSERT IGNORE INTO `sys_role_menu` VALUES (7, 110), (7, 111), (7, 112), (7, 113), (7, 114), (7, 115), (7, 116), (7, 117);
+INSERT IGNORE INTO `sys_role_menu` VALUES (7, 120), (7, 121), (7, 122), (7, 123), (7, 124);
 
 -- 访问游客（role_id=3）
-INSERT IGNORE INTO `sys_role_menu` VALUES (3, 7);
-INSERT IGNORE INTO `sys_role_menu` VALUES (3, 801);
+INSERT IGNORE INTO `sys_role_menu` VALUES (3, 700);
+INSERT IGNORE INTO `sys_role_menu` VALUES (3, 710);
 
 -- ----------------------------
 -- Table structure for sys_user
