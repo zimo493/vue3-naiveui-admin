@@ -205,6 +205,7 @@
     "Config": "參數設定",
     "Notice": "通知公告",
     "Codegen": "程式碼產生",
+    "FitScreen": "大屏適配",
     "Multilevel1": "選單一級",
     "Multilevel2": "選單二級",
     "Multilevel31": "選單三級-1",
@@ -459,6 +460,7 @@
     "departmentData": "部門及子部門資料",
     "currentDepartmentData": "本部門資料",
     "selfData": "本人資料",
+    "customDepartmentData": "自定義部門資料",
     "permission": "權限分配"
   },
   "menu": {
