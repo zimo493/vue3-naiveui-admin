@@ -63,7 +63,7 @@ declare namespace DictData {
     /**
      * 标签类型
      */
-    tagType?: import("naive-ui").TagProps["type"];
+    tagType?: import("naive-ui").TagProps["type"] | "";
   }
 
   /** 字典项列表 */
