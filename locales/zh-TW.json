@@ -210,8 +210,11 @@
     "Multilevel2": "選單二級",
     "Multilevel31": "選單三級-1",
     "Multilevel32": "選單三級-2",
+    "PlatformDoc": "平台文件",
+    "BackendDoc": "後端文件",
+    "MobileDoc": "行動端文件",
+    "InternalDoc": "內嵌文件",
     "Apifox": "Apifox",
-    "InternalDoc": "Document",
     "Https://juejin": {
       "cn/post/7228990409909108793": "平台文件(外鏈)"
     },

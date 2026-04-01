@@ -210,8 +210,11 @@
     "Multilevel2": "L2 Menu",
     "Multilevel31": "L3-1 Menu",
     "Multilevel32": "L3-2 Menu",
+    "InternalDoc": "Internal Docs",
+    "PlatformDoc": "Platform Docs",
+    "BackendDoc": "Backend Docs",
+    "MobileDoc": "Mobile Docs",
     "Apifox": "Apifox",
-    "InternalDoc": "Docs",
     "Https://juejin": {
       "cn/post/7228990409909108793": "External Docs"
     },
