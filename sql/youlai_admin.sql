@@ -319,9 +319,9 @@ INSERT INTO `sys_menu` VALUES (310, 300, '0,300', '大屏适配', 'M', 'FitScree
 
 
 -- 平台文档（400）
-INSERT INTO `sys_menu` VALUES (410, 400, '0,400', '平台文档(外链)', 'M', NULL, 'https://juejin.cn/post/7228990409909108793', '', NULL, NULL, NULL, 1, 1, 'local:vitepress', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (420, 400, '0,400', '后端文档', 'M', NULL, 'https://youlai.blog.csdn.net/article/details/145178880', '', NULL, NULL, NULL, 1, 2, 'local:csdn', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (430, 400, '0,400', '移动端文档', 'M', NULL, 'https://youlai.blog.csdn.net/article/details/143222890', '', NULL, NULL, NULL, 1, 3, 'local:csdn', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (410, 400, '0,400', '平台文档(外链)', 'M', 'PlatformDoc', 'https://juejin.cn/post/7228990409909108793', '', NULL, NULL, NULL, 1, 1, 'local:vitepress', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (420, 400, '0,400', '后端文档', 'M', 'BackendDoc', 'https://youlai.blog.csdn.net/article/details/145178880', '', NULL, NULL, NULL, 1, 2, 'local:csdn', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (430, 400, '0,400', '移动端文档', 'M', 'MobileDoc', 'https://youlai.blog.csdn.net/article/details/143222890', '', NULL, NULL, NULL, 1, 3, 'local:csdn', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (440, 400, '0,400', '内部文档', 'M', 'InternalDoc', 'internal-doc', 'demo/internal-doc', NULL, NULL, NULL, 1, 4, 'local:juejin', NULL, now(), now(), NULL);
 
 
@@ -351,7 +351,7 @@ INSERT INTO `sys_menu` VALUES (813, 811, '0,800,810,811', '菜单三级-2', 'M',
 
 -- 路由参数（900）
 INSERT INTO `sys_menu` VALUES (910, 900, '0,900', '参数(type=1)', 'M', 'RouteParamType1', 'route-param-type1', 'demo/route-param', NULL, 0, 1, 1, 1, 'icon-park-outline:star', NULL, now(), now(), '{"type":"1"}');
-INSERT INTO `sys_menu` VALUES (920, 900, '0,900', '参数(type=2)', 'M', NULL, 'route-param-type2', 'demo/route-param', NULL, 0, 1, 1, 2, 'icon-park-solid:star', NULL, now(), now(), '{"type":"2"}');
+INSERT INTO `sys_menu` VALUES (920, 900, '0,900', '参数(type=2)', 'M', 'RouteParamType2', 'route-param-type2', 'demo/route-param', NULL, 0, 1, 1, 2, 'icon-park-solid:star', NULL, now(), now(), '{"type":"2"}');
 
 -- ----------------------------
 -- Table structure for sys_notice
