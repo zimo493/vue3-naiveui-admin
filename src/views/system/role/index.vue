@@ -64,6 +64,9 @@ defineOptions({ name: "Role" });
 
 const { t } = useI18n();
 
+// 自定义数据权限的值
+const CUSTOM_DATA_ACCESS = 5;
+
 // 定义表单的初始值
 const queryParams = ref<Role.Query>({
   pageNum: 1,
@@ -142,77 +145,81 @@ const columns = ref<DataTableColumns<Role.VO>>([
   },
 ]);
 
-const editFormConfig: DialogForm.Form = {
-  config: [
-    { name: "name", label: t("tableHeader.roleName") },
-    { name: "code", label: t("tableHeader.roleCode") },
-    {
-      name: "dataScope",
-      label: t("role.dataPermission"),
-      component: "select",
-      props: {
-        options: [
-          { label: t("role.allData"), value: 1 },
-          { label: t("role.departmentData"), value: 2 },
-          { label: t("role.currentDepartmentData"), value: 3 },
-          { label: t("role.selfData"), value: 4 },
-          { label: t("role.customDepartmentData"), value: 5 },
+const editFormConfig = computed(
+  (): DialogForm.Form => ({
+    config: [
+      { name: "name", label: t("tableHeader.roleName") },
+      { name: "code", label: t("tableHeader.roleCode") },
+      {
+        name: "dataScope",
+        label: t("role.dataPermission"),
+        component: "select",
+        props: {
+          options: [
+            { label: t("role.allData"), value: 1 },
+            { label: t("role.departmentData"), value: 2 },
+            { label: t("role.currentDepartmentData"), value: 3 },
+            { label: t("role.selfData"), value: 4 },
+            { label: t("role.customDepartmentData"), value: CUSTOM_DATA_ACCESS },
+          ],
+        },
+      },
+      {
+        name: "deptIds",
+        label: t("role.selectDept"),
+        component: "tree-select",
+        hidden: modelValue.value.dataScope !== CUSTOM_DATA_ACCESS,
+        props: {
+          options: deptOptions.value,
+          keyField: "value",
+          multiple: true,
+          cascade: false,
+        },
+      },
+      {
+        name: "status",
+        label: t("tableHeader.status"),
+        component: "radio",
+        props: { options: statusOptions.value },
+      },
+      { name: "sort", label: t("tableHeader.sort"), component: "number" },
+    ],
+    props: {
+      rules: {
+        name: [
+          {
+            required: true,
+            message: t("input") + t("tableHeader.roleName"),
+            trigger: "blur",
+          },
+        ],
+        code: [
+          {
+            required: true,
+            message: t("input") + t("tableHeader.roleCode"),
+            trigger: "blur",
+          },
+        ],
+        dataScope: [
+          {
+            required: true,
+            type: "number",
+            message: t("select") + t("role.dataPermission"),
+            trigger: "change",
+          },
+        ],
+        status: [
+          {
+            required: true,
+            type: "number",
+            message: t("select") + t("tableHeader.status"),
+            trigger: "change",
+          },
         ],
       },
     },
-    {
-      name: "deptIds",
-      label: t("dept.dept"),
-      component: "tree-select",
-      hidden: true,
-      props: {
-        multiple: true,
-        cascade: false,
-      },
-    },
-    {
-      name: "status",
-      label: t("tableHeader.status"),
-      component: "radio",
-      props: { options: statusOptions.value },
-    },
-    { name: "sort", label: t("tableHeader.sort"), component: "number" },
-  ],
-  props: {
-    rules: {
-      name: [
-        {
-          required: true,
-          message: t("input") + t("tableHeader.roleName"),
-          trigger: "blur",
-        },
-      ],
-      code: [
-        {
-          required: true,
-          message: t("input") + t("tableHeader.roleCode"),
-          trigger: "blur",
-        },
-      ],
-      dataScope: [
-        {
-          required: true,
-          type: "number",
-          message: t("select") + t("role.dataPermission"),
-          trigger: "change",
-        },
-      ],
-      status: [
-        {
-          required: true,
-          type: "number",
-          message: t("select") + t("tableHeader.status"),
-          trigger: "change",
-        },
-      ],
-    },
-  },
-};
+  })
+);
 
 /** 初始化表单 */
 const modelValue = ref<Role.Form>({
@@ -222,46 +229,26 @@ const modelValue = ref<Role.Form>({
 
 const deptOptions = ref<OptionItem[]>([]);
 
-// dataScope=5 时使用：加载部门下拉、回显 deptIds
-const getDeptIdsField = () => (editFormConfig.config ?? []).find((item) => item.name === "deptIds");
-
-const setDeptIdsFieldVisible = (visible: boolean) => {
-  const field = getDeptIdsField();
-
-  if (!field) return;
-
-  field.hidden = !visible;
-};
-
-const bindDeptOptionsToField = () => {
-  const field = getDeptIdsField();
-
-  if (!field) return;
-
-  field.props = {
-    ...(field.props || {}),
-    options: deptOptions.value,
-    keyField: "value",
-    labelField: "label",
-  };
-};
-
 const ensureDeptOptionsLoaded = async () => {
   if (deptOptions.value.length > 0) return;
 
   deptOptions.value = await DeptAPI.getOptions();
 };
 
+watch(
+  () => modelValue.value.dataScope,
+  (value) => {
+    if (value === CUSTOM_DATA_ACCESS) {
+      ensureDeptOptionsLoaded();
+    }
+  }
+);
+
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
 
 const openDrawer = (row?: Role.VO) => {
   drawerFormRef.value?.open(row ? t("role.edit") : t("role.add"), modelValue.value);
-
-  const isCustomScope = modelValue.value.dataScope === 5;
-
-  setDeptIdsFieldVisible(isCustomScope);
-  bindDeptOptionsToField();
 
   if (row) {
     startSpin();
@@ -270,9 +257,7 @@ const openDrawer = (row?: Role.VO) => {
       .then((data) => {
         modelValue.value = { ...data };
 
-        const isCustom = modelValue.value.dataScope === 5;
-
-        setDeptIdsFieldVisible(isCustom);
+        const isCustom = modelValue.value.dataScope === CUSTOM_DATA_ACCESS;
 
         if (!isCustom) {
           modelValue.value.deptIds = undefined;
@@ -294,7 +279,7 @@ const submitForm = (val: Role.Form) =>
     () => {
       const submitData: Role.Form = { ...val };
 
-      if (submitData.dataScope !== 5) {
+      if (submitData.dataScope !== CUSTOM_DATA_ACCESS) {
         submitData.deptIds = undefined;
       }
 
@@ -305,18 +290,6 @@ const submitForm = (val: Role.Form) =>
       handleQuery();
     }
   );
-
-watch(
-  () => modelValue.value.dataScope,
-  async (val) => {
-    setDeptIdsFieldVisible(val === 5);
-
-    if (val !== 5) return;
-
-    await ensureDeptOptionsLoaded();
-    bindDeptOptionsToField();
-  }
-);
 
 /** 选中行 */
 const selectedRowKeys = ref<string[]>([]);
