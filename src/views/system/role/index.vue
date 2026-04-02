@@ -166,7 +166,7 @@ const editFormConfig = computed(
       },
       {
         name: "deptIds",
-        label: t("role.selectDept"),
+        label: t("tableHeader.deptName"),
         component: "tree-select",
         hidden: modelValue.value.dataScope !== CUSTOM_DATA_ACCESS,
         props: {
@@ -205,6 +205,14 @@ const editFormConfig = computed(
             required: true,
             type: "number",
             message: t("select") + t("role.dataPermission"),
+            trigger: "change",
+          },
+        ],
+        deptIds: [
+          {
+            required: true,
+            type: "array",
+            message: t("select") + t("tableHeader.deptName"),
             trigger: "change",
           },
         ],
