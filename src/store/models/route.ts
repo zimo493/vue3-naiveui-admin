@@ -168,9 +168,29 @@ export const useRouteStore = defineStore("route-store", {
     },
 
     /**
-     * 重置路由存储
+     * 重置路由至初始状态（仅保留常量路由）
+     */
+    resetDynamicRoutes() {
+      const constantRouteNames = new Set(
+        constantRoutes.flatMap((route) => [
+          route.name,
+          ...(route.children?.map((child) => child.name) ?? []),
+        ])
+      );
+
+      router.getRoutes().forEach((route) => {
+        if (route.name && !constantRouteNames.has(route.name)) {
+          router.removeRoute(route.name);
+        }
+      });
+    },
+
+    /**
+     * 移除动态路由 + 重置路由存储
+     * - 防止退出登录后未刷新页面就登陆其他账号时之前的动态路由依然存在
      */
     resetRouteStore() {
+      this.resetDynamicRoutes();
       this.$reset();
     },
   },

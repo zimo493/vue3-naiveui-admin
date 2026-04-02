@@ -250,7 +250,6 @@ INSERT INTO `sys_menu` VALUES (700, 0, '0', '功能演示', 'C', '', '/function'
 INSERT INTO `sys_menu` VALUES (800, 0, '0', '多级菜单', 'C', '', '/multi-level', 'Layout', NULL, 1, NULL, 1, 8, 'bi:123', '', now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (900, 0, '0', '路由参数', 'C', '', '/route-param', 'Layout', NULL, NULL, NULL, 1, 9, 'icon-park-outline:router', '', now(), now(), NULL);
 
-
 -- 系统管理（100），二级菜单步进 10
 INSERT INTO `sys_menu` VALUES (110, 100, '0,100', '用户管理', 'M', 'User', 'user', 'system/user/index', NULL, NULL, 1, 1, 1, 'ep:user-filled', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (111, 110, '0,100,110', '用户查询', 'B', NULL, '', NULL, 'sys:user:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
@@ -310,14 +309,11 @@ INSERT INTO `sys_menu` VALUES (194, 190, '0,100,190', '通知删除', 'B', NULL,
 INSERT INTO `sys_menu` VALUES (195, 190, '0,100,190', '通知发布', 'B', NULL, '', NULL, 'sys:notice:publish', 0, 1, 1, 5, '', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (196, 190, '0,100,190', '通知撤回', 'B', NULL, '', NULL, 'sys:notice:revoke', 0, 1, 1, 6, '', NULL, now(), now(), NULL);
 
-
 -- 系统工具（200）
 INSERT INTO `sys_menu` VALUES (210, 200, '0,200', '代码生成', 'M', 'Codegen', 'codegen', 'codegen/index', NULL, NULL, 1, 1, 1, 'ant-design:code-filled', NULL, now(), now(), NULL);
 
-
 -- 数据大屏（300）
 INSERT INTO `sys_menu` VALUES (310, 300, '0,300', '大屏适配', 'M', 'FitScreen', 'http://localhost:5173/#/fitScreen', NULL, NULL, 0, 1, 1, 1, 'icon-park-solid:monitor-one', NULL, now(), now(), NULL);
-
 
 -- 平台文档（400）
 INSERT INTO `sys_menu` VALUES (410, 400, '0,400', '平台文档(外链)', 'M', 'PlatformDoc', 'https://juejin.cn/post/7228990409909108793', '', NULL, NULL, NULL, 1, 1, 'local:vitepress', NULL, now(), now(), NULL);
@@ -325,10 +321,8 @@ INSERT INTO `sys_menu` VALUES (420, 400, '0,400', '后端文档', 'M', 'BackendD
 INSERT INTO `sys_menu` VALUES (430, 400, '0,400', '移动端文档', 'M', 'MobileDoc', 'https://youlai.blog.csdn.net/article/details/143222890', '', NULL, NULL, NULL, 1, 3, 'local:csdn', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (440, 400, '0,400', '内部文档', 'M', 'InternalDoc', 'internal-doc', 'demo/internal-doc', NULL, NULL, NULL, 1, 4, 'local:juejin', NULL, now(), now(), NULL);
 
-
 -- 接口文档（500）
 INSERT INTO `sys_menu` VALUES (510, 500, '0,500', 'Apifox', 'M', 'Apifox', 'apifox', 'demo/api/apifox', NULL, NULL, 1, 1, 1, 'local:apifox', NULL, now(), now(), NULL);
-
 
 -- 组件封装（600）
 INSERT INTO `sys_menu` VALUES (610, 600, '0,600', 'Cron表达式生成器', 'M', 'Cron', 'cron', 'demo/cron', NULL, NULL, 1, 1, 1, 'icon-park-outline:timer', NULL, now(), now(), NULL);
@@ -338,17 +332,14 @@ INSERT INTO `sys_menu` VALUES (640, 600, '0,600', '图标选择器', 'M', 'IconS
 INSERT INTO `sys_menu` VALUES (650, 600, '0,600', '字典组件', 'M', 'Dictionary', 'dict-demo', 'demo/dictionary', NULL, NULL, 1, 1, 5, '', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (660, 600, '0,600', '增删改查', 'M', 'Curd', 'curd', 'demo/curd/index', NULL, NULL, 1, 1, 0, '', NULL, now(), now(), NULL);
 
-
 -- 功能演示（700）
 INSERT INTO `sys_menu` VALUES (710, 700, '0,700', 'Icons', 'M', 'Icon', 'icon-demo', 'demo/icons', NULL, NULL, 1, 1, 1, 'noto:grinning-face', NULL, now(), now(), NULL);
-
 
 -- 多级菜单（800）— 含三层嵌套
 INSERT INTO `sys_menu` VALUES (810, 800, '0,800', '菜单一级', 'C', 'Multilevel1', 'multi-level1', 'Layout', NULL, 1, 1, 1, 1, 'healthicons:1', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (811, 810, '0,800,810', '菜单二级', 'C', 'Multilevel2', 'multi-level2', 'Layout', NULL, 0, 1, 1, 1, 'healthicons:2', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (812, 811, '0,800,810,811', '菜单三级-1', 'M', 'Multilevel31', 'multi-level3-1', 'demo/multi-level/children/children/level3-1', NULL, 0, 1, 1, 1, 'healthicons:3', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (813, 811, '0,800,810,811', '菜单三级-2', 'M', 'Multilevel32', 'multi-level3-2', 'demo/multi-level/children/children/level3-2', NULL, 0, 0, 1, 2, 'healthicons:3', NULL, now(), now(), NULL);
-
 
 -- 路由参数（900）
 INSERT INTO `sys_menu` VALUES (910, 900, '0,900', '参数(type=1)', 'M', 'RouteParamType1', 'route-param-type1', 'demo/route-param', NULL, 0, 1, 1, 1, 'icon-park-outline:star', NULL, now(), now(), '{"type":"1"}');
