@@ -464,6 +464,7 @@
     "currentDepartmentData": "Current Department Data",
     "selfData": "Self Data",
     "customDepartmentData": "Custom Department Data",
+    "selectDept": "Select Department",
     "permission": "Permission Assignment"
   },
   "menu": {

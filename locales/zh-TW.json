@@ -464,6 +464,7 @@
     "currentDepartmentData": "本部門資料",
     "selfData": "本人資料",
     "customDepartmentData": "自定義部門資料",
+    "selectDept": "選擇部門",
     "permission": "權限分配"
   },
   "menu": {
