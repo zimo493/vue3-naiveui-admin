@@ -266,6 +266,7 @@ INSERT INTO `sys_menu` VALUES (121, 120, '0,100,120', '角色查询', 'B', NULL,
 INSERT INTO `sys_menu` VALUES (122, 120, '0,100,120', '角色新增', 'B', NULL, '', NULL, 'sys:role:create', NULL, NULL, 1, 2, '', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (123, 120, '0,100,120', '角色编辑', 'B', NULL, '', NULL, 'sys:role:update', NULL, NULL, 1, 3, '', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (124, 120, '0,100,120', '角色删除', 'B', NULL, '', NULL, 'sys:role:delete', NULL, NULL, 1, 4, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (125, 120, '0,100,120', '数据权限', 'B', NULL, '', NULL, 'sys:role:assign', NULL, NULL, 1, 5, '', NULL, now(), now(), NULL);
 
 INSERT INTO `sys_menu` VALUES (130, 100, '0,100', '菜单管理', 'M', 'SysMenu', 'menu', 'system/menu/index', NULL, NULL, 1, 1, 3, 'ep:menu', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (131, 130, '0,100,130', '菜单查询', 'B', NULL, '', NULL, 'sys:menu:list', NULL, NULL, 1, 1, '', NULL, now(), now(), NULL);
@@ -454,7 +455,7 @@ INSERT INTO `sys_role_menu` VALUES (2, 100), (2, 200), (2, 300), (2, 400), (2, 5
 -- 系统管理 - 用户管理
 INSERT INTO `sys_role_menu` VALUES (2, 110), (2, 111), (2, 112), (2, 113), (2, 114), (2, 115), (2, 116), (2, 117);
 -- 系统管理 - 角色管理
-INSERT INTO `sys_role_menu` VALUES (2, 120), (2, 121), (2, 122), (2, 123), (2, 124);
+INSERT INTO `sys_role_menu` VALUES (2, 120), (2, 121), (2, 122), (2, 123), (2, 124), (2, 125);
 -- 系统管理 - 菜单管理
 INSERT INTO `sys_role_menu` VALUES (2, 130), (2, 131), (2, 132), (2, 133), (2, 134);
 -- 系统管理 - 部门管理
