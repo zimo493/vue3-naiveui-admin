@@ -90,7 +90,7 @@ const pattern = ref<string>("");
 /** 是否展开 */
 const expandAll = ref<boolean>(true);
 /** 父子联动 */
-const cascade = ref<boolean>(true);
+const cascade = ref<boolean>(false);
 
 // 菜单权限下拉
 const menuPermOptions = ref<OptionItem[]>([]);
