@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { type RouteRecordRaw } from "vue-router";
 import { useRouteStore } from "@/store";
 import { useBoolean, useResponsive } from "@/hooks";
 import { defaultIcon } from "@/modules/assets";
+import { joinPaths } from "@/utils";
 
 const routeStore = useRouteStore();
 
@@ -109,40 +111,34 @@ onMounted(() => {
 });
 
 // 计算符合条件的菜单选项
-const options = computed<AppRoute.RouteVO[]>(() => {
+const options = computed<RouteRecordRaw[]>(() => {
   if (!searchValue.value) return [];
 
   const keyword = searchValue.value.toLowerCase();
-  const result: AppRoute.RouteVO[] = [];
+  const result: RouteRecordRaw[] = [];
 
   // 递归搜索路由
-  const searchRoutes = (routes: AppRoute.RouteVO[], parentPath = "") => {
+  const searchRoutes = (routes: RouteRecordRaw[], parentPath = "") => {
     routes.forEach((route) => {
-      // 跳过excludedRoutes中的路由和包含":"的动态路由
-      if (excludedRoutes.value.includes(route.path) || route.path.includes(":")) {
+      const path = route.path ?? "";
+
+      if (excludedRoutes.value.includes(path) || path.includes(":")) {
         return;
       }
 
-      // 检查路由标题和路径是否包含搜索关键词
-      const titleMatch = route.meta?.title?.toLowerCase().includes(keyword);
-      const pathMatch = route.path.toLowerCase().includes(keyword);
+      const { meta } = route;
+      const titleMatch = meta?.title?.toLowerCase().includes(keyword);
+      const fullPath = path.startsWith("/") ? path : joinPaths(parentPath, path);
+      const pathMatch = fullPath.toLowerCase().includes(keyword);
 
-      // 如果匹配，添加到结果中，并保存完整路径信息
       if (titleMatch || pathMatch) {
-        // 创建路由副本，避免修改原始路由对象
-        const routeCopy = { ...route, path: parentPath + route.path };
+        const routeCopy: RouteRecordRaw = { ...route, path: fullPath };
 
         result.push(routeCopy);
       }
 
-      // 递归搜索子路由
-      if (route.children && route.children.length > 0) {
-        // 计算子路由的父路径
-        const childParentPath = route.path.endsWith("/")
-          ? parentPath + route.path
-          : parentPath + route.path + "/";
-
-        searchRoutes(route.children, childParentPath);
+      if (route.children?.length) {
+        searchRoutes(route.children, fullPath);
       }
     });
   };
@@ -167,7 +163,7 @@ const handleInputChange = () => {
 };
 
 // 选择菜单选项
-function handleSelect(value: AppRoute.RouteVO) {
+function handleSelect(value: RouteRecordRaw) {
   // 添加到搜索历史（在关闭模态框前添加）
   if (searchValue.value.trim()) {
     addSearchHistory(searchValue.value);

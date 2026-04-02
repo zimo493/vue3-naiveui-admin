@@ -1,30 +1,33 @@
-import { homeIcon } from "@/modules/assets";
 import type { RouteRecordRaw } from "vue-router";
-
-export default <RouteRecordRaw>{
-  path: "/",
-  name: "Root",
-  redirect: "/",
-  component: () => import("@/layout"),
-  children: [
-    {
-      path: "/",
-      component: () => import("@/views/index/index.vue"),
-      // https://cn.vuejs.org/guide/built-ins/keep-alive.html#include-exclude
-      name: "Home", // 用于 keep-alive, 必须与SFC自动推导或者显示声明的组件name一致
-      meta: { title: "首页", icon: homeIcon, affix: true },
-    },
-    {
-      path: "/profile",
-      name: "Profile",
-      component: () => import("@/views/profile"),
-      meta: { title: "个人中心", icon: "material-symbols:person-edit-sharp", hidden: true },
-    },
-  ],
-};
+import { homeIcon } from "@/modules/assets";
 
 // 公共路由
-export const constantRoutes: RouteRecordRaw[] = [
+export default <RouteRecordRaw[]>[
+  {
+    path: "/",
+    name: "Root",
+    redirect: "/",
+    component: () => import("@/layout"),
+    children: [
+      {
+        path: "/",
+        component: () => import("@/views/index/index.vue"),
+        // https://cn.vuejs.org/guide/built-ins/keep-alive.html#include-exclude
+        name: "Home", // 用于 keep-alive, 必须与SFC自动推导或者显示声明的组件name一致
+        meta: { title: "首页", icon: homeIcon, affix: true },
+      },
+      {
+        path: "/profile",
+        name: "Profile",
+        component: () => import("@/views/profile"),
+        meta: {
+          title: "个人中心",
+          icon: "material-symbols:person-edit-sharp",
+          hidden: true,
+        },
+      },
+    ],
+  },
   {
     path: "/test",
     name: "Test",

@@ -1,16 +1,10 @@
+import { type MenuOption } from "naive-ui";
 import { store } from "@/store";
-import { useAuthStoreHook } from "..";
 import { router } from "@/router";
+import { useAuthStoreHook } from "..";
 import MenuAPI from "@/api/system/menu";
-import appRootRoutes, { constantRoutes } from "@/router/modules/routes";
-import {
-  $t,
-  isHttpUrl,
-  joinPaths,
-  processRoute,
-  convertRouterType,
-  parseDynamicRoutes,
-} from "@/utils";
+import constantRoutes from "@/router/modules/routes";
+import { $t, isHttpUrl, joinPaths, processMenu, parseDynamicRoutes, toRouteVO } from "@/utils";
 
 export const useRouteStore = defineStore("route-store", {
   state: (): Status.Routes => ({
@@ -71,8 +65,21 @@ export const useRouteStore = defineStore("route-store", {
           return false;
         }
 
-        // 批量处理路由相关操作
-        this._processRouteData(data);
+        // 创建路由
+        this.createRoutes(data);
+
+        /**
+         * 初始化菜单路由
+         *  - 合并公共路由和用户路由
+         *  - 转换为 RouteVO 格式
+         */
+        const publicRoutes: AppRoute.RouteVO[] = constantRoutes
+          .flatMap((route) => (route.path === "/" && route.children ? route.children : route))
+          .map(toRouteVO);
+
+        this.createMenus(publicRoutes.concat(data));
+
+        // 初始化路由完成
         this.isInitAuthRoute = true;
 
         return true;
@@ -85,45 +92,20 @@ export const useRouteStore = defineStore("route-store", {
     },
 
     /**
-     * 批量处理路由数据
-     * @param userRoutes 用户路由数据
-     */
-    _processRouteData(userRoutes: AppRoute.RouteVO[]) {
-      this.createRoutes(userRoutes)
-        .then((routes) => {
-          this.createMenus(routes); // 创建菜单
-        })
-        .catch((error) => {
-          console.error("Error creating routes:", error);
-        });
-    },
-
-    /**
      * 创建路由
      * @param userRoutes 用户路由配置
      */
     createRoutes(userRoutes: AppRoute.RouteVO[]) {
-      return new Promise<AppRoute.RouteVO[]>((resolve) => {
-        if (!userRoutes?.length) resolve([]);
+      if (!userRoutes?.length) return;
+      // 先设置重定向（操作原始 userRoutes，parseDynamicRoutes 之前）
+      this.setRedirect(userRoutes);
+      const routes = parseDynamicRoutes(userRoutes);
 
-        this.setRedirect(userRoutes);
-        const routes = parseDynamicRoutes(userRoutes);
-
-        router.addRoute({
-          ...appRootRoutes,
-          children: (appRootRoutes.children ?? []).concat(routes),
-        });
-
-        const routeVO = [
-          ...convertRouterType(appRootRoutes.children ?? []),
-          ...convertRouterType(constantRoutes),
-          ...userRoutes,
-        ];
-
-        this.routes = routeVO;
-
-        resolve(routeVO);
+      routes.forEach((route) => {
+        router.addRoute(route);
       });
+
+      this.routes = constantRoutes.concat(routes);
     },
 
     /**
@@ -133,46 +115,21 @@ export const useRouteStore = defineStore("route-store", {
      */
     setRedirect(routes: AppRoute.RouteVO[], parentPath = "") {
       routes.forEach((route) => {
+        if (isHttpUrl(route.path)) return;
+
         const currentPath = joinPaths(parentPath, route.path);
 
         if (route.children?.length) {
-          this._setRouteRedirect(route, currentPath);
+          // 只找第一个非外链子路由
+          const firstValid = route.children.find((item) => !isHttpUrl(item.path));
+
+          if (firstValid) {
+            route.redirect = joinPaths(currentPath, firstValid.path);
+          }
+
           this.setRedirect(route.children, currentPath);
         }
       });
-    },
-
-    /**
-     * 设置单个路由的重定向
-     * @param route 路由配置
-     * @param currentPath 当前路径
-     */
-    _setRouteRedirect(route: AppRoute.RouteVO, currentPath: string) {
-      // 设置默认重定向到第一个可见子路由
-      if (!route.redirect) {
-        const visibleChildren = route.children?.filter((child) => !child.meta?.hidden) || [];
-
-        if (visibleChildren.length > 0) {
-          const target = visibleChildren[0];
-          let redirectPath = joinPaths(currentPath, target.path);
-
-          // 拼接路由参数
-          if (target.meta?.params) {
-            const params = new URLSearchParams(target.meta.params).toString();
-
-            redirectPath += `?${params}`;
-          }
-
-          route.redirect = redirectPath;
-        }
-      }
-
-      // 处理外部链接重定向
-      if (route.redirect && isHttpUrl(route.redirect)) {
-        const internalChild = route.children?.find((item) => !isHttpUrl(item.path));
-
-        route.redirect = currentPath + joinPaths(internalChild?.path || "");
-      }
     },
 
     /**
@@ -187,7 +144,7 @@ export const useRouteStore = defineStore("route-store", {
       }
 
       this.menus = userRoutes
-        .flatMap((route) => processRoute(route))
+        .flatMap((route) => processMenu(route))
         .filter(this._isValidMenu) as any;
     },
 
@@ -196,8 +153,8 @@ export const useRouteStore = defineStore("route-store", {
      * @param menu 菜单项
      * @returns 是否有效
      */
-    _isValidMenu(menu: any): boolean {
-      return menu.key !== undefined && (menu.children?.length > 0 || menu.key);
+    _isValidMenu(menu: MenuOption): boolean {
+      return menu.key !== undefined && ((menu.children?.length ?? 0) > 0 || !!menu.key);
     },
 
     /**
@@ -214,11 +171,6 @@ export const useRouteStore = defineStore("route-store", {
      * 重置路由存储
      */
     resetRouteStore() {
-      try {
-        router.removeRoute("Root");
-      } catch (error) {
-        console.warn("移除根路由失败:", error);
-      }
       this.$reset();
     },
   },

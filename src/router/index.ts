@@ -1,11 +1,11 @@
 import type { App } from "vue";
 import { createRouter, createWebHashHistory } from "vue-router";
-import { constantRoutes } from "./modules/routes";
+import routes from "./modules/routes";
 import { setupRouterGuard } from "./modules/guard";
 
 export const router = createRouter({
   history: createWebHashHistory(),
-  routes: constantRoutes,
+  routes,
 });
 
 // 安装vue路由
