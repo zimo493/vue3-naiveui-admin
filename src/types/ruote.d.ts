@@ -52,7 +52,14 @@ declare namespace AppRoute {
 
     /** 路由参数 */
     params?: Recordable;
+
     /** 是否固定在tab */
     affix?: boolean;
+
+    /**
+     * 当前路由的激活菜单
+     * @example '/dashboard'
+     */
+    activeMenu?: string;
   }
 }
