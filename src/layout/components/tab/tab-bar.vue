@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import type { TabsInst } from "naive-ui";
 import type { RouteLocationNormalized } from "vue-router";
 
@@ -9,7 +9,9 @@ import IconClose from "~icons/icon-park-outline/close";
 import IconDelete from "~icons/icon-park-outline/delete-four";
 import IconLeft from "~icons/icon-park-outline/to-left";
 import IconRight from "~icons/icon-park-outline/to-right";
-import IconFullwith from "~icons/icon-park-outline/close-one";
+import IconCloseAll from "~icons/icon-park-outline/close-one";
+
+import { NEl } from "naive-ui";
 
 import Reload from "./reload.vue";
 import DropTabs from "./drop-tabs.vue";
@@ -29,7 +31,9 @@ const isCached = (path?: string) => Boolean(path && cacheRouteSet.value.has(path
 
 /** 缓存标志组件 */
 const CacheFlag = ({ cached }: { cached: boolean }) =>
-  cached ? h("div", { class: "cache-flag" }) : null;
+  cached ? (
+    <NEl className="absolute bottom--2px left-1/2 -translate-x-1/2 w-1/3 h-2px rounded-2px opacity-30 bg-current" />
+  ) : null;
 
 // 刷新指示条
 watch([() => appStore.lang, () => appStore.showTabsIcon], () => nextTick(() => updateBar()));
@@ -41,12 +45,12 @@ const handleClose = (path: string) => tabStore.closeTab(path).then(() => updateB
 const updateBar = () => tabsInstRef.value?.syncBarPosition();
 
 const options = computed(() => [
-  { label: t("tabBar.refresh"), key: "reload", icon: () => h(IconRedo) },
-  { label: t("tabBar.close"), key: "closeCurrent", icon: () => h(IconClose) },
-  { label: t("tabBar.closeOthers"), key: "closeOther", icon: () => h(IconDelete) },
-  { label: t("tabBar.closeLeft"), key: "closeLeft", icon: () => h(IconLeft) },
-  { label: t("tabBar.closeRight"), key: "closeRight", icon: () => h(IconRight) },
-  { label: t("tabBar.closeAll"), key: "closeAll", icon: () => h(IconFullwith) },
+  { label: t("tabBar.refresh"), key: "reload", icon: () => <IconRedo /> },
+  { label: t("tabBar.close"), key: "closeCurrent", icon: () => <IconClose /> },
+  { label: t("tabBar.closeOthers"), key: "closeOther", icon: () => <IconDelete /> },
+  { label: t("tabBar.closeLeft"), key: "closeLeft", icon: () => <IconLeft /> },
+  { label: t("tabBar.closeRight"), key: "closeRight", icon: () => <IconRight /> },
+  { label: t("tabBar.closeAll"), key: "closeAll", icon: () => <IconCloseAll /> },
 ]);
 const showDropdown = ref(false);
 const x = ref(0);
@@ -99,7 +103,7 @@ const onClickOutSide = () => (showDropdown.value = false);
         :name="item.fullPath"
         @click="router.push(item.fullPath)"
       >
-        <div class="flex-x-center gap-2 items-center">
+        <div class="flex-x-center gap-1 items-center relative">
           <CacheFlag :cached="isCached(item.fullPath)" />
           <Icones v-if="appStore.showTabsIcon" :icon="item.meta.icon" />
           {{ t(`route.${String(item.name)}`, item.meta?.title ?? "") }}
@@ -113,7 +117,7 @@ const onClickOutSide = () => (showDropdown.value = false);
         @click="router.push(item.fullPath)"
         @contextmenu="handleContextMenu($event, item)"
       >
-        <div class="flex-x-center gap-1 items-center">
+        <div class="flex-x-center gap-1 items-center relative">
           <CacheFlag :cached="isCached(item.fullPath)" />
           <Icones
             v-if="appStore.showTabsIcon"
@@ -161,14 +165,5 @@ const onClickOutSide = () => (showDropdown.value = false);
   &:hover {
     background-color: var(--n-close-color-hover);
   }
-}
-
-.cache-flag {
-  flex: 0 0 auto;
-  width: 6px;
-  height: 6px;
-  background-color: currentcolor;
-  border-radius: 50%;
-  opacity: 0.65;
 }
 </style>
