@@ -37,15 +37,8 @@ export const setupRouterGuard = (router: Router) => {
         return false;
       }
 
-      // 动态路由加载完回到根路由
-      if (to.name === "404") {
-        return {
-          path: to.fullPath,
-          replace: true,
-          query: to.query,
-          hash: to.hash,
-        };
-      }
+      // addRoute 后重新触发导航，让 router 用完整路由表重新匹配
+      return { path: to.fullPath, replace: true, query: to.query, hash: to.hash };
     }
 
     // 判断当前页是否在login,则定位去首页
