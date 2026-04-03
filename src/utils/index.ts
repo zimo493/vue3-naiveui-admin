@@ -7,7 +7,7 @@ export * from "./icon";
 export * from "./is";
 export * from "./jsencrypt";
 export * from "./request";
-export * from "./router";
+export * from "./routeHelper";
 export * from "./storage";
 export * from "./spin";
 export * from "./i18n";

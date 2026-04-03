@@ -113,7 +113,7 @@ const handleSideMenu = (key: string) => {
   } else {
     sideMenu.value = [
       {
-        key: "/",
+        key: "/home",
         label: () => h(RouterLink, { to: "/" }, { default: () => $t("route.Home") }),
         icon: renderIcon(homeIcon),
       },
