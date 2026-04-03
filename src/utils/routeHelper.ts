@@ -186,7 +186,7 @@ export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRa
  * @param icon - 图标名称（Iconify 格式）或 undefined
  * @returns 渲染函数
  */
-const getMenuIcon = (icon?: string) => renderIcon(icon ?? defaultIcon);
+const getMenuIcon = (icon?: string) => renderIcon(icon || defaultIcon);
 
 /**
  * 生成 Naive UI 菜单项的 label 渲染函数。
