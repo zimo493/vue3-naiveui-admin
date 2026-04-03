@@ -19,7 +19,7 @@
         <template v-if="unreadList.length">
           <n-scrollbar style="max-height: 400px">
             <n-list hoverable clickable :class="isMobile ? 'w-300px' : 'w-400px'">
-              <n-list-item v-for="item in unreadList" @click="viewDetail(item.id)">
+              <n-list-item v-for="item in unreadList" :key="item.id" @click="viewDetail(item.id)">
                 <n-thing content-indented>
                   <template #header>
                     <n-ellipsis :line-clamp="1">{{ item.title }}</n-ellipsis>

@@ -1,32 +1,36 @@
 // 基础ESLint配置
 import js from "@eslint/js";
 import globals from "globals";
+import { defineConfig } from "eslint/config";
 
 // TypeScript支持
 import tsEslint from "typescript-eslint";
 
 // Vue支持
-import vueParser from "vue-eslint-parser";
 import vuePlugin from "eslint-plugin-vue";
 
 // 代码风格与格式化
 import eslintConfigPrettier from "eslint-config-prettier";
 import prettierPlugin from "eslint-plugin-prettier";
 
+// 代码风格规则
+import stylistic from "@stylistic/eslint-plugin";
+
 // 自动导入的全局变量
 import autoImportGlobals from "./.eslintrc-auto-import.json";
+
+// ESM 环境下的 __dirname 兼容
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // 环境变量
 const isDevelopment = process.env.NODE_ENV !== "production";
 
-export default tsEslint.config(
-  // 基础配置
-  js.configs.recommended,
-  // TypeScript 配置
-  ...tsEslint.configs.recommended,
+export default defineConfig(
+  // 全局忽略
   {
-    // 全局配置
-    files: ["**/*.{js,mjs,cjs,ts,tsx,vue}"],
     ignores: [
       "**/.*",
       "dist/*",
@@ -36,58 +40,16 @@ export default tsEslint.config(
       "node_modules/**",
       "*.config.js",
     ],
-    // 自定义规则
-    rules: {
-      // 开发辅助
-      "no-console": isDevelopment ? "off" : "warn",
-      "no-debugger": isDevelopment ? "off" : "warn",
-
-      // 代码风格
-      "no-multiple-empty-lines": [
-        "error",
-        {
-          max: 1, // 最多允许连续的空行数
-          maxEOF: 1, // 文件末尾最多允许的空行数
-          maxBOF: 0, // 文件开头不允许空行
-        },
-      ],
-      "padding-line-between-statements": [
-        "error",
-        { blankLine: "always", prev: "*", next: "return" }, // return 语句前需要空行
-        { blankLine: "always", prev: ["const", "let", "var"], next: "*" }, // 变量声明后需要空行
-        { blankLine: "any", prev: ["const", "let", "var"], next: ["const", "let", "var"] }, // 连续变量声明之间空行可选
-        { blankLine: "always", prev: "directive", next: "*" }, // 指令后需要空行
-        { blankLine: "always", prev: "import", next: "*" }, // import 语句后需要空行
-        { blankLine: "any", prev: "import", next: "import" }, // 连续 import 之间空行可选
-        { blankLine: "always", prev: ["case", "default"], next: "*" }, // case/default 后需要空行
-      ],
-
-      // 格式化
-      "prettier/prettier": [
-        "error", // 使用 Prettier 进行格式化
-        {
-          endOfLine: "auto", // 自动识别换行符
-        },
-      ],
-
-      // 变量使用
-      "no-unused-vars": [
-        "error",
-        {
-          argsIgnorePattern: "^_", // 忽略参数名以 _ 开头的参数未使用警告
-          varsIgnorePattern: "^[A-Z0-9_]+$", // 忽略变量名为大写字母、数字或下划线组合的未使用警告（枚举定义未使用场景）
-          ignoreRestSiblings: true, // 忽略解构赋值中同级未使用变量的警告
-          caughtErrorsIgnorePattern: "^_", // 忽略错误变量以 _ 开头的警告
-        },
-      ],
-
-      // 最佳实践
-      eqeqeq: ["error", "always"], // 总是使用 === 而不是 ==
-      "no-var": "error", // 禁止使用 var
-      "prefer-const": "error", // 如果变量不会被重新赋值，使用 const
-      "object-shorthand": ["error", "always"], // 使用对象简写语法
-    },
   },
+
+  // 基础配置
+  js.configs.recommended,
+
+  // TypeScript 配置（使用 extends 展开）
+  {
+    extends: [...tsEslint.configs.recommended],
+  },
+
   // 全局变量配置
   {
     languageOptions: {
@@ -103,6 +65,59 @@ export default tsEslint.config(
       },
     },
   },
+
+  // 通用规则（JS/TS/Vue 共享）
+  {
+    files: ["**/*.{js,mjs,cjs,ts,tsx,vue}"],
+    plugins: {
+      "@stylistic": stylistic,
+    },
+    rules: {
+      // 开发辅助
+      "no-console": isDevelopment ? "off" : "warn",
+      "no-debugger": isDevelopment ? "off" : "warn",
+
+      // 代码风格
+      "@stylistic/no-trailing-spaces": "error", // 禁止行尾空格
+      "@stylistic/no-multiple-empty-lines": [
+        "error",
+        {
+          max: 1, // 最多允许连续的空行数
+          maxEOF: 1, // 文件末尾最多允许的空行数
+          maxBOF: 0, // 文件开头不允许空行
+        },
+      ],
+      "@stylistic/padding-line-between-statements": [
+        "error",
+        { blankLine: "always", prev: "*", next: "return" }, // return 语句前需要空行
+        { blankLine: "always", prev: ["const", "let", "var"], next: "*" }, // 变量声明后需要空行
+        { blankLine: "any", prev: ["const", "let", "var"], next: ["const", "let", "var"] }, // 连续变量声明之间空行可选
+        { blankLine: "always", prev: "directive", next: "*" }, // 指令后需要空行
+        { blankLine: "always", prev: "import", next: "*" }, // import 语句后需要空行
+        { blankLine: "any", prev: "import", next: "import" }, // 连续 import 之间空行可选
+        { blankLine: "always", prev: ["case", "default"], next: "*" }, // case/default 后需要空行
+      ],
+
+      // 变量使用
+      "no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_", // 忽略参数名以 _ 开头的参数未使用警告
+          varsIgnorePattern: "^[A-Z0-9_]+$", // 忽略变量名为大写字母、数字或下划线组合的未使用警告
+          ignoreRestSiblings: true, // 忽略解构赋值中同级未使用变量的警告
+          caughtErrorsIgnorePattern: "^_", // 忽略错误变量以 _ 开头的警告
+        },
+      ],
+
+      // 最佳实践
+      eqeqeq: ["error", "always"], // 总是使用 === 而不是 ==
+      "no-var": "error", // 禁止使用 var
+      "prefer-const": "error", // 如果变量不会被重新赋值，使用 const
+      "object-shorthand": ["error", "always"], // 使用对象简写语法
+    },
+  },
+
+  // TypeScript 专属配置
   {
     files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
@@ -119,14 +134,14 @@ export default tsEslint.config(
     },
     rules: {
       // 基础规则
-      "no-undef": "off", // TypeScript已处理此问题
+      "no-undef": "off", // TypeScript 已处理此问题
 
       // 类型相关
-      "@typescript-eslint/no-explicit-any": "off", // 允许使用any
+      "@typescript-eslint/no-explicit-any": "off", // 允许使用 any
       "@typescript-eslint/no-empty-function": "off", // 允许空函数
       "@typescript-eslint/no-empty-object-type": "off", // 允许空对象类型
       "@typescript-eslint/no-extraneous-class": "off", // 允许空类
-      "@typescript-eslint/no-non-null-assertion": "off", // 允许使用!
+      "@typescript-eslint/no-non-null-assertion": "off", // 允许使用 !
 
       // 导入相关
       "@typescript-eslint/consistent-type-imports": [
@@ -135,14 +150,14 @@ export default tsEslint.config(
       ], // 统一类型导入风格
 
       // 变量使用
-      "no-unused-vars": "off", // 关闭原生规则，使用TypeScript版本
+      "no-unused-vars": "off", // 关闭原生规则，使用 TypeScript 版本
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
-          argsIgnorePattern: "^_", // 忽略参数名以 _ 开头的参数未使用警告
-          varsIgnorePattern: "^[A-Z0-9_]+$", // 忽略变量名为大写字母、数字或下划线组合的未使用警告
-          ignoreRestSiblings: true, // 忽略解构赋值中同级未使用变量的警告
-          caughtErrorsIgnorePattern: "^_", // 忽略错误变量以 _ 开头的警告
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^[A-Z0-9_]+$",
+          ignoreRestSiblings: true,
+          caughtErrorsIgnorePattern: "^_",
         },
       ],
 
@@ -151,17 +166,22 @@ export default tsEslint.config(
       "@typescript-eslint/explicit-module-boundary-types": "off", // 不强制要求模块边界类型
       "@typescript-eslint/no-inferrable-types": "warn", // 可推断类型不需要显式声明
 
-      "@typescript-eslint/ban-ts-comment": "warn", // 对@ts-expect-error等注释的使用给出警告
-      "@typescript-eslint/prefer-ts-expect-error": "error", // 优先使用@ts-expect-error而不是@ts-ignore
-      "@typescript-eslint/no-floating-promises": "error", // 确保Promise被正确处理
-      "@typescript-eslint/await-thenable": "error", // 确保只await可等待的值
+      "@typescript-eslint/ban-ts-comment": "warn", // 对 @ts-expect-error 等注释的使用给出警告
+      "@typescript-eslint/prefer-ts-expect-error": "error", // 优先使用 @ts-expect-error 而不是 @ts-ignore
+      "@typescript-eslint/no-floating-promises": "error", // 确保 Promise 被正确处理
+      "@typescript-eslint/await-thenable": "error", // 确保只 await 可等待的值
     },
   },
-  // Vue 配置
+
+  // Vue 基础配置（flat/recommended 是数组，用 extends 展开）
+  {
+    extends: [...vuePlugin.configs["flat/recommended"]],
+  },
+
+  // Vue 自定义规则覆盖（文件范围限定，覆盖 flat/recommended 的默认值）
   {
     files: ["**/*.vue"],
     languageOptions: {
-      parser: vueParser,
       parserOptions: {
         parser: tsEslint.parser,
         tsconfigRootDir: __dirname,
@@ -174,48 +194,54 @@ export default tsEslint.config(
       },
     },
     plugins: {
-      vue: vuePlugin,
+      "@stylistic": stylistic,
     },
-    processor: vuePlugin.processors[".vue"],
     rules: {
-      // 使用Vue3推荐规则，避免使用可能不存在的配置
-      ...vuePlugin.configs.recommended.rules,
-
       // 基础规则
-      "no-undef": "off", // TypeScript已处理此问题
+      "no-undef": "off", // TypeScript 已处理此问题
 
-      // Vue特定规则
+      // Vue 特定规则
       "vue/no-v-html": "off", // 允许使用 v-html
       "vue/require-default-prop": "off", // 允许没有默认值的 prop
       "vue/multi-word-component-names": "off", // 允许单字组件名
-      "vue/no-setup-props-destructure": "off", // 允许在setup中解构props (Vue3.2+响应式已修复此问题)
+      "vue/no-setup-props-destructure": "off", // 允许在 setup 中解构 props（Vue3.2+ 已修复）
       "vue/attribute-hyphenation": ["error", "always"], // 强制使用连字符格式
 
       "vue/no-unused-components": "error", // 确保组件未被 unused
-      "vue/require-explicit-emits": "error", // 要求显式声明emit事件
-      "vue/no-mutating-props": "error", // 禁止直接修改props
+      "vue/require-explicit-emits": "error", // 要求显式声明 emit 事件
+      "vue/no-mutating-props": "error", // 禁止直接修改 props
 
-      // TypeScript相关
+      // TypeScript 相关
       "@typescript-eslint/no-unsafe-function-type": "off", // 允许使用无参数的函数类型
       "@typescript-eslint/no-unused-expressions": "off", // 允许使用无表达式的表达式
-      "@typescript-eslint/no-explicit-any": "off", // 允许使用any
+      "@typescript-eslint/no-explicit-any": "off", // 允许使用 any
       "@typescript-eslint/no-inferrable-types": "warn", // 可推断类型不需要显式声明
 
       // 变量使用
-      "no-unused-vars": "off", // 关闭原生规则，使用TypeScript版本
+      "no-unused-vars": "off", // 关闭原生规则，使用 TypeScript 版本
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
-          argsIgnorePattern: "^_", // 忽略参数名以 _ 开头的参数未使用警告
-          varsIgnorePattern: "^[A-Z0-9_]+$", // 忽略变量名为大写字母、数字或下划线组合的未使用警告
-          ignoreRestSiblings: true, // 忽略解构赋值中同级未使用变量的警告
-          caughtErrorsIgnorePattern: "^_", // 忽略错误变量以 _ 开头的警告
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^[A-Z0-9_]+$",
+          ignoreRestSiblings: true,
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
+
+      // 代码风格 - 添加空行规则到 Vue 文件
+      "@stylistic/no-multiple-empty-lines": [
+        "error",
+        {
+          max: 1, // 最多允许连续的空行数
+          maxEOF: 1, // 文件末尾最多允许的空行数
+          maxBOF: 0, // 文件开头不允许空行
         },
       ],
 
       // 模板规则
       "vue/html-self-closing": [
-        "error", // 强制自闭和标签
+        "error",
         {
           html: { void: "always", normal: "always", component: "always" },
           svg: "always",
@@ -223,19 +249,24 @@ export default tsEslint.config(
         },
       ],
 
-      // 关闭一些可能导致解析错误的规则
-      "vue/valid-template-root": "off", // 关闭无效的根元素
-      "vue/no-multiple-template-root": "off", // 关闭多个根元素
+      // 关闭可能导致解析错误的规则
+      "vue/valid-template-root": "off", // 关闭无效的根元素校验
+      "vue/no-multiple-template-root": "off", // 关闭多个根元素校验
     },
   },
-  // Prettier 配置
+
+  // Prettier 配置（放最后，覆盖冲突的格式规则）
   {
     plugins: {
       prettier: prettierPlugin,
     },
     rules: {
       ...eslintConfigPrettier.rules,
-      "prettier/prettier": ["error", {}, { usePrettierrc: true }],
+      "prettier/prettier": [
+        "error",
+        { endOfLine: "auto" }, // 自动识别换行符
+        { usePrettierrc: true },
+      ],
       "arrow-body-style": "error", // 箭头函数体要求使用简洁写法
       "prefer-arrow-callback": "off",
     },

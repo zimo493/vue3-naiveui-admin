@@ -1,6 +1,6 @@
 import ErrorTip from "@/components/error-tip.vue";
 
 export default defineComponent({
-  name: "Error404",
+  name: "ErrorPage404",
   render: () => <ErrorTip type="404" />,
 });

@@ -24,7 +24,7 @@ const appStore = useAppStoreHook();
  * @returns 返回JSX元素
  */
 export default defineComponent({
-  name: "Layout",
+  name: "LayoutView",
   setup() {
     const { isMobile } = useResponsive();
 

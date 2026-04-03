@@ -37,7 +37,7 @@ useKeepTicking(() => {
   font-family: DIN, Arial, sans-serif;
   font-size: 18px;
   color: #fff;
-  background: linear-gradient(90deg, rgba(64, 158, 255, 0.6), rgba(64, 158, 255, 0));
+  background: linear-gradient(90deg, rgb(64 158 255 / 60%), rgb(64 158 255 / 0%));
   border-radius: 4px;
 }
 

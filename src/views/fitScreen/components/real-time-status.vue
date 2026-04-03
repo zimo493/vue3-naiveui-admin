@@ -98,17 +98,17 @@ const options: EChartsOption = {
       font-family: YouSheBiaoTiHei, Arial, sans-serif;
       font-size: 1.6rem;
       color: #fff;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 0 10px rgb(255 255 255 / 50%);
       animation: pulse 2s ease-in-out infinite;
 
       &.online {
         color: #00ff7f;
-        text-shadow: 0 0 10px rgba(0, 255, 127, 0.5);
+        text-shadow: 0 0 10px rgb(0 255 127 / 50%);
       }
 
       &.offline {
         color: #ff6b6b;
-        text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        text-shadow: 0 0 10px rgb(255 107 107 / 50%);
       }
     }
 
@@ -125,6 +125,7 @@ const options: EChartsOption = {
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.7;
   }

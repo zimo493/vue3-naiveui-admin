@@ -181,7 +181,12 @@
               :span="24"
             >
               <n-radio-group v-model:value="modelValue.visible">
-                <n-radio v-for="item in statusOptions" :value="item.value" :label="item.label" />
+                <n-radio
+                  v-for="item in statusOptions"
+                  :key="item.value"
+                  :value="item.value"
+                  :label="item.label"
+                />
               </n-radio-group>
             </n-form-item-grid-item>
 

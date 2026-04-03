@@ -205,12 +205,16 @@
     "Config": "參數設定",
     "Notice": "通知公告",
     "Codegen": "程式碼產生",
+    "FitScreen": "大屏適配",
     "Multilevel1": "選單一級",
     "Multilevel2": "選單二級",
     "Multilevel31": "選單三級-1",
     "Multilevel32": "選單三級-2",
+    "PlatformDoc": "平台文件",
+    "BackendDoc": "後端文件",
+    "MobileDoc": "行動端文件",
+    "InternalDoc": "內嵌文件",
     "Apifox": "Apifox",
-    "InternalDoc": "Document",
     "Https://juejin": {
       "cn/post/7228990409909108793": "平台文件(外鏈)"
     },
@@ -459,6 +463,7 @@
     "departmentData": "部門及子部門資料",
     "currentDepartmentData": "本部門資料",
     "selfData": "本人資料",
+    "customDepartmentData": "自定義部門資料",
     "permission": "權限分配"
   },
   "menu": {

@@ -2,9 +2,9 @@ import type { VNodeChild } from "vue";
 import { type SelectOption, type SelectRenderTag, NSelect, NFlex, NText } from "naive-ui";
 
 export default defineComponent({
-  name: "Selection",
+  name: "SelectionBox",
   props: {
-    modelValue: { type: [String, Number] },
+    modelValue: { type: [String, Number], default: "" },
     options: { type: Array as PropType<OptionItem[]>, default: () => [] },
     filterable: { type: Boolean, default: true },
     clearable: { type: Boolean, default: false },

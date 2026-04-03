@@ -9,7 +9,7 @@ import AccountInfo from "./components/account-info";
 import SafeSetting from "./components/safe-setting";
 
 export default defineComponent({
-  name: "Profile",
+  name: "PersonalCenter",
   setup() {
     const userProfile = ref<User.ProfileVO>({});
     /** 加载用户信息 */

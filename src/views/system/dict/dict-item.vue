@@ -210,14 +210,24 @@ const editFormConfig = computed(
             { label: t("dict.tag.error"), value: "error" },
           ],
           /** 自定义渲染 */
-          renderLabel: ({ label, value }: SelectOption): VNode => (
-            <NFlex align="center">
-              {value && <NText type={value}>{`${label} (${value})`}</NText>}
-              <NTag type={value ? value : "default"} bordered={false} size="small">
-                {modelValue.value.label ?? t("tableHeader.dictLabel")}
-              </NTag>
-            </NFlex>
-          ),
+          renderLabel: ({ label, value }: SelectOption) => {
+            const currentLabel = modelValue.value?.label ?? t("tableHeader.dictLabel");
+
+            return (
+              <NFlex align="center">
+                {value ? (
+                  <>
+                    <NText type={value}>{`${label} (${value})`}</NText>
+                    <NTag type={value} bordered={false} size="small">
+                      {currentLabel}
+                    </NTag>
+                  </>
+                ) : (
+                  <NText>{currentLabel}</NText>
+                )}
+              </NFlex>
+            );
+          },
         },
       },
       {
@@ -289,9 +299,8 @@ const openDrawer = (row?: DictData.VO) => {
 
 /** 表单提交 */
 const submitForm = async (val: DictData.Form) => {
-  if (!val.tagType) {
-    val.tagType = "" as DictData.Form["tagType"];
-  }
+  if (!val.tagType) val.tagType = "";
+
   await executeAsync(
     () =>
       val.id

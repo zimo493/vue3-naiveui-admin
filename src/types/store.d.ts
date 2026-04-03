@@ -78,7 +78,7 @@ declare namespace Status {
     /** 激活的菜单 */
     activeMenu: string;
     /** 路由列表 */
-    routes: AppRoute.RouteVO[];
+    routes: import("vue-router").RouteRecordRaw[];
   }
 
   /** tab-store */

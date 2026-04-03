@@ -205,12 +205,16 @@
     "Config": "Config",
     "Notice": "Notice",
     "Codegen": "CodeGen",
+    "FitScreen": "Fit Screen",
     "Multilevel1": "L1 Menu",
     "Multilevel2": "L2 Menu",
     "Multilevel31": "L3-1 Menu",
     "Multilevel32": "L3-2 Menu",
+    "InternalDoc": "Internal Docs",
+    "PlatformDoc": "Platform Docs",
+    "BackendDoc": "Backend Docs",
+    "MobileDoc": "Mobile Docs",
     "Apifox": "Apifox",
-    "InternalDoc": "Docs",
     "Https://juejin": {
       "cn/post/7228990409909108793": "External Docs"
     },
@@ -459,6 +463,7 @@
     "departmentData": "Department and Sub-department Data",
     "currentDepartmentData": "Current Department Data",
     "selfData": "Self Data",
+    "customDepartmentData": "Custom Department Data",
     "permission": "Permission Assignment"
   },
   "menu": {
