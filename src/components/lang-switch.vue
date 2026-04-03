@@ -23,7 +23,7 @@ const options = [
     <n-tooltip placement="bottom" trigger="hover">
       <template #trigger>
         <CommonWrapper>
-          <icon-park-outline-earth />
+          <Icones icon="local:language" />
         </CommonWrapper>
       </template>
       <span>{{ t("system.tooltip.languageSwitch") }}</span>
