@@ -2,7 +2,6 @@ import { RouterLink, type RouteRecordRaw } from "vue-router";
 import { type MenuOption, NEllipsis } from "naive-ui";
 import { $t, isHttpUrl, renderIcon } from ".";
 import { defaultIcon } from "@/modules/assets";
-import Layout from "@/layout";
 
 /** 菜单/路由递归最大深度，超出时打印警告并终止递归 */
 const MAX_DEPTH = 5;
@@ -166,7 +165,7 @@ export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRa
 
       // 顶层路由挂载真实 Layout 组件
       if (isLayoutComponent(record.component)) {
-        record.component = Layout;
+        record.component = () => import("@/layout");
       }
 
       // 子孙路由全部拍平，挂载在当前顶层路由的 children 下
