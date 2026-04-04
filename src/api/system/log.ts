@@ -14,10 +14,10 @@ export default {
    * @param params 查询参数
    */
   getVisitTrend: (params: Log.VisitTrendQuery) =>
-    get<Log.VisitTrendVO>(`${LOG_BASE_URL}/views/trend`, params),
+    get<Log.VisitTrendVO>(`${LOG_BASE_URL}/analytics/trend`, params),
 
   /**
    * 获取访问概览
    */
-  getVisitOverview: () => get<Log.VisitStatsVO>(`${LOG_BASE_URL}/views`),
+  getVisitOverview: () => get<Log.VisitStatsVO>(`${LOG_BASE_URL}/analytics/overview`),
 };
