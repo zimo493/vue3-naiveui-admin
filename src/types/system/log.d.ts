@@ -45,8 +45,6 @@ declare namespace Log {
     pvList: number[];
     /** 访客数(UV) */
     uvList: number[];
-    /** IP数 */
-    ipList: number[];
   }
 
   /** 访问趋势查询参数 */
@@ -58,7 +56,7 @@ declare namespace Log {
   }
 
   /**  访问统计 */
-  interface VisitStatsVO {
+  interface VisitOverviewVO {
     /** 今日访客数(UV) */
     todayUvCount: number;
     /** 总访客数 */
