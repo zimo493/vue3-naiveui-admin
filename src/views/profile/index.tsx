@@ -1,4 +1,4 @@
-import { NSpin, NGrid, NGi, NCard, NFlex, NDivider } from "naive-ui";
+import { NSpin, NGrid, NGi, NCard, NFlex } from "naive-ui";
 
 import UserAPI from "@/api/system/user";
 import { spin, executeAsync } from "@/utils";
@@ -26,21 +26,23 @@ export default defineComponent({
 
     return () => (
       <NSpin show={spin.value}>
-        <NGrid xGap={10}>
-          <NGi span={8}>
+        <NGrid xGap={10} yGap={10} cols="1 m:24" responsive="screen">
+          <NGi span="1 m:10 l:8">
             <NCard>
-              <NFlex vertical align="center" class="p-3">
+              <NFlex vertical align="center" class="p-3 pb-6">
                 <Avatar user-profile={userProfile.value} />
                 <UserInfo user-profile={userProfile.value} onSuccess={loadUserProfile} />
               </NFlex>
-              <NDivider />
-              1111111
+              <AccountInfo user-profile={userProfile.value} />
             </NCard>
           </NGi>
-          <NGi span={16}>
+          <NGi span="1 m:14 l:16">
             <NFlex size={[0, 10]}>
-              <AccountInfo user-profile={userProfile.value} onSuccess={loadUserProfile} />
-              <SafeSetting />
+              <SafeSetting
+                phone={userProfile.value.mobile}
+                email={userProfile.value.email}
+                onSuccess={loadUserProfile}
+              />
             </NFlex>
           </NGi>
         </NGrid>
