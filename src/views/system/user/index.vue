@@ -92,7 +92,7 @@
     />
 
     <!-- 用户导入 -->
-    <ImportUser ref="importUserRef" @success="handleQuery" />
+    <ImportUser ref="importUser" @success="handleQuery" />
   </div>
 </template>
 <script setup lang="tsx">
@@ -109,7 +109,7 @@ import {
 } from "naive-ui";
 
 import { MIMETYPE } from "@/enums";
-import { useCompRef, useDict, useLoading, useResponsive } from "@/hooks";
+import { useDict, useLoading, useResponsive } from "@/hooks";
 import {
   spin,
   startSpin,
@@ -125,7 +125,6 @@ import UserAPI from "@/api/system/user";
 import RoleAPI from "@/api/system/role";
 
 import Icones from "@/components/icones.vue";
-import ImportUser from "./components/import-user.vue";
 import DictTag from "@/components/dict-tag.vue";
 import CommonStatus from "@/components/common-status.vue";
 import { useAuthStoreHook } from "@/store";
@@ -539,7 +538,7 @@ const handleDelete = (id?: string) => {
 };
 
 // 导入
-const importUserRef = useCompRef(ImportUser);
+const importUserRef = useTemplateRef("importUser");
 const handleImport = () => {
   importUserRef.value?.open();
 };
