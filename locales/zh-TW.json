@@ -59,6 +59,8 @@
     "view": "查看",
     "operation": "操作",
     "replace": "更換",
+    "unbind": "解綁",
+    "bind": "綁定",
     "more": "更多...",
     "detail": "詳情",
     "expand": "展開",
@@ -633,7 +635,11 @@
     "bindEmailSuccess": "郵箱繫結成功！",
     "updateAvatarSuccess": "頭像更新成功！",
     "updateAvatarFailed": "頭像上傳失敗！",
-    "seconds": "{val} 秒後重試"
+    "notBind": "未綁定",
+    "seconds": "{val} 秒后重试",
+    "unbindPhone": "解綁定手機號",
+    "unbindEmail": "解綁定郵箱",
+    "unbindSuccess": "解綁定 {type} 成功！"
   },
   "crontab": {
     "button": "產生表達式",

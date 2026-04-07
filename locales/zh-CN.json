@@ -59,6 +59,8 @@
     "view": "查看",
     "operation": "操作",
     "replace": "更换",
+    "unbind": "解绑",
+    "bind": "绑定",
     "more": "更多...",
     "detail": "详情",
     "expand": "展开",
@@ -633,7 +635,11 @@
     "bindEmailSuccess": "邮箱绑定成功！",
     "updateAvatarSuccess": "头像更新成功！",
     "updateAvatarFailed": "头像上传失败！",
-    "seconds": "{val} 秒后重试"
+    "notBind": "未绑定",
+    "seconds": "{val} 秒后重试",
+    "unbindPhone": "解绑手机号",
+    "unbindEmail": "解绑邮箱",
+    "unbindSuccess": "解绑 {type} 成功！"
   },
   "crontab": {
     "button": "生成表达式",

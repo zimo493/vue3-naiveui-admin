@@ -60,6 +60,8 @@
     "operation": "Operation",
     "more": "More...",
     "replace": "Replace",
+    "unbind": "Unbind",
+    "bind": "Bind",
     "detail": "Detail",
     "expand": "Expand",
     "collapse": "Collapse",
@@ -633,7 +635,11 @@
     "bindEmailSuccess": "Email Bound Successfully!",
     "updateAvatarSuccess": "Avatar Updated Successfully!",
     "updateAvatarFailed": "Avatar Upload Failed!",
-    "seconds": "{val} seconds later"
+    "notBind": "Not Bound Yet",
+    "seconds": "{val} seconds later",
+    "unbindPhone": "Unbind Phone",
+    "unbindEmail": "Unbind Email",
+    "unbindSuccess": "Unbind {type} Successfully!"
   },
   "crontab": {
     "button": "Generate Expression",
