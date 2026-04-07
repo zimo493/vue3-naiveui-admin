@@ -102,22 +102,22 @@
                   <n-number-animation
                     show-separator
                     :from="999"
-                    :to="visitStatsData.todayUvCount"
+                    :to="visitOverviewData.todayUvCount"
                   />
-                  <n-text :type="getType(visitStatsData.pvGrowthRate)">
+                  <n-text :type="getType(visitOverviewData.pvGrowthRate)">
                     <Icones
-                      v-if="visitStatsData.uvGrowthRate !== 0"
-                      :icon="visitStatsData.uvGrowthRate > 0 ? up : down"
+                      v-if="visitOverviewData.uvGrowthRate !== 0"
+                      :icon="visitOverviewData.uvGrowthRate > 0 ? up : down"
                       :size="12"
                     />
-                    <span class="text-xs">{{ formatGrowthRate(visitStatsData.uvGrowthRate) }}</span>
+                    <span class="text-xs">{{ formatGrowthRate(visitOverviewData.uvGrowthRate) }}</span>
                   </n-text>
                 </n-flex>
                 <Icones icon="noto:detective" :size="42" />
               </n-flex>
               <n-flex justify="space-between" align="center" text-sm text-gray>
                 <span>{{ t("home.card.totalVisits") }}</span>
-                <n-number-animation show-separator :from="0" :to="visitStatsData.todayPvCount" />
+                <n-number-animation show-separator :from="0" :to="visitOverviewData.todayPvCount" />
               </n-flex>
             </n-flex>
           </n-flex>
@@ -155,22 +155,22 @@
                   <n-number-animation
                     show-separator
                     :from="999"
-                    :to="visitStatsData.todayPvCount"
+                    :to="visitOverviewData.todayPvCount"
                   />
-                  <n-text :type="getType(visitStatsData.pvGrowthRate)">
+                  <n-text :type="getType(visitOverviewData.pvGrowthRate)">
                     <Icones
-                      v-if="visitStatsData.pvGrowthRate !== 0"
-                      :icon="visitStatsData.pvGrowthRate > 0 ? up : down"
+                      v-if="visitOverviewData.pvGrowthRate !== 0"
+                      :icon="visitOverviewData.pvGrowthRate > 0 ? up : down"
                       :size="12"
                     />
-                    <span class="text-xs">{{ formatGrowthRate(visitStatsData.pvGrowthRate) }}</span>
+                    <span class="text-xs">{{ formatGrowthRate(visitOverviewData.pvGrowthRate) }}</span>
                   </n-text>
                 </n-flex>
                 <Icones icon="emojione-v1:eyes" :size="42" />
               </n-flex>
               <n-flex justify="space-between" align="center" text-sm text-gray>
                 <span>{{ t("home.card.totalView") }}</span>
-                <n-number-animation show-separator :from="0" :to="visitStatsData.totalPvCount" />
+                <n-number-animation show-separator :from="0" :to="visitOverviewData.totalPvCount" />
               </n-flex>
             </n-flex>
           </n-flex>
@@ -262,7 +262,7 @@ onMounted(() => {
   // 获取访问趋势数据
   fetchVisitTrendData();
   // 获取访客统计数据
-  fetchVisitStatsData();
+  fetchVisitOverviewData();
 });
 
 const aboutList = computed(() => [
@@ -435,7 +435,7 @@ const defaultOptions = computed(
         showSymbol: false,
         symbol: "circle",
         symbolSize: 6,
-        // data: data.ipList,
+        // data: data.uvList,
         label: {
           show: true,
           position: "top",
@@ -521,7 +521,7 @@ const chartRef = useTemplateRef("chart");
 const updateCharts = (data: Log.VisitTrendVO) => {
   chartRef.value?.updateCharts({
     xAxis: { data: data.dates },
-    series: [{ data: data.pvList }, { data: data.ipList }],
+    series: [{ data: data.pvList }, { data: data.uvList }],
   });
 };
 
@@ -529,7 +529,7 @@ const updateCharts = (data: Log.VisitTrendVO) => {
  * 获取访客统计数据
  */
 // 访客统计数据
-const visitStatsData = ref<Log.VisitStatsVO>({
+const visitOverviewData = ref<Log.VisitOverviewVO>({
   todayUvCount: 0,
   uvGrowthRate: 0,
   totalUvCount: 0,
@@ -537,10 +537,10 @@ const visitStatsData = ref<Log.VisitStatsVO>({
   pvGrowthRate: 0,
   totalPvCount: 0,
 });
-const fetchVisitStatsData = () => {
+const fetchVisitOverviewData = () => {
   startLoading();
   LogAPI.getVisitOverview()
-    .then((data) => (visitStatsData.value = data))
+    .then((data) => (visitOverviewData.value = data))
     .finally(() => endLoading());
 };
 
