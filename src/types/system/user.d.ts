@@ -159,6 +159,8 @@ declare namespace User {
     mobile?: string;
     /** 验证码 */
     code?: string;
+    /** 密码 */
+    password?: string;
   }
 
   /** 修改邮箱表单 */
@@ -167,5 +169,12 @@ declare namespace User {
     email?: string;
     /** 验证码 */
     code?: string;
+    /** 密码 */
+    password?: string;
+  }
+  /** 解绑表单 */
+  interface UnbindParams {
+    /** 密码 */
+    password?: string;
   }
 }

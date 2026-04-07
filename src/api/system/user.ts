@@ -130,6 +130,20 @@ export default {
   bindOrChangeEmail: (data: User.EmailUpdateForm) => put(`${USER_BASE_URL}/email`, data),
 
   /**
+   * 解绑手机号
+   * @param {object} params 密码校验表单
+   * @param {string} params.password 当前密码
+   */
+  unbindMobile: (data: User.UnbindParams) => del(`${USER_BASE_URL}/mobile`, undefined, data),
+
+  /**
+   * 解绑邮箱
+   * @param {object} params 密码校验表单
+   * @param {string} params.password 当前密码
+   */
+  unbindEmail: (params: User.UnbindParams) => del(`${USER_BASE_URL}/email`, undefined, params),
+
+  /**
    *  获取用户下拉列表
    */
   getOptions: () => get<OptionItem[]>(`${USER_BASE_URL}/options`),
