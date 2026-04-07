@@ -1,9 +1,10 @@
 import { NDescriptions, NDescriptionsItem, NFlex, NText, NTag } from "naive-ui";
 
 import { useDict } from "@/hooks";
+import { maskEmail, maskPhone } from "@/utils";
 
 import Icones from "@/components/icones.vue";
-import { maskEmail, maskPhone } from "@/utils";
+import { DescLabel } from "./components/profile-widgets";
 
 export default defineComponent({
   name: "ProfileAccountInfo",
@@ -39,75 +40,60 @@ export default defineComponent({
     const genderTagType = computed(() => genderProps.value.tagType);
 
     return () => (
-      <>
-        <NDescriptions label-placement="left" label-style="width: 25%" column={1} bordered>
-          <NDescriptionsItem
-            v-slots={{
-              label: () => (
-                <NFlex align="center" size={[6, 0]}>
-                  <Icones icon="icon-park-outline:user" />
-                  <NText>{t("tableHeader.username")}</NText>
-                </NFlex>
-              ),
-            }}
-          >
-            <NFlex align="center">
-              <NText>{userProfile.value.username}</NText>
-              <NTag bordered={false} type={genderTagType.value}>
-                <Icones icon={genderIcon.value} />
-              </NTag>
-            </NFlex>
-          </NDescriptionsItem>
-          <NDescriptionsItem
-            v-slots={{
-              label: () => (
-                <NFlex align="center" size={[6, 0]}>
-                  <Icones icon="icon-park-outline:phone-call" />
-                  <NText>{t("tableHeader.phone")}</NText>
-                </NFlex>
-              ),
-            }}
-          >
-            <NText>{maskPhone(userProfile.value.mobile) || "-"}</NText>
-          </NDescriptionsItem>
-          <NDescriptionsItem
-            v-slots={{
-              label: () => (
-                <NFlex align="center" size={[6, 0]}>
-                  <Icones icon="icon-park-outline:mail" />
-                  <NText>{t("tableHeader.email")}</NText>
-                </NFlex>
-              ),
-            }}
-          >
-            <NText>{maskEmail(userProfile.value.email) || "-"}</NText>
-          </NDescriptionsItem>
-          <NDescriptionsItem
-            v-slots={{
-              label: () => (
-                <NFlex align="center" size={[6, 0]}>
-                  <Icones icon="icon-park-outline:city" />
-                  <NText>{t("tableHeader.deptName")}</NText>
-                </NFlex>
-              ),
-            }}
-          >
-            <NText>{userProfile.value.deptName}</NText>
-          </NDescriptionsItem>
-          <NDescriptionsItem
-            v-slots={{
-              label: () => (
-                <NFlex align="center" size={[6, 0]}>
-                  <Icones icon="icon-park-outline:time" />
-                  <NText>{t("tableHeader.createTime")}</NText>
-                </NFlex>
-              ),
-            }}
-          >
-            <NText>{userProfile.value.createTime}</NText>
-          </NDescriptionsItem>
-        </NDescriptions>
-      </>
+      <NDescriptions label-placement="left" label-style="width: 25%" column={1} bordered>
+        <NDescriptionsItem
+          v-slots={{
+            label: () => (
+              <DescLabel icon="icon-park-outline:user" label={t("tableHeader.username")} />
+            ),
+          }}
+        >
+          <NFlex align="center">
+            <NText>{userProfile.value.username}</NText>
+            <NTag bordered={false} type={genderTagType.value}>
+              <Icones icon={genderIcon.value} />
+            </NTag>
+          </NFlex>
+        </NDescriptionsItem>
+
+        <NDescriptionsItem
+          v-slots={{
+            label: () => (
+              <DescLabel icon="icon-park-outline:phone-call" label={t("tableHeader.phone")} />
+            ),
+          }}
+        >
+          <NText>{maskPhone(userProfile.value.mobile) || "-"}</NText>
+        </NDescriptionsItem>
+
+        <NDescriptionsItem
+          v-slots={{
+            label: () => <DescLabel icon="icon-park-outline:mail" label={t("tableHeader.email")} />,
+          }}
+        >
+          <NText>{maskEmail(userProfile.value.email) || "-"}</NText>
+        </NDescriptionsItem>
+
+        <NDescriptionsItem
+          v-slots={{
+            label: () => (
+              <DescLabel icon="icon-park-outline:city" label={t("tableHeader.deptName")} />
+            ),
+          }}
+        >
+          <NText>{userProfile.value.deptName}</NText>
+        </NDescriptionsItem>
+
+        <NDescriptionsItem
+          v-slots={{
+            label: () => (
+              <DescLabel icon="icon-park-outline:time" label={t("tableHeader.createTime")} />
+            ),
+          }}
+        >
+          <NText>{userProfile.value.createTime}</NText>
+        </NDescriptionsItem>
+      </NDescriptions>
     );
   },
 });
