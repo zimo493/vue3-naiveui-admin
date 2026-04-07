@@ -212,7 +212,8 @@ const request = {
     service.post(url, data, { params }),
   put: <T = null>(url: string, data?: unknown, params?: unknown): Promise<T> =>
     service.put(url, data, { params }),
-  del: <T = null>(url: string, params?: unknown): Promise<T> => service.delete(url, { params }),
+  del: <T = null>(url: string, params?: unknown, data?: unknown): Promise<T> =>
+    service.delete(url, { params, data }),
   patch: <T = null>(url: string, data?: unknown): Promise<T> => service.patch(url, data),
 };
 
