@@ -1,13 +1,15 @@
 import { Icon } from "@iconify/vue";
 import { NIcon } from "naive-ui";
 
-export const renderIcon = (icon?: string, props?: import("naive-ui").IconProps) => {
+type IconProps = import("naive-ui").IconProps;
+
+export const renderIcon = (icon?: string, props?: IconProps) => {
   if (!icon) return;
 
   return () => createIcon(icon, props);
 };
 
-export const createIcon = (icon?: string, props?: import("naive-ui").IconProps) => {
+export const createIcon = (icon?: string, props?: IconProps) => {
   if (!icon) return;
 
   const isLocal = icon.startsWith("local:");
