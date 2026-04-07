@@ -203,3 +203,30 @@ export const getJsonSizeWithUnit = (jsonString: string | null): string => {
 
   return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
 };
+
+/**
+ * 手机号脱敏
+ * @param phone 手机号
+ * @returns 脱敏后的手机号
+ */
+export const maskPhone = (phone?: string) =>
+  phone?.replace(/(\d{3})\d{4}(\d{4})/, "$1****$2") || "";
+
+/**
+ * 邮箱脱敏
+ * @param email 邮箱
+ * @returns 脱敏后的邮箱
+ */
+export const maskEmail = (email?: string) => {
+  if (!email) {
+    return "";
+  }
+
+  const [name, domain] = email.split("@");
+  const masked =
+    name.length <= 2
+      ? name[0] + "*".repeat(name.length - 1)
+      : name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+
+  return `${masked}@${domain}`;
+};
