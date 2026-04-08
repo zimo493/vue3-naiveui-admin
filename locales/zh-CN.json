@@ -248,7 +248,9 @@
   },
   "statusTag": {
     "normal": "正常",
-    "disable": "禁用"
+    "disable": "禁用",
+    "success": "成功",
+    "failure": "失败"
   },
   "errorPage": {
     "403": {
@@ -373,9 +375,9 @@
     "dictLabel": "字典标签",
     "dictValue": "字典值",
 
+    "operationTitle": "操作标题",
     "apiPath": "请求路径",
-    "logModule": "日志模块",
-    "logContent": "日志内容",
+    "requestMethod": "请求方法",
     "ip": "IP 地址",
     "region": "地区",
     "browser": "浏览器",
@@ -383,6 +385,8 @@
     "executeTime": "执行时间",
     "operator": "操作人",
     "operateTime": "操作时间",
+    "content": "自定义内容",
+    "errorMsg": "错误信息",
 
     "configName": "配置名称",
     "configKey": "配置键",
@@ -613,6 +617,10 @@
       "dataTime": "日期时间选择器",
       "hidden": "隐藏域"
     }
+  },
+  "log": {
+    "detail": "操作日志详情",
+    "none": "暂无数据"
   },
   "profile": {
     "accountInfo": "账号信息",

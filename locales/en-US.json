@@ -248,7 +248,9 @@
   },
   "statusTag": {
     "normal": "Normal",
-    "disable": "Disabled"
+    "disable": "Disabled",
+    "success": "Success",
+    "failure": "Failure"
   },
   "errorPage": {
     "403": {
@@ -373,9 +375,9 @@
     "dictLabel": "Dictionary Label",
     "dictValue": "Dictionary Value",
 
+    "operationTitle": "Operation Title",
     "apiPath": "API Path",
-    "logModule": "Log Module",
-    "logContent": "Log Content",
+    "requestMethod": "Request Method",
     "ip": "IP Address",
     "region": "Region",
     "browser": "Browser",
@@ -383,6 +385,8 @@
     "executeTime": "Execute Time",
     "operator": "Operator",
     "operateTime": "Operate Time",
+    "content": "Custom Content",
+    "errorMsg": "Error Message",
 
     "configName": "Config Name",
     "configKey": "Config Key",
@@ -613,6 +617,10 @@
       "dataTime": "Date Time Picker",
       "hidden": "Hidden Field"
     }
+  },
+  "log": {
+    "detail": "Operation Log Details",
+    "none": "No Data Available"
   },
   "profile": {
     "accountInfo": "Account Info",

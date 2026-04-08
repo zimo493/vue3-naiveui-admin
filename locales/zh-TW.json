@@ -248,7 +248,9 @@
   },
   "statusTag": {
     "normal": "正常",
-    "disable": "停用"
+    "disable": "停用",
+    "success": "成功",
+    "failure": "失敗"
   },
   "errorPage": {
     "403": {
@@ -373,9 +375,9 @@
     "dictLabel": "字典標籤",
     "dictValue": "字典值",
 
+    "operationTitle": "操作標題",
     "apiPath": "請求路徑",
-    "logModule": "日誌模組",
-    "logContent": "日誌內容",
+    "requestMethod": "請求方法",
     "ip": "IP 地址",
     "region": "地區",
     "browser": "瀏覽器",
@@ -383,6 +385,8 @@
     "executeTime": "執行時間",
     "operator": "操作人",
     "operateTime": "操作時間",
+    "content": "自定內容",
+    "errorMsg": "錯誤訊息",
 
     "configName": "設定名稱",
     "configKey": "設定鍵",
@@ -613,6 +617,10 @@
       "dataTime": "日期時間選擇器",
       "hidden": "隱藏域"
     }
+  },
+  "log": {
+    "detail": "操作日誌詳情",
+    "none": "暫無數據"
   },
   "profile": {
     "accountInfo": "帳號資訊",
