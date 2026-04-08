@@ -13,28 +13,42 @@ declare namespace Log {
    * 系统日志分页VO
    */
   export interface VO {
-    /** 主键 */
-    id: string;
-    /** 日志模块 */
-    module: string;
-    /** 日志内容 */
-    content: string;
+    /** 日志ID */
+    id: number;
+    /** 模块 */
+    module?: string;
+    /** 操作类型 */
+    actionType?: string;
+    /** 操作标题 */
+    title?: string;
+    /** 自定义日志内容 */
+    content?: string;
+    /** 操作人ID */
+    operatorId?: number;
+    /** 操作人名称 */
+    operatorName?: string;
     /** 请求路径 */
-    requestUri: string;
+    requestUri?: string;
     /** 请求方法 */
-    method: string;
-    /** IP 地址 */
-    ip: string;
+    requestMethod?: string;
+    /** IP地址 */
+    ip?: string;
     /** 地区 */
-    region: string;
+    region?: string;
+    /** 设备 */
+    device?: string;
     /** 浏览器 */
-    browser: string;
-    /** 终端系统 */
-    os: string;
+    browser?: string;
+    /** 操作系统 */
+    os?: string;
+    /** 状态：0失败 1成功 */
+    status?: number;
     /** 执行时间(毫秒) */
-    executionTime: number;
-    /** 操作人 */
-    operator: string;
+    executionTime?: number;
+    /** 错误信息 */
+    errorMsg?: string;
+    /** 操作时间 */
+    createTime?: string;
   }
 
   /**  访问趋势视图对象 */
