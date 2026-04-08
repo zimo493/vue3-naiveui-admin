@@ -1,11 +1,12 @@
 <template>
   <n-modal
     v-model:show="modal.visible"
-    :style="{ width: `${width}px` }"
+    :style="{ width: `${width}px`, maxHeight: `${height}px` }"
     v-bind="{
       title: modal.title,
       draggable: true,
       preset: 'card',
+      contentScrollable: true,
       segmented: {
         content: true,
         action: true,
@@ -61,6 +62,7 @@
 interface Props {
   props?: DialogForm.ModalProps;
   width?: number;
+  height?: number;
   form?: DialogForm.Form;
   formConfig?: FormPro.FormItemConfig[];
   loading?: boolean;
@@ -74,7 +76,7 @@ const { t } = useI18n();
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
   width: 700,
-  scrollHeight: 400,
+  height: 800,
   useType: "submit",
 });
 
