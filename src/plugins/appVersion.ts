@@ -39,26 +39,41 @@ export const setupAppVersion = () => {
       content: $t("app.systemUpdateContent"),
       icon: () => h("i", "🎉"),
       iconPlacement: "top",
-      positiveText: $t("app.refreshNow"),
-      closable: false, // 不显示关闭按钮
-      maskClosable: false, // 不允许点击遮罩层关闭
-      closeOnEsc: false, // 不允许ESC键关闭
+      closable: false,
+      maskClosable: false,
+      closeOnEsc: false,
+      // 隐藏默认 action 按钮区，完全自定义
       action: () =>
-        h(NFlex, { align: "center" }, () => [
-          h(NText, {}, { default: () => formatDateTime(buildTimestamp) }),
-          h(
-            NButton,
-            {
-              type: "primary",
-              strong: true,
-              onClick: () => {
-                window.$dialog.destroyAll();
-                window.location.reload();
+        h(
+          NFlex,
+          {
+            align: "center",
+            justify: "space-between",
+            style: { width: "100%" },
+          },
+          () => [
+            h(
+              NText,
+              {
+                depth: 3,
+                style: { fontFamily: "var(--n-font-family-mono, monospace)" },
               },
-            },
-            { default: () => $t("app.refreshNow") }
-          ),
-        ]),
+              { default: () => formatDateTime(buildTimestamp) }
+            ),
+            h(
+              NButton,
+              {
+                type: "primary",
+                strong: true,
+                onClick: () => {
+                  window.$dialog.destroyAll();
+                  window.location.reload();
+                },
+              },
+              { default: () => $t("app.refreshNow") }
+            ),
+          ]
+        ),
     });
     /**
      * 创建通知(notification模式)
