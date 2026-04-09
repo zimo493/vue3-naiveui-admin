@@ -7,6 +7,7 @@
     "downloading": "正在下载数据，请稍候...",
     "notImplemented": "暂未实现，开发中 ...",
     "processing": "数据正在处理，请勿重复提交",
+    "noPermission": "您没有权限操作",
     "sysError": "系统出错",
     "backendError": "后端接口连接异常",
     "backendTimeout": "系统接口请求超时",
