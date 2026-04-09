@@ -12,8 +12,7 @@ export default <RouteRecordRaw[]>[
       {
         path: "/home",
         component: () => import("@/views/index/index.vue"),
-        // https://cn.vuejs.org/guide/built-ins/keep-alive.html#include-exclude
-        name: "Home", // 用于 keep-alive, 必须与SFC自动推导或者显示声明的组件name一致
+        name: "Home", // 用于 `i18n` 国际化翻译键
         meta: { title: "首页", icon: homeIcon, affix: true },
       },
       {
