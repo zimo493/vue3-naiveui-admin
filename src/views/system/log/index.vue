@@ -27,7 +27,7 @@
         label-placement="left"
         size="small"
         :column="2"
-        label-style="width: 100px"
+        label-style="width: auto"
       >
         <n-descriptions-item :label="t('tableHeader.operationTitle')" :span="2">
           {{ detailData.title }}
