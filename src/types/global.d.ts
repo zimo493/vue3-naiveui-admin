@@ -64,13 +64,7 @@ interface Local {
 }
 
 /** SessionStorage */
-interface Session {
-  sessionObj: {
-    url?: string;
-    data: any;
-    time: number;
-  };
-}
+interface Session {}
 
 /** 表格展开、收起 */
 interface TableExpand {
