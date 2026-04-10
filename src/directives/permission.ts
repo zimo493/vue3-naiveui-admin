@@ -7,7 +7,7 @@ export function install(app: App) {
   /**
    * 按钮权限
    */
-  const updatePerm = (el: HTMLElement, permission: string[]) => {
+  const updatePerm = (el: HTMLElement, permission: string | string[]) => {
     // 校验传入的权限值是否合法
     if (!permission || (typeof permission !== "string" && !Array.isArray(permission))) {
       throw new Error($t("directive.errorPermission"));
@@ -41,7 +41,7 @@ export function install(app: App) {
   app.directive("hasPerm", hasPerm);
 
   /** 角色权限指令 */
-  const updateRole = (el: HTMLElement, value: string[]) => {
+  const updateRole = (el: HTMLElement, value: string | string[]) => {
     // 校验传入的角色值是否合法
     if (!value || (typeof value !== "string" && !Array.isArray(value))) {
       throw new Error($t("directive.errorRole"));
