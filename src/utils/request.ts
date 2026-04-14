@@ -318,14 +318,14 @@ export default service;
  * const result = await post<void>('/api/user', { name: 'Mo' })
  */
 export const request = {
-  get: <T>(url: string, params?: unknown): Promise<T> => service.get(url, { params }),
-  post: <T>(url: string, data?: unknown, params?: unknown): Promise<T> =>
+  get: <T = null>(url: string, params?: unknown): Promise<T> => service.get(url, { params }),
+  post: <T = null>(url: string, data?: unknown, params?: unknown): Promise<T> =>
     service.post(url, data, { params }),
-  put: <T>(url: string, data?: unknown, params?: unknown): Promise<T> =>
+  put: <T = null>(url: string, data?: unknown, params?: unknown): Promise<T> =>
     service.put(url, data, { params }),
-  del: <T>(url: string, params?: unknown, data?: unknown): Promise<T> =>
+  del: <T = null>(url: string, params?: unknown, data?: unknown): Promise<T> =>
     service.delete(url, { params, data }),
-  patch: <T>(url: string, data?: unknown): Promise<T> => service.patch(url, data),
+  patch: <T = null>(url: string, data?: unknown): Promise<T> => service.patch(url, data),
 };
 
 export const { get, post, put, del, patch } = request;
