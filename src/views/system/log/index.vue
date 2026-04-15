@@ -125,7 +125,7 @@ const query = ref<Log.Query>({
 });
 
 /** 查询表单配置 */
-const formConfig = ref<FormPro.FormItemConfig[]>([
+const formConfig = ref<FormProTypes.FormItemConfig[]>([
   {
     name: "keywords",
     label: t("tableHeader.keywords"),

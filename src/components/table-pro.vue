@@ -169,7 +169,7 @@ interface Props<T> {
   showTable?: boolean;
   collapseRows?: number;
   operationSpan?: number;
-  formConfig?: FormPro.FormItemConfig[];
+  formConfig?: FormProTypes.FormItemConfig[];
   paginationPosition?: "left" | "center" | "right";
 }
 

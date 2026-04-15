@@ -107,7 +107,7 @@ const handleExpandAll = async (bool?: boolean) => {
   expandAll.value.show = true;
 };
 
-const formConfig = ref<FormPro.FormItemConfig[]>([
+const formConfig = ref<FormProTypes.FormItemConfig[]>([
   { name: "keywords", label: t("tableHeader.deptName") },
 ]);
 

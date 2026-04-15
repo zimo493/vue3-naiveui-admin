@@ -44,7 +44,7 @@ const watermark = useWatermarkStoreHook();
 
 const { config } = storeToRefs(watermark);
 
-const formConfig: FormPro.FormItemConfig[] = [
+const formConfig: FormProTypes.FormItemConfig[] = [
   {
     name: "fontSize",
     label: t("watermark.fontSize"),

@@ -83,7 +83,7 @@ const handleQuery = () => {
 };
 
 // 查询表单
-const formConfig = ref<FormPro.FormItemConfig[]>([
+const formConfig = ref<FormProTypes.FormItemConfig[]>([
   {
     name: "keywords",
     label: t("tableHeader.keywords"),

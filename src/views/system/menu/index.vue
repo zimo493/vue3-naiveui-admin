@@ -71,7 +71,7 @@ const handleCheckedChange = async (checked: boolean) => {
   handleQuery();
 };
 
-const formConfig = ref<FormPro.FormItemConfig[]>([
+const formConfig = ref<FormProTypes.FormItemConfig[]>([
   { name: "keywords", label: t("tableHeader.menuName") },
 ]);
 

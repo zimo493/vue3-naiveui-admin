@@ -214,7 +214,7 @@ const queryParams = ref<Search>({
   pageNum: 1,
   pageSize: 10,
 });
-const formConfig = ref<FormPro.FormItemConfig[]>([
+const formConfig = ref<FormProTypes.FormItemConfig[]>([
   {
     name: "name",
     span: 3,
@@ -413,7 +413,7 @@ const submitForm = async (val: Form) => {
 
 // 查看
 const dialogViewRef = useTemplateRef("modalView");
-const viewConfig: FormPro.FormItemConfig[] = [
+const viewConfig: FormProTypes.FormItemConfig[] = [
   { name: "avatar", label: "Avatar:", component: "text" },
   { name: "name", label: "Name:", component: "text" },
   { name: "age", label: "Age:", component: "text" },

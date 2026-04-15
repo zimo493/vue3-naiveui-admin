@@ -53,7 +53,7 @@ interface FormFields {
 const { gender } = useDict("gender");
 
 // 表单配置
-const formConfig = ref<FormPro.FormItemConfig[]>([
+const formConfig = ref<FormProTypes.FormItemConfig[]>([
   {
     name: "selectDict",
     label: "下拉框",

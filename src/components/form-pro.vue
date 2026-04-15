@@ -104,16 +104,16 @@ const {
   operationSpan = 4,
 } = defineProps({
   formConfig: {
-    type: Array as PropType<FormPro.FormItemConfig[]>,
+    type: Array as PropType<FormProTypes.FormItemConfig[]>,
   },
   formProps: {
-    type: Object as PropType<FormPro.FormProProps["formProps"]>,
+    type: Object as PropType<FormProTypes.FormProProps["formProps"]>,
   },
   gridProps: {
-    type: Object as PropType<FormPro.FormProProps["gridProps"]>,
+    type: Object as PropType<FormProTypes.FormProProps["gridProps"]>,
   },
   operationSpan: {
-    type: Number as PropType<FormPro.FormProProps["operationSpan"]>,
+    type: Number as PropType<FormProTypes.FormProProps["operationSpan"]>,
   },
 });
 
@@ -180,7 +180,7 @@ watchEffect(() => {
   });
 });
 
-const getBlockMessage = (blockMessage: FormPro.FormItemConfig["blockMessage"]) => {
+const getBlockMessage = (blockMessage: FormProTypes.FormItemConfig["blockMessage"]) => {
   // 如果是字符串
   if (typeof blockMessage === "string") {
     return h(
@@ -198,7 +198,7 @@ const getBlockMessage = (blockMessage: FormPro.FormItemConfig["blockMessage"]) =
  * 渲染表单项组件
  * @param item 表单项配置对象
  */
-const renderComponent = (item: FormPro.FormItemConfig) => {
+const renderComponent = (item: FormProTypes.FormItemConfig) => {
   const { component: comp, label, props = {}, slots } = item;
 
   // 如果是函数组件
@@ -253,7 +253,7 @@ const renderComponent = (item: FormPro.FormItemConfig) => {
  * @param type 组件类型
  * @param label 组件标签
  */
-const getPlaceholder = (type: FormPro.ComponentType, label: string) => {
+const getPlaceholder = (type: FormProTypes.ComponentType, label: string) => {
   if (typeof type !== "string") return undefined;
 
   if (["select", "date", "tree-select"].includes(type)) {
@@ -313,7 +313,7 @@ const getComponent = (component: string | Component): Component =>
 const defaultModel = { ...modelValue.value };
 
 // 暴露表单实例方法
-const formInstance: FormPro.FormInstance = {
+const formInstance: FormProTypes.FormInstance = {
   validate: async () => {
     await formRef.value?.validate();
   },

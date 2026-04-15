@@ -130,7 +130,7 @@ const handleReset = () => {
   handleQuery();
 };
 
-const formConfig = computed<FormPro.FormItemConfig[]>(() => [
+const formConfig = computed<FormProTypes.FormItemConfig[]>(() => [
   {
     name: "dictCode",
     label: t("tableHeader.dictCode"),

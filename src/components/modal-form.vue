@@ -64,7 +64,7 @@ interface Props {
   width?: number;
   height?: number;
   form?: DialogForm.Form;
-  formConfig?: FormPro.FormItemConfig[];
+  formConfig?: FormProTypes.FormItemConfig[];
   loading?: boolean;
   useType?: "submit" | "view";
 }

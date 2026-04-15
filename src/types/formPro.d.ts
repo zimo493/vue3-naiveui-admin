@@ -301,7 +301,7 @@ interface CustomFormItemConfig extends BaseFormItemConfig {
   dict?: never;
 }
 
-declare namespace FormPro {
+declare namespace FormProTypes {
   /**
    * Component types that can be used in the form
    * 表单中可使用的组件类型
@@ -366,11 +366,11 @@ declare namespace DataTablePro {
    */
   interface Form {
     /** Form item configurations - 表单项配置 */
-    config?: FormPro.FormItemConfig[];
+    config?: FormProTypes.FormItemConfig[];
     /** Form props - 表单属性 */
-    props?: FormPro.FormProProps["formProps"];
+    props?: FormProTypes.FormProProps["formProps"];
     /** Grid props - 栅格属性 */
-    gridProps?: FormPro.FormProProps["gridProps"];
+    gridProps?: FormProTypes.FormProProps["gridProps"];
     /** Positive button text - 确定按钮文本 */
     positiveText?: string;
     /** Negative button text - 取消按钮文本 */

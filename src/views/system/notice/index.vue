@@ -139,7 +139,7 @@ const handleQuery = () => {
 };
 
 /** 搜索表单配置 */
-const formConfig = ref<FormPro.FormItemConfig[]>([
+const formConfig = ref<FormProTypes.FormItemConfig[]>([
   { name: "title", label: t("tableHeader.title") },
   {
     name: "publishStatus",
@@ -441,7 +441,7 @@ const submitForm = (val: Notice.Form) =>
 // 查看详情
 const modalViewRef = useTemplateRef("modalView");
 const viewValue = ref<Notice.DetailVO>({});
-const viewConfig = ref<FormPro.FormItemConfig[]>([
+const viewConfig = ref<FormProTypes.FormItemConfig[]>([
   { name: "title", label: t("tableHeader.title") + ": " },
   { name: "publishStatus", label: t("tableHeader.status") + ": ", span: 12 },
   {

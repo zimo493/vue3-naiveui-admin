@@ -122,7 +122,7 @@ onMounted(getUnread);
 // 查看详情
 const modalViewRef = useTemplateRef("modalView");
 const viewValue = ref<Notice.DetailVO>({});
-const viewConfig = ref<FormPro.FormItemConfig[]>([
+const viewConfig = ref<FormProTypes.FormItemConfig[]>([
   { name: "title", label: t("tableHeader.title") + ": " },
   { name: "publishStatus", label: t("tableHeader.status") + ": ", span: 12 },
   {

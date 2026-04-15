@@ -148,7 +148,7 @@ const tableCode = ref(""); // 表名
 const active = ref<Active>("basic");
 
 // 表单配置
-const formConfig = ref<FormPro.FormItemConfig[]>([
+const formConfig = ref<FormProTypes.FormItemConfig[]>([
   { name: "tableName", label: t("codeGen.tableHeader.name"), span: 8 },
   { name: "businessName", label: t("codeGen.tableHeader.bizName"), span: 8 },
   { name: "packageName", label: t("codeGen.tableHeader.mainPackage"), span: 8 },

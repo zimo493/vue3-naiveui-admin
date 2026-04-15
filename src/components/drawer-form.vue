@@ -57,7 +57,7 @@ import { useResponsive } from "@/hooks";
 interface Props {
   props?: DialogForm.DrawerProps;
   form?: DialogForm.Form;
-  formConfig?: FormPro.FormItemConfig[];
+  formConfig?: FormProTypes.FormItemConfig[];
   loading?: boolean;
   useType?: "submit" | "view";
 }
