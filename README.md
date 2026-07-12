@@ -293,3 +293,25 @@ server {
 | 📖 **使用文档** | [https://www.youlai.tech/docs/naiveui](https://www.youlai.tech/docs/naiveui) |
 | 🌐 **在线预览** | [https://vue.youlai.tech/naiveui](https://vue.youlai.tech/naiveui)           |
 | 💬 **问题反馈** | [提交 Issue](https://gitee.com/zimo493/vue3-naiveui-admin/issues)            |
+---
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="./public/images/qrcode/wechat-official.png" height="180" alt="公众号「有来技术」"><br>
+      <sub>公众号「有来技术」</sub>
+    </td>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td align="center">
+      <img src="./public/images/qrcode/wechat-mp.jpg" height="180" alt="小程序「有来技术」"><br>
+      <sub>小程序「有来技术」</sub>
+    </td>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td align="center">
+      <img src="./public/images/qrcode/wechat-personal.png" height="180" alt="添加作者微信"><br>
+      <sub>添加作者微信</sub>
+    </td>
+  </tr>
+</table>
+
+<p align="center"><em>技术交流 · 问题反馈 · 商务合作</em></p>
