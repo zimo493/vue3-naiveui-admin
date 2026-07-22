@@ -31,6 +31,22 @@
 | **精简版** | 轻量级开发模板     | [vue3-element-template](https://gitee.com/youlaiorg/vue3-element-template) |
 | **JS 版**  | JavaScript 版本    | [vue3-element-admin-js](https://gitee.com/youlaiorg/vue3-element-admin-js) |
 
+## 后端技术栈
+
+前端与以下后端共享同一套 RESTful API 规范，可无缝切换：
+
+| 项目 | 技术栈 | 说明 | 更新状态 |
+|:-----|:-------|:-----|:---------|
+| [youlai-boot](https://gitee.com/youlaiorg/youlai-boot) | Spring Boot + MyBatis-Plus | Java（主推） | ✅️ |
+| [youlai-nest](https://gitee.com/youlaiorg/youlai-nest) | NestJS + TypeORM | Node.js | ✅️ |
+| [youlai-gin](https://gitee.com/youlaiorg/youlai-gin) | Go + Gorm | Go | ✅️ |
+| [youlai-django](https://gitee.com/youlaiorg/youlai-django) | Django + DRF | Python | ✅️ |
+| [youlai-fastapi](https://gitee.com/youlaiorg/youlai-fastapi) | FastAPI + SQLAlchemy | Python | ✅️ |
+| [youlai-laravel](https://gitee.com/youlaiorg/youlai-laravel) | Laravel + Eloquent | PHP | ✅️ |
+| [youlai-think](https://gitee.com/youlaiorg/youlai-think) | ThinkPHP + ThinkORM | PHP | ✅️ |
+| [youlai-aspnet](https://gitee.com/youlaiorg/youlai-aspnet) | ASP.NET Core + EF Core | C# | ✅️ |
+| [youlai-axum](https://gitee.com/youlaiorg/youlai-axum) | Axum + SeaORM | Rust | ✅️ |
+
 ## 快速链接
 
 <table align="center">
@@ -246,6 +262,14 @@ git commit -m "feat: 添加新功能"
 | `test`     | ✅ 测试相关  | `test: 添加登录功能单元测试`  |
 | `chore`    | 🔧 构建/工具 | `chore: 更新依赖包版本`       |
 
+## AI 编程
+
+本项目配套 [Agent Skill](https://skills.sh/youlaitech/youlai-skills)，安装后 AI 编程助手会自动遵循本项目的 Vue3 开发规范（命名、目录结构、UnoCSS、组件与 API 约定）。支持 CodeBuddy、Claude Code、Cursor、Codex、GitHub Copilot 等 70+ Agent。
+
+```bash
+npx skills add https://github.com/youlaitech/youlai-skills --skill vue
+```
+
 ## 项目部署
 
 ```bash
@@ -298,7 +322,7 @@ server {
 <table align="center">
   <tr>
     <td align="center">
-      <img src="./public/images/qrcode/wechat-official.png" height="180" alt="公众号「有来技术」"><br>
+      <img src="./public/images/qrcode/wechat-official.jpg" height="180" alt="公众号「有来技术」"><br>
       <sub>公众号「有来技术」</sub>
     </td>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
