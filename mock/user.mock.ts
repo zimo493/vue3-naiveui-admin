@@ -118,7 +118,7 @@ const userList: UserRow[] = [
 ];
 
 /** 表单数据（含 deptId / roleIds） */
-const userMap: Record<string, UserRow & { deptId: string; roleIds: string[] }> = {
+const userMap: Record<string, UserRow & { deptId: string | null; roleIds: string[] }> = {
   "1": {
     id: "1",
     username: "root",

@@ -2,7 +2,7 @@ import { defineMock } from "./base";
 
 /*
  * 菜单 mock（内存态）
- * 数据取自 sql/youlai_admin.sql 的 sys_menu，与 vue3-naiveui-admin 的菜单编号/图标保持一致
+ * 数据取自 sql/youlai_admin.sql 的 sys_menu（菜单编号与图标用该脚本里的值）
  *  - GET  menus/routes   动态路由（RouteVO 树，供侧边菜单与 router.addRoute 使用）
  *  - GET  menus         菜单表格树（含按钮）
  *  - GET  menus/options 上级菜单下拉（可用 types=C,M 过滤按钮）

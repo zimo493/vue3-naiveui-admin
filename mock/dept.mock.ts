@@ -3,7 +3,7 @@ import { defineMock } from "./base";
 /*
  * 部门 mock（内存态）
  * 数据取自 sql/youlai_admin.sql 的 sys_dept；列表返回树形结构
- * 注意：列表 VO 的父级字段是 parentid（小写），表单是 parentId，与后端保持一致
+ * 注意：列表 VO 的父级字段是 parentid（小写），表单是 parentId
  */
 
 interface DeptRow {

@@ -110,7 +110,9 @@
                       :icon="visitOverviewData.uvGrowthRate > 0 ? up : down"
                       :size="12"
                     />
-                    <span class="text-xs">{{ formatGrowthRate(visitOverviewData.uvGrowthRate) }}</span>
+                    <span class="text-xs">
+                      {{ formatGrowthRate(visitOverviewData.uvGrowthRate) }}
+                    </span>
                   </n-text>
                 </n-flex>
                 <Icones icon="noto:detective" :size="42" />
@@ -163,7 +165,9 @@
                       :icon="visitOverviewData.pvGrowthRate > 0 ? up : down"
                       :size="12"
                     />
-                    <span class="text-xs">{{ formatGrowthRate(visitOverviewData.pvGrowthRate) }}</span>
+                    <span class="text-xs">
+                      {{ formatGrowthRate(visitOverviewData.pvGrowthRate) }}
+                    </span>
                   </n-text>
                 </n-flex>
                 <Icones icon="emojione-v1:eyes" :size="42" />

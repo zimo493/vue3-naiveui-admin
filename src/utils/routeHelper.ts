@@ -33,10 +33,6 @@ const isLayoutComponent = (component: unknown): boolean =>
  *
  * @param compStr - 后端返回的组件路径，如 "system/user" 或 "/system/user"
  * @returns 对应的懒加载函数
- *
- * @example
- * resolveComponent("system/user")
- * // → viewModules["/src/views/system/user.vue"] 或 () => import("@/views/error/404")
  */
 const resolveComponent = (compStr: string) => {
   // 去掉首尾多余的斜杠，统一格式
@@ -55,10 +51,6 @@ const resolveComponent = (compStr: string) => {
  *
  * @param paths - 若干路径片段
  * @returns 合法的绝对路径字符串
- *
- * @example
- * joinPaths("/system/", "/user/") // → "/system/user"
- * joinPaths("system", "user")     // → "/system/user"
  */
 export const joinPaths = (...paths: string[]): string =>
   "/" +
@@ -76,11 +68,6 @@ export const joinPaths = (...paths: string[]): string =>
  * @param parentPath - 父路由的完整路径
  * @param path       - 子路由的相对或绝对路径
  * @returns 子路由的完整路径
- *
- * @example
- * resolvePath("/system", "user")     // → "/system/user"
- * resolvePath("/system", "/user")    // → "/user"
- * resolvePath("/system", "https://…") // → "https://…"
  */
 const resolvePath = (parentPath: string, path: string): string => {
   if (isHttpUrl(path) || path.startsWith("/")) return path;

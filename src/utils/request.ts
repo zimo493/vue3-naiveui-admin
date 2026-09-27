@@ -312,10 +312,6 @@ export default service;
  * 语义化请求方法，统一封装 axios 的 get / post / put / del / patch。
  *
  * 泛型 `T` 对应后端响应 `data` 字段的类型（响应拦截器已将 `data` 直接返回）。
- *
- * @example
- * const user = await get<UserVO>('/api/user', { id: 1 })
- * const result = await post<void>('/api/user', { name: 'Mo' })
  */
 export const request = {
   get: <T = null>(url: string, params?: unknown): Promise<T> => service.get(url, { params }),

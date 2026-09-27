@@ -17,16 +17,10 @@ declare namespace AppRoute {
 
   /** 单个路由所携带的meta标识 */
   interface RouteMeta {
-    /**
-     * 菜单名称
-     * @example 'Dashboard'
-     */
+    /** 菜单名称 */
     title?: string;
 
-    /**
-     * 菜单图标
-     * @example 'el-icon-edit'
-     */
+    /** 菜单图标 */
     icon?: string;
 
     /**
@@ -56,10 +50,7 @@ declare namespace AppRoute {
     /** 是否固定在tab */
     affix?: boolean;
 
-    /**
-     * 当前路由的激活菜单
-     * @example '/dashboard'
-     */
+    /** 当前路由的激活菜单 */
     activeMenu?: string;
   }
 }
