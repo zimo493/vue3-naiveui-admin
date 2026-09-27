@@ -1,7 +1,7 @@
 {
   "name": "vue3-naiveui-admin",
   "private": true,
-  "version": "2.2.1",
+  "version": "2.3.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
+    "deploy": "node deploy.mjs",
     "lint:eslint": "eslint --cache \"{src,build}/**/*.{vue,ts,tsx}\" --fix",
     "lint:prettier": "prettier --write \"**/*.{js,cjs,ts,tsx,json,css,scss,vue,html,md}\"",
     "lint:stylelint": "stylelint --cache \"**/*.{css,scss,vue}\" --fix",
@@ -107,6 +108,7 @@
     "unplugin-icons": "^23.0.1",
     "unplugin-vue-components": "^32.0.0",
     "vite": "^8.0.3",
+    "vite-plugin-mock-dev-server": "^2.4.2",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^3.2.6"
   },

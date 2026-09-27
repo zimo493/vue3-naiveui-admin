@@ -8,6 +8,7 @@ import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import { FileSystemIconLoader } from "unplugin-icons/loaders";
+import { mockDevServerPlugin } from "vite-plugin-mock-dev-server";
 
 // 自定义html插件
 import { htmlPlugin } from "./htmlPlugin";
@@ -15,10 +16,15 @@ import { htmlPlugin } from "./htmlPlugin";
 /**
  * 插件配置
  * 集中管理所有Vite插件
+ *
+ * @param env 环境变量（VITE_MOCK_ENABLED 为 "true" 时挂载本地 mock 服务）
+ * @param buildTimestamp 构建时间戳
  */
-export const pluginsOptions = (buildTimestamp: number): PluginOption[] => [
+export const pluginsOptions = (env: ImportMetaEnv, buildTimestamp: number): PluginOption[] => [
   vue(),
   vueJsx(),
+  // 本地 mock：仅开发态、且 VITE_MOCK_ENABLED=true 时启用
+  ...(env.VITE_MOCK_ENABLED === "true" ? [mockDevServerPlugin()] : []),
   UnoCSS(),
   htmlPlugin(buildTimestamp),
   AutoImport({

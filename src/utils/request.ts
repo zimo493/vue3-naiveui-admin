@@ -146,7 +146,7 @@ async function handlePermissionDenied(msg?: string): Promise<never> {
 // #region Axios 实例配置
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_API,
+  baseURL: import.meta.env.VITE_API_BASE,
   timeout: import.meta.env.VITE_APP_TIMEOUT,
   headers: { "Content-Type": "application/json;charset=utf-8" },
   paramsSerializer: (params) => qs.stringify(params),

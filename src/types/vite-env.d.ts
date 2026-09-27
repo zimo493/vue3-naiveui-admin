@@ -14,11 +14,13 @@ interface ImportMetaEnv {
   /** 应用端口 */
   VITE_APP_PORT: number;
   /** API 基础路径(代理前缀) */
-  VITE_APP_BASE_API: string;
+  VITE_API_BASE: string;
   /** 超时时间 */
   VITE_APP_TIMEOUT: number;
-  /** API 地址 */
-  VITE_APP_API_URL: string;
+  /** 接口地址(开发代理转发目标) */
+  VITE_PROXY_TARGET: string;
+  /** Mock 开关（"true" 时启用本地 mock，仅开发态生效） */
+  VITE_MOCK_ENABLED?: string;
   /** Websocket 地址 */
   VITE_APP_WS_ENDPOINT: string;
   /** 默认语言 */

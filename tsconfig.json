@@ -24,6 +24,7 @@
     "src/types/**/*.d.ts",
     "src/typings/*.d.ts",
     "build/**/*.ts",
+    "mock/**/*.ts",
     "eslint.config.ts",
     "vite.config.ts",
     "uno.config.ts"

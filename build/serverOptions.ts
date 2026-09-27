@@ -13,11 +13,11 @@ export const serverOptions = (env: ImportMetaEnv): ServerOptions => ({
   open: true,
   proxy: {
     /** 代理前缀为 /dev-api 的请求  */
-    [env.VITE_APP_BASE_API]: {
+    [env.VITE_API_BASE]: {
       changeOrigin: true,
-      // 接口地址
-      target: env.VITE_APP_API_URL,
-      rewrite: (path: string) => path.replace(new RegExp("^" + env.VITE_APP_BASE_API), ""),
+      // 接口地址（开发代理转发目标；mock 未覆盖的接口才会走到这里）
+      target: env.VITE_PROXY_TARGET,
+      rewrite: (path: string) => path.replace(new RegExp("^" + env.VITE_API_BASE), ""),
     },
   },
 });

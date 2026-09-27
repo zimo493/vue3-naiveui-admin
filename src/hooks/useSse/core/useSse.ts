@@ -21,7 +21,7 @@ export enum SseConnectionState {
 let globalInstance: ReturnType<typeof createSseConnection> | null = null;
 
 function createSseConnection(options: UseSseOptions = {}) {
-  const baseUrl = import.meta.env.VITE_APP_BASE_API;
+  const baseUrl = import.meta.env.VITE_API_BASE;
   const defaultUrl = `${baseUrl}/api/v1/sse/connect`;
 
   const config = {
