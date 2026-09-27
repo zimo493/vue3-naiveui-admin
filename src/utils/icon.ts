@@ -1,7 +1,16 @@
 import { Icon } from "@iconify/vue";
 import { NIcon } from "naive-ui";
 
+import { defaultIcon } from "@/modules/assets";
+
 type IconProps = import("naive-ui").IconProps;
+
+/** 本地图标，按需从 src/assets/svg-icons 取 */
+const localSvgs = import.meta.glob("@/assets/svg-icons/*.svg", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
 
 export const renderIcon = (icon?: string, props?: IconProps) => {
   if (!icon) return;
@@ -12,22 +21,23 @@ export const renderIcon = (icon?: string, props?: IconProps) => {
 export const createIcon = (icon?: string, props?: IconProps) => {
   if (!icon) return;
 
-  const isLocal = icon.startsWith("local:");
-  let innerIcon;
-
-  if (isLocal) {
+  if (icon.startsWith("local:")) {
     const svgName = icon.replace("local:", "");
-    const svg = import.meta.glob("@/assets/svg-icons/*.svg", {
-      query: "?raw",
-      import: "default",
-      eager: true,
-    });
-    const target = svg[`/src/assets/svg-icons/${svgName}.svg`];
+    const target = localSvgs[`/src/assets/svg-icons/${svgName}.svg`];
 
-    innerIcon = h(NIcon, { ...props, innerHTML: target });
-  } else {
-    innerIcon = h(NIcon, props, { default: () => h(Icon, { icon }) });
+    // 本地文件不存在就退默认图标，别留个空白占位
+    if (!target) {
+      return h(NIcon, props, { default: () => h(Icon, { icon: defaultIcon }) });
+    }
+
+    return h(NIcon, { ...props, innerHTML: target });
   }
 
-  return innerIcon;
+  // 后端菜单沿用的是 Element 图标名（el-icon-Xxx），iconify 里没有这个名字，
+  // 交给 <Icon> 只会渲染出空占位，这里统一退到默认图标
+  if (icon.startsWith("el-icon-")) {
+    return h(NIcon, props, { default: () => h(Icon, { icon: defaultIcon }) });
+  }
+
+  return h(NIcon, props, { default: () => h(Icon, { icon }) });
 };
