@@ -28,7 +28,7 @@ export default {
   /**
    * 获取代码生成预览数据
    * @param tableName 数据表名
-   * @param pageType 页面类型 `classic` | `curd`
+   * @param pageType 页面类型 `classic` | `crud`
    */
   getPreviewData: (tableName: string, pageType: CodeGen.ConfigForm["pageType"]) =>
     get<CodeGen.PreviewVO[]>(`${GENERATOR_BASE_URL}/${tableName}/preview`, { pageType }),
@@ -42,7 +42,7 @@ export default {
   /**
    * 下载 zip 文件
    * @param tableName 数据表名
-   * @param pageType 页面类型 `classic` | `curd`
+   * @param pageType 页面类型 `classic` | `crud`
    */
   download: (tableName: string, pageType: CodeGen.ConfigForm["pageType"]) =>
     request({

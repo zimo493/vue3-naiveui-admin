@@ -71,8 +71,8 @@ declare namespace CodeGen {
     /** 字段配置列表 */
     fieldConfigs?: FieldConfig[];
 
-    /** 页面类型 classic|curd */
-    pageType?: "classic" | "curd";
+    /** 页面类型 classic|crud */
+    pageType?: "classic" | "crud";
 
     /** 要移除的表前缀，如 sys_ */
     removeTablePrefix?: string;

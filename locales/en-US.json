@@ -229,7 +229,7 @@
         }
       }
     },
-    "Curd": "CRUD",
+    "Crud": "CRUD",
     "Cron": "Cron Gen",
     "WangEditor": "Editor",
     "Upload": "Upload",

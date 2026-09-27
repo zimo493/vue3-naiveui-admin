@@ -31,7 +31,7 @@ CREATE TABLE `gen_table` (
     `author` varchar(50) NOT NULL COMMENT '作者',
     `parent_menu_id` bigint COMMENT '上级菜单ID，对应sys_menu的id ',
     `remove_table_prefix` varchar(20) COMMENT '要移除的表前缀，如: sys_',
-    `page_type` varchar(20) COMMENT '页面类型(classic|curd)',
+    `page_type` varchar(20) COMMENT '页面类型(classic|crud)',
     `create_time` datetime COMMENT '创建时间',
     `update_time` datetime COMMENT '更新时间',
     `is_deleted` tinyint(4) DEFAULT 0 COMMENT '是否删除',
@@ -330,7 +330,7 @@ INSERT INTO `sys_menu` VALUES (620, 600, '0,600', '富文本编辑器', 'M', 'Wa
 INSERT INTO `sys_menu` VALUES (630, 600, '0,600', '图片上传', 'M', 'Upload', 'upload', 'demo/upload', NULL, NULL, 1, 1, 3, '', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (640, 600, '0,600', '图标选择器', 'M', 'IconSelector', 'icon-selector', 'demo/icon-selector', NULL, NULL, 1, 1, 4, 'emojione-v1:smiling-face-with-sunglasses', NULL, now(), now(), NULL);
 INSERT INTO `sys_menu` VALUES (650, 600, '0,600', '字典组件', 'M', 'Dictionary', 'dict-demo', 'demo/dictionary', NULL, NULL, 1, 1, 5, '', NULL, now(), now(), NULL);
-INSERT INTO `sys_menu` VALUES (660, 600, '0,600', '增删改查', 'M', 'Curd', 'curd', 'demo/curd/index', NULL, NULL, 1, 1, 0, '', NULL, now(), now(), NULL);
+INSERT INTO `sys_menu` VALUES (660, 600, '0,600', '增删改查', 'M', 'Crud', 'crud', 'demo/crud/index', NULL, NULL, 1, 1, 0, '', NULL, now(), now(), NULL);
 
 -- 功能演示（700）
 INSERT INTO `sys_menu` VALUES (710, 700, '0,700', 'Icons', 'M', 'Icon', 'icon-demo', 'demo/icons', NULL, NULL, 1, 1, 1, 'noto:grinning-face', NULL, now(), now(), NULL);
