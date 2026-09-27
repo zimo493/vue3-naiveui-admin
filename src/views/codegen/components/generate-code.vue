@@ -171,7 +171,7 @@ const formConfig = ref<FormProTypes.FormItemConfig[]>([
     props: {
       options: [
         { label: "普通", value: "classic" },
-        { label: "封装(CURD)", value: "curd" },
+        { label: "封装(CRUD)", value: "crud" },
       ],
     },
   },
@@ -225,7 +225,7 @@ const getConfigForm = async () => {
 // 菜单下拉选项
 const menuOptions = ref<OptionItem[]>([]);
 const getMenuOptions = async () => {
-  menuOptions.value = await MenuAPI.getOptions(true);
+  menuOptions.value = await MenuAPI.getParentOptions();
 };
 // 获取字典下拉选项
 const dictOptions = ref<OptionItem[]>([]);

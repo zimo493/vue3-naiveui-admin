@@ -411,7 +411,7 @@ const rules = ref<FormRules>({
 const menuOptions = ref<OptionItem[]>([]);
 
 const getMenuOptions = () => {
-  MenuAPI.getOptions(true).then((data) => {
+  MenuAPI.getParentOptions().then((data) => {
     menuOptions.value = [{ value: "0", label: t("menu.form.topMenu"), children: data }];
   });
 };
