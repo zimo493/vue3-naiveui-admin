@@ -11,3 +11,4 @@ export * from "./jsencrypt";
 export * from "./request";
 export * from "./routeHelper";
 export * from "./spin";
+export * from "./tag";

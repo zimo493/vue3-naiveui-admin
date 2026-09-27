@@ -2,6 +2,8 @@
 import { NFlex, NTag } from "naive-ui";
 import { toRefs } from "vue";
 
+import { toTagType } from "@/utils";
+
 export default defineComponent({
   name: "DictTag",
   props: {
@@ -47,7 +49,7 @@ export default defineComponent({
             return (
               <NTag
                 key={option.value}
-                type={option.tagType}
+                type={toTagType(option.tagType)}
                 round={round.value}
                 bordered={bordered.value}
               >

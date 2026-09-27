@@ -1,7 +1,7 @@
 import { NDescriptions, NDescriptionsItem, NFlex, NText, NTag } from "naive-ui";
 
 import { useDict } from "@/hooks";
-import { maskEmail, maskPhone } from "@/utils";
+import { maskEmail, maskPhone, toTagType } from "@/utils";
 
 import Icones from "@/components/icones.vue";
 import { DescLabel } from "./components/profile-widgets";
@@ -32,7 +32,7 @@ export default defineComponent({
             : profile.gender === 2
               ? "ant-design:woman-outlined"
               : "ant-design:question-outlined",
-        tagType: genderItem?.tagType || "default",
+        tagType: toTagType(genderItem?.tagType) || "default",
       };
     });
 
