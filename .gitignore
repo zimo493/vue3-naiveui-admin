@@ -25,3 +25,7 @@ dist-ssr
 .eslintrc-auto-import.json
 /src/typings/*.d.ts
 .history
+
+# 本地部署脚本与配置（含服务器地址与账号）
+deploy.mjs
+deploy.config.mjs
