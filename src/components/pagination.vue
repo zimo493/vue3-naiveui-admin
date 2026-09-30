@@ -4,6 +4,9 @@ import { PropType } from "vue";
 
 const { t } = useI18n();
 
+/**
+ * 分页组件
+ */
 const props = defineProps({
   count: {
     required: true,
@@ -35,6 +38,9 @@ const props = defineProps({
   },
 });
 
+/**
+ * 页码或每页条数变化时回传
+ */
 const emit = defineEmits(["pagination", "update:page", "update:limit"]);
 
 const currentPage = useVModel(props, "page", emit);
@@ -42,10 +48,16 @@ const currentPage = useVModel(props, "page", emit);
 const pageSize = useVModel(props, "limit", emit);
 
 const { isMobile } = useResponsive();
+/**
+ * 切换页码
+ */
 const handlePage = (val: number) => {
   emit("pagination", { page: val, limit: pageSize });
 };
 
+/**
+ * 切换每页条数
+ */
 const handlePageSize = (val: number) => {
   currentPage.value = 1;
   emit("pagination", { page: currentPage, limit: val });

@@ -13,7 +13,9 @@ onMounted(() => {
   chartRef.value?.initOptions(options);
 });
 
-// 生成一个100到5000的随机数
+/**
+ * 生成一个100到5000的随机数
+ */
 const randomNumber = () => Math.floor(Math.random() * 5000) + 100;
 
 const healthRanges = ["70-75%", "75-80%", "80-85%", "85-90%", "90-95%", "95-100%"];

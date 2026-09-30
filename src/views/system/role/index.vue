@@ -229,7 +229,7 @@ const editFormConfig = computed(
   })
 );
 
-/** 初始化表单 */
+// 初始化表单
 const modelValue = ref<Role.Form>({
   sort: 1,
   status: 1,
@@ -237,6 +237,9 @@ const modelValue = ref<Role.Form>({
 
 const deptOptions = ref<OptionItem[]>([]);
 
+/**
+ * 按需加载部门选项
+ */
 const ensureDeptOptionsLoaded = async () => {
   if (deptOptions.value.length > 0) return;
 
@@ -255,6 +258,9 @@ watch(
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
 
+/**
+ * 打开表单抽屉
+ */
 const openDrawer = (row?: Role.VO) => {
   drawerFormRef.value?.open(row ? t("role.edit") : t("role.add"), modelValue.value);
 
@@ -299,11 +305,16 @@ const submitForm = (val: Role.Form) =>
     }
   );
 
-/** 选中行 */
+// 选中行
 const selectedRowKeys = ref<string[]>([]);
+/**
+ * 同步表格选中项
+ */
 const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys as string[]);
 
-// 删除角色
+/**
+ * 删除角色
+ */
 const handleDelete = (roleId?: string) => {
   const roleIds = [roleId || selectedRowKeys.value].join(",");
 
@@ -317,6 +328,9 @@ const handleDelete = (roleId?: string) => {
 
 /** 分配角色数据权限 */
 const dataScopeRef = useTemplateRef("dataScope");
+/**
+ * 打开权限分配弹窗
+ */
 const handleOpenAssignPermDialog = (row: Role.VO) =>
   dataScopeRef.value?.open(row, `【${row.name}】${t("role.permission")}`);
 </script>

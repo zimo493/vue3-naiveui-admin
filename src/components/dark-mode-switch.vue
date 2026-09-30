@@ -18,6 +18,9 @@ const options = computed<Option[]>(() => [
   { label: t("system.theme.mode.dark"), value: ThemeMode.DARK, icon: IconMoon },
 ]);
 
+/**
+ * 渲染主题下拉选项
+ */
 const renderLabel = (option: Option) =>
   h(NFlex, { align: "center" }, { default: () => [h(option.icon), option.label] });
 

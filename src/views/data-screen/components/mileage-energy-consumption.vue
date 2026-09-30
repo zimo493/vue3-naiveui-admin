@@ -13,10 +13,14 @@ onMounted(() => {
   chartRef.value?.initOptions(options);
 });
 
-// 生成一个800到1500的随机数
+/**
+ * 生成一个800到1500的随机数
+ */
 const randomMileage = () => Math.floor(Math.random() * (1500 - 800 + 1)) + 800;
 
-// 生成一个15到20的随机数
+/**
+ * 生成一个15到20的随机数
+ */
 const randomEnergy = () => Math.floor(Math.random() * (20 - 15 + 1)) + 15;
 
 const days = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];

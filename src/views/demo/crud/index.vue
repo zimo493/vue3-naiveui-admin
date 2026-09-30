@@ -142,6 +142,10 @@
   </div>
 </template>
 <script lang="tsx" setup>
+defineOptions({
+  name: "Crud",
+});
+
 import { NAvatar, NButton, NFlex, type DataTableColumns, type DataTableRowKey } from "naive-ui";
 import type { Form, Search, TableData } from "./config/types";
 
@@ -295,7 +299,7 @@ const handleQuery = () => {
   setTimeout(() => endLoading(), 200);
 };
 
-/** 选中行 */
+// 选中行
 const selectedRowKeys = ref<number[]>([2, 5]); // 选中项
 const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys as number[]);
 

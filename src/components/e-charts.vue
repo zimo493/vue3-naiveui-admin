@@ -31,7 +31,6 @@ import {
   // TransformComponent, // 数据转换（过滤/排序）
 } from "echarts/components";
 /** 特性模块 */
-// import { LabelLayout, UniversalTransition } from "echarts/features"; // 标签布局与过渡动画
 /** 渲染器 */
 import { CanvasRenderer } from "echarts/renderers"; // 使用Canvas渲染
 
@@ -74,7 +73,9 @@ echarts.use([
 
 defineOptions({ name: "ECharts" });
 
-/** Props定义 */
+/**
+ * 图表容器：宽高与主题配置
+ */
 const {
   width = "100%", // 默认容器宽度
   height = "100%", // 默认容器高度
@@ -131,7 +132,9 @@ useResizeObserver(chartRef, () => {
   chartInstance.value?.resize();
 });
 
-/** 允许父组件访问实例和方法 */
+/**
+ * 暴露图表实例与配置方法
+ */
 defineExpose({
   getInstance: () => chartInstance.value, // 获取实例引用
   updateCharts, // 配置更新方法

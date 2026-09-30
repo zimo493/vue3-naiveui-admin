@@ -42,6 +42,10 @@
   </n-flex>
 </template>
 <script lang="tsx" setup>
+defineOptions({
+  name: "Dictionary",
+});
+
 import { useDict } from "@/hooks";
 
 interface FormFields {

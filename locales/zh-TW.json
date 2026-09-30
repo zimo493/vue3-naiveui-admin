@@ -244,6 +244,7 @@
     "nonsupportCopy": "您的瀏覽器不支援剪貼簿API",
     "notAllowedCopy": "目前不允許使用剪貼簿API",
     "copySuccess": "複製成功",
+    "copyFailed": "複製失敗",
     "errorPermission": "需要提供權限標識！例如：v-has-perm=\"'sys:user:add'\" 或 v-has-perm=\"['sys:user:add', 'sys:user:edit']\"",
     "errorRole": "需要提供角色標識！例如：v-has-role=\"'ADMIN'\" 或 v-has-role=\"['ADMIN', 'TEST']\""
   },
@@ -495,7 +496,6 @@
         "value": "參數值"
       },
       "route": "跳轉路由",
-      "alwaysShow": "始終顯示",
       "cache": "頁面快取",
       "parentMenuTip": "父級選單不能為目前選單"
     },
@@ -503,8 +503,7 @@
       "routeName": "如果需要開啟快取，需保證頁面 defineOptions 中的 name 與此處一致，建議使用駝峰\n例如: User",
       "routePath": "定義應用中不同頁面對應的 URL 路徑，目錄需以 / 開頭，選單項不用\n例如：系統管理目錄/system, 系統管理下的使用者管理選單 user",
       "componentPath": "元件頁面完整路徑，相對於 src/views/\n如 system/user/index, 缺省字尾 .vue",
-      "routeParam": "元件頁面使用 `useRoute().query.參數名` 取得路由參數值",
-      "alwaysShow": "選擇“是”，即使目錄或選單下只有一個子節點，也會顯示父節點\n選擇“否”，如果目錄或選單下只有一個子節點，則只顯示該子節點，隱藏父節點\n如果是葉子節點，請選擇“否”"
+      "routeParam": "元件頁面使用 `useRoute().query.參數名` 取得路由參數值"
     }
   },
   "dept": {
@@ -739,5 +738,58 @@
       "center": "置中對齊",
       "right": "右對齊"
     }
+  },
+  "routeParam": {
+    "title": "路由參數：頁面讀取並回應 query",
+    "desc": "選單的 sys_menu.params 會在跳轉時併入網址 query，頁面讀取 route.query 決定顯示哪套內容；下方切換按鈕改的同樣是 query。",
+    "fullPath": "完整網址",
+    "query": "query 參數",
+    "flowTitle": "參數傳遞鏈路",
+    "flowDatabase": "資料庫",
+    "flowBackend": "後端下發",
+    "flowSidebar": "側邊欄跳轉",
+    "flowPage": "頁面讀取",
+    "viewTitle": "目前檢視（由 query 的 type 決定）",
+    "viewStaff": "員工資料",
+    "viewDept": "部門統計",
+    "colName": "姓名",
+    "colPost": "職缺",
+    "colCity": "城市"
+  },
+  "routeCache": {
+    "title": "頁面快取：切走再回來，狀態還在",
+    "desc": "快取由選單 keep_alive 與路由 meta.keepAlive 共同控制；匹配鍵是完整路徑（含 query），所以同一個頁面帶不同參數會各存一份快取。",
+    "cardTitle": "快取對照實驗",
+    "howTo": "驗證方式：在輸入框寫點內容 → 切到別的選單再切回來",
+    "howToDesc": "內容還在、且「元件掛載次數」不變，說明頁面被 keep-alive 快取；關掉頂部頁籤再進來，則一切重置。",
+    "placeholder": "隨便輸入一點內容，用於觀察快取效果",
+    "mounted": "元件掛載次數",
+    "activated": "onActivated",
+    "deactivated": "onDeactivated"
+  },
+  "routeNavigate": {
+    "title": "頁面跳轉：清單 → 獨立編輯頁",
+    "desc": "點「編輯」跳到獨立頁面改資料，改完返回清單。本頁開了 keepAlive，篩選條件不會丟，返回時還會重新讀取資料源，把修改結果顯示出來。",
+    "listTitle": "成員清單",
+    "filterPlaceholder": "按姓名篩選",
+    "colName": "姓名",
+    "colDept": "部門",
+    "colPost": "職缺",
+    "colAction": "操作",
+    "edit": "編輯",
+    "view": "彈窗查看",
+    "compareTitle": "兩種方式對照著看",
+    "compareDesc": "「彈窗查看」網址不變、重新整理即丟、連結沒法分享；「編輯」會跳到帶 ID 的獨立網址，重新整理和分享都能重現，瀏覽器返回鍵即可回到本頁。",
+    "dialogContent": "這裡是彈窗內容，網址沒有變化，重新整理頁面後彈窗消失，也沒法把這條記錄分享給別人。",
+    "editTitle": "獨立編輯頁",
+    "editDesc": "本頁不在選單裡，由清單頁攜 ID 跳轉打開（路由 /route-example/edit/:id）。儲存後返回清單，清單會讀到最新資料。",
+    "formTitle": "編輯成員資訊",
+    "namePlaceholder": "請輸入姓名",
+    "deptPlaceholder": "請輸入部門",
+    "postPlaceholder": "請輸入職缺",
+    "save": "儲存並返回",
+    "cancel": "取消",
+    "notFound": "記錄不存在",
+    "saved": "儲存成功"
   }
 }

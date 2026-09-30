@@ -66,6 +66,9 @@ onMounted(() => handleQuery());
 
 // 是否默认展开第一项
 const isExpandFirstMenu = toRef(local.get("isExpandFirstMenu") || false);
+/**
+ * 记住展开首级菜单偏好
+ */
 const handleCheckedChange = async (checked: boolean) => {
   local.set("isExpandFirstMenu", checked);
   handleQuery();
@@ -81,6 +84,9 @@ const expandAll = ref<TableExpand>({
   show: true, // 是否显示 用于切换展开\收起
   expandedRowKeys: [], // 默认展开的行
 });
+/**
+ * 展开或折叠全部
+ */
 const handleExpandAll = async (bool?: boolean) => {
   expandAll.value.isExpandAll = bool ?? !expandAll.value.isExpandAll;
   expandAll.value.show = false;
@@ -101,8 +107,14 @@ const query = ref<Menu.Query>({});
 const tableData = ref<Menu.VO[]>([]);
 const rowData = ref<Menu.VO[]>([]); // 菜单数据
 
+/**
+ * 指定表格行键
+ */
 const rowKey = (row: Menu.VO) => row.id;
 
+/**
+ * 查询菜单列表
+ */
 const handleQuery = () => {
   startLoading();
   MenuAPI.getList(query.value)
@@ -199,13 +211,14 @@ const columns: DataTableColumns<Menu.VO> = [
 
 // 新增、编辑
 const editRef = useTemplateRef("edit");
+/**
+ * 打开菜单表单弹窗
+ */
 const openDialog = (row?: Menu.VO | string) => editRef.value?.open(row);
 
-// const openDialog = (row?: Menu.VO | string) => {
-//   console.log(row);
-// };
-
-// 删除
+/**
+ * 删除
+ */
 const handleDelete = (row: Menu.VO) => {
   InquiryBox(t("confirm.delete", { name: row.name }))
     .then(async () => {
@@ -218,7 +231,6 @@ const handleDelete = (row: Menu.VO) => {
 };
 
 // 定义类型与标签的映射关系
-// const typeMap: Record<MenuTypeEnum, { type: string; label: string }> = {
 //   [MenuTypeEnum.CATALOG]: { type: "warning", label: "目录" },
 //   [MenuTypeEnum.MENU]: { type: "success", label: "菜单" },
 //   [MenuTypeEnum.BUTTON]: { type: "info", label: "按钮" },
@@ -231,7 +243,9 @@ const typeMap = computed(() => ({
   [MenuTypeEnum.BUTTON]: { type: "info", label: t("menu.type.button") },
 }));
 
-// 创建菜单类型tag
+/**
+ * 创建菜单类型tag
+ */
 const createMenuTypeTag = (type?: string, routePath?: string): VNode => {
   const isExternalLink = !!routePath && /^https?:\/\//.test(routePath);
 

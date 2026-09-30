@@ -80,10 +80,7 @@ const modelValue = defineModel<T>("modelValue", {
   default: () => ({}),
 });
 
-/**
- * 展示的表单配置
- * 优先使用直接传入的 formConfig，如果没有则使用 form.config
- */
+// 展示的表单配置
 const showFormConfig = computed(() =>
   (props.formConfig || props.form?.config || []).map((item) => ({
     ...item,
@@ -91,6 +88,9 @@ const showFormConfig = computed(() =>
   }))
 );
 
+/**
+ * 提交或取消时触发
+ */
 const emit = defineEmits<{
   (e: "submit", v: T): void;
   (e: "cancel"): void;
@@ -135,5 +135,8 @@ const dialogFormInstance: DialogForm.Instance<T> = {
   },
 };
 
+/**
+ * 暴露抽屉表单实例供父组件调用
+ */
 defineExpose(dialogFormInstance);
 </script>

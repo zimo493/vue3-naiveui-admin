@@ -43,9 +43,9 @@ export const useCountdown = () => {
   /** 从本地存储加载倒计时状态 */
   onMounted(() => loadCountdownState());
 
-  /** 手机验证码倒计时 */
+  // 手机验证码倒计时
   const mobileCountdown = ref<number>(0);
-  /** 邮箱验证码倒计时 */
+  // 邮箱验证码倒计时
   const emailCountdown = ref<number>(0);
 
   /** 加载倒计时状态 */

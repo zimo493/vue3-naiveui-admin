@@ -129,6 +129,9 @@ const { t } = useI18n();
 const { loading, startLoading, endLoading } = useLoading();
 const { isMobile } = useResponsive();
 
+/**
+ * 暴露 open 供列表页打开生成弹窗
+ */
 defineExpose({
   open: (tableName: string) => {
     startLoading();
@@ -138,6 +141,9 @@ defineExpose({
   },
 });
 
+/**
+ * 生成完成后通知父组件刷新
+ */
 const emit = defineEmits<{
   (e: "refresh"): void;
 }>();
@@ -390,7 +396,7 @@ const checkAllSelected = (key: keyof CodeGen.FieldConfig, isCheckAllRef: Ref) =>
   isCheckAllRef.value = fieldConfigs.every((row) => row[key] === 1);
 };
 
-/** 是否需要刷新列表 */
+// 是否需要刷新列表
 const needRefresh = ref(false);
 
 // 保存配置
@@ -416,7 +422,7 @@ const genCode = async () => {
 const treeData = ref<TreeNode[]>([]);
 const code = ref<string>("");
 
-/** 获取生成预览 */
+// 获取生成预览
 const treeDataLoading = ref(false);
 const handlePreview = (tableName: string) => {
   treeDataLoading.value = true;

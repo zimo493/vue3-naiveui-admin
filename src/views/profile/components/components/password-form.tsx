@@ -8,6 +8,9 @@ interface PasswordFormProps {
   onSubmit: (val: User.PasswordChangeForm) => Promise<null>;
 }
 
+/**
+ * 修改密码表单
+ */
 export const PasswordForm = (props: PasswordFormProps) => {
   const { t } = useI18n();
 

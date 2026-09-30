@@ -24,22 +24,5 @@
 <script lang="ts" setup>
 import "./assets/styles/index.scss";
 
-defineOptions({ name: "FitScreen" });
-
-onMounted(() => {
-  window.$notification.info({
-    title: "系统提示",
-    content: "此页面数据均为模拟数据，仅用于演示。没有任何实际依据！",
-    duration: 6000,
-    meta: new Date().toLocaleString("zh-CN", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      weekday: "long",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-    }),
-  });
-});
+defineOptions({ name: "DataScreen" });
 </script>

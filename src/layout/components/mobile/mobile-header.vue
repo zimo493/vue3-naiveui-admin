@@ -67,6 +67,9 @@ interface Emits {
   (e: "toggle-drawer"): void;
 }
 
+/**
+ * 上抛移动端顶栏操作
+ */
 defineEmits<Emits>();
 
 const appStore = useAppStoreHook();

@@ -24,7 +24,7 @@ const { t } = useI18n();
 const tabStore = useTabStoreHook();
 const appStore = useAppStoreHook();
 
-/** 缓存路由 Set 集合 */
+// 缓存路由 Set 集合
 const cacheRouteSet = computed(() => new Set(tabStore.cacheRoutes));
 /** 判断路由是否被缓存 */
 const isCached = (path?: string) => Boolean(path && cacheRouteSet.value.has(path));

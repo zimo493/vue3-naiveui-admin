@@ -1,8 +1,6 @@
 import { $t } from "@/utils";
 
-/**
- * 表单类型
- */
+// 表单类型
 export const FormType = computed(
   (): Record<string, OptionItem> => ({
     INPUT: { value: 1, label: $t("codeGen.formType.input") },

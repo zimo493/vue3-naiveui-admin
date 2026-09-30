@@ -143,11 +143,15 @@ const value = defineModel("modelValue", { type: String });
 // 包含的图标库系列名 'carbon', 'logos','material-symbols',
 const nameList = ["icon-park-outline", "ant-design", "ep", "f7", "line-md"];
 
-// 获取单个图标库数据
+/**
+ * 获取单个图标库数据
+ */
 const fetchIconList = async (name: string): Promise<IconList> =>
   await fetch(`https://api.iconify.design/collection?prefix=${name}`).then((res) => res.json());
 
-// 获取所有本地图标
+/**
+ * 获取所有本地图标
+ */
 const generateLocalIconList = () => {
   const localSvgList = import.meta.glob("@/assets/svg-icons/*.svg", {
     query: "?raw",
@@ -169,7 +173,9 @@ const generateLocalIconList = () => {
   return mapEntries(localSvgList, (key, value) => [getSvgName(key), value]);
 };
 
-// 获取所有图标库数据
+/**
+ * 获取所有图标库数据
+ */
 const fetchIconAllList = async (nameList: string[]) => {
   startLoading();
   const namePromises = nameList.map((name) => fetchIconList(name));
@@ -203,7 +209,9 @@ const currentTab = shallowRef(0);
 // 当前tag
 const currentTag = shallowRef("");
 
-// 切换tab
+/**
+ * 切换tab
+ */
 const handleChangeTab = (index: number) => {
   currentTab.value = index;
   currentPage.value = 1;
@@ -216,7 +224,9 @@ const searchValue = ref("");
 const currentPage = shallowRef(1);
 const pageSize = ref(286);
 
-// 选择分类tag
+/**
+ * 选择分类tag
+ */
 const handleSelectIconTag = (icon: string) => {
   currentTag.value = currentTag.value === icon ? "" : icon;
   currentPage.value = 1;
@@ -239,13 +249,17 @@ const visibleIcons = computed(() =>
 
 const showModal = ref(false);
 
-// 选择图标
+/**
+ * 选择图标
+ */
 const handleSelectIcon = (icon: string) => {
   value.value = icon;
   showModal.value = false;
 };
 
-// 清除图标
+/**
+ * 清除图标
+ */
 const clearIcon = () => {
   value.value = "";
   // showModal.value = false

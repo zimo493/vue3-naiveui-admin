@@ -37,9 +37,6 @@ const collapsed = computed(() =>
   appStore.layoutMode === LayoutMode.TOP ? false : appStore.collapsed
 );
 
-// const breakpoint = 988; // 设置一个断点，当视口宽度小于此值时收起侧边栏
-// const updateSidebar = () => (appStore.collapsed = window.innerWidth < breakpoint);
-
 // onMounted(() => {
 //   window.addEventListener("resize", updateSidebar);
 //   updateSidebar(); // 初始化时检查一次

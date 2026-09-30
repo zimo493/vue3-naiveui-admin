@@ -20,7 +20,7 @@ export default defineComponent({
     const { t } = useI18n();
     const { gender } = useDict("gender");
 
-    /** 性别计算属性 */
+    // 性别计算属性
     const genderProps = computed(() => {
       const profile = userProfile.value;
       const genderItem = gender.value.find((item) => +item.value === profile.gender);

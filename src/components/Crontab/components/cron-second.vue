@@ -83,6 +83,9 @@ const { modelValue } = defineProps({
   modelValue: { required: true, type: String },
 });
 
+/**
+ * 更新秒字段值
+ */
 const emit = defineEmits<{
   (e: "update:modelValue", v: string): void;
 }>();

@@ -133,7 +133,13 @@ const route = useRoute();
 const t = useI18n().t;
 const authStore = useAuthStoreHook();
 
+/**
+ * 切换注册或重置密码表单
+ */
 const emit = defineEmits(["update:modelValue"]);
+/**
+ * 切换到注册或重置密码表单
+ */
 const toOtherForm = (type: "register" | "resetPasswd") => emit("update:modelValue", type);
 
 onMounted(() => {
@@ -167,6 +173,9 @@ const rules = ref<FormRules>({
 // 获取验证码
 const captchaLoading = ref(false); // 验证码按钮 loading 状态
 const captchaBase64 = ref(); // 验证码图片Base64字符串
+/**
+ * 刷新验证码
+ */
 const getCaptcha = () => {
   captchaLoading.value = true;
   AuthAPI.getCaptcha()
@@ -177,6 +186,9 @@ const getCaptcha = () => {
     .finally(() => (captchaLoading.value = false));
 };
 
+/**
+ * 读取记住的登录账号
+ */
 const getCookie = () => {
   const loginInfo = local.get("remember");
 
@@ -190,6 +202,9 @@ const getCookie = () => {
   }
 };
 
+/**
+ * 提交登录
+ */
 const handleLoginSubmit = async () => {
   // 1. 表单验证
   await formRef.value?.validate();

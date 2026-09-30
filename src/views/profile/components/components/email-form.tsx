@@ -10,6 +10,9 @@ interface EmailFormProps {
   onSubmit: (val: User.EmailUpdateForm) => Promise<null>;
 }
 
+/**
+ * 邮箱换绑表单
+ */
 export const EmailForm = (props: EmailFormProps) => {
   const { t } = useI18n();
 

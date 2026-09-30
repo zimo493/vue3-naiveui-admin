@@ -56,6 +56,9 @@ const options: EChartsOption = {
 const currentIndex = ref(0);
 const chartInstance = ref<EChartsType>();
 
+/**
+ * 高亮指定图表
+ */
 const highlightItem = (chart: EChartsType) => {
   chartInstance.value = chart;
 };

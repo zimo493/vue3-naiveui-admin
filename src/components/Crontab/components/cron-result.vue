@@ -34,6 +34,9 @@ const value = computed(() => modelValue);
 
 // 使用防抖处理，避免频繁计算
 let debounceTimer: NodeJS.Timeout | null = null;
+/**
+ * 防抖执行表达式解析
+ */
 const debouncedExpressionChange = (fn: () => void, delay = 300): void => {
   if (debounceTimer) clearTimeout(debounceTimer);
   isCalculating.value = true;
@@ -50,7 +53,9 @@ watch(
 
 onMounted(() => expressionChange());
 
-// 表达式值变化时，开始去计算结果
+/**
+ * 表达式值变化时，开始去计算结果
+ */
 const expressionChange = (): void => {
   // 计算开始-隐藏结果
   isShow.value = false;
@@ -414,7 +419,9 @@ const expressionChange = (): void => {
   isShow.value = true;
 };
 
-// 用于计算某位数字在数组中的索引
+/**
+ * 用于计算某位数字在数组中的索引
+ */
 const getIndex = (arr: number[], value: number): number => {
   if (value <= arr[0] || value > arr[arr.length - 1]) {
     return 0;
@@ -429,7 +436,9 @@ const getIndex = (arr: number[], value: number): number => {
   return 0;
 };
 
-// 获取"年"数组
+/**
+ * 获取"年"数组
+ */
 const getYearArr = (rule: string, year: number): void => {
   dateArr.value[5] = getOrderArr(year, year + 100);
   if (rule !== undefined) {
@@ -443,7 +452,9 @@ const getYearArr = (rule: string, year: number): void => {
   }
 };
 
-// 获取"月"数组
+/**
+ * 获取"月"数组
+ */
 const getMonthArr = (rule: string): void => {
   dateArr.value[4] = getOrderArr(1, 12);
   if (rule.indexOf("-") >= 0) {
@@ -455,7 +466,9 @@ const getMonthArr = (rule: string): void => {
   }
 };
 
-// 获取"日"数组-主要为日期规则
+/**
+ * 获取"日"数组-主要为日期规则
+ */
 const getWeekArr = (rule: string): void => {
   // 只有当日期规则的两个值均为""时则表达日期是有选项的
   if (dayRule.value === "" && dayRuleSup.value === "") {
@@ -491,7 +504,9 @@ const getWeekArr = (rule: string): void => {
   }
 };
 
-// 获取"日"数组-少量为日期规则
+/**
+ * 获取"日"数组-少量为日期规则
+ */
 const getDayArr = (rule: string): void => {
   dateArr.value[3] = getOrderArr(1, 31);
   dayRule.value = "";
@@ -522,7 +537,9 @@ const getDayArr = (rule: string): void => {
   }
 };
 
-// 获取"时"数组
+/**
+ * 获取"时"数组
+ */
 const getHourArr = (rule: string): void => {
   dateArr.value[2] = getOrderArr(0, 23);
   if (rule.indexOf("-") >= 0) {
@@ -534,7 +551,9 @@ const getHourArr = (rule: string): void => {
   }
 };
 
-// 获取"分"数组
+/**
+ * 获取"分"数组
+ */
 const getMinArr = (rule: string): void => {
   dateArr.value[1] = getOrderArr(0, 59);
   if (rule.indexOf("-") >= 0) {
@@ -546,7 +565,9 @@ const getMinArr = (rule: string): void => {
   }
 };
 
-// 获取"秒"数组
+/**
+ * 获取"秒"数组
+ */
 const getSecondArr = (rule: string): void => {
   dateArr.value[0] = getOrderArr(0, 59);
   if (rule.indexOf("-") >= 0) {
@@ -558,7 +579,9 @@ const getSecondArr = (rule: string): void => {
   }
 };
 
-// 根据传进来的min-max返回一个顺序的数组
+/**
+ * 根据传进来的min-max返回一个顺序的数组
+ */
 const getOrderArr = (min: number, max: number): number[] => {
   const arr: number[] = [];
 
@@ -569,7 +592,9 @@ const getOrderArr = (min: number, max: number): number[] => {
   return arr;
 };
 
-// 根据规则中指定的零散值返回一个数组
+/**
+ * 根据规则中指定的零散值返回一个数组
+ */
 const getAssignArr = (rule: string): number[] => {
   const arr: number[] = [];
   const assiginArr: string[] = rule.split(",");
@@ -582,7 +607,9 @@ const getAssignArr = (rule: string): number[] => {
   return arr;
 };
 
-// 根据一定算术规则计算返回一个数组
+/**
+ * 根据一定算术规则计算返回一个数组
+ */
 const getAverageArr = (rule: string, limit: number): number[] => {
   const arr: number[] = [];
   const agArr: string[] = rule.split("/");
@@ -597,7 +624,9 @@ const getAverageArr = (rule: string, limit: number): number[] => {
   return arr;
 };
 
-// 根据规则返回一个具有周期性的数组
+/**
+ * 根据规则返回一个具有周期性的数组
+ */
 const getCycleArr = (rule: string, limit: number, status: boolean): number[] => {
   // status--表示是否从0开始（则从1开始）
   const arr: number[] = [];
@@ -621,7 +650,9 @@ const getCycleArr = (rule: string, limit: number, status: boolean): number[] => 
   return arr;
 };
 
-// 比较数字大小（用于Array.sort）
+/**
+ * 比较数字大小（用于Array.sort）
+ */
 const compare = (value1: number, value2: number): number => {
   if (value2 - value1 > 0) {
     return -1;
@@ -630,7 +661,9 @@ const compare = (value1: number, value2: number): number => {
   }
 };
 
-// 格式化日期格式如：2017-9-19 18:04:33
+/**
+ * 格式化日期格式如：2017-9-19 18:04:33
+ */
 const formatDate = (value: Date | number, type?: string): string | number => {
   // 计算日期相关值
   const time: Date = typeof value === "number" ? new Date(value) : value;
@@ -653,7 +686,9 @@ const formatDate = (value: Date | number, type?: string): string | number => {
   return "";
 };
 
-// 检查日期是否存在
+/**
+ * 检查日期是否存在
+ */
 const checkDate = (value: string): boolean => {
   try {
     const time: Date = new Date(value);

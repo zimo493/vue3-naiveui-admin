@@ -76,6 +76,9 @@ echarts.use([
 
 defineOptions({ name: "BaseChart" });
 
+/**
+ * 数据大屏图表容器：主题、边框与装饰色
+ */
 const {
   theme = "light",
   border = true,
@@ -86,6 +89,9 @@ const {
   ornamentalColor: { type: String },
 });
 
+/**
+ * 图表初始化完成后回传实例
+ */
 const emit = defineEmits<{
   (e: "onload", v: EChartsType): void;
 }>();
@@ -127,6 +133,9 @@ onMounted(() => init());
 
 onBeforeUnmount(() => chartInstance.value?.dispose());
 
+/**
+ * 暴露图表实例与控制方法
+ */
 defineExpose({
   echarts,
   initOptions,

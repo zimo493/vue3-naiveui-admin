@@ -25,9 +25,9 @@ export default defineComponent({
       useCountdown();
 
     // #region 修改密码
-    /** 修改密码表单数据 */
+    // 修改密码表单数据
     const passwordChangeForm = ref<User.PasswordChangeForm>({});
-    /** 修改密码表单引用 */
+    // 修改密码表单引用
     const passwordChangeFormRef = ref();
     /** 打开修改密码弹窗 */
     const updatePassword = () =>
@@ -44,9 +44,9 @@ export default defineComponent({
       );
 
     // #region 绑定/修改手机
-    /** 修改手机表单数据 */
+    // 修改手机表单数据
     const mobileUpdateForm = ref<User.MobileUpdateForm>({});
-    /** 修改手机表单引用 */
+    // 修改手机表单引用
     const mobileUpdateFormRef = ref();
 
     /** 打开修改手机弹窗 */
@@ -76,9 +76,9 @@ export default defineComponent({
       );
 
     // #region 绑定/修改邮箱
-    /** 修改邮箱表单数据 */
+    // 修改邮箱表单数据
     const emailUpdateForm = ref<User.EmailUpdateForm>({});
-    /** 修改邮箱表单引用 */
+    // 修改邮箱表单引用
     const emailUpdateFormRef = ref();
 
     /** 打开修改邮箱弹窗 */
@@ -109,15 +109,11 @@ export default defineComponent({
       );
 
     // #region 解绑
-    /** 解绑表单引用 */
+    // 解绑表单引用
     const unbindFormRef = ref();
-    /** 解绑表单数据 */
+    // 解绑表单数据
     const unbindForm = ref<User.UnbindParams>({});
-    /**
-     * 解绑类型
-     * 1: 手机号
-     * 2: 邮箱
-     */
+    // 解绑类型
     const unbindType = ref<1 | 2>(1);
 
     /** 打开解绑手机弹窗 */

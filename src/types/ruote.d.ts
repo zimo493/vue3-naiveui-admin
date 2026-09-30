@@ -31,13 +31,6 @@ declare namespace AppRoute {
     hidden?: boolean;
 
     /**
-     * 始终显示父级菜单，即使只有一个子菜单
-     * true 显示父级菜单, false 隐藏父级菜单，显示唯一子节点
-     * @default false
-     */
-    alwaysShow?: boolean;
-
-    /**
      * 是否缓存页面
      * true 缓存, false 不缓存
      * @default false
@@ -46,6 +39,9 @@ declare namespace AppRoute {
 
     /** 路由参数 */
     params?: Recordable;
+
+    /** 外链地址（E 型菜单透传，前端据此判断新标签页打开） */
+    externalUrl?: string;
 
     /** 是否固定在tab */
     affix?: boolean;

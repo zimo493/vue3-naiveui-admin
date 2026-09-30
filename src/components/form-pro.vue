@@ -80,9 +80,7 @@ const defaultFormProps: FormProps = {
   labelWidth: 80,
 };
 
-/**
- * 默认的GridProps
- */
+// 默认的GridProps
 const defaultGridProps = computed(
   (): GridProps => ({
     xGap: isMobile.value ? 0 : 16,
@@ -97,6 +95,9 @@ const baseProps: Record<string, any> = {
   clearable: true,
 };
 
+/**
+ * 表单容器：表单配置、栅格布局与操作区设置
+ */
 const {
   formConfig = [],
   formProps = {},
@@ -180,6 +181,9 @@ watchEffect(() => {
   });
 });
 
+/**
+ * 提取字段校验错误信息
+ */
 const getBlockMessage = (blockMessage: FormProTypes.FormItemConfig["blockMessage"]) => {
   // 如果是字符串
   if (typeof blockMessage === "string") {
@@ -326,5 +330,8 @@ const formInstance: FormProTypes.FormInstance = {
   },
 };
 
+/**
+ * 暴露表单实例供父组件调用
+ */
 defineExpose(formInstance);
 </script>

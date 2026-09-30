@@ -92,6 +92,9 @@ const { modelValue } = defineProps({
   modelValue: { type: String },
 });
 
+/**
+ * 更新 Cron 表达式值
+ */
 const emit = defineEmits<{
   (e: "update:modelValue", v?: string): void;
 }>();
@@ -111,6 +114,9 @@ const value = computed({
   set: (v) => emit("update:modelValue", v),
 });
 
+/**
+ * 暴露 open 供父组件打开配置弹窗
+ */
 defineExpose({
   open: () => {
     visible.value = true;

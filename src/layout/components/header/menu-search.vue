@@ -10,6 +10,9 @@ const routeStore = useRouteStore();
 const { t } = useI18n();
 const { isMobile } = useResponsive();
 
+/**
+ * 关闭搜索面板时触发
+ */
 const emit = defineEmits<{
   (e: "close"): void;
 }>();

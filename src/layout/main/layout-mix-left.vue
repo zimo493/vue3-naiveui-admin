@@ -97,17 +97,15 @@ const handleTopMenu = (menu: MenuOption[]) => {
 onMounted(() => {
   handleTopMenu(routeStore.menus);
 
-  // 根据当前页面获取选中菜单和对应侧边菜单
-  const currentMenuKey = pageRoute.matched[1].path;
+  // 当前顶级菜单 key：匹配链中第一个能对应顶级菜单的路径
+  const menuKeys = new Set<string>(
+    (routeStore.menus as MenuOption[]).map((item) => String(item.key))
+  );
+  const currentMenuKey =
+    pageRoute.matched.map((item) => item.path).find((path) => path && menuKeys.has(path)) ?? "";
 
   handleSideMenu(currentMenuKey);
-
-  if (topMenu.value.find((item) => item.key === currentMenuKey)) {
-    activeTopMenu.value = currentMenuKey;
-  } else {
-    // 隐藏父级菜单的路由
-    activeTopMenu.value = pageRoute.matched[2]?.path ?? "";
-  }
+  activeTopMenu.value = currentMenuKey;
 });
 
 const sideMenu = ref<MenuOption[]>([]);

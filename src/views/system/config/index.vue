@@ -159,11 +159,14 @@ const editFormConfig: DialogForm.Form = {
   },
 };
 
-/** 初始化表单 */
+// 初始化表单
 const modelValue = ref<Config.Form>({});
 
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
+/**
+ * 打开表单抽屉
+ */
 const openDrawer = (row?: Config.VO) => {
   drawerFormRef.value?.open(row ? t("config.edit") : t("config.add"), modelValue.value);
 
@@ -187,7 +190,9 @@ const submitForm = (val: Config.Form) =>
     }
   );
 
-// 删除配置
+/**
+ * 删除配置
+ */
 const handleDelete = ({ configName: name, id }: Config.VO) => {
   InquiryBox(t("config.delete", { name })).then(() => {
     ConfigAPI.deleteById(id).then(() => {
@@ -197,7 +202,9 @@ const handleDelete = ({ configName: name, id }: Config.VO) => {
   });
 };
 
-// 刷新缓存
+/**
+ * 刷新缓存
+ */
 const handleRefreshCache = () => {
   startSpin();
   ConfigAPI.refreshCache()

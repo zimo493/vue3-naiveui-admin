@@ -3,6 +3,9 @@ import type { FormInst } from "naive-ui";
 
 const t = useI18n().t;
 
+/**
+ * 切换登录或重置密码表单
+ */
 const emit = defineEmits(["update:modelValue"]);
 
 const rules = {
@@ -17,6 +20,9 @@ const model = ref({
 });
 const formRef = useTemplateRef<FormInst>("form");
 
+/**
+ * 提交重置密码
+ */
 const handleRegister = async () => {
   await formRef.value?.validate();
   window.$message.warning(t("common.notImplemented"));

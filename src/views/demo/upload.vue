@@ -117,6 +117,10 @@
   </n-form>
 </template>
 <script lang="tsx" setup>
+defineOptions({
+  name: "Upload",
+});
+
 import type { FileInfo } from "@/api/file";
 
 const loading = ref(false);
@@ -161,12 +165,7 @@ const picUrlInfos = ref<FileInfo[]>([
 ]);
 
 // 单文件上传
-// const fileUrl = ref<FileInfo>({
-//   name: "自定义文件名.pdf",
-//   url: "https://example.com/documents/sample.pdf",
-// });
 const fileUrl = ref<string>("https://example.com/documents/contract.docx");
-// const fileUrl = ref<FileInfo[]>([
 //   { name: "自定义文件名.pdf", url: "https://example.com/documents/sample.pdf" },
 // ]);
 

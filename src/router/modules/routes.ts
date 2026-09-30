@@ -25,6 +25,12 @@ export default <RouteRecordRaw[]>[
           hidden: true,
         },
       },
+      {
+        path: "/route-example/edit/:id(\\d+)",
+        name: "RouteExampleEdit",
+        component: () => import("@/views/demo/route-navigate/edit.vue"),
+        meta: { title: "跳转编辑页", icon: "icon-park-outline:edit", hidden: true },
+      },
     ],
   },
   {
@@ -40,9 +46,9 @@ export default <RouteRecordRaw[]>[
     meta: { title: "登录", hidden: true },
   },
   {
-    path: "/fitScreen",
-    name: "FitScreen",
-    component: () => import("@/views/fitScreen/index.vue"),
+    path: "/data-screen",
+    name: "DataScreen",
+    component: () => import("@/views/data-screen/index.vue"),
     meta: { title: "数据大屏", hidden: true },
   },
   {

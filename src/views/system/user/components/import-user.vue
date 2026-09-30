@@ -88,12 +88,18 @@ const { loading, startLoading, endLoading } = useLoading();
 
 defineOptions({ name: "ImportUser" });
 
+/**
+ * 暴露 open 供父组件打开导入弹窗
+ */
 defineExpose({
   open: () => {
     visible.value = true;
   },
 });
 
+/**
+ * 导入成功后通知父组件刷新
+ */
 const emit = defineEmits<{
   (e: "success"): void;
 }>();

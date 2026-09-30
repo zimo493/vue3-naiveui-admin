@@ -77,6 +77,9 @@ defineOptions({ name: "DataScope" });
 
 const { t } = useI18n();
 
+/**
+ * 保存成功后通知父组件刷新
+ */
 const emit = defineEmits<{
   (e: "success"): void;
 }>();
@@ -85,11 +88,11 @@ const modalVisible = ref<boolean>(false);
 const title = ref<string>("");
 const loading = ref<boolean>(false);
 
-/** 搜索过滤 */
+// 搜索过滤
 const pattern = ref<string>("");
-/** 是否展开 */
+// 是否展开
 const expandAll = ref<boolean>(true);
-/** 父子联动 */
+// 父子联动
 const cascade = ref<boolean>(false);
 
 // 菜单权限下拉
@@ -98,6 +101,9 @@ const selectedKeys = ref<string[]>([]);
 
 const roleId = ref<string>("");
 
+/**
+ * 暴露 open 供父组件打开数据权限弹窗
+ */
 defineExpose({
   open: async (row: Role.VO, t: string) => {
     roleId.value = row.id;

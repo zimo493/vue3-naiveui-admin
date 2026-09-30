@@ -191,22 +191,6 @@
             </n-form-item-grid-item>
 
             <n-form-item-grid-item
-              v-if="
-                modelValue.type === MenuTypeEnum.CATALOG || modelValue.type === MenuTypeEnum.MENU
-              "
-              prop="alwaysShow"
-              :span="24"
-            >
-              <template #label>
-                <FormTipLabel :label="t('menu.form.alwaysShow')" :msg="t('menu.tip.alwaysShow')" />
-              </template>
-              <n-radio-group v-model:value="modelValue.alwaysShow">
-                <n-radio :value="1" :label="t('common.yes')" />
-                <n-radio :value="0" :label="t('common.no')" />
-              </n-radio-group>
-            </n-form-item-grid-item>
-
-            <n-form-item-grid-item
               v-if="modelValue.type === MenuTypeEnum.MENU && !isExternalLink"
               :label="t('menu.form.cache')"
               :span="24"
@@ -257,19 +241,18 @@ const isExternalLink = computed(
     /^https?:\/\//.test(modelValue.value.routePath)
 );
 
-// const props = defineProps({
-//   menuOptions: {
-//     required: true,
-//     type: Array as PropType<Menu.VO[]>,
-//   },
-// });
-
 defineOptions({ name: "MenuEdit" });
 
+/**
+ * 保存成功后通知父组件刷新
+ */
 const emit = defineEmits<{
   (e: "success"): void;
 }>();
 
+/**
+ * 暴露 open 供父组件打开菜单表单
+ */
 defineExpose({
   open: (value?: Menu.VO | string) => {
     if (!value) {
@@ -298,26 +281,8 @@ defineExpose({
 });
 
 // 菜单下拉选项
-// const options = computed(() => {
-//   const menu: TreeSelectOption = {
-//     key: "0",
-//     label: "顶级菜单",
-//     children: transformTree(props.menuOptions),
-//   };
-
-//   return [menu];
-// });
 
 // 递归遍历菜单
-// const transformTree = (node: Menu.VO[]): TreeSelectOption[] => {
-//   if (!node) return [];
-
-//   return node.map((item: Menu.VO) => ({
-//     key: item.id,
-//     label: item.name ?? "",
-//     children: item.children && item.children.length > 0 ? transformTree(item.children) : undefined,
-//   }));
-// };
 
 const ruleFormRef = useTemplateRef<FormInst>("ruleForm");
 
@@ -333,7 +298,6 @@ const initialMenuFormData = ref<Menu.Form>({
   visible: 1,
   sort: 1,
   type: MenuTypeEnum.MENU, // 默认菜单
-  alwaysShow: 0,
   keepAlive: 1,
   params: [],
 });
@@ -475,7 +439,6 @@ const cancel = () => {
     visible: 1,
     sort: 1,
     type: MenuTypeEnum.MENU, // 默认菜单
-    alwaysShow: 0,
     keepAlive: 1,
     params: [],
   };

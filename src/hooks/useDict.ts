@@ -8,9 +8,7 @@ import { useDictStoreHook } from "@/store";
 export function useDict<T extends string>(...args: T[]): ToRefs<DictData.Compose> {
   const dictStore = useDictStoreHook();
 
-  /**
-   * 用 store 缓存初始化
-   */
+  // 用 store 缓存初始化
   const res = reactive<DictData.Compose>(
     Object.fromEntries(args.map((typeCode) => [typeCode, dictStore.getDict(typeCode) || []]))
   );

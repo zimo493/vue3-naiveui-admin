@@ -13,12 +13,16 @@ onMounted(() => {
   chartRef.value?.initOptions(options);
 });
 
-// 生成一个500到3000的随机数
+/**
+ * 生成一个500到3000的随机数
+ */
 const randomNum = () => Math.floor(Math.random() * (500 - 3000 + 1)) + 3000;
 
 const cities = ["北京", "上海", "深圳", "广州", "杭州", "成都", "西安", "武汉", "南京", "重庆"];
 
-// 获取数据
+/**
+ * 获取数据
+ */
 const getDate = () =>
   Array.from({ length: cities.length }, () => randomNum()).sort((a, b) => b - a);
 

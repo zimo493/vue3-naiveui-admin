@@ -244,6 +244,7 @@
     "nonsupportCopy": "Your browser does not support clipboard API",
     "notAllowedCopy": "Clipboard API is not currently allowed",
     "copySuccess": "Copy successful",
+    "copyFailed": "Copy failed",
     "errorPermission": "Permission identifier required! Example: v-has-perm=\"'sys:user:add'\" or v-has-perm=\"['sys:user:add', 'sys:user:edit']\"",
     "errorRole": "Role identifier required! Example: v-has-role=\"'ADMIN'\" or v-has-role=\"['ADMIN', 'TEST']\""
   },
@@ -495,7 +496,6 @@
         "value": "Parameter Value"
       },
       "route": "Jump Route",
-      "alwaysShow": "Always Show",
       "cache": "Page Cache",
       "parentMenuTip": "Parent menu cannot be the current menu"
     },
@@ -503,8 +503,7 @@
       "routeName": "If you need to enable caching, ensure that the name in defineOptions on the page matches this field. It is recommended to use camelCase.\nExample: User",
       "routePath": "Define the URL path corresponding to different pages in the application. Directories must start with /, menu items do not.\nExample: System management directory /system, user management menu under system management: user",
       "componentPath": "Complete component page path, relative to src/views/\nSuch as system/user/index, default suffix .vue is omitted",
-      "routeParam": "Component page uses `useRoute().query.parameterName` to get route parameter values",
-      "alwaysShow": "Select 'Yes', even if there is only one child node under the directory or menu, the parent node will be displayed.\nSelect 'No', if there is only one child node under the directory or menu, only that child node will be displayed, and the parent node will be hidden.\nIf it is a leaf node, please select 'No'"
+      "routeParam": "Component page uses `useRoute().query.parameterName` to get route parameter values"
     }
   },
   "dept": {
@@ -739,5 +738,58 @@
       "center": "Center Align",
       "right": "Right Align"
     }
+  },
+  "routeParam": {
+    "title": "Route params: the page reads and reacts to query",
+    "desc": "sys_menu.params is merged into the URL query on navigation; the page reads route.query to decide its content. The buttons below change the query the same way.",
+    "fullPath": "Full path",
+    "query": "Query params",
+    "flowTitle": "How the param travels",
+    "flowDatabase": "Database",
+    "flowBackend": "Backend response",
+    "flowSidebar": "Sidebar navigation",
+    "flowPage": "Page reads",
+    "viewTitle": "Current view (decided by query type)",
+    "viewStaff": "Employees",
+    "viewDept": "Dept stats",
+    "colName": "Name",
+    "colPost": "Position",
+    "colCity": "City"
+  },
+  "routeCache": {
+    "title": "Page cache: leave and come back, state remains",
+    "desc": "Caching is controlled by menu keep_alive and route meta.keepAlive; the key is the full path (including query), so the same page with different params keeps separate caches.",
+    "cardTitle": "Cache experiment",
+    "howTo": "How to verify: type something, switch to another menu and come back",
+    "howToDesc": "If the content remains and the mount count does not change, the page is kept alive; closing the tab resets everything.",
+    "placeholder": "Type anything to observe the caching effect",
+    "mounted": "Mount count",
+    "activated": "onActivated",
+    "deactivated": "onDeactivated"
+  },
+  "routeNavigate": {
+    "title": "Navigation: list to a standalone edit page",
+    "desc": "Clicking Edit opens a standalone page; after saving you return to the list. This page is kept alive, so filters survive and the latest data is re-read.",
+    "listTitle": "Members",
+    "filterPlaceholder": "Filter by name",
+    "colName": "Name",
+    "colDept": "Dept",
+    "colPost": "Position",
+    "colAction": "Actions",
+    "edit": "Edit",
+    "view": "View in dialog",
+    "compareTitle": "Compare the two approaches",
+    "compareDesc": "A dialog leaves the URL unchanged, disappears on refresh and cannot be shared; Edit navigates to a standalone URL with the ID, which is refresh-safe, shareable and can be returned from with the browser back button.",
+    "dialogContent": "This is a dialog: the URL stays the same, it disappears on refresh and the record cannot be shared with others.",
+    "editTitle": "Standalone edit page",
+    "editDesc": "This page is not in the menu; it is opened from the list with an ID (route /route-example/edit/:id). After saving you go back and the list shows the latest data.",
+    "formTitle": "Edit member",
+    "namePlaceholder": "Enter name",
+    "deptPlaceholder": "Enter dept",
+    "postPlaceholder": "Enter position",
+    "save": "Save and go back",
+    "cancel": "Cancel",
+    "notFound": "Record not found",
+    "saved": "Saved"
   }
 }

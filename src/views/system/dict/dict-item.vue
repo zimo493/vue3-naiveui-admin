@@ -189,7 +189,7 @@ const columns = ref<DataTableColumns<DictData.VO>>([
   },
 ]);
 
-/** 修改表单配置 */
+// 修改表单配置
 const editFormConfig = computed(
   (): DialogForm.Form => ({
     config: [
@@ -266,7 +266,7 @@ const editFormConfig = computed(
   })
 );
 
-/** 初始化表单 */
+// 初始化表单
 const modelValue = ref<DictData.Form>({
   id: "",
   dictCode: dictCode.value,
@@ -313,7 +313,7 @@ const submitForm = async (val: DictData.Form) => {
   );
 };
 
-/** 选中行 */
+// 选中行
 const selectedRowKeys = ref<string[]>([]);
 const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys as string[]);
 

@@ -94,7 +94,9 @@ const { loading: clear, startLoading: clearStart, endLoading: clearEnd } = useLo
 
 // 缓存大小
 const cacheSize = ref<string>("0 B");
-// 获取字典缓存大小
+/**
+ * 获取字典缓存大小
+ */
 const getCacheSize = () => {
   cacheSize.value = getJsonSizeWithUnit(window.sessionStorage.getItem("dict-store"));
 };
@@ -218,13 +220,16 @@ const editFormConfig = computed(
   })
 );
 
-/** 初始化表单 */
+// 初始化表单
 const modelValue = ref<DictType.Form>({
   status: 1,
 });
 
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
+/**
+ * 打开表单抽屉
+ */
 const openDrawer = (row?: DictType.VO) => {
   drawerFormRef.value?.open(row ? t("dict.edit") : t("dict.add"), modelValue.value);
 
@@ -248,11 +253,16 @@ const submitForm = (val: DictType.Form) =>
     }
   );
 
-/** 选中行 */
+// 选中行
 const selectedRowKeys = ref<string[]>([]);
+/**
+ * 同步表格选中项
+ */
 const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys as string[]);
 
-// 删除字典
+/**
+ * 删除字典
+ */
 const handleDelete = (dictId?: string) => {
   const dictIds = dictId || selectedRowKeys.value.join(",");
 
@@ -264,7 +274,9 @@ const handleDelete = (dictId?: string) => {
   });
 };
 
-// 查看字典项
+/**
+ * 查看字典项
+ */
 const handleViewItems = ({ dictCode }: DictType.VO) => {
   // 跳转到字典项管理页面，并传递字典类型信息
   const path = `/system/dict-item`;
@@ -287,6 +299,9 @@ const handleViewItems = ({ dictCode }: DictType.VO) => {
 // 清除字典缓存
 const dictStore = useDictStoreHook();
 const clearDisabled = computed(() => Object.keys(dictStore.dict).length === 0);
+/**
+ * 清空字典缓存
+ */
 const clearDictCache = () => {
   clearStart();
   setTimeout(() => {

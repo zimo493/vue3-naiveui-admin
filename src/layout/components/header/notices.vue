@@ -101,10 +101,10 @@ const { t } = useI18n();
 const { notice_type } = useDict("notice_type");
 const { loading, startLoading, endLoading } = useLoading();
 
-/** 消息列表 */
+// 消息列表
 const noticeList = ref<NoticeList[]>([]);
 
-/** 未读的消息 */
+// 未读的消息
 const unreadList = computed(() => noticeList.value.filter((item) => !item.isRead));
 
 /** 获取未读的消息 */
@@ -169,7 +169,7 @@ const getPublishStatusTag = (status?: number) => {
     </NTag>
   );
 };
-/** 全部已读 */
+// 全部已读
 const allReadLoading = ref(false);
 const allRead = () => {
   allReadLoading.value = true;

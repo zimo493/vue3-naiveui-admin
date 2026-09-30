@@ -30,9 +30,7 @@ export default defineComponent({
   render: () => {
     const appStore = useAppStoreHook();
 
-    /**
-     * naive-ui语言包
-     */
+    // naive-ui语言包
     const naiveLocale = computed(() =>
       naiveI18nOptions[appStore.lang] ? naiveI18nOptions[appStore.lang] : naiveI18nOptions.enUS
     );

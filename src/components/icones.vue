@@ -17,6 +17,9 @@ const props = withDefaults(defineProps<iconProps>(), {
 
 const isLocal = computed(() => props.icon && props.icon.startsWith("local:"));
 
+/**
+ * 解析本地图标名并返回组件
+ */
 function getLocalIcon(icon: string) {
   const svgName = icon.replace("local:", "");
   const svg = import.meta.glob<string>("@/assets/svg-icons/*.svg", {

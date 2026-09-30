@@ -63,8 +63,6 @@ declare namespace Menu {
     perm?: string;
     /** 【菜单】是否开启页面缓存 */
     keepAlive?: number;
-    /** 【目录】只有一个子路由是否始终显示 */
-    alwaysShow?: number;
     /** 参数 */
     params?: KeyValue[];
   }

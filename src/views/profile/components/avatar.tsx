@@ -17,7 +17,7 @@ export default defineComponent({
   setup(props) {
     const { t } = useI18n();
     const authStore = useAuthStoreHook();
-    /** 修改头像 */
+    // 修改头像
     const isEdit = ref(false); // 是否显示修改头像的图标
     const imageCutRef = useCompRef(ImageCut);
 

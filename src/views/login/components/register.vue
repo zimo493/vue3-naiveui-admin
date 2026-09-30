@@ -110,12 +110,21 @@ const t = useI18n().t;
 
 onMounted(() => getCaptcha());
 
+/**
+ * 切换登录或注册表单
+ */
 const emit = defineEmits(["update:modelValue"]);
 
+/**
+ * 返回登录表单
+ */
 const toLogin = () => {
   emit("update:modelValue", "login");
 };
 
+/**
+ * 校验两次输入的密码一致
+ */
 const validatePassword = (_rule: FormItemRule, value: string): boolean =>
   !!model.value.password &&
   model.value.password.startsWith(value) &&
@@ -170,6 +179,9 @@ const captchaBase64 = ref<string>(""); // 验证码图片Base64字符串
 
 const captchaLoading = ref<boolean>(false); // 验证码加载中
 
+/**
+ * 刷新验证码
+ */
 const getCaptcha = () => {
   captchaLoading.value = true;
   AuthAPI.getCaptcha()
@@ -184,6 +196,9 @@ const formRef = useTemplateRef<FormInst>("form");
 
 const isLoading = ref<boolean>(false);
 
+/**
+ * 提交注册
+ */
 const handleRegister = async () => {
   await formRef.value?.validate();
   if (!isRead.value) {

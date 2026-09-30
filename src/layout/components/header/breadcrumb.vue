@@ -10,7 +10,10 @@ type Options = import("naive-ui").DropdownOption;
 
 const router = useRouter();
 const route = useRoute();
-const routes = computed(() => route.matched.filter((item) => item.name !== "Root"));
+// 过滤 Root 与无标题的 Layout 壳（顶级页面菜单自动套壳，不参与面包屑展示）
+const routes = computed(() =>
+  route.matched.filter((item) => item.name !== "Root" && Boolean(item.meta?.title))
+);
 
 const { t } = useI18n();
 

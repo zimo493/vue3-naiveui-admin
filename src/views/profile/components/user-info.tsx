@@ -21,7 +21,7 @@ export default defineComponent({
 
     const { t } = useI18n();
 
-    /** 修改用户信息配置 */
+    // 修改用户信息配置
     const userProfileForm = ref<User.ProfileForm>({}); // 用户信息表单
     const userProfileFormRef = ref();
 

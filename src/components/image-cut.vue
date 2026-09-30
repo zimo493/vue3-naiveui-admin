@@ -108,6 +108,9 @@ const { t } = useI18n();
 
 const { loading, startLoading, endLoading } = useLoading();
 
+/**
+ * 裁剪提交时回传文件
+ */
 const emit = defineEmits({
   submit: (val: File) => val,
 });
@@ -152,7 +155,7 @@ const rotateRight = () => cropper.value?.rotateRight();
  */
 const changeScale = (num: number) => cropper.value?.changeScale(num);
 
-/** 预览图片 */
+// 预览图片
 const previews = ref<Previews>({ img: "", url: "", html: "" });
 
 /** 实时预览 */
@@ -237,7 +240,9 @@ const cancel = () => {
   visible.value = false;
 };
 
-/** 暴露 */
+/**
+ * 暴露 open 供父组件打开裁剪弹窗
+ */
 defineExpose({
   open: () => {
     visible.value = true;

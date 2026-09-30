@@ -1,5 +1,9 @@
 <!-- 图标选择器示例 -->
 <script setup lang="ts">
+defineOptions({
+  name: "IconSelector",
+});
+
 // 本地SVG图标格式取 src/assets/svg-icons 下的文件名，需要添加 "local:" 前缀，不需要svg后缀
 // 在线图标请 访问 https://icones.js.org/ 获取图标名称填写即可 示例：ant-design:android-filled ant-design:google-outlined
 

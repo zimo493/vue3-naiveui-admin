@@ -102,11 +102,17 @@ const columns = ref<DataTableColumns<CodeGen.VO>>([
 
 // 生成代码
 const generateCodeRef = useTemplateRef("generateCode");
+/**
+ * 打开表单抽屉
+ */
 const openDrawer = (row: CodeGen.VO) => {
   generateCodeRef.value?.open(row.tableName);
   console.log(row);
 };
 
+/**
+ * 重置生成配置
+ */
 const handleResetConfig = (tableName: string) => {
   InquiryBox(t("codeGen.resetConfigConfirm", { tableName }))
     .then(() => {

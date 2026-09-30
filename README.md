@@ -122,8 +122,6 @@
 │  └─ serverOptions.ts       # 开发服务器配置
 ├─ locales                  # 国际化文件
 ├─ public                   # 静态资源文件（该文件夹不会被打包）
-├─ sql                      # 数据库脚本
-│  └─ youlai_admin.sql       # 基础数据库脚本
 ├─ src                      # 源代码
 │  ├─ api                   # API 接口管理
 │  ├─ assets                # 静态资源文件
@@ -219,7 +217,7 @@
 ### 后端启动
 
 - 后端安装请拉取 [有来开源组织/youlai-boot](https://gitee.com/youlaiorg/youlai-boot) 源代码。
-- 本项目中的图标经过修改，请执行本项目内的 `sql` 文件夹下的 `youlai_boot.sql` 文件到数据库中，配置好数据库、Redis连接，启动项目即可。
+- 数据库脚本：[youlai_admin.sql](https://www.youlai.tech/docs/sql/youlai_admin_naiveui.sql)
 
 ### 前端启动
 

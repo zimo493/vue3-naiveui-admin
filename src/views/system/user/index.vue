@@ -186,9 +186,7 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-/**
- * 搜索表单配置
- */
+// 搜索表单配置
 const formConfig = ref<FormProTypes.FormItemConfig[]>([
   {
     name: "keywords",
@@ -236,7 +234,7 @@ const formConfig = ref<FormProTypes.FormItemConfig[]>([
   },
 ]);
 
-/** 表格配置 */
+// 表格配置
 const columns = ref<DataTableColumns<User.VO>>([
   {
     type: "selection",
@@ -338,7 +336,7 @@ const columns = ref<DataTableColumns<User.VO>>([
   },
 ]);
 
-/** 抽屉表单Props */
+// 抽屉表单Props
 const editFormConfig = computed(
   (): DialogForm.Form => ({
     // 表单项配置
@@ -423,12 +421,15 @@ const editFormConfig = computed(
   })
 );
 
-/** 初始化表单 */
+// 初始化表单
 const modelValue = ref<User.Form>({
   status: 1,
 });
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
+/**
+ * 打开表单抽屉
+ */
 const openDrawer = (row?: User.VO) => {
   drawerFormRef.value?.open(row ? t("user.edit") : t("user.add"), modelValue.value);
 
@@ -461,6 +462,9 @@ const newPassword = ref<{
   status: "success",
   msg: "",
 });
+/**
+ * 重置用户密码
+ */
 const handleResetPassword = (row: User.VO) => {
   window.$dialog.warning({
     title: t("common.sysTip"),
@@ -518,8 +522,11 @@ const handleResetPassword = (row: User.VO) => {
   });
 };
 
-/** 选中行 */
+// 选中行
 const selectedRowKeys = ref<string[]>([]);
+/**
+ * 同步表格选中项
+ */
 const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys as string[]);
 /**
  * 删除用户
@@ -539,12 +546,18 @@ const handleDelete = (id?: string) => {
 
 // 导入
 const importUserRef = useTemplateRef("importUser");
+/**
+ * 导入用户
+ */
 const handleImport = () => {
   importUserRef.value?.open();
 };
 
 // 导出
 const exportLoading = ref(false);
+/**
+ * 导出用户
+ */
 const handleExport = () => {
   exportLoading.value = true;
   UserAPI.export(queryParams.value)

@@ -187,8 +187,14 @@ defineOptions({ name: "TablePro" });
 
 const { t } = useI18n();
 
+/**
+ * 上抛分页、排序与选中变化
+ */
 const emit = defineEmits<Emits>();
 
+/**
+ * 表格容器：数据列、分页与搜索配置
+ */
 const props = withDefaults(defineProps<Props<T>>(), {
   tableData: () => [],
   columns: () => [],
@@ -228,7 +234,6 @@ const SettingBorder = defineComponent({
       set: (v) => emit("update:modelValue", !v),
     });
 
-    // return () => <NCheckbox v-model:checked={checked.value}>{props.title}</NCheckbox>;
     return () =>
       h(
         NCheckbox,
@@ -344,6 +349,9 @@ const toggleCollapse = () => {
   isCollapse.value = !isCollapse.value;
 };
 
+/**
+ * 暴露查询与重置能力供父组件调用
+ */
 defineExpose<Expose>({
   handleQuery,
   resetQuery,

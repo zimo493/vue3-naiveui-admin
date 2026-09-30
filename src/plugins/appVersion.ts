@@ -1,21 +1,20 @@
-import { NButton, NFlex, NText } from "naive-ui";
+import { NButton } from "naive-ui";
 import { $t, formatDateTime } from "@/utils";
 
 export const setupAppVersion = () => {
   const { buildTimestamp } = __APP_INFO__;
 
   /**
-   * 刷新提示
+   * 刷新提示是否已显示
    */
   let showRefresh = false;
 
   /**
-   * 监听页面可见性改变
+   * 检查是否有新版本
    */
-  document.addEventListener("visibilitychange", async () => {
+  const checkVersion = async () => {
     const prerequisite: boolean[] = [
       !showRefresh, // 刷新提示未显示
-      document.visibilityState === "visible", // 页面可见
       !import.meta.env.DEV, // 非开发环境
     ];
 
@@ -32,66 +31,43 @@ export const setupAppVersion = () => {
     showRefresh = true;
 
     /**
-     * 创建通知(dialog模式)
+     * 使用 notification 而非 dialog，不打断用户操作
      */
-    window.$dialog.create({
+    window.$notification?.create({
       title: $t("app.systemUpdateTitle"),
       content: $t("app.systemUpdateContent"),
-      icon: () => h("i", "🎉"),
-      iconPlacement: "top",
-      closable: false,
-      maskClosable: false,
-      closeOnEsc: false,
-      // 隐藏默认 action 按钮区，完全自定义
+      avatar: () => h("div", "🎉"),
+      meta: formatDateTime(buildTimestamp),
+      duration: 0, // 不自动关闭
+      closable: true,
+      onClose: () => {
+        showRefresh = false;
+      },
       action: () =>
         h(
-          NFlex,
-          {
-            align: "center",
-            justify: "space-between",
-            style: { width: "100%" },
-          },
-          () => [
-            h(
-              NText,
-              {
-                depth: 3,
-                style: { fontFamily: "var(--n-font-family-mono, monospace)" },
-              },
-              { default: () => formatDateTime(buildTimestamp) }
-            ),
-            h(
-              NButton,
-              {
-                type: "primary",
-                strong: true,
-                onClick: () => {
-                  window.$dialog.destroyAll();
-                  window.location.reload();
-                },
-              },
-              { default: () => $t("app.refreshNow") }
-            ),
-          ]
+          NButton,
+          { strong: true, type: "primary", onClick: () => location.reload() },
+          (): string => $t("app.refreshNow")
         ),
     });
-    /**
-     * 创建通知(notification模式)
-     */
-    // window.$notification?.create({
-    //   title: $t("app.systemUpdateTitle"),
-    //   content: $t("app.systemUpdateContent"),
-    //   avatar: () => h("div", "🎉"),
-    //   meta: formatDateTime(buildTimestamp),
-    //   closable: false,
-    //   action: () =>
-    //     h(
-    //       NButton,
-    //       { strong: true, type: "primary", onClick: () => location.reload() },
-    //       (): string => $t("app.refreshNow")
-    //     ),
-    // });
+  };
+
+  /**
+   * 监听页面可见性改变：用户从其他标签页切回时立即检测
+   */
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) void checkVersion();
   });
+
+  /**
+   * 启动后检查一次，无需等待首次轮询
+   */
+  void checkVersion();
+
+  /**
+   * 定时轮询，无需等待用户切换标签页
+   */
+  setInterval(checkVersion, 5 * 60_000);
 };
 
 /**

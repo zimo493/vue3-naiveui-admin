@@ -25,7 +25,13 @@ interface Emits {
 
 const { pkg } = __APP_INFO__;
 
+/**
+ * 移动端抽屉菜单
+ */
 const props = defineProps<Props>();
+/**
+ * 同步抽屉显隐状态
+ */
 const emit = defineEmits<Emits>();
 
 const visible = computed({

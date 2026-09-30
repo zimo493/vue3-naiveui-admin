@@ -48,7 +48,9 @@ interface RemoveFile extends FileInfo {
 
 const { t } = useI18n();
 
-/** 自定义事件 */
+/**
+ * 上传成功或移除文件时触发
+ */
 const emit = defineEmits({
   upload: (val: FileInfo) => val,
   remove: (val: RemoveFile) => val,

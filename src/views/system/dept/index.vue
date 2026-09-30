@@ -100,6 +100,9 @@ const expandAll = ref<TableExpand>({
   isExpandAll: false,
   show: true,
 });
+/**
+ * 展开或折叠全部
+ */
 const handleExpandAll = async (bool?: boolean) => {
   expandAll.value.isExpandAll = bool ?? !expandAll.value.isExpandAll;
   expandAll.value.show = false;
@@ -218,7 +221,7 @@ const editFormConfig = computed(
   })
 );
 
-/** 初始化表单 */
+// 初始化表单
 const modelValue = ref<Dept.Form>({
   status: 1,
   parentId: "0",
@@ -226,11 +229,17 @@ const modelValue = ref<Dept.Form>({
 });
 /** 新增、编辑 */
 const drawerFormRef = useTemplateRef("drawerForm");
+/**
+ * 打开表单抽屉
+ */
 const openDrawer = (deptId?: string) => {
   modelValue.value.parentId = deptId ? deptId : "0";
   drawerFormRef.value?.open(t("dept.add"), modelValue.value);
 };
 
+/**
+ * 打开编辑抽屉
+ */
 const handleEdit = ({ id }: Dept.VO) => {
   startSpin();
   DeptAPI.getFormData(id).then((data) => {
@@ -250,11 +259,16 @@ const submitForm = (val: Dept.Form) =>
     }
   );
 
-/** 选中行 */
+// 选中行
 const selectedRowKeys = ref<string[]>([]);
+/**
+ * 同步表格选中项
+ */
 const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys as string[]);
 
-// 删除部门
+/**
+ * 删除部门
+ */
 const handleDelete = (deptId?: string) => {
   const deptIds = [deptId || selectedRowKeys.value].join(",");
 

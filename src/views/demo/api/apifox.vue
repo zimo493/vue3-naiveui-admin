@@ -6,3 +6,9 @@
     frameborder="0"
   />
 </template>
+
+<script setup lang="ts">
+defineOptions({
+  name: "Apifox",
+});
+</script>

@@ -60,6 +60,28 @@ export const joinPaths = (...paths: string[]): string =>
     .join("/");
 
 /**
+ * 解析外链地址：http(s) 原样返回，站内路径补全为当前站点地址
+ *
+ * 站内路径拼成 hash 地址（如 /data-screen → https://host/#/data-screen），供新标签页直接打开
+ */
+export const resolveExternalUrl = (url: string): string =>
+  isHttpUrl(url) ? url : `${window.location.origin}${window.location.pathname}#${url}`;
+
+/**
+ * 外链菜单的跳转地址：优先取 meta.externalUrl（后端对 E 型菜单透传），
+ * 站内路径补全为当前站点地址；兼容绝对地址直接写在 path 上的历史数据
+ */
+export const menuExternalUrl = (route: AppRoute.RouteVO): string => {
+  const externalUrl = route.meta?.externalUrl ?? "";
+
+  if (externalUrl) return resolveExternalUrl(externalUrl);
+
+  const path = route.path ?? "";
+
+  return isHttpUrl(path) ? path : "";
+};
+
+/**
  * 将子路由路径与父路由路径拼接为完整路径。
  *
  * - 若 path 为 HTTP 链接或已是绝对路径（以 "/" 开头），直接返回，不做拼接。
@@ -101,7 +123,7 @@ const flattenChildren = (routes: AppRoute.RouteVO[], parentPath = ""): RouteReco
 
   for (const route of routes) {
     // 外链路由不注册到 Vue Router，由菜单直接以 <a> 标签渲染
-    if (isHttpUrl(route.path)) continue;
+    if (isHttpUrl(route.path) || route.meta?.externalUrl) continue;
 
     // 将相对路径拼接为绝对路径，例如 "user" → "/system/user"
     const currentPath = resolvePath(parentPath, route.path);
@@ -136,26 +158,53 @@ const flattenChildren = (routes: AppRoute.RouteVO[], parentPath = ""): RouteReco
  * 将后端返回的动态路由配置解析为 Vue Router 可直接注册的路由记录。
  *
  * 策略：
- * - 顶层路由（component 为 "Layout"）替换为真实的 Layout 组件。
- * - 顶层路由的所有子孙路由通过 flattenChildren 拍平为一维数组，
- *   作为 Layout 的直接 children 注册，避免多层 router-view 嵌套。
- * - 外链路由（HTTP URL）直接过滤，不注册到 Vue Router。
+ * - 顶层目录（component 为 "Layout"）替换为真实的 Layout 组件，
+ *   其子孙路由通过 flattenChildren 拍平为一维数组作为直接 children，
+ *   避免多层 router-view 嵌套。
+ * - 顶层页面菜单自动套 Layout 壳，页面挂在空路径子路由上，
+ *   保证顶级直接放菜单时页面仍带后台框架，且能作为一级菜单直达。
+ * - 外链路由（HTTP URL / meta.externalUrl）直接过滤，不注册到 Vue Router。
  *
  * @param rawRoutes - 后端返回的原始动态路由数组（RouteVO 格式）
  * @returns 可传入 router.addRoute() 的路由记录数组
  */
 export const parseDynamicRoutes = (rawRoutes: AppRoute.RouteVO[]): RouteRecordRaw[] =>
   rawRoutes
-    .filter((route) => !isHttpUrl(route.path)) // 过滤外链
+    .filter((route) => !isHttpUrl(route.path) && !route.meta?.externalUrl) // 过滤外链
     .map((route) => {
       const record = { ...route } as RouteRecordRaw;
 
-      // 顶层路由挂载真实 Layout 组件
+      // 顶层目录：挂载真实 Layout 组件，子孙路由全部拍平为直接 children
       if (isLayoutComponent(record.component)) {
         record.component = () => import("@/layout");
+
+        if (route.children?.length) {
+          record.children = flattenChildren(route.children, route.path);
+        }
+
+        return record;
       }
 
-      // 子孙路由全部拍平，挂载在当前顶层路由的 children 下
+      // 顶层页面菜单：套 Layout 壳，页面与子孙菜单都挂在壳下
+      if (record.component) {
+        return {
+          path: record.path,
+          name: record.path,
+          component: () => import("@/layout"),
+          meta: { hidden: record.meta?.hidden },
+          children: [
+            {
+              path: "",
+              name: record.name,
+              component: resolveComponent(record.component.toString()),
+              meta: record.meta,
+            },
+            ...flattenChildren(route.children ?? [], route.path),
+          ],
+        } as RouteRecordRaw;
+      }
+
+      // 兜底：无组件记录原样保留，子孙仍需拍平
       if (route.children?.length) {
         record.children = flattenChildren(route.children, route.path);
       }
@@ -225,51 +274,14 @@ const generateLabel = (
 const renderEllipsis = (node: VNode): VNode => h(NEllipsis, null, { default: () => node });
 
 /**
- * 尝试将"仅有一个可见子节点"的父节点提升（hoist），直接渲染子节点。
- *
- * 适用场景：某个目录路由只有一个子页面，此时不需要在菜单中显示
- * 父目录层级，直接将子页面提升为同级菜单项，减少不必要嵌套。
- *
- * 满足以下任一条件时跳过提升：
- * - 子节点数量不等于 1
- * - 父节点设置了 alwaysShow: true（强制展示父目录）
- * - 子节点处理后结果不是恰好一个菜单项（如子节点本身被隐藏）
- *
- * 提升时若子节点没有自己的图标，则继承父节点的图标。
- *
- * @param children    - 父路由的子路由列表
- * @param alwaysShow  - 是否强制显示父目录（来自 meta.alwaysShow）
- * @param currentPath - 父路由的完整路径（作为子路由的 parentPath）
- * @param depth       - 当前递归深度
- * @param parentIcon  - 父路由的图标（子节点无图标时继承）
- * @returns 提升后的菜单项数组；无法提升时返回 null
- */
-const tryHoistSingleChild = (
-  children: AppRoute.RouteVO[],
-  alwaysShow: boolean | undefined,
-  currentPath: string,
-  depth: number,
-  parentIcon?: string
-): MenuOption[] | null => {
-  if (children.length !== 1 || alwaysShow) return null;
-
-  const result = processMenu(children[0], currentPath, depth + 1);
-
-  // 子节点处理后不是恰好一个菜单项（如被 hidden 过滤），则放弃提升
-  if (result.length !== 1) return null;
-
-  // 子节点无图标时继承父节点图标
-  return result.map((item) => ({ ...item, icon: item.icon ?? getMenuIcon(parentIcon) }));
-};
-
-/**
  * 将单个路由配置（RouteVO）转换为 Naive UI 侧边菜单项（MenuOption）。
  *
  * 处理逻辑：
  * 1. 超出最大递归深度时终止，避免死循环。
  * 2. hidden 为 true 的路由不出现在菜单中（如登录页、错误页）。
- * 3. 仅有一个非隐藏子节点时尝试提升（见 tryHoistSingleChild）。
- * 4. 无子菜单且路径为空（通常是异常数据）且非 alwaysShow 时跳过。
+ * 3. 有子菜单的路由渲染为目录分组，无子菜单的渲染为叶子菜单项；
+ *    顶级菜单既可以直接放页面（显示为一级菜单），也可以是目录分组。
+ * 4. 无子菜单且路径为空（通常是异常数据）时跳过。
  * 5. 正常情况下生成包含 label / key / icon / children 的菜单项。
  *
  * @param route      - 路由配置（RouteVO 格式）
@@ -285,26 +297,22 @@ export const processMenu = (route: AppRoute.RouteVO, parentPath = "", depth = 0)
   }
 
   const { meta = {}, children = [], name = "" } = route;
-  const { alwaysShow, title, icon, params, hidden } = meta;
+  const { title, icon, params, hidden } = meta;
 
   // 隐藏节点（如登录页、错误页）不加入菜单
   if (hidden) return [];
 
-  const currentPath = resolvePath(parentPath, route.path ?? "");
+  // 外链菜单的 key 用完整地址，点击由 <a> 在新标签页打开
+  const currentPath = menuExternalUrl(route) || resolvePath(parentPath, route.path ?? "");
 
-  // 尝试单子节点提升，成功则直接返回，不再构建父节点
-  const hoisted = tryHoistSingleChild(children, alwaysShow, currentPath, depth, icon);
-
-  if (hoisted) return hoisted;
-
-  // 递归构建子菜单项
+  // 递归构建子菜单项：有子菜单即目录分组，无子菜单即叶子菜单
   const childItems =
     children.length > 0
       ? children.flatMap((child) => processMenu(child, currentPath, depth + 1))
       : [];
 
-  // 无子菜单、路径为空、且未强制显示时，此节点无意义，跳过
-  if (!childItems.length && !currentPath && !alwaysShow) return [];
+  // 无子菜单且路径为空，此节点无意义，跳过
+  if (!childItems.length && !currentPath) return [];
 
   return [
     {

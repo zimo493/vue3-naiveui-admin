@@ -335,8 +335,6 @@ const palette = [
   "#4b4b4b",
 ];
 
-// const { sideBarWidth,side } = storeToRefs(appStore);
-
 const resetSetting = () =>
   InquiryBox(
     t("system.dialog.content.resetSettings"),

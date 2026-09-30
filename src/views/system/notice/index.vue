@@ -97,7 +97,7 @@ import DictTag from "@/components/dict-tag.vue";
 import WangEditor from "@/components/wang-editor.vue";
 
 defineOptions({
-  name: "NoticeList",
+  name: "Notice",
   inheritAttrs: false,
 });
 
@@ -138,7 +138,7 @@ const handleQuery = () => {
     .finally(() => endLoading());
 };
 
-/** 搜索表单配置 */
+// 搜索表单配置
 const formConfig = ref<FormProTypes.FormItemConfig[]>([
   { name: "title", label: t("tableHeader.title") },
   {
@@ -484,7 +484,7 @@ const handleRevoke = (id: string) => {
   });
 };
 
-/** 选中行 */
+// 选中行
 const selectedRowKeys = ref<string[]>([]);
 const handleCheck = (keys: DataTableRowKey[]) => (selectedRowKeys.value = keys as string[]);
 

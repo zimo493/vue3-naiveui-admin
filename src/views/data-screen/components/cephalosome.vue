@@ -25,9 +25,7 @@ import { parseTime } from "@/utils";
 
 defineOptions({ name: "Cephalosome" });
 
-/**
- * 获取当前时间
- */
+// 获取当前时间
 const dateTime = ref("加载中...");
 const getCurrentTime = () =>
   (dateTime.value = parseTime(new Date(), "YYYY-MM-DD HH:mm:ss 周dd A "));

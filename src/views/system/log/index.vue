@@ -124,7 +124,7 @@ const query = ref<Log.Query>({
   pageSize: 10,
 });
 
-/** 查询表单配置 */
+// 查询表单配置
 const formConfig = ref<FormProTypes.FormItemConfig[]>([
   {
     name: "keywords",

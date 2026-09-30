@@ -57,6 +57,9 @@ watch(
   { immediate: true }
 );
 
+/**
+ * wangEditor 富文本编辑器
+ */
 const props = defineProps({
   modelValue: {
     type: String,
@@ -68,6 +71,9 @@ const props = defineProps({
   },
 });
 
+/**
+ * 内容变化时同步 v-model
+ */
 const emit = defineEmits(["update:modelValue"]);
 const modelValue = useVModel(props, "modelValue", emit);
 
@@ -75,13 +81,12 @@ const editorRef = shallowRef(); // 编辑器实例，必须用 shallowRef
 const mode = ref("default"); // 编辑器模式
 
 // 新增：存储当前所有资源URL
-// const resourceUrls = ref<Set<string>>(new Set());
 
 // 工具条配置
 const toolbarConfig = ref({
   // excludeKeys: ["group-video"], // 隐藏上传视频按钮
 });
-/* 上传 */
+// 上传
 const fileType = ref<string[]>([".jpg", ".jpeg", ".png", ".gif", ".bpm", ".webp"]);
 const fileSize = ref<number>(5);
 // 编辑器配置
@@ -128,7 +133,6 @@ const editorConfig = ref<Partial<IEditorConfig>>({
 
           return false;
         }
-        // console.log(file);
         // 自定义上传
         FileAPI.uploadFile(file).then((res) => {
           // 插入图片
@@ -155,6 +159,9 @@ const editorConfig = ref<Partial<IEditorConfig>>({
   },
 });
 
+/**
+ * 记录编辑器实例
+ */
 const handleCreated = (editor: IDomEditor) => {
   editorRef.value = editor; // 记录 editor 实例，重要！
 
@@ -163,10 +170,8 @@ const handleCreated = (editor: IDomEditor) => {
 
   // 监听内容变化
   // editor.on("change", () => {
-  //   const newUrls = extractResources();
 
   //   // 对比删除的资源
-  //   const removedUrls = [...resourceUrls.value].filter((url) => !newUrls.has(url));
 
   //   removedUrls.forEach(deleteResource);
 
@@ -174,7 +179,9 @@ const handleCreated = (editor: IDomEditor) => {
   // });
 };
 
-// 提取图片和视频资源
+/**
+ * 提取图片和视频资源
+ */
 const extractResources = (): Set<string> => {
   const urls = new Set<string>();
 
@@ -196,11 +203,11 @@ const extractResources = (): Set<string> => {
 };
 
 // 删除资源方法
-// const deleteResource = (url: string) => {
-//   FileAPI.delete(url)
 //     .then(() => window.$message.success("资源删除成功"))
 //     .catch((err) => console.error("资源删除失败:", err));
-// };
+/**
+ * };
+ */
 
 const handleChange = (editor: IDomEditor) => {
   modelValue.value = editor.getHtml();
@@ -214,6 +221,9 @@ onBeforeUnmount(() => {
   editor.destroy();
 });
 
+/**
+ * 暴露禁用切换供父组件调用
+ */
 defineExpose({
   disabled: () => editorRef.value.disable(),
 });

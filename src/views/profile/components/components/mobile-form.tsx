@@ -10,6 +10,9 @@ interface MobileFormProps {
   onSubmit: (val: User.MobileUpdateForm) => Promise<null>;
 }
 
+/**
+ * 手机换绑表单
+ */
 export const MobileForm = (props: MobileFormProps) => {
   const { t } = useI18n();
 

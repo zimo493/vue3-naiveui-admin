@@ -7,6 +7,9 @@ interface UnbindFormProps {
   onSubmit: (val: User.UnbindParams) => Promise<null>;
 }
 
+/**
+ * 解绑验证表单
+ */
 export const UnbindForm = (props: UnbindFormProps) => {
   const { t } = useI18n();
 
