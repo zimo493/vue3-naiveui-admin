@@ -43,7 +43,7 @@ declare namespace Notice {
     priority?: number;
     /** 目标类型(0-全体 1-指定) */
     targetType?: number;
-    /** 发布状态(0-未发布 1已发布 2已撤回) */
+    /** 发布状态(0-未发布 1已发布 -1已撤回) */
     publishStatus?: number;
     /** 创建时间 */
     createTime?: Date;
