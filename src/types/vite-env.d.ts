@@ -21,6 +21,10 @@ interface ImportMetaEnv {
   VITE_PROXY_TARGET: string;
   /** Mock 开关（"true" 时启用本地 mock，仅开发态生效） */
   VITE_MOCK_ENABLED?: string;
+  /** 产出独立 mock 服务（"true" 时 build:mock 额外生成 .deploy/mock-server） */
+  VITE_MOCK_BUILD?: string;
+  /** 独立 mock 服务监听端口 */
+  VITE_MOCK_PORT?: string;
   /** Websocket 地址 */
   VITE_APP_WS_ENDPOINT: string;
   /** 默认语言 */
