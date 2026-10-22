@@ -43,7 +43,7 @@ const resolveComponent = (compStr: string) => {
 
   console.warn(`[Route Setup]: 视图组件缺失 /src/views/${normalizedPath}`);
 
-  return () => import("@/views/error/404");
+  return () => import("@/views/internal/error/404");
 };
 
 /**

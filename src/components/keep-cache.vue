@@ -16,7 +16,7 @@
 import { useAppStoreHook, useTabStoreHook } from "@/store";
 import { RouteLocationNormalized } from "vue-router";
 
-import Error404 from "@/views/error/404";
+import Error404 from "@/views/internal/error/404";
 
 defineOptions({ name: "KeepCache" });
 

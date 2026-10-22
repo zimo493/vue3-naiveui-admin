@@ -18,7 +18,7 @@ export default <RouteRecordRaw[]>[
       {
         path: "/profile",
         name: "Profile",
-        component: () => import("@/views/profile"),
+        component: () => import("@/views/workspace/account"),
         meta: {
           title: "个人中心",
           icon: "material-symbols:person-edit-sharp",
@@ -48,30 +48,30 @@ export default <RouteRecordRaw[]>[
   {
     path: "/data-screen",
     name: "DataScreen",
-    component: () => import("@/views/data-screen/index.vue"),
+    component: () => import("@/views/demo/data-screen/index.vue"),
     meta: { title: "数据大屏", hidden: true },
   },
   {
     path: "/403",
     name: "Forbidden",
-    component: () => import("@/views/error/403"),
+    component: () => import("@/views/internal/error/403"),
     meta: { title: "用户无权限", hidden: true },
   },
   {
     path: "/404",
     name: "NotFound",
-    component: () => import("@/views/error/404"),
+    component: () => import("@/views/internal/error/404"),
     meta: { title: "找不到页面", icon: "icon-park-outline:ghost", hidden: true },
   },
   {
     path: "/500",
     name: "ServerError",
-    component: () => import("@/views/error/500"),
+    component: () => import("@/views/internal/error/500"),
     meta: { title: "服务器错误", icon: "icon-park-outline:close-wifi", hidden: true },
   },
   {
     path: "/:pathMatch(.*)*",
-    component: () => import("@/views/error/404"),
+    component: () => import("@/views/internal/error/404"),
     name: "NotFoundRoute",
     meta: { title: "找不到页面", icon: "icon-park-outline:ghost", hidden: true },
   },
