@@ -137,7 +137,9 @@ const extractFileNameFromUrl = (url: string): string => {
   return name;
 };
 
-/** 设置文件项 */
+/**
+ * 设置文件项
+ */
 const setFileItem = (url: string, name?: string): UploadFileInfo => ({
   url,
   id: Math.random().toString(36).substring(2),
@@ -145,7 +147,9 @@ const setFileItem = (url: string, name?: string): UploadFileInfo => ({
   status: "finished",
 });
 
-/** 设置文件列表 */
+/**
+ * 设置文件列表
+ */
 const setFileList = (val: PassValue) => {
   if (!val || (Array.isArray(val) && val.length === 0)) {
     fileList.value = [];
@@ -169,7 +173,9 @@ watch(
   { deep: true, immediate: true }
 );
 
-/** 自定义上传 */
+/**
+ * 自定义上传
+ */
 const customRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequestOptions) => {
   const formData = new FormData();
 
@@ -186,13 +192,14 @@ const customRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequ
       file.name = result.name;
       onFinish();
     })
-    .catch((err) => {
+    .catch(() => {
       onError();
-      console.log(err);
     });
 };
 
-/** 上传文件前校验 */
+/**
+ * 上传文件前校验
+ */
 const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
   const file = data.file.file;
 
@@ -235,7 +242,9 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
   return true;
 };
 
-/** 上传成功回调 */
+/**
+ * 上传成功回调
+ */
 const handleFinish = ({ file }: { file: UploadFileInfo }) => {
   if (file?.url) {
     emit("upload", { url: file.url, name: file.name });
@@ -243,12 +252,16 @@ const handleFinish = ({ file }: { file: UploadFileInfo }) => {
   window.$message.success(t("message.uploadSuccess"));
 };
 
-/** 上传失败回调 */
+/**
+ * 上传失败回调
+ */
 const handleError = ({ file }: { file: UploadFileInfo }) => {
-  console.log(t("message.uploadError", { message: file.name }));
+  window.$message.error(t("message.uploadError", { message: file.name }));
 };
 
-/** 删除文件 */
+/**
+ * 删除文件
+ */
 const handleRemove = async ({
   file,
   index,
@@ -271,9 +284,7 @@ const handleRemove = async ({
     }
 
     return false; // 用户取消或未找到文件时返回 false
-  } catch (err) {
-    console.log(err);
-
+  } catch {
     return false; // 捕获错误时返回 false
   }
 };

@@ -127,7 +127,9 @@ const getUserList = () => {
   });
 };
 
-/** 查询方法 */
+/**
+ * 查询方法
+ */
 const handleQuery = () => {
   startLoading();
   NoticeAPI.getPage(query.value)
@@ -414,7 +416,9 @@ const modelValue = ref<Notice.Form>({
 });
 
 const dialogFormRef = useTemplateRef("modalForm");
-/** 新增、编辑 */
+/**
+ * 新增、编辑
+ */
 const openDrawer = (row?: Notice.VO) => {
   getUserList(); // 获取用户列表
   dialogFormRef.value?.open(row ? t("notice.edit") : t("notice.add"), modelValue.value);

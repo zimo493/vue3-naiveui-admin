@@ -90,7 +90,9 @@ const {
 const chartRef = useTemplateRef<HTMLDivElement>("chart"); // 图表容器引用
 const chartInstance = ref<EChartsType>(); // ECharts实例引用
 
-/** 初始化图表实例 */
+/**
+ * 初始化图表实例
+ */
 const init = async () => {
   await nextTick(); // 等待DOM更新
   if (!chartRef.value) return;
@@ -107,24 +109,28 @@ const init = async () => {
   }
 };
 
-/** 初始化配置（清空后设置） */
+/**
+ * 初始化配置（清空后设置）
+ */
 const initOptions = async (options: EChartsOption) => {
   await nextTick();
   chartInstance.value?.clear(); // 清空旧配置
   chartInstance.value?.setOption(options); // 应用新配置
 };
 
-/** 更新图表配置（增量更新） */
+/**
+ * 更新图表配置（增量更新）
+ */
 const updateCharts = async (options: EChartsOption) => {
   await nextTick();
   chartInstance.value?.setOption(options); // ECharts会自动合并配置
   chartInstance.value?.hideLoading(); // 确保关闭加载动画
 };
 
-/** 挂载时初始化 */
+// 挂载时初始化
 onMounted(() => init());
 
-/** 卸载时销毁实例释放内存 */
+// 卸载时销毁实例释放内存
 onBeforeUnmount(() => chartInstance.value?.dispose());
 
 /** 监听容器尺寸变化自动调整图表 */

@@ -71,7 +71,9 @@ const total = ref<number>(0);
 const { loading, startLoading, endLoading } = useLoading();
 
 onMounted(() => handleQuery());
-/** 查询方法 */
+/**
+ * 查询方法
+ */
 const handleQuery = () => {
   startLoading();
   ConfigAPI.getPage(query.value)
@@ -162,7 +164,7 @@ const editFormConfig: DialogForm.Form = {
 // 初始化表单
 const modelValue = ref<Config.Form>({});
 
-/** 新增、编辑 */
+// 新增、编辑
 const drawerFormRef = useTemplateRef("drawerForm");
 /**
  * 打开表单抽屉
@@ -180,7 +182,9 @@ const openDrawer = (row?: Config.VO) => {
   }
 };
 
-/** 表单提交 */
+/**
+ * 表单提交
+ */
 const submitForm = (val: Config.Form) =>
   executeAsync(
     () => (val.id ? ConfigAPI.update(val.id, val) : ConfigAPI.create(val)),

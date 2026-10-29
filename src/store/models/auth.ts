@@ -100,7 +100,7 @@ export const useAuthStore = defineStore("auth-store", {
             resolve();
           })
           .catch((error) => {
-            console.log(" refreshToken  刷新失败", error);
+            console.error("refreshToken 刷新失败", error);
             reject(error);
           });
       });

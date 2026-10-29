@@ -5,7 +5,7 @@ import { defaultIcon } from "@/modules/assets";
 
 type IconProps = import("naive-ui").IconProps;
 
-/** 本地图标，按需从 src/assets/svg-icons 取 */
+// 本地图标，按需从 src/assets/svg-icons 取
 const localSvgs = import.meta.glob("@/assets/svg-icons/*.svg", {
   query: "?raw",
   import: "default",
@@ -33,11 +33,6 @@ export const createIcon = (icon?: string, props?: IconProps) => {
     return h(NIcon, { ...props, innerHTML: target });
   }
 
-  // 后端菜单沿用的是 Element 图标名（el-icon-Xxx），iconify 里没有这个名字，
-  // 交给 <Icon> 只会渲染出空占位，这里统一退到默认图标
-  if (icon.startsWith("el-icon-")) {
-    return h(NIcon, props, { default: () => h(Icon, { icon: defaultIcon }) });
-  }
-
+  // 图标名统一是 Iconify 命名（prefix:name），mock 与菜单里存的就是这些名字
   return h(NIcon, props, { default: () => h(Icon, { icon }) });
 };

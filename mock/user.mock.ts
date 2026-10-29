@@ -407,10 +407,10 @@ export default defineMock([
 
   // 修改用户
   {
-    url: "users/:id",
+    url: "users/:userId",
     method: ["PUT"],
     body({ params, body }) {
-      const item = userList.find((u) => u.id === String(params.id));
+      const item = userList.find((u) => u.id === String(params.userId));
 
       if (item) {
         Object.assign(item, {
@@ -437,7 +437,11 @@ export default defineMock([
         };
       }
 
-      return { code: "00000", data: null, msg: "修改用户" + (body.nickname ?? params.id) + "成功" };
+      return {
+        code: "00000",
+        data: null,
+        msg: "修改用户" + (body.nickname ?? params.userId) + "成功",
+      };
     },
   },
 
@@ -461,13 +465,13 @@ export default defineMock([
 
   // 重置密码（password 走 query）
   {
-    url: "users/:id/reset-password",
+    url: "users/:userId/password/reset",
     method: ["PUT"],
     body({ params, query }) {
       return {
         code: "00000",
         data: null,
-        msg: "重置用户" + params.id + "密码成功" + (query?.password ? "" : ""),
+        msg: "重置用户" + params.userId + "密码成功" + (query?.password ? "" : ""),
       };
     },
   },

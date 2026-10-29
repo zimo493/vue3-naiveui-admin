@@ -108,7 +108,9 @@ onMounted(() => {
 
 onActivated(() => getCacheSize());
 
-/** 查询方法 */
+/**
+ * 查询方法
+ */
 const handleQuery = () => {
   startLoading();
   DictTypeAPI.getPage(query.value)
@@ -225,7 +227,7 @@ const modelValue = ref<DictType.Form>({
   status: 1,
 });
 
-/** 新增、编辑 */
+// 新增、编辑
 const drawerFormRef = useTemplateRef("drawerForm");
 /**
  * 打开表单抽屉
@@ -243,7 +245,9 @@ const openDrawer = (row?: DictType.VO) => {
   }
 };
 
-/** 表单提交 */
+/**
+ * 表单提交
+ */
 const submitForm = (val: DictType.Form) =>
   executeAsync(
     () => (val.id ? DictTypeAPI.update(val.id, val) : DictTypeAPI.create(val)),

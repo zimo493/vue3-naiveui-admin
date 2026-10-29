@@ -113,7 +113,9 @@ const handleChange = (v: string) => {
   query.value.dictCode = v;
   handleQuery();
 };
-/** 查询方法 */
+/**
+ * 查询方法
+ */
 const handleQuery = () => {
   startLoading();
   DictDataAPI.getDictItemPage(dictCode.value, query.value)
@@ -209,7 +211,9 @@ const editFormConfig = computed(
             { label: t("dict.tag.warning"), value: "warning" },
             { label: t("dict.tag.error"), value: "error" },
           ],
-          /** 自定义渲染 */
+          /**
+           * 自定义渲染
+           */
           renderLabel: ({ label, value }: SelectOption) => {
             const currentLabel = modelValue.value?.label ?? t("tableHeader.dictLabel");
 
@@ -274,7 +278,7 @@ const modelValue = ref<DictData.Form>({
   sort: 1,
 });
 
-/** 新增、编辑 */
+// 新增、编辑
 const drawerFormRef = useTemplateRef("drawerForm");
 const openDrawer = (row?: DictData.VO) => {
   drawerFormRef.value?.open(row ? t("dict.editItem") : t("dict.addItem"), modelValue.value);
@@ -297,7 +301,9 @@ const openDrawer = (row?: DictData.VO) => {
   }
 };
 
-/** 表单提交 */
+/**
+ * 表单提交
+ */
 const submitForm = async (val: DictData.Form) => {
   if (!val.tagType) val.tagType = "";
 

@@ -26,10 +26,14 @@ const appStore = useAppStoreHook();
 
 // 缓存路由 Set 集合
 const cacheRouteSet = computed(() => new Set(tabStore.cacheRoutes));
-/** 判断路由是否被缓存 */
+/**
+ * 判断路由是否被缓存
+ */
 const isCached = (path?: string) => Boolean(path && cacheRouteSet.value.has(path));
 
-/** 缓存标志组件 */
+/**
+ * 缓存标志组件
+ */
 const CacheFlag = ({ cached }: { cached: boolean }) =>
   cached ? (
     <NEl className="absolute bottom--2px left-1/2 -translate-x-1/2 w-1/3 h-2px rounded-2px opacity-30 bg-current" />
@@ -41,7 +45,9 @@ watch([() => appStore.lang, () => appStore.showTabsIcon], () => nextTick(() => u
 const tabsInstRef = useTemplateRef<TabsInst>("tabs");
 const handleClose = (path: string) => tabStore.closeTab(path).then(() => updateBar());
 
-/** 手动更新指示条 */
+/**
+ * 手动更新指示条
+ */
 const updateBar = () => tabsInstRef.value?.syncBarPosition();
 
 const options = computed(() => [

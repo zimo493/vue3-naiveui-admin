@@ -21,7 +21,9 @@ const appStore = useAppStoreHook();
 
 const options = (item: RouteRecordRaw[]) => transformTree(item);
 
-/** 递归遍历路由 */
+/**
+ * 递归遍历路由
+ */
 const transformTree = (node: RouteRecordRaw[]): Options[] => {
   if (!node) return [];
 

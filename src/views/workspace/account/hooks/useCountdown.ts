@@ -40,7 +40,7 @@ const initCountdown = (
 };
 
 export const useCountdown = () => {
-  /** 从本地存储加载倒计时状态 */
+  // 从本地存储加载倒计时状态
   onMounted(() => loadCountdownState());
 
   // 手机验证码倒计时
@@ -48,15 +48,21 @@ export const useCountdown = () => {
   // 邮箱验证码倒计时
   const emailCountdown = ref<number>(0);
 
-  /** 加载倒计时状态 */
+  /**
+   * 加载倒计时状态
+   */
   const loadCountdownState = () => {
     initCountdown(local.get("mobileCodeExpireTime"), mobileCountdown, startMobileCountdown);
     initCountdown(local.get("emailCodeExpireTime"), emailCountdown, startEmailCountdown);
   };
 
-  /** 开始手机验证码倒计时 */
+  /**
+   * 开始手机验证码倒计时
+   */
   const startMobileCountdown = () => startCountdown(mobileCountdown, "mobileCodeExpireTime");
-  /** 开始邮箱验证码倒计时 */
+  /**
+   * 开始邮箱验证码倒计时
+   */
   const startEmailCountdown = () => startCountdown(emailCountdown, "emailCodeExpireTime");
 
   return {

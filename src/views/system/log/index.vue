@@ -211,7 +211,9 @@ const handleDetail = (row: Log.VO) => {
   detailData.value = { ...row };
 };
 
-/** 获取请求方式标签类型 */
+/**
+ * 获取请求方式标签类型
+ */
 const getMethodTagType = (method?: string): TagProps["type"] => {
   if (!method) {
     return "default";

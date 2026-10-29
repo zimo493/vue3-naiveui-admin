@@ -122,7 +122,9 @@ defineExpose({
   },
 });
 
-/** 选中改变 */
+/**
+ * 选中改变
+ */
 const updateCheckedKeys = (keys: string[]) => {
   selectedKeys.value = keys;
 };
@@ -136,6 +138,8 @@ const handleAssignPermSubmit = () =>
     }
   );
 
-/** 取消 */
+/**
+ * 取消
+ */
 const handleClose = () => (modalVisible.value = false);
 </script>

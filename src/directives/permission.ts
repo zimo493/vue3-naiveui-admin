@@ -40,7 +40,9 @@ export function install(app: App) {
 
   app.directive("hasPerm", hasPerm);
 
-  /** 角色权限指令 */
+  /**
+   * 角色权限指令
+   */
   const updateRole = (el: HTMLElement, value: string | string[]) => {
     // 校验传入的角色值是否合法
     if (!value || (typeof value !== "string" && !Array.isArray(value))) {

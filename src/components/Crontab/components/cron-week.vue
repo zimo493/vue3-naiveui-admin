@@ -157,8 +157,6 @@ const value = computed({
   set: (v) => emit("update:modelValue", v),
 });
 
-console.log(value.value);
-
 watch(
   () => value.value,
   () => assign()

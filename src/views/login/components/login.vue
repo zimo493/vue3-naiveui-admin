@@ -236,13 +236,10 @@ const handleLoginSubmit = async () => {
     // 4. 解析并跳转目标地址
     const redirect = resolveRedirectTarget(route.query);
 
-    console.log(redirect, "redirect");
-
     await router.push(redirect);
 
     window.$message.success(t("login.success"));
-  } catch (e) {
-    console.log(e);
+  } catch {
     getCaptcha();
     model.value.captchaCode = "";
     captchaRef.value?.focus();

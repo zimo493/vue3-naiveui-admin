@@ -74,7 +74,6 @@ const createDictSyncHook = () => {
 
       // 清除缓存，等待按需加载
       dictStore.removeDict(dictCode);
-      console.log(`字典缓存已清除: ${dictCode}`);
 
       // 调用所有注册的回调函数
       messageCallbacks.value.forEach((callback) => {

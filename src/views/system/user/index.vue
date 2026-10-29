@@ -151,7 +151,9 @@ const pattern = ref<string>(""); // 搜索过滤
 
 const roleOptions = ref<OptionItem[]>([]); // 角色下拉数据源
 
-/** 查询部门下拉树结构 */
+/**
+ * 查询部门下拉树结构
+ */
 const getDeptTree = () => {
   show.value = true;
   DeptAPI.getOptions()
@@ -161,7 +163,9 @@ const getDeptTree = () => {
     .finally(() => (show.value = false));
 };
 
-/** 部门选中改变 */
+/**
+ * 部门选中改变
+ */
 const updateSelectedKeys = (keys: number[]) => {
   queryParams.value.deptId = keys.length ? keys[0] : undefined;
   handleQuery();
@@ -175,7 +179,9 @@ const queryParams = ref<User.Query>({
 const tableData = ref<User.VO[]>([]); // 表格数据
 const total = ref<number>(0); // 表格数据总量
 
-/** 查询方法 */
+/**
+ * 查询方法
+ */
 const handleQuery = () => {
   startLoading();
   UserAPI.getPage(queryParams.value)
@@ -425,7 +431,7 @@ const editFormConfig = computed(
 const modelValue = ref<User.Form>({
   status: 1,
 });
-/** 新增、编辑 */
+// 新增、编辑
 const drawerFormRef = useTemplateRef("drawerForm");
 /**
  * 打开表单抽屉
@@ -442,7 +448,9 @@ const openDrawer = (row?: User.VO) => {
       .finally(() => endSpin());
   }
 };
-/** 表单提交 */
+/**
+ * 表单提交
+ */
 const submitForm = (val: User.Form) =>
   executeAsync(
     () => (val.id ? UserAPI.update(val.id, val) : UserAPI.create(val)),
@@ -572,7 +580,9 @@ const handleExport = () => {
     .finally(() => (exportLoading.value = false));
 };
 
-/** 重置 */
+/**
+ * 重置
+ */
 const handleReset = () => {
   queryParams.value.deptId = undefined;
   handleQuery();

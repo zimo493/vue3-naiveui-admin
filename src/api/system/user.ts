@@ -40,7 +40,7 @@ export default {
    * @param password 新密码
    */
   resetPassword: (id: string, password: string) =>
-    put(`${USER_BASE_URL}/${id}/reset-password`, null, { password }),
+    put(`${USER_BASE_URL}/${id}/password/reset`, null, { password }),
 
   /**
    * 批量删除用户

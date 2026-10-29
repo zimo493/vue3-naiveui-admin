@@ -26,14 +26,18 @@ export default defineComponent({
 
     const changeAvatar = () => imageCutRef.value?.open();
 
-    /** 错误时显示的头像 */
+    /**
+     * 错误时显示的头像
+     */
     const ErrorAvatar = () => (
       <NEl class="flex-center w-[100%] text-14px font-bold">
         {userProfile.value.nickname ?? <Icones icon={"icon-park-outline:user"} size={48} />}
       </NEl>
     );
 
-    /** 头像组件 */
+    /**
+     * 头像组件
+     */
     const Avatar = () => (
       <NFlex
         class="relative inline-block"

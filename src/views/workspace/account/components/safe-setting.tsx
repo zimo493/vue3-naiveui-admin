@@ -29,13 +29,17 @@ export default defineComponent({
     const passwordChangeForm = ref<User.PasswordChangeForm>({});
     // 修改密码表单引用
     const passwordChangeFormRef = ref();
-    /** 打开修改密码弹窗 */
+    /**
+     * 打开修改密码弹窗
+     */
     const updatePassword = () =>
       passwordChangeFormRef.value?.open(
         t("profile.changePassword.title"),
         passwordChangeForm.value
       );
-    /** 提交修改密码 */
+    /**
+     * 提交修改密码
+     */
     const submitPassword = async (val: User.PasswordChangeForm) =>
       executeAsync(
         () => UserAPI.changePassword(val),
@@ -49,11 +53,15 @@ export default defineComponent({
     // 修改手机表单引用
     const mobileUpdateFormRef = ref();
 
-    /** 打开修改手机弹窗 */
+    /**
+     * 打开修改手机弹窗
+     */
     const updateMobile = () =>
       mobileUpdateFormRef.value?.open(t("profile.changePhone"), mobileUpdateForm.value);
 
-    /** 发送手机验证码 */
+    /**
+     * 发送手机验证码
+     */
     const sendMobileCode = async () =>
       executeAsync(
         () => UserAPI.sendMobileCode(mobileUpdateForm.value.mobile),
@@ -64,7 +72,9 @@ export default defineComponent({
         },
         t("profile.sendCodeSuccess")
       );
-    /** 提交修改手机 */
+    /**
+     * 提交修改手机
+     */
     const submitMobile = async (val: User.MobileUpdateForm) =>
       executeAsync(
         () => UserAPI.bindOrChangeMobile(val),
@@ -81,11 +91,15 @@ export default defineComponent({
     // 修改邮箱表单引用
     const emailUpdateFormRef = ref();
 
-    /** 打开修改邮箱弹窗 */
+    /**
+     * 打开修改邮箱弹窗
+     */
     const updateEmail = () =>
       emailUpdateFormRef.value?.open(t("profile.changeEmail"), emailUpdateForm.value);
 
-    /** 发送邮箱验证码 */
+    /**
+     * 发送邮箱验证码
+     */
     const sendEmailCode = async () =>
       executeAsync(
         () => UserAPI.sendEmailCode(emailUpdateForm.value.email),
@@ -97,7 +111,9 @@ export default defineComponent({
         t("profile.sendCodeSuccess")
       );
 
-    /** 提交修改邮箱 */
+    /**
+     * 提交修改邮箱
+     */
     const submitEmail = async (val: User.EmailUpdateForm) =>
       executeAsync(
         () => UserAPI.bindOrChangeEmail(val),
@@ -116,7 +132,9 @@ export default defineComponent({
     // 解绑类型
     const unbindType = ref<1 | 2>(1);
 
-    /** 打开解绑手机弹窗 */
+    /**
+     * 打开解绑手机弹窗
+     */
     const unbindMobile = () => {
       unbindType.value = 1;
       unbindFormRef.value?.open(t("profile.unbindPhone"), unbindForm.value);
@@ -126,7 +144,9 @@ export default defineComponent({
       unbindFormRef.value?.open(t("profile.unbindEmail"), unbindForm.value);
     };
 
-    /** 提交解绑 */
+    /**
+     * 提交解绑
+     */
     const submitUnbind = async (val: User.UnbindParams) =>
       executeAsync(
         () => (unbindType.value === 1 ? UserAPI.unbindMobile(val) : UserAPI.unbindEmail(val)),

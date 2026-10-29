@@ -110,7 +110,9 @@ const visible = ref(false);
 
 const resultData = ref<{ no: number; title: string }[]>([]);
 
-/** 下载模板操作 */
+/**
+ * 下载模板操作
+ */
 const importTemplate = () => {
   UserAPI.downloadTemplate().then((response) => {
     window.$message.loading(t("common.downloading"));
@@ -120,7 +122,9 @@ const importTemplate = () => {
   });
 };
 
-/** 文件上传前回调 */
+/**
+ * 文件上传前回调
+ */
 const beforeUpload = async (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
   // 文件类型判断
   if (!data.file.name.endsWith(".xls") && !data.file.name.endsWith(".xlsx")) {
@@ -132,17 +136,17 @@ const beforeUpload = async (data: { file: UploadFileInfo; fileList: UploadFileIn
   return true;
 };
 const error = ref("");
-/** 自定义上传 */
+/**
+ * 自定义上传
+ */
 const customRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequestOptions) => {
   startLoading();
-  console.log(file);
   UserAPI.import(file.file as File, (e) => {
     onProgress({
       percent: Number(((e.loaded / Number(e.total)) * 100).toFixed(2)),
     });
   })
     .then((result) => {
-      console.log(result);
       onFinish();
       if (result.code === ResultEnum.SUCCESS && result.invalidCount === 0) {
         window.$message.success(t("user.import.success", { value: result.validCount }));
@@ -162,13 +166,14 @@ const customRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequ
     })
     .catch((err) => {
       onError();
-      console.log(err);
       error.value = err.toString().replaceAll("Error:", "");
     })
     .finally(() => endLoading());
 };
 
-/** 文件移除回调 */
+/**
+ * 文件移除回调
+ */
 const handleRemove = () => {
   error.value = "";
   resultData.value = [];
@@ -176,16 +181,22 @@ const handleRemove = () => {
   return true;
 };
 
-/** 文件上传失败回调 */
+/**
+ * 文件上传失败回调
+ */
 const handleError = (options: { file: UploadFileInfo; event?: ProgressEvent }) => {
-  console.log(options);
+  window.$message.error(t("message.uploadError", { message: options.file.name }));
 };
 
-/*** 提交 */
+/**
+ * * 提交
+ */
 const handleSubmit = () => {
   uploadRef.value?.submit();
 };
-/** 取消 */
+/**
+ * 取消
+ */
 const cancel = () => {
   error.value = "";
   resultData.value = [];

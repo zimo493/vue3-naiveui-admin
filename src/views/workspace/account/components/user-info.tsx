@@ -25,7 +25,9 @@ export default defineComponent({
     const userProfileForm = ref<User.ProfileForm>({}); // 用户信息表单
     const userProfileFormRef = ref();
 
-    /** 修改基本信息 */
+    /**
+     * 修改基本信息
+     */
     const updateUserProfile = () => {
       userProfileForm.value = {
         id: userProfile.value.id,
@@ -35,7 +37,9 @@ export default defineComponent({
       userProfileFormRef.value?.open(t("profile.changeAccountInfo"), userProfileForm.value);
     };
 
-    /** 修改基本信息提交 */
+    /**
+     * 修改基本信息提交
+     */
     const submitUserProfile = async (val: User.ProfileForm) =>
       executeAsync(
         () => UserAPI.updateProfile(val),

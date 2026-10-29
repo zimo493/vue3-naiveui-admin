@@ -12,7 +12,9 @@ export default defineComponent({
   name: "PersonalCenter",
   setup() {
     const userProfile = ref<User.ProfileVO>({});
-    /** 加载用户信息 */
+    /**
+     * 加载用户信息
+     */
     const loadUserProfile = () =>
       executeAsync(
         () => UserAPI.getProfile(),

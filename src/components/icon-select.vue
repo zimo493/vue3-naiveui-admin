@@ -114,8 +114,10 @@
 </template>
 
 <script setup lang="ts">
-import { useLoading } from "@/hooks";
 import { mapEntries } from "radash";
+
+import menuIcons from "@/assets/menu-icons.json";
+import { useLoading } from "@/hooks";
 
 interface Props {
   disabled?: boolean;
@@ -140,14 +142,35 @@ const { loading, startLoading, endLoading } = useLoading(false);
 
 const value = defineModel("modelValue", { type: String });
 
-// 包含的图标库系列名 'carbon', 'logos','material-symbols',
+/** 选择器提供的线上图标库（Iconify 官方接口） */
 const nameList = ["icon-park-outline", "ant-design", "ep", "f7", "line-md"];
 
 /**
- * 获取单个图标库数据
+ * 本地兜底图标：取已打包的离线图标包（menu-icons.json），断网时也能列出并搜索
+ */
+const buildLocalIconLists = (): IconList[] =>
+  Object.entries(menuIcons as Record<string, { icons?: Record<string, unknown> }>).map(
+    ([prefix, collection]) => {
+      const names = Object.keys(collection.icons ?? {});
+
+      return {
+        prefix,
+        title: prefix,
+        total: names.length,
+        categories: {},
+        icons: names,
+      };
+    }
+  );
+
+/**
+ * 获取单个图标库数据（Iconify 官方接口）
  */
 const fetchIconList = async (name: string): Promise<IconList> =>
-  await fetch(`https://api.iconify.design/collection?prefix=${name}`).then((res) => res.json());
+  await fetch(`https://api.iconify.design/collection?prefix=${name}`, {
+    // 拉不到就快速失败，别一直转圈
+    signal: AbortSignal.timeout(5000),
+  }).then((res) => res.json());
 
 /**
  * 获取所有本地图标
@@ -174,12 +197,11 @@ const generateLocalIconList = () => {
 };
 
 /**
- * 获取所有图标库数据
+ * 获取所有图标库数据（Iconify 官方接口）
  */
-const fetchIconAllList = async (nameList: string[]) => {
+const fetchIconAllList = async (names: string[]) => {
   startLoading();
-  const namePromises = nameList.map((name) => fetchIconList(name));
-  const targets = await Promise.all(namePromises);
+  const targets = await Promise.all(names.map((name) => fetchIconList(name)));
 
   endLoading();
 
@@ -200,8 +222,20 @@ const iconLists = shallowRef<IconList[]>([]);
 const LocalIconList = shallowRef({});
 
 onMounted(async () => {
-  iconLists.value = await fetchIconAllList(nameList);
+  // 先用本地图标垫底，断网也能选
+  iconLists.value = buildLocalIconLists();
   LocalIconList.value = generateLocalIconList();
+
+  // 再拉线上完整图标库，成功则替换
+  try {
+    const online = await fetchIconAllList(nameList);
+
+    if (online.length > 0) {
+      iconLists.value = online;
+    }
+  } catch {
+    // 拉不到：保留本地兜底列表
+  }
 });
 
 // 当前tab

@@ -62,7 +62,7 @@ const menuList: MenuRow[] = [
     keepAlive: 0,
     visible: 1,
     sort: 1,
-    icon: "material-symbols:jamboard-kiosk",
+    icon: "ep:setting",
     redirect: "/system/user",
     params: null,
   },
@@ -511,7 +511,7 @@ const menuList: MenuRow[] = [
     keepAlive: 1,
     visible: 1,
     sort: 5,
-    icon: "streamline:dictionary-language-book-solid",
+    icon: "icon-park-outline:book-one",
     redirect: null,
     params: null,
   },
@@ -591,7 +591,7 @@ const menuList: MenuRow[] = [
     keepAlive: 1,
     visible: 0,
     sort: 6,
-    icon: "icon-park-outline:ad-product",
+    icon: "icon-park-outline:list",
     redirect: null,
     params: null,
   },
@@ -703,7 +703,7 @@ const menuList: MenuRow[] = [
     keepAlive: 1,
     visible: 1,
     sort: 8,
-    icon: "file-icons:config-coffeescript",
+    icon: "icon-park-outline:setting-two",
     redirect: null,
     params: null,
   },
@@ -900,22 +900,6 @@ const menuList: MenuRow[] = [
     params: null,
   },
   {
-    id: "210",
-    parentId: "0",
-    name: "代码生成",
-    type: "M",
-    routeName: "Codegen",
-    routePath: "codegen",
-    component: "codegen/index",
-    perm: null,
-    keepAlive: 1,
-    visible: 1,
-    sort: 3,
-    icon: "ant-design:code-filled",
-    redirect: null,
-    params: null,
-  },
-  {
     id: "610",
     parentId: "600",
     name: "Cron表达式生成器",
@@ -975,7 +959,7 @@ const menuList: MenuRow[] = [
     keepAlive: 1,
     visible: 1,
     sort: 4,
-    icon: "emojione-v1:smiling-face-with-sunglasses",
+    icon: "ant-design:appstore-outlined",
     redirect: null,
     params: null,
   },
@@ -1023,7 +1007,7 @@ const menuList: MenuRow[] = [
     keepAlive: 1,
     visible: 1,
     sort: 6,
-    icon: "noto:grinning-face",
+    icon: "ep:grid",
     redirect: null,
     params: null,
   },
@@ -1039,7 +1023,7 @@ const menuList: MenuRow[] = [
     keepAlive: 1,
     visible: 1,
     sort: 5,
-    icon: "healthicons:1",
+    icon: "ant-design:apartment-outlined",
     redirect: null,
     params: null,
   },
@@ -1055,7 +1039,7 @@ const menuList: MenuRow[] = [
     keepAlive: 1,
     visible: 1,
     sort: 1,
-    icon: "healthicons:2",
+    icon: "ant-design:node-index-outlined",
     redirect: null,
     params: null,
   },
@@ -1071,7 +1055,7 @@ const menuList: MenuRow[] = [
     keepAlive: 0,
     visible: 1,
     sort: 1,
-    icon: "healthicons:3",
+    icon: "ant-design:node-expand-outlined",
     redirect: null,
     params: null,
   },
@@ -1087,7 +1071,7 @@ const menuList: MenuRow[] = [
     keepAlive: 1,
     visible: 1,
     sort: 1,
-    icon: "healthicons:3",
+    icon: "ant-design:file-outlined",
     redirect: null,
     params: null,
   },
@@ -1103,7 +1087,7 @@ const menuList: MenuRow[] = [
     keepAlive: 0,
     visible: 1,
     sort: 2,
-    icon: "healthicons:3",
+    icon: "ant-design:file-text-outlined",
     redirect: null,
     params: null,
   },
@@ -1192,7 +1176,9 @@ const menuList: MenuRow[] = [
 /** 新增菜单 id 游标 */
 let nextMenuId = 1000;
 
-/** 目录没有 routeName 时的兜底路由名（如 /system -> System） */
+/**
+ * 目录没有 routeName 时的兜底路由名（如 /system -> System）
+ */
 function toPascalCase(routePath: string): string {
   return routePath
     .split(/[/\-_]/)
@@ -1201,11 +1187,15 @@ function toPascalCase(routePath: string): string {
     .join("");
 }
 
-/** 按父 id 取子菜单（已按 sort 排序） */
+/**
+ * 按父 id 取子菜单（已按 sort 排序）
+ */
 const childrenOf = (parentId: string): MenuRow[] =>
   menuList.filter((m) => m.parentId === parentId).sort((a, b) => a.sort - b.sort);
 
-/** 构建路由树（排除按钮；visible=0 标记 hidden） */
+/**
+ * 构建路由树（排除按钮；visible=0 标记 hidden）
+ */
 function buildRoutes(parentId = "0"): RouteVO[] {
   return childrenOf(parentId)
     .filter((m) => m.type !== "B")
@@ -1225,8 +1215,14 @@ function buildRoutes(parentId = "0"): RouteVO[] {
       }
 
       const children = buildRoutes(m.id);
+      // 顶层菜单必须是绝对路径：vue-router 的 addRoute 不接受 "codegen" 这类相对路径
+      // （会抛 Invalid path "codegen" 导致动态路由初始化失败）；子路由保持相对路径，
+      // 由前端 flattenChildren 拼接到父路径上
+      const rawPath = m.routePath ?? "";
+      const path =
+        parentId === "0" && rawPath && !rawPath.startsWith("/") ? `/${rawPath}` : rawPath;
       const node: RouteVO = {
-        path: m.routePath,
+        path,
         name: m.routeName || toPascalCase(m.routePath),
         component: m.component ?? undefined,
         meta: {
@@ -1245,7 +1241,9 @@ function buildRoutes(parentId = "0"): RouteVO[] {
     });
 }
 
-/** 构建菜单表格树（含按钮） */
+/**
+ * 构建菜单表格树（含按钮）
+ */
 function buildTableTree(parentId = "0"): Record<string, unknown>[] {
   return childrenOf(parentId).map((m) => {
     const children = buildTableTree(m.id);
@@ -1291,7 +1289,9 @@ function buildOptions(types: string[], nodes = buildTableTree()): Record<string,
     });
 }
 
-/** 按关键字过滤菜单表格树（命中节点保留祖先链） */
+/**
+ * 按关键字过滤菜单表格树（命中节点保留祖先链）
+ */
 function filterTableTree(
   nodes: Record<string, unknown>[],
   lower: string

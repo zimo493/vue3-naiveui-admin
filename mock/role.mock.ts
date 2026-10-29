@@ -138,12 +138,25 @@ export default defineMock([
     },
   },
 
+  // 角色编码下拉数据源（value 为角色编码，对齐后端 GET /roles/code-options）
+  {
+    url: "roles/code-options",
+    method: ["GET"],
+    body() {
+      return {
+        code: "00000",
+        data: listRoles().map((i) => ({ value: i.code, label: i.name })),
+        msg: "一切ok",
+      };
+    },
+  },
+
   // 角色表单
   {
-    url: "roles/:id/form",
+    url: "roles/:roleId/form",
     method: ["GET"],
     body({ params }) {
-      const role = roleMap[String(params.id)];
+      const role = roleMap[String(params.roleId)];
 
       return { code: "00000", data: role ?? null, msg: "一切ok" };
     },
@@ -215,10 +228,10 @@ export default defineMock([
 
   // 修改角色
   {
-    url: "roles/:id",
+    url: "roles/:roleId",
     method: ["PUT"],
     body({ params, body }) {
-      const role = roleMap[String(params.id)];
+      const role = roleMap[String(params.roleId)];
 
       if (role) {
         Object.assign(role, {
@@ -232,7 +245,7 @@ export default defineMock([
         if (role.dataScope === 5) role.deptIds = body.deptIds ?? role.deptIds ?? [];
       }
 
-      return { code: "00000", data: null, msg: "修改角色" + (body.name ?? params.id) + "成功" };
+      return { code: "00000", data: null, msg: "修改角色" + (body.name ?? params.roleId) + "成功" };
     },
   },
 

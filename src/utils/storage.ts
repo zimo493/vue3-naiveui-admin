@@ -58,7 +58,9 @@ const createLocalStorage = <T extends Local>() => {
     window.localStorage.removeItem(prefixedKey(key));
   };
 
-  /** 只清理带当前前缀的条目，不影响其他数据 */
+  /**
+   * 只清理带当前前缀的条目，不影响其他数据
+   */
   const clear = () => {
     const keys = Object.keys(window.localStorage).filter((k) => k.startsWith(STORAGE_PREFIX));
 

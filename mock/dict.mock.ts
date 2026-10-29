@@ -209,10 +209,10 @@ export default defineMock([
 
   // 字典类型表单
   {
-    url: "dicts/:id/form",
+    url: "dicts/:dictId/form",
     method: ["GET"],
     body({ params }) {
-      const item = dictList.find((i) => i.id === String(params.id));
+      const item = dictList.find((i) => i.id === String(params.dictId));
 
       return { code: "00000", data: item ?? null, msg: "一切ok" };
     },
@@ -240,10 +240,10 @@ export default defineMock([
 
   // 修改字典类型
   {
-    url: "dicts/:id",
+    url: "dicts/:dictId",
     method: ["PUT"],
     body({ params, body }) {
-      const item = dictList.find((i) => i.id === String(params.id));
+      const item = dictList.find((i) => i.id === String(params.dictId));
 
       if (item) {
         Object.assign(item, {
@@ -253,7 +253,7 @@ export default defineMock([
         });
       }
 
-      return { code: "00000", data: null, msg: "修改字典" + (body.name ?? params.id) + "成功" };
+      return { code: "00000", data: null, msg: "修改字典" + (body.name ?? params.dictId) + "成功" };
     },
   },
 
@@ -318,11 +318,11 @@ export default defineMock([
 
   // 字典项表单
   {
-    url: "dicts/:dictCode/items/:id/form",
+    url: "dicts/:dictCode/items/:itemId/form",
     method: ["GET"],
     body({ params }) {
       const all = dictItemList[String(params.dictCode)] ?? [];
-      const item = all.find((i) => i.id === String(params.id));
+      const item = all.find((i) => i.id === String(params.itemId));
 
       return { code: "00000", data: item ?? null, msg: "一切ok" };
     },
@@ -355,11 +355,11 @@ export default defineMock([
 
   // 修改字典项
   {
-    url: "dicts/:dictCode/items/:id",
+    url: "dicts/:dictCode/items/:itemId",
     method: ["PUT"],
     body({ params, body }) {
       const all = dictItemList[String(params.dictCode)] ?? [];
-      const item = all.find((i) => i.id === String(params.id));
+      const item = all.find((i) => i.id === String(params.itemId));
 
       if (item) {
         Object.assign(item, {
@@ -372,23 +372,27 @@ export default defineMock([
         });
       }
 
-      return { code: "00000", data: null, msg: "修改字典项" + (body.label ?? params.id) + "成功" };
+      return {
+        code: "00000",
+        data: null,
+        msg: "修改字典项" + (body.label ?? params.itemId) + "成功",
+      };
     },
   },
 
   // 删除字典项（支持逗号分隔批量）
   {
-    url: "dicts/:dictCode/items/:ids",
+    url: "dicts/:dictCode/items/:itemIds",
     method: ["DELETE"],
     body({ params }) {
       const code = String(params.dictCode);
-      const ids = String(params.ids)
+      const ids = String(params.itemIds)
         .split(",")
         .map((s) => s.trim());
 
       dictItemList[code] = (dictItemList[code] ?? []).filter((i) => !ids.includes(i.id));
 
-      return { code: "00000", data: null, msg: "删除字典项" + params.ids + "成功" };
+      return { code: "00000", data: null, msg: "删除字典项" + params.itemIds + "成功" };
     },
   },
 ]);

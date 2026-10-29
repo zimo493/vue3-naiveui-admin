@@ -153,6 +153,8 @@ export default defineConfig(({ mode }) => {
     build: {
       // 消除打包大小超过警告限制
       chunkSizeWarningLimit: 2000,
+      // 跳过 gzip 体积统计，加快构建
+      reportCompressedSize: false,
       // 压缩配置
       minify: "terser",
       terserOptions: {

@@ -144,10 +144,14 @@ const option = reactive({
 
 const cropper = ref();
 
-/** 向左旋转图片 */
+/**
+ * 向左旋转图片
+ */
 const rotateLeft = () => cropper.value?.rotateLeft();
 
-/** 向右旋转图片 */
+/**
+ * 向右旋转图片
+ */
 const rotateRight = () => cropper.value?.rotateRight();
 /**
  * 图片缩放
@@ -158,10 +162,14 @@ const changeScale = (num: number) => cropper.value?.changeScale(num);
 // 预览图片
 const previews = ref<Previews>({ img: "", url: "", html: "" });
 
-/** 实时预览 */
+/**
+ * 实时预览
+ */
 const realTime = (data: Previews) => (previews.value = data);
 
-/** 上传文件前校验 */
+/**
+ * 上传文件前校验
+ */
 const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
   const file = data.file.file;
 
@@ -206,7 +214,9 @@ const beforeUpload = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }
 };
 
 const fileName = ref(""); // 文件名
-/** 提取文件名从URL的逻辑 */
+/**
+ * 提取文件名从URL的逻辑
+ */
 const extractFileNameFromUrl = (url: string): string => {
   const urlParts = url.split("/");
   let name = urlParts.length > 0 ? urlParts[urlParts.length - 1] : url;
@@ -218,13 +228,17 @@ const extractFileNameFromUrl = (url: string): string => {
 
   return name;
 };
-/** 上传改变 */
+/**
+ * 上传改变
+ */
 const handelChange = (data: { file: UploadFileInfo; fileList: UploadFileInfo[] }) => {
   fileName.value = data.file.name;
   option.img = URL.createObjectURL(data.file.file as File);
 };
 
-/** 提交 */
+/**
+ * 提交
+ */
 const submit = () => {
   cropper.value?.getCropBlob((data: Blob) => {
     const file = new File([data], fileName.value, { type: data.type });
@@ -233,7 +247,9 @@ const submit = () => {
   });
 };
 
-/** 取消 */
+/**
+ * 取消
+ */
 const cancel = () => {
   previews.value = { img: "", url: "", html: "" };
   option.img = "";

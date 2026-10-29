@@ -107,7 +107,9 @@ const noticeList = ref<NoticeList[]>([]);
 // 未读的消息
 const unreadList = computed(() => noticeList.value.filter((item) => !item.isRead));
 
-/** 获取未读的消息 */
+/**
+ * 获取未读的消息
+ */
 const getUnread = () => {
   startLoading();
   NoticeAPI.getMyNoticePage({ pageNum: 1, pageSize: 10, isRead: 0 })

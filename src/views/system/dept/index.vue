@@ -85,7 +85,9 @@ onMounted(async () => {
 
   deptOptions.value = [{ value: "0", label: t("dept.top"), children: data }];
 });
-/** 查询方法 */
+/**
+ * 查询方法
+ */
 const handleQuery = () => {
   startLoading();
   DeptAPI.getList(queryParams.value)
@@ -227,7 +229,7 @@ const modelValue = ref<Dept.Form>({
   parentId: "0",
   sort: 1,
 });
-/** 新增、编辑 */
+// 新增、编辑
 const drawerFormRef = useTemplateRef("drawerForm");
 /**
  * 打开表单抽屉
@@ -249,7 +251,9 @@ const handleEdit = ({ id }: Dept.VO) => {
   drawerFormRef.value?.open(t("dept.edit"), modelValue.value);
 };
 
-/** 表单提交 */
+/**
+ * 表单提交
+ */
 const submitForm = (val: Dept.Form) =>
   executeAsync(
     () => (val.id ? DeptAPI.update(val.id, val) : DeptAPI.create(val)),

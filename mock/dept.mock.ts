@@ -26,7 +26,9 @@ let nextDeptId = 100;
 const childrenOf = (parentId: string): DeptRow[] =>
   deptList.filter((d) => d.parentId === parentId).sort((a, b) => a.sort - b.sort);
 
-/** 树形结构（列表 VO 用 parentid 小写字段） */
+/**
+ * 树形结构（列表 VO 用 parentid 小写字段）
+ */
 function buildTree(parentId = "0"): Record<string, unknown>[] {
   return childrenOf(parentId).map((d) => {
     const children = buildTree(d.id);
@@ -101,10 +103,10 @@ export default defineMock([
 
   // 部门表单
   {
-    url: "depts/:id/form",
+    url: "depts/:deptId/form",
     method: ["GET"],
     body({ params }) {
-      const dept = deptList.find((d) => d.id === String(params.id));
+      const dept = deptList.find((d) => d.id === String(params.deptId));
 
       return {
         code: "00000",
@@ -146,10 +148,10 @@ export default defineMock([
 
   // 修改部门
   {
-    url: "depts/:id",
+    url: "depts/:deptId",
     method: ["PUT"],
     body({ params, body }) {
-      const dept = deptList.find((d) => d.id === String(params.id));
+      const dept = deptList.find((d) => d.id === String(params.deptId));
 
       if (dept) {
         const parentId = String(body.parentId ?? dept.parentId);
@@ -170,7 +172,7 @@ export default defineMock([
         });
       }
 
-      return { code: "00000", data: null, msg: "修改部门" + (body.name ?? params.id) + "成功" };
+      return { code: "00000", data: null, msg: "修改部门" + (body.name ?? params.deptId) + "成功" };
     },
   },
 

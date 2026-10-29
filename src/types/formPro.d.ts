@@ -352,9 +352,13 @@ declare namespace FormProTypes {
    * 表单组件实例方法
    */
   interface FormInstance {
-    /** Validate the form - 验证表单 */
+    /**
+     * Validate the form - 验证表单
+     */
     validate: () => Promise<void>;
-    /** Reset the form - 重置表单 */
+    /**
+     * Reset the form - 重置表单
+     */
     reset: () => void;
   }
 }
@@ -393,9 +397,13 @@ declare namespace DialogForm {
    * 对话框表单实例方法
    */
   interface Instance<T> {
-    /** Open the dialog - 打开对话框 */
+    /**
+     * Open the dialog - 打开对话框
+     */
     open: (title: string, data: T) => void;
-    /** Close the dialog - 关闭对话框 */
+    /**
+     * Close the dialog - 关闭对话框
+     */
     close: () => void;
   }
 }

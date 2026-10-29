@@ -99,15 +99,6 @@ const editorConfig = ref<Partial<IEditorConfig>>({
 
       server: "", // 上传图片的服务器地址
       metaWithUrl: false, // 是否在上传图片时携带 url 参数
-      onSuccess: (file, res) => {
-        console.log("上传图片成功", file, res);
-      },
-      onFailed: (file, res) => {
-        console.log("上传图片失败", file, res);
-      },
-      onError: (file, err) => {
-        console.log("上传图片出错", file, err);
-      },
       // 自定义图片上传
       customUpload(file, insertFn) {
         // 校检文件类型
@@ -138,22 +129,6 @@ const editorConfig = ref<Partial<IEditorConfig>>({
           // 插入图片
           insertFn(res.url, res.name, res.url);
         });
-      },
-    },
-    insertImage: {
-      onInsertedImage(imageNode: ImageElement) {
-        if (!imageNode) return;
-        const { src, alt, url, href } = imageNode;
-
-        console.log(
-          imageNode,
-          "inserted image",
-          src,
-          alt,
-          url,
-          href,
-          editorRef.value?.getElemsByType("image")
-        );
       },
     },
   },

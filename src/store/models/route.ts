@@ -22,16 +22,7 @@ export const useRouteStore = defineStore("route-store", {
 
   actions: {
     /**
-     * 刷新权限快照（单飞模式）。
-     *
-     * "单飞"（Single Flight）：同一时刻若已有刷新任务在进行，
-     * 后续调用直接复用同一个 Promise，不重复发起请求。
-     * 任务完成（无论成功或失败）后自动清除 Promise，允许下次正常触发。
-     *
-     * 典型使用场景：
-     * - Token 续签后需要重新拉取权限。
-     * - 403 页面提供"刷新权限"按钮。
-     * - 多个组件同时检测到权限失效并发触发刷新。
+     * 刷新权限快照（单飞模式），进行中的请求会被复用
      *
      * @returns 初始化是否成功
      */
@@ -50,15 +41,7 @@ export const useRouteStore = defineStore("route-store", {
     },
 
     /**
-     * 拉取用户信息并完整初始化动态路由与菜单。
-     *
-     * 执行流程：
-     * 1. 重置 isInitAuthRoute 标志，防止路由守卫误判为已初始化。
-     * 2. 获取用户信息（含角色/权限），失败则清除登录态并返回 false。
-     * 3. 请求当前用户的动态路由列表，失败则提示并返回 false。
-     * 4. 注册动态路由到 Vue Router（createRoutes）。
-     * 5. 合并公共路由与动态路由，生成侧边菜单（createMenus）。
-     * 6. 标记初始化完成，返回 true。
+     * 拉取用户信息并完整初始化动态路由与菜单
      *
      * @returns 初始化是否成功
      */
@@ -107,7 +90,10 @@ export const useRouteStore = defineStore("route-store", {
         return true;
       } catch (error) {
         console.error("[Route]: 初始化路由失败", error);
-        window.$message?.error($t("message.initRouteError"));
+        // 临时调试：把真实异常一并显示出来便于定位（问题解决后改回 $t("message.initRouteError")）
+        const reason = error instanceof Error ? error.message : String(error);
+
+        window.$message?.error(`${$t("message.initRouteError")} ${reason}`);
 
         return false;
       }
@@ -251,5 +237,7 @@ export const useRouteStore = defineStore("route-store", {
   },
 });
 
-/** 在 setup 外部（如路由守卫）获取 route store 实例的便捷函数 */
+/**
+ * 在 setup 外部（如路由守卫）获取 route store 实例的便捷函数
+ */
 export const useRouteStoreHook = () => useRouteStore(store);

@@ -79,7 +79,9 @@ const total = ref<number>(0);
 const { loading, startLoading, endLoading } = useLoading();
 
 onMounted(() => handleQuery());
-/** 查询方法 */
+/**
+ * 查询方法
+ */
 const handleQuery = () => {
   startLoading();
   RoleAPI.getPage(queryParams.value)
@@ -255,7 +257,7 @@ watch(
   }
 );
 
-/** 新增、编辑 */
+// 新增、编辑
 const drawerFormRef = useTemplateRef("drawerForm");
 
 /**
@@ -287,7 +289,9 @@ const openDrawer = (row?: Role.VO) => {
   }
 };
 
-/** 表单提交 */
+/**
+ * 表单提交
+ */
 const submitForm = (val: Role.Form) =>
   executeAsync(
     () => {
@@ -326,7 +330,7 @@ const handleDelete = (roleId?: string) => {
   });
 };
 
-/** 分配角色数据权限 */
+// 分配角色数据权限
 const dataScopeRef = useTemplateRef("dataScope");
 /**
  * 打开权限分配弹窗
